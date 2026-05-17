@@ -1236,6 +1236,18 @@ body.is-resizing {
   background: #eef9f5;
 }
 
+.search-result--markdown button {
+  border-color: rgba(48, 79, 159, 0.24);
+  background: #f5f7fd;
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+
+.search-result--markdown button:hover,
+.search-result--markdown button:focus-visible {
+  border-color: var(--blue);
+  background: #eef2fb;
+}
+
 .search-result__title {
   display: flex;
   flex-wrap: wrap;
@@ -1254,6 +1266,12 @@ body.is-resizing {
   font-size: 0.68rem;
   font-weight: 800;
   text-transform: uppercase;
+}
+
+.search-result__badge--markdown {
+  border-color: rgba(48, 79, 159, 0.2);
+  color: var(--blue);
+  background: rgba(48, 79, 159, 0.08);
 }
 
 .search-result__path {

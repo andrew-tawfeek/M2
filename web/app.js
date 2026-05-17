@@ -1013,13 +1013,22 @@ function renderMarkdown(markdown, source) {
   let codeLines = null;
   let codeLanguage = "";
 
+  let currentListItem = null;
+
   const closeParagraph = () => {
     if (!paragraph.length) return;
     html.push(`<p>${renderInlineMarkdown(paragraph.join(" "), source)}</p>`);
     paragraph = [];
   };
 
+  const closeListItem = () => {
+    if (!currentListItem) return;
+    html.push(`<li>${renderInlineMarkdown(currentListItem.lines.join(" "), source)}</li>`);
+    currentListItem = null;
+  };
+
   const closeList = () => {
+    closeListItem();
     if (!listType) return;
     html.push(`</${listType}>`);
     listType = "";
@@ -1108,13 +1117,19 @@ function renderMarkdown(markdown, source) {
     const ordered = line.match(/^\s*\d+\.\s+(.+)$/);
     if (unordered || ordered) {
       closeParagraph();
+      closeListItem();
       const nextType = unordered ? "ul" : "ol";
       if (listType && listType !== nextType) closeList();
       if (!listType) {
         listType = nextType;
         html.push(`<${listType}>`);
       }
-      html.push(`<li>${renderInlineMarkdown((unordered || ordered)[1], source)}</li>`);
+      currentListItem = { lines: [(unordered || ordered)[1]] };
+      continue;
+    }
+
+    if (currentListItem && /^\s/.test(line)) {
+      currentListItem.lines.push(trimmed);
       continue;
     }
 
@@ -1349,9 +1364,12 @@ function renderSearchResult(result, terms) {
   }
 
   return `
-    <article class="search-result">
+    <article class="search-result search-result--markdown">
       <button type="button" data-search-source="${escapeHtml(result.path)}">
-        <span class="search-result__title">${highlightTerms(result.title || result.path, terms)}</span>
+        <span class="search-result__title">
+          ${highlightTerms(result.title || result.path, terms)}
+          <span class="search-result__badge search-result__badge--markdown">markdown file</span>
+        </span>
         <span class="search-result__path">${highlightTerms(result.path, terms)}</span>
         <span class="search-result__snippets">${snippets}</span>
       </button>
