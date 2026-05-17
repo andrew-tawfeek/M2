@@ -13,6 +13,8 @@
   --violet: #6b4f91;
   --shadow: 0 18px 60px rgba(30, 41, 59, 0.12);
   --radius: 8px;
+  --font-sans: "Source Sans 3", "IBM Plex Sans", "Aptos", "Segoe UI", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", "Cascadia Mono", "Menlo", "Consolas", monospace;
 }
 
 * {
@@ -21,6 +23,9 @@
 
 html {
   min-height: 100%;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -34,7 +39,9 @@ body {
     radial-gradient(circle at 86% 0%, rgba(181, 68, 45, 0.12), transparent 22rem),
     var(--bg);
   background-size: 32px 32px, 32px 32px, auto, auto, auto;
-  font-family: "Avenir Next", "Gill Sans", "Segoe UI", sans-serif;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 button,
@@ -47,7 +54,7 @@ button {
 }
 
 .page-shell {
-  width: min(1500px, calc(100vw - 32px));
+  width: min(1500px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 24px 0 32px;
 }
@@ -82,10 +89,10 @@ button {
 h1 {
   max-width: 880px;
   margin: 0;
-  font-family: "Baskerville", "Iowan Old Style", Georgia, serif;
-  font-size: clamp(2.5rem, 6vw, 6.3rem);
-  line-height: 0.86;
-  font-weight: 700;
+  font-family: var(--font-sans);
+  font-size: 4rem;
+  line-height: 0.95;
+  font-weight: 760;
   letter-spacing: 0;
 }
 
@@ -93,7 +100,7 @@ h1 {
   max-width: 760px;
   margin: 20px 0 0;
   color: var(--muted);
-  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  font-size: 1.0625rem;
   line-height: 1.55;
 }
 
@@ -396,7 +403,7 @@ h1 {
 }
 
 .tree-path {
-  font-family: "Menlo", "Consolas", monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
 }
 
@@ -409,7 +416,7 @@ h1 {
   border-radius: 4px;
   color: var(--muted);
   background: #f1f5f9;
-  font-family: "Menlo", "Consolas", monospace;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
 }
 
@@ -482,7 +489,7 @@ h1 {
 .guide-block--current p {
   margin: 0 0 7px;
   overflow-wrap: anywhere;
-  font-family: "Menlo", "Consolas", monospace;
+  font-family: var(--font-mono);
 }
 
 .guide-block--current strong {
@@ -526,9 +533,9 @@ h1 {
 .architecture-intro h2 {
   max-width: 760px;
   margin: 0;
-  font-family: "Baskerville", "Iowan Old Style", Georgia, serif;
-  font-size: clamp(1.6rem, 3vw, 2.8rem);
-  line-height: 0.98;
+  font-family: var(--font-sans);
+  font-size: 2rem;
+  line-height: 1.05;
   letter-spacing: 0;
 }
 
@@ -581,7 +588,7 @@ h1 {
   border-radius: 50%;
   color: #ffffff;
   background: var(--accent, var(--blue));
-  font-family: "Menlo", "Consolas", monospace;
+  font-family: var(--font-mono);
   font-weight: 800;
 }
 
@@ -616,7 +623,7 @@ h1 {
   border: 1px solid var(--hairline);
   border-radius: 6px;
   background: var(--paper-2);
-  font-family: "Menlo", "Consolas", monospace;
+  font-family: var(--font-mono);
   font-size: 0.74rem;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -816,7 +823,7 @@ h1 {
   border: 1px solid var(--hairline);
   border-radius: 6px;
   background: var(--paper-2);
-  font-family: "Menlo", "Consolas", monospace;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   text-decoration: none;
 }
@@ -924,6 +931,11 @@ mark {
   .hero {
     min-height: 0;
     padding: 20px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 1;
   }
 
   .toolbar {
