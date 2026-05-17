@@ -441,9 +441,20 @@ body.is-resizing {
   box-shadow: inset 3px 0 0 var(--blue);
 }
 
+.tree-label.is-context {
+  border-color: rgba(15, 107, 95, 0.34);
+  background: #eef9f5;
+  box-shadow: inset 3px 0 0 var(--green);
+}
+
 .tree-node--branch .tree-label.is-selected {
   border-color: rgba(48, 79, 159, 0.42);
   background: #eef4ff;
+}
+
+.tree-node--branch .tree-label.is-context {
+  border-color: rgba(15, 107, 95, 0.38);
+  background: #eef9f5;
 }
 
 .tree-title-row {

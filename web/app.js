@@ -714,6 +714,7 @@ for (const node of nodes) {
 const state = {
   selected: "repo",
   activeSource: null,
+  treeContext: null,
   query: "",
   expanded: new Set(pinnedExpandedIds)
 };
@@ -728,6 +729,7 @@ const selectedKind = document.querySelector("#selectedKind");
 const readmeCache = new Map();
 let searchIndexPromise = null;
 let readmeRequestId = 0;
+let treeScrollRequestId = 0;
 let isResizingPane = false;
 let activeResizePointer = null;
 
@@ -761,6 +763,36 @@ function sourceFromRenderedHref(href) {
 function isMarkdownSource(source) {
   const fileName = (source.split("/").pop() || "").toLowerCase();
   return fileName === "readme" || fileName.startsWith("readme.") || fileName.endsWith(".md");
+}
+
+function sourceDirectory(source) {
+  const normalized = String(source || "").split(/[?#]/)[0];
+  const slash = normalized.lastIndexOf("/");
+  return slash === -1 ? "" : normalized.slice(0, slash + 1);
+}
+
+function nodeDirectoryScope(node) {
+  if (node.path && node.path.endsWith("/")) return node.path;
+  return sourceDirectory(node.source || node.path || "");
+}
+
+function treeNodeForSource(source) {
+  const exactNode = sourceToNode.get(source);
+  if (exactNode) return exactNode;
+
+  const directory = sourceDirectory(source);
+  let bestNode = "repo";
+  let bestLength = -1;
+
+  for (const node of nodes) {
+    const scope = nodeDirectoryScope(node);
+    if (directory.startsWith(scope) && scope.length > bestLength) {
+      bestNode = node.id;
+      bestLength = scope.length;
+    }
+  }
+
+  return bestNode;
 }
 
 function markdownHref(target, source) {
@@ -1072,6 +1104,7 @@ function highlightTerms(value, terms) {
 
 function openMarkdownSource(source) {
   const linkedNode = sourceToNode.get(source);
+  const treeTarget = treeNodeForSource(source);
   state.query = "";
   searchInput.value = "";
 
@@ -1079,12 +1112,15 @@ function openMarkdownSource(source) {
     if ((children.get(linkedNode) || []).length) {
       state.expanded.add(linkedNode);
     }
-    setSelected(linkedNode);
+    setSelected(linkedNode, { scroll: true });
     return;
   }
 
+  state.treeContext = treeTarget;
   state.activeSource = source;
+  expandAncestors(treeTarget);
   render();
+  scrollTreeTargetIntoView(treeTarget);
 }
 
 function paneSizeBounds() {
@@ -1182,16 +1218,47 @@ function highlight(value) {
   return escaped.replace(new RegExp(`(${query})`, "ig"), "<mark>$1</mark>");
 }
 
-function setSelected(id) {
-  if (!byId.has(id)) return;
-  state.selected = id;
-  state.activeSource = null;
+function expandAncestors(id) {
   let cursor = byId.get(id);
   while (cursor && cursor.parent) {
     state.expanded.add(cursor.parent);
     cursor = byId.get(cursor.parent);
   }
+}
+
+function treeSelectorValue(value) {
+  return String(value).replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+}
+
+function scrollTreeTargetIntoView(id) {
+  if (!id) return;
+  const requestId = ++treeScrollRequestId;
+
+  window.requestAnimationFrame(() => {
+    if (requestId !== treeScrollRequestId) return;
+    const target = treeEl.querySelector(`[data-select="${treeSelectorValue(id)}"]`);
+    if (!target) return;
+
+    const treeRect = treeEl.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+    const margin = 18;
+    const isVisible = targetRect.top >= treeRect.top + margin && targetRect.bottom <= treeRect.bottom - margin;
+    if (isVisible) return;
+
+    const top = treeEl.scrollTop + targetRect.top - treeRect.top - (treeRect.height - targetRect.height) / 2;
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    treeEl.scrollTo({ top: Math.max(0, top), behavior });
+  });
+}
+
+function setSelected(id, options = {}) {
+  if (!byId.has(id)) return;
+  state.selected = id;
+  state.activeSource = null;
+  state.treeContext = null;
+  expandAncestors(id);
   render();
+  if (options.scroll) scrollTreeTargetIntoView(id);
 }
 
 function toggleExpanded(id) {
@@ -1214,6 +1281,7 @@ function renderTreeBranch(id) {
   const childIds = (children.get(id) || []).filter(visibleInTree);
   const hasChildren = childIds.length > 0;
   const isPinned = pinnedExpandedIds.has(id);
+  const isTreeContext = state.treeContext === id && state.selected !== id;
   const isExpanded = Boolean(state.query) || isPinned || state.expanded.has(id);
   const toggle = hasChildren ? (isExpanded ? "-" : "+") : "";
   const nodeClasses = [
@@ -1223,6 +1291,9 @@ function renderTreeBranch(id) {
     hasChildren && !isExpanded ? "is-collapsed" : "",
     hasChildren && isPinned ? "is-pinned" : ""
   ]
+    .filter(Boolean)
+    .join(" ");
+  const labelClasses = ["tree-label", state.selected === id ? "is-selected" : "", isTreeContext ? "is-context" : ""]
     .filter(Boolean)
     .join(" ");
   const toggleAttributes = hasChildren
@@ -1243,7 +1314,7 @@ function renderTreeBranch(id) {
     <li>
       <div class="${nodeClasses}">
         <button class="tree-toggle ${hasChildren ? "tree-toggle--branch" : "tree-toggle--leaf"}" type="button" data-toggle="${id}" ${toggleAttributes}>${toggle}</button>
-        <button class="tree-label ${state.selected === id ? "is-selected" : ""}" type="button" data-select="${id}">
+        <button class="${labelClasses}" type="button" data-select="${id}">
           <span class="tree-title-row">
             <span class="tree-title">${highlight(node.title)}</span>
             <span class="tree-tag">${escapeHtml(node.kind)}</span>
@@ -1425,7 +1496,7 @@ document.addEventListener("click", (event) => {
     if ((children.get(selectedId) || []).length) {
       state.expanded.add(selectedId);
     }
-    setSelected(selectedId);
+    setSelected(selectedId, { scroll: !selectButton.closest("#tree") });
     return;
   }
 
