@@ -891,7 +891,8 @@ function renderMarkdownLink(label, target, source) {
   const href = markdownHref(target, source);
   const classes = ["readme-link"];
   if (linkLeavesMarkdownReader(href)) classes.push("readme-link--external");
-  return `<a class="${classes.join(" ")}" href="${escapeHtml(href)}">${escapeHtml(label)}</a>`;
+  const displayLabel = isMarkdownSource(target) ? String(label).replace(/^file-/, "") : label;
+  return `<a class="${classes.join(" ")}" href="${escapeHtml(href)}">${escapeHtml(displayLabel)}</a>`;
 }
 
 function markdownHeadingText(value) {
