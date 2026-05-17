@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Macaulay2 Internals Map</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">For mathematician researchers and engineers</p>
+          <h1>Macaulay2 Internals Map</h1>
+          <p class="lede">
+            A top-down workbench for mathematicians and engineers improving
+            Macaulay2's algorithms, engine interfaces, Core wrappers,
+            documentation, tests, and performance-sensitive build paths.
+          </p>
+        </div>
+        <div class="hero__diagram" aria-hidden="true">
+          <svg viewBox="0 0 420 160" role="img">
+            <defs>
+              <linearGradient id="rail" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#0f6b5f" />
+                <stop offset="0.52" stop-color="#304f9f" />
+                <stop offset="1" stop-color="#b5442d" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M32 32 H388 M90 32 V80 H330 V126 M210 32 V126"
+              fill="none"
+              stroke="url(#rail)"
+              stroke-width="5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <g fill="#f8fbff" stroke="#1e293b" stroke-width="2">
+              <rect x="18" y="18" width="72" height="28" rx="6" />
+              <rect x="174" y="18" width="72" height="28" rx="6" />
+              <rect x="330" y="18" width="72" height="28" rx="6" />
+              <rect x="54" y="68" width="72" height="28" rx="6" />
+              <rect x="174" y="112" width="72" height="28" rx="6" />
+              <rect x="294" y="112" width="72" height="28" rx="6" />
+            </g>
+          </svg>
+        </div>
+      </header>
+
+      <nav class="toolbar" aria-label="Map controls">
+        <div class="search-wrap">
+          <label for="searchInput">Search</label>
+          <input
+            id="searchInput"
+            type="search"
+            autocomplete="off"
+            placeholder="Groebner, aring, docs, build, profiling"
+          />
+        </div>
+        <div class="segmented" role="tablist" aria-label="Map view">
+          <button class="is-active" data-view="architecture" role="tab" aria-selected="true">
+            Internals
+          </button>
+          <button data-view="directories" role="tab" aria-selected="false">Directories</button>
+          <button data-view="workflows" role="tab" aria-selected="false">Workflows</button>
+        </div>
+        <div class="toolbar__actions">
+          <button id="expandAll" type="button">Expand</button>
+          <button id="collapseAll" type="button">Focus</button>
+        </div>
+      </nav>
+
+      <main class="workspace">
+        <aside class="tree-panel" aria-label="Repository tree">
+          <div class="panel-head">
+            <p>Directory Tree</p>
+            <span id="matchCount">0 nodes</span>
+          </div>
+          <div id="tree" class="tree"></div>
+        </aside>
+
+        <section class="map-panel" aria-live="polite">
+          <div class="panel-head panel-head--map">
+            <div>
+              <p id="mapTitle">Architecture</p>
+              <span id="mapSubtitle">Compilation and runtime layers</span>
+            </div>
+            <span class="doc-pill">README-backed internals guide</span>
+          </div>
+          <div id="mapCanvas" class="map-canvas"></div>
+        </section>
+
+        <aside class="detail-panel" aria-label="Selected node details">
+          <div class="panel-head">
+            <p>Inspector</p>
+            <span id="selectedKind">root</span>
+          </div>
+          <article id="details" class="details"></article>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
