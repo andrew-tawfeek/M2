@@ -724,6 +724,7 @@ const focusStripEl = document.querySelector("#focusStrip");
 const searchInput = document.querySelector("#searchInput");
 const matchCount = document.querySelector("#matchCount");
 const selectedKind = document.querySelector("#selectedKind");
+const fontChoiceButtons = document.querySelectorAll("[data-font-choice]");
 
 const focusPresets = [
   {
@@ -763,6 +764,23 @@ const focusPresets = [
     expand: ["repo", "m2", "macaulay2", "packages", "m2core", "tests"]
   }
 ];
+
+const fontChoices = new Set(["sans", "serif", "readable"]);
+
+function applyFontChoice(choice) {
+  const nextChoice = fontChoices.has(choice) ? choice : "sans";
+  document.body.dataset.font = nextChoice;
+  fontChoiceButtons.forEach((button) => {
+    const active = button.dataset.fontChoice === nextChoice;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+  try {
+    localStorage.setItem("m2InternalsFont", nextChoice);
+  } catch {
+    // Preferences are optional; the controls still work without storage.
+  }
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -960,6 +978,12 @@ function render() {
 }
 
 document.addEventListener("click", (event) => {
+  const fontButton = event.target.closest("[data-font-choice]");
+  if (fontButton) {
+    applyFontChoice(fontButton.dataset.fontChoice);
+    return;
+  }
+
   const presetButton = event.target.closest("[data-preset]");
   if (presetButton) {
     applyPreset(presetButton.dataset.preset);
@@ -992,5 +1016,11 @@ document.querySelector("#collapseAll").addEventListener("click", () => {
   state.expanded = new Set(["repo", "m2", "macaulay2"]);
   render();
 });
+
+try {
+  applyFontChoice(localStorage.getItem("m2InternalsFont") || "sans");
+} catch {
+  applyFontChoice("sans");
+}
 
 render();
