@@ -945,12 +945,18 @@ function renderInlineMarkdown(value, source) {
         renderMarkdownLink(alt || href, href, source)
       )
     )
-    .replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (_, label, href) =>
-      stashHtml(
-        stash,
-        renderMarkdownLink(label, href, source)
-      )
-    );
+    .replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (_, label, href) => {
+      if (isMarkdownSource(href)) {
+        const codeMatch = String(label).match(/^(\d+)$/);
+        if (codeMatch) {
+          const idx = Number(codeMatch[1]);
+          if (stash[idx] && stash[idx].startsWith("<code>file-")) {
+            stash[idx] = `<code>${stash[idx].slice("<code>file-".length)}`;
+          }
+        }
+      }
+      return stashHtml(stash, renderMarkdownLink(label, href, source));
+    });
 
   text = escapeHtml(text)
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
