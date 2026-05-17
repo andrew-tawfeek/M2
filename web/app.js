@@ -1204,6 +1204,19 @@ function renderTreeBranch(id) {
   const hasChildren = childIds.length > 0;
   const isExpanded = Boolean(state.query) || state.expanded.has(id);
   const toggle = hasChildren ? (isExpanded ? "-" : "+") : "";
+  const nodeClasses = [
+    "tree-node",
+    hasChildren ? "tree-node--branch" : "tree-node--leaf",
+    hasChildren && isExpanded ? "is-expanded" : "",
+    hasChildren && !isExpanded ? "is-collapsed" : ""
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const toggleAttributes = hasChildren
+    ? `aria-expanded="${isExpanded}" aria-label="${isExpanded ? "Collapse" : "Expand"} ${escapeHtml(
+        node.title
+      )}" title="${isExpanded ? "Collapse" : "Expand"}"`
+    : "disabled aria-hidden=\"true\"";
   const childMarkup =
     hasChildren && isExpanded
       ? `<ul>${childIds.map((childId) => renderTreeBranch(childId)).join("")}</ul>`
@@ -1211,10 +1224,8 @@ function renderTreeBranch(id) {
 
   return `
     <li>
-      <div class="tree-node">
-        <button class="tree-toggle" type="button" data-toggle="${id}" ${
-    hasChildren ? `aria-expanded="${isExpanded}"` : "disabled"
-  }>${toggle}</button>
+      <div class="${nodeClasses}">
+        <button class="tree-toggle ${hasChildren ? "tree-toggle--branch" : "tree-toggle--leaf"}" type="button" data-toggle="${id}" ${toggleAttributes}>${toggle}</button>
         <button class="tree-label ${state.selected === id ? "is-selected" : ""}" type="button" data-select="${id}">
           <span class="tree-title-row">
             <span class="tree-title">${highlight(node.title)}</span>
