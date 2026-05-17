@@ -1,5 +1,7 @@
 # `M2/Macaulay2/e/bibasis/` — involutive (Janet) bases for Boolean rings
 
+**See [`architecture.md`](architecture.md)** for the standalone architectural reference (Boolean-ring specialisation, 64-bit packed monomial trick, involutive-vs-Gröbner distinction, Janet tree data structure, templated dispatch on monomial order, `FastAllocator` slab strategy).
+
 A specialised Gröbner-basis engine that computes **involutive Janet bases**
 over the Boolean polynomial ring `F_2[x_1,…,x_n]/(x_i^2 - x_i)`. Used by the
 [`BIBasis`](../../packages/BIBasis.m2) package.
@@ -12,12 +14,19 @@ The original short notes are in plain text in [`README`](README).
 
 ## Per-file deep dives
 
-| File doc | Class |
+| File doc | Class / topic |
 |---|---|
-| [`file-bibasis.md`](file-bibasis.md) | `BIBasis` driver |
-| [`file-monom.md`](file-monom.md) | `Monom` + Lex/DegLex/DegRevLex specialisations |
-| [`file-janettree.md`](file-janettree.md) | `JanetTree<MonomType>` involutive-division structure |
+| [`file-bibasis.md`](file-bibasis.md) | `BIBasis` engine-facing driver |
+| [`file-launcher.md`](file-launcher.md) | `launcher.{cpp,hpp}` — order dispatch |
+| [`file-involutive.md`](file-involutive.md) | `Involutive<MonomType>` templated algorithm |
+| [`file-monom.md`](file-monom.md) | `Monom` base class |
+| [`file-monom-orders.md`](file-monom-orders.md) | `MonomLex`, `MonomDL`, `MonomDRL` order specialisations |
 | [`file-polynom.md`](file-polynom.md) | `Polynom<MonomType>` polynomial value type |
+| [`file-janettree.md`](file-janettree.md) | `JanetTree<MonomType>` involutive-division structure |
+| [`file-allocator.md`](file-allocator.md) | `FastAllocator` slab pool |
+| [`file-bibasis-internals.md`](file-bibasis-internals.md) | `Triple`, `TSet`, `QSet`, `PComparator`, `SettingsManager` |
+
+**Coverage:** every source file in this directory has a dedicated deep-dive doc (some grouped per cohesive topic).
 
 ## Files
 

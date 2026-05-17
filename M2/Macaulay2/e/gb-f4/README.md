@@ -1,5 +1,7 @@
 # `M2/Macaulay2/e/gb-f4/` — refactored F4 Gröbner basis engine
 
+**See [`architecture.md`](architecture.md)** for the standalone architectural reference (the `newf4::` namespace, typed-integer family, struct-of-arrays polynomial representation, monomial hashing, comparison with original `f4/`).
+
 A newer implementation of F4 that splits the algorithm along cleaner lines:
 basis, S-pairs, monomial tables, and the Macaulay matrix each get their own
 header pair, making the code easier to test and reuse.
@@ -21,6 +23,9 @@ refactoring notes.
 | [`file-PolynomialList.md`](file-PolynomialList.md) | `PolynomialList` (typed polynomial container) |
 | [`file-MonomialView.md`](file-MonomialView.md) | `MonomialView` (non-owning encoded-monomial view) |
 | [`file-MonomialTypes.md`](file-MonomialTypes.md) | Typed integers (`Index`, `MonomialIndex`, `HashInt`, …) |
+| [`file-GBF4Interface.md`](file-GBF4Interface.md) | `createGBF4Interface` — engine-boundary entry to the new F4 |
+
+**Coverage:** every source file in this directory has a dedicated deep-dive doc.
 
 ## Files
 

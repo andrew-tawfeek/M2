@@ -20,6 +20,25 @@ For a much fuller cross-cutting tour of how the engine is organised, see the
 [engine deep-dive](../../../README.md#engine-deep-dive-m2macaulay2e) in the
 top-level README.
 
+## Standalone architecture references
+
+[`architecture.md`](architecture.md) — the complete **architectural
+reference** for the engine. Covers the four-layer architecture
+(interface / computation framework / mathematical objects / primitives),
+the dual legacy-`Ring` vs modern-`aring` representation story, memory
+model (GC-managed / pool-allocated / external-library-managed), the
+`Computation` framework, threading (supervisor + TBB), engine boundary
+rules, and a reference flow of "M2 user → engine inner loop".
+
+**Subdirectory-specific architecture docs**:
+
+- [`interface/architecture.md`](interface/architecture.md) — public C boundary contract
+- [`f4/architecture.md`](f4/architecture.md) — original F4 GB engine
+- [`gb-f4/architecture.md`](gb-f4/architecture.md) — refactored F4 GB engine
+- [`schreyer-resolution/architecture.md`](schreyer-resolution/architecture.md) — F4-style resolution
+- [`NCAlgebras/architecture.md`](NCAlgebras/architecture.md) — non-commutative algebras + GB
+- [`bibasis/architecture.md`](bibasis/architecture.md) — Boolean involutive bases
+
 ## Subdirectories
 
 | Directory | Purpose |
@@ -265,9 +284,14 @@ subdirectories:
 | `f4/` | [`f4/file-f4-monlookup.md`](f4/file-f4-monlookup.md) | `F4MonomialLookupTableT<Key>` |
 | `f4/` | [`f4/file-f4-types.md`](f4/file-f4-types.md) | F4 type vocabulary |
 | `bibasis/` | [`bibasis/file-bibasis.md`](bibasis/file-bibasis.md) | `BIBasis` driver |
-| `bibasis/` | [`bibasis/file-monom.md`](bibasis/file-monom.md) | `Monom` + ordering specialisations |
-| `bibasis/` | [`bibasis/file-janettree.md`](bibasis/file-janettree.md) | `JanetTree<MonomType>` |
+| `bibasis/` | [`bibasis/file-launcher.md`](bibasis/file-launcher.md) | `launcher.{cpp,hpp}` — order dispatch |
+| `bibasis/` | [`bibasis/file-involutive.md`](bibasis/file-involutive.md) | `Involutive<MonomType>` templated algorithm |
+| `bibasis/` | [`bibasis/file-monom.md`](bibasis/file-monom.md) | `Monom` base class |
+| `bibasis/` | [`bibasis/file-monom-orders.md`](bibasis/file-monom-orders.md) | `MonomLex`, `MonomDL`, `MonomDRL` |
 | `bibasis/` | [`bibasis/file-polynom.md`](bibasis/file-polynom.md) | `Polynom<MonomType>` |
+| `bibasis/` | [`bibasis/file-janettree.md`](bibasis/file-janettree.md) | `JanetTree<MonomType>` |
+| `bibasis/` | [`bibasis/file-allocator.md`](bibasis/file-allocator.md) | `FastAllocator` slab pool |
+| `bibasis/` | [`bibasis/file-bibasis-internals.md`](bibasis/file-bibasis-internals.md) | `Triple`, `TSet`, `QSet`, `PComparator`, `SettingsManager` |
 | `NCResolutions/` | [`NCResolutions/file-nc-res-computation.md`](NCResolutions/file-nc-res-computation.md) | `NCResComputation` |
 | `interface/` | [`interface/file-aring-interface.md`](interface/file-aring-interface.md) | aring C entry points |
 | `interface/` | [`interface/file-groebner-interface.md`](interface/file-groebner-interface.md) | GB / resolution C entry points |
@@ -290,6 +314,7 @@ subdirectories:
 | `interface/` | [`interface/file-gmp-util-interface.md`](interface/file-gmp-util-interface.md) | GMP/MPFR allocation helpers |
 | `interface/` | [`interface/file-m2-mem-interface.md`](interface/file-m2-mem-interface.md) | Engine memory hooks + debug traps |
 | `interface/` | [`interface/file-m2-types-interface.md`](interface/file-m2-types-interface.md) | Base type aliases |
+| `interface/` | [`interface/file-polyroots.md`](interface/file-polyroots.md) | `rawRoots` (MPSolve univariate root finder) |
 | `gb-f4/` | [`gb-f4/file-GBF4Computation.md`](gb-f4/file-GBF4Computation.md) | `GBF4Computation` |
 | `gb-f4/` | [`gb-f4/file-MacaulayMatrix.md`](gb-f4/file-MacaulayMatrix.md) | `MacaulayMatrix` |
 | `gb-f4/` | [`gb-f4/file-Basis.md`](gb-f4/file-Basis.md) | `Basis` |
@@ -299,6 +324,7 @@ subdirectories:
 | `gb-f4/` | [`gb-f4/file-PolynomialList.md`](gb-f4/file-PolynomialList.md) | `PolynomialList` |
 | `gb-f4/` | [`gb-f4/file-MonomialView.md`](gb-f4/file-MonomialView.md) | `MonomialView` |
 | `gb-f4/` | [`gb-f4/file-MonomialTypes.md`](gb-f4/file-MonomialTypes.md) | Typed integers (`newf4` vocabulary) |
+| `gb-f4/` | [`gb-f4/file-GBF4Interface.md`](gb-f4/file-GBF4Interface.md) | `createGBF4Interface` — engine-boundary entry |
 | `schreyer-resolution/` | [`schreyer-resolution/file-res-f4-computation.md`](schreyer-resolution/file-res-f4-computation.md) | `F4ResComputation` |
 | `schreyer-resolution/` | [`schreyer-resolution/file-res-schreyer-frame.md`](schreyer-resolution/file-res-schreyer-frame.md) | `SchreyerFrame` |
 | `schreyer-resolution/` | [`schreyer-resolution/file-res-poly-ring.md`](schreyer-resolution/file-res-poly-ring.md) | `ResPolyRing` / `ResPolynomial` |
@@ -311,6 +337,8 @@ subdirectories:
 | `schreyer-resolution/` | [`schreyer-resolution/file-res-f4-monlookup.md`](schreyer-resolution/file-res-f4-monlookup.md) | `ResF4MonomialLookupTableT<Key>` |
 | `schreyer-resolution/` | [`schreyer-resolution/file-res-f4-m2-interface.md`](schreyer-resolution/file-res-f4-m2-interface.md) | `ResF4toM2Interface` |
 | `schreyer-resolution/` | [`schreyer-resolution/file-res-memblock.md`](schreyer-resolution/file-res-memblock.md) | `ResMemoryBlock<T>` |
+| `schreyer-resolution/` | [`schreyer-resolution/file-res-moninfo-impls.md`](schreyer-resolution/file-res-moninfo-impls.md) | `ResMonoidDense` / `ResMonoidSparse` implementations |
+| `schreyer-resolution/` | [`schreyer-resolution/file-res-tasking-example.md`](schreyer-resolution/file-res-tasking-example.md) | TBB task-graph sandbox |
 | [`file-comp-res.md`](file-comp-res.md) | `ResolutionComputation` | [Resolutions](resolutions.md) |
 | [`file-gbring.md`](file-gbring.md) | `GBRing` / `gbvector` | [Gröbner bases](groebner-bases.md) |
 | [`file-Eschreyer.md`](file-Eschreyer.md) | `GBKernelComputation` (older Schreyer) | [Resolutions](resolutions.md) |

@@ -1,5 +1,7 @@
 # `M2/Macaulay2/e/schreyer-resolution/` — F4-style Schreyer resolutions
 
+**See [`architecture.md`](architecture.md)** for the standalone architectural reference (Schreyer-frame trick, three-layer design, TBB task-graph parallelism, dense vs sparse monoid choice, memory model).
+
 This directory implements a **Schreyer-frame–based free resolution** built on
 F4-style matrix reduction. It is the modern resolution engine that replaces
 the older `res-a*` series at the top level of `e/`.
@@ -26,6 +28,10 @@ of Macaulay-matrix form.
 | [`file-res-f4-monlookup.md`](file-res-f4-monlookup.md) | `ResF4MonomialLookupTableT<Key>` |
 | [`file-res-f4-m2-interface.md`](file-res-f4-m2-interface.md) | `ResF4toM2Interface` (translation layer) |
 | [`file-res-memblock.md`](file-res-memblock.md) | `ResMemoryBlock<T>` (slab allocator) |
+| [`file-res-moninfo-impls.md`](file-res-moninfo-impls.md) | `ResMonoidDense` / `ResMonoidSparse` (the two concrete monoid implementations) |
+| [`file-res-tasking-example.md`](file-res-tasking-example.md) | `res-tasking-example.cpp` — TBB task-graph sandbox |
+
+**Coverage:** every source file in this directory has a dedicated deep-dive doc.
 
 ## Files
 

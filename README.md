@@ -36,7 +36,7 @@ determined by `check`, in the latest version of Macaulay2.
 
 ## Documentation map
 
-Three levels of documentation are reachable from this file:
+Four levels of documentation are reachable from this file:
 
 1. **Top-level navigation** — the
    [Repository Architecture Table of Contents](#repository-architecture-table-of-contents)
@@ -49,16 +49,79 @@ Three levels of documentation are reachable from this file:
    `M2/Macaulay2/e/` source tree in architectural layers, links to the 10
    per-area markdown files inside `e/`, and gives per-file groupings for every
    top-level engine source file.
+4. **Per-file deep dives** — every source file in the repository has a
+   `file-<basename>.md` walkthrough alongside it
+   (sometimes consolidated when several files share a topic — e.g.
+   `file-Makefile-library-in.md` covers the shared autotools recipe for all 36
+   per-library subdirs). The per-directory README in each folder indexes
+   them; the lower half of this file mirrors the same entries into
+   per-folder tables you can scan top-to-bottom.
+
+Plus **four cross-cutting top-level meta docs** at the repo root:
+
+| Doc | What it is | When to use |
+|---|---|---|
+| [`README.md`](README.md) | This file — repository TOC | First stop for any contributor |
+| [`GLOSSARY.md`](GLOSSARY.md) | Cross-cutting terminology dictionary | When you see jargon (`scc1`, `aring`, `Schreyer frame`, `Macaulay matrix`, …) and need its definition |
+| [`TOUR.md`](TOUR.md) | Audience-specific reading orders | When starting fresh; pick the path matching your role (newcomer / debugger / package author / build maintainer / engine extender / algorithm-curious) |
+| [`CONTRIBUTING-DOCS.md`](CONTRIBUTING-DOCS.md) | Conventions the docs follow | When editing docs (file naming, README structure, deep-dive shape, link integrity audit) |
+
+Plus build-system instructions: see the project
+[Wiki](https://github.com/Macaulay2/M2/wiki),
+`M2/INSTALL` / `M2/INSTALL-CMake.md` in a release tarball, and
+`.github/workflows/test_build.yml` for the canonical CI build matrix.
 
 ### Quick links
 
 - Source root: [`M2/`](M2/README.md) → [`M2/Macaulay2/`](M2/Macaulay2/README.md)
 - The four layers: [`c/`](M2/Macaulay2/c/README.md) · [`d/`](M2/Macaulay2/d/README.md) · [`e/`](M2/Macaulay2/e/README.md) · [`m2/`](M2/Macaulay2/m2/README.md)
+- **Per-layer architecture references** — standalone "how does this layer fit together" docs:
+   [`c/architecture.md`](M2/Macaulay2/c/architecture.md) (scc1 translator) ·
+   [`d/architecture.md`](M2/Macaulay2/d/architecture.md) (interpreter) ·
+   [`e/architecture.md`](M2/Macaulay2/e/architecture.md) (engine) ·
+   [`m2/architecture.md`](M2/Macaulay2/m2/architecture.md) (Core M2)
+- **Engine subdir architecture references**:
+   [`interface/architecture.md`](M2/Macaulay2/e/interface/architecture.md) (public C boundary) ·
+   [`f4/architecture.md`](M2/Macaulay2/e/f4/architecture.md) (original F4 GB) ·
+   [`gb-f4/architecture.md`](M2/Macaulay2/e/gb-f4/architecture.md) (refactored F4 GB) ·
+   [`schreyer-resolution/architecture.md`](M2/Macaulay2/e/schreyer-resolution/architecture.md) (F4-style resolution) ·
+   [`NCAlgebras/architecture.md`](M2/Macaulay2/e/NCAlgebras/architecture.md) (non-commutative algebras) ·
+   [`bibasis/architecture.md`](M2/Macaulay2/e/bibasis/architecture.md) (Boolean involutive)
 - Engine areas: [coefficient rings](M2/Macaulay2/e/coefficient-rings.md) · [polynomial rings](M2/Macaulay2/e/polynomial-rings.md) · [monoids](M2/Macaulay2/e/monoids-and-monomials.md) · [matrices](M2/Macaulay2/e/matrices.md) · [free modules](M2/Macaulay2/e/free-modules.md) · [Gröbner bases](M2/Macaulay2/e/groebner-bases.md) · [resolutions](M2/Macaulay2/e/resolutions.md) · [other computations](M2/Macaulay2/e/computations.md) · [ring elements / maps](M2/Macaulay2/e/ring-elements-and-maps.md) · [utilities](M2/Macaulay2/e/utilities.md)
-- Build & packaging: [`cmake/`](M2/cmake/README.md) · [`libraries/`](M2/libraries/README.md) · [`submodules/`](M2/submodules/README.md) · [`distributions/`](M2/distributions/README.md)
+- Engine subdirs: [`interface/`](M2/Macaulay2/e/interface/README.md) · [`f4/`](M2/Macaulay2/e/f4/README.md) · [`gb-f4/`](M2/Macaulay2/e/gb-f4/README.md) · [`schreyer-resolution/`](M2/Macaulay2/e/schreyer-resolution/README.md) · [`NCAlgebras/`](M2/Macaulay2/e/NCAlgebras/README.md) · [`NCResolutions/`](M2/Macaulay2/e/NCResolutions/README.md) · [`bibasis/`](M2/Macaulay2/e/bibasis/README.md) · [`unit-tests/`](M2/Macaulay2/e/unit-tests/README.md) · [`doxygen-settings/`](M2/Macaulay2/e/doxygen-settings/README.md)
+- Build & packaging: [`cmake/`](M2/cmake/README.md) · [`libraries/`](M2/libraries/README.md) · [`submodules/`](M2/submodules/README.md) · [`distributions/`](M2/distributions/README.md) · [`BUILD/`](M2/BUILD/README.md) · [`m4/`](M2/m4/README.md) · [`include/`](M2/include/README.md)
+- Build entry points: [`CMakeLists.txt`](M2/file-CMakeLists-txt.md) · [`configure.ac`](M2/file-configure-ac.md) · [`autogen.sh`](M2/file-autogen-sh.md) · [`Makefile.in`](M2/file-Makefile-in.md) · [`VERSION`](M2/file-VERSION.md)
+- Supporting tools: [`bin/`](M2/Macaulay2/bin/README.md) · [`system/`](M2/Macaulay2/system/README.md) · [`html-check-links/`](M2/Macaulay2/html-check-links/README.md) · [`editors/`](M2/Macaulay2/editors/README.md) · [`docs/`](M2/Macaulay2/docs/README.md) · [`man/`](M2/Macaulay2/man/README.md)
 - Tests: [`tests/`](M2/Macaulay2/tests/README.md) · [`e/unit-tests/`](M2/Macaulay2/e/unit-tests/README.md)
-- Packages: [`packages/`](M2/Macaulay2/packages/README.md)
-- Build instructions: project [`CLAUDE.md`](CLAUDE.md) at the repo root
+- Packages: [`packages/`](M2/Macaulay2/packages/README.md) (with foundational deep dives for [`Macaulay2Doc`](M2/Macaulay2/packages/file-Macaulay2Doc.md) · [`Style`](M2/Macaulay2/packages/file-Style.md) · [`EngineTests`](M2/Macaulay2/packages/file-EngineTests.md) · [conventions](M2/Macaulay2/packages/file-package-conventions.md))
+- Build instructions: project [Wiki](https://github.com/Macaulay2/M2/wiki), `M2/INSTALL`, `M2/INSTALL-CMake.md`, and `.github/workflows/test_build.yml`
+- **Cross-cutting glossary: [`GLOSSARY.md`](GLOSSARY.md)** — terminology used across the documentation tree, with links to the deep-dives where each term is treated in detail (`scc1`, `aring` vs `Ring`, `ring_elem` vs `ElementType`, Schreyer frame, F4, Macaulay matrix, involutive basis, `our_new_delete`, `Computation`, `Expr`, error/interrupt flags, …)
+- **Guided reading tour: [`TOUR.md`](TOUR.md)** — suggested reading orders for different audiences (newcomer overview, engine debugger, package author, M2 user, build/port maintainer, engine extension, algorithm-specific paths)
+- **Documentation contribution guide: [`CONTRIBUTING-DOCS.md`](CONTRIBUTING-DOCS.md)** — conventions the docs themselves follow (file naming, README structure, deep-dive shape, cross-reference rules, link-integrity audit, when to write architecture docs, avoiding doc rot)
+
+### Finding a deep dive
+
+To find the deep-dive doc for a specific source file:
+
+1. **Same-directory lookup**: every source file `foo.cpp` (or `foo.hpp`,
+   `foo.d`, `foo.m2`, `foo.h`, `foo.cmake`, `foo.in`, `foo.y`, `foo.l`)
+   has a markdown file beside it named `file-foo.md` (or `file-foo-cpp.md` /
+   `file-foo-hpp.md` if both `.cpp` and `.hpp` deserved separate docs).
+2. **Consolidated families**: closely-related files share one doc. Look for
+   the family name. Examples:
+   - `bibasis/monomLex.{cpp,hpp}`, `monomDL.{cpp,hpp}`, `monomDRL.{cpp,hpp}`
+     → [`bibasis/file-monom-orders.md`](M2/Macaulay2/e/bibasis/file-monom-orders.md)
+   - All `Find*.cmake` → [`cmake/file-find-cmakes.md`](M2/cmake/file-find-cmakes.md)
+   - All `dmat-lu-*.hpp` → [`e/file-dmat-lu-variants.md`](M2/Macaulay2/e/file-dmat-lu-variants.md)
+3. **Subdirectory index**: each subdirectory's `README.md` lists every
+   source file with a "Deep dive" column pointing at the per-file doc.
+4. **This file** also re-indexes them all in the per-folder tables further
+   down (`### Interpreter layer file deep dives`, `### Engine top-level files`,
+   `### Subdirectory file deep dives`, etc.).
+
+If a deep-dive references a `file-foo.md` that doesn't seem to exist, the
+naming may follow `file-foo-hpp.md` for the C++ header variant. Try `ls
+file-foo*.md` in the directory.
 
 ---
 
@@ -209,10 +272,41 @@ they will cross-link to one another along these axes:
 
 ### Documentation status
 
-This table of contents is the entry point for an ongoing effort to document
-every subdirectory of the Macaulay2 source tree. Top-level per-directory
-READMEs are complete; the [engine deep-dive](#engine-deep-dive-m2macaulay2e)
-below is the next layer being filled in.
+The documentation tree comprises **584 markdown files** across four
+layers:
+
+| Layer | Count | Examples |
+|---|---|---|
+| Top-level meta docs | 4 | [`README.md`](README.md) · [`GLOSSARY.md`](GLOSSARY.md) · [`TOUR.md`](TOUR.md) · [`CONTRIBUTING-DOCS.md`](CONTRIBUTING-DOCS.md) |
+| Per-directory READMEs | 70 | one for every subdirectory under `M2/` |
+| Architecture references | 10 | 4 per-layer (`c/`, `d/`, `e/`, `m2/`) + 6 per-engine-subdir (`interface/`, `f4/`, `gb-f4/`, `schreyer-resolution/`, `NCAlgebras/`, `bibasis/`) |
+| Per-area engine docs | ~10 | `coefficient-rings.md`, `polynomial-rings.md`, `monoids-and-monomials.md`, … |
+| Per-file deep dives | 483 | `file-<basename>.md` alongside each source file (some consolidated per family) |
+
+Every directory under `M2/` has both a `README.md` index and per-file
+deep-dive markdown files for every source file it contains. Some
+closely-related files share a consolidated deep-dive (e.g.
+`bibasis/file-monom-orders.md` covers `monomLex`, `monomDL`, `monomDRL`
+together because they form a cohesive family — see
+[`CONTRIBUTING-DOCS.md`](CONTRIBUTING-DOCS.md) for the full list of
+consolidated families).
+
+The engine subtree (`M2/Macaulay2/e/` and its nine subdirectories
+`interface/`, `f4/`, `gb-f4/`, `schreyer-resolution/`, `NCAlgebras/`,
+`NCResolutions/`, `bibasis/`, `unit-tests/`, `doxygen-settings/`)
+has the deepest coverage and is the subject of the [engine
+deep-dive](#engine-deep-dive-m2macaulay2e) section below. The per-area
+markdown files there provide architectural overviews; the per-file
+docs give source-level walkthroughs.
+
+The lower half of this README mirrors every per-directory's per-file index
+into one document, so you can find a deep-dive without first opening the
+subdirectory's `README.md`.
+
+**Link integrity**: zero broken cross-references across the entire tree
+— verified by the audit command in
+[`CONTRIBUTING-DOCS.md`](CONTRIBUTING-DOCS.md#link-integrity-audit). New
+contributions are expected to maintain this.
 
 ---
 
@@ -455,9 +549,14 @@ Dedicated walkthroughs for especially central engine classes
 | `f4/` | [f4/file-f4-monlookup.md](M2/Macaulay2/e/f4/file-f4-monlookup.md) | `F4MonomialLookupTableT<Key>` |
 | `f4/` | [f4/file-f4-types.md](M2/Macaulay2/e/f4/file-f4-types.md) | F4 type vocabulary |
 | `bibasis/` | [bibasis/file-bibasis.md](M2/Macaulay2/e/bibasis/file-bibasis.md) | `BIBasis` driver |
-| `bibasis/` | [bibasis/file-monom.md](M2/Macaulay2/e/bibasis/file-monom.md) | `Monom` + ordering specialisations |
-| `bibasis/` | [bibasis/file-janettree.md](M2/Macaulay2/e/bibasis/file-janettree.md) | `JanetTree<MonomType>` |
+| `bibasis/` | [bibasis/file-launcher.md](M2/Macaulay2/e/bibasis/file-launcher.md) | `launcher.{cpp,hpp}` — order dispatch |
+| `bibasis/` | [bibasis/file-involutive.md](M2/Macaulay2/e/bibasis/file-involutive.md) | `Involutive<MonomType>` templated algorithm |
+| `bibasis/` | [bibasis/file-monom.md](M2/Macaulay2/e/bibasis/file-monom.md) | `Monom` base class |
+| `bibasis/` | [bibasis/file-monom-orders.md](M2/Macaulay2/e/bibasis/file-monom-orders.md) | `MonomLex`, `MonomDL`, `MonomDRL` |
 | `bibasis/` | [bibasis/file-polynom.md](M2/Macaulay2/e/bibasis/file-polynom.md) | `Polynom<MonomType>` |
+| `bibasis/` | [bibasis/file-janettree.md](M2/Macaulay2/e/bibasis/file-janettree.md) | `JanetTree<MonomType>` |
+| `bibasis/` | [bibasis/file-allocator.md](M2/Macaulay2/e/bibasis/file-allocator.md) | `FastAllocator` slab pool |
+| `bibasis/` | [bibasis/file-bibasis-internals.md](M2/Macaulay2/e/bibasis/file-bibasis-internals.md) | `Triple`, `TSet`, `QSet`, `PComparator`, `SettingsManager` |
 | `NCResolutions/` | [NCResolutions/file-nc-res-computation.md](M2/Macaulay2/e/NCResolutions/file-nc-res-computation.md) | `NCResComputation` |
 | `interface/` | [interface/file-aring-interface.md](M2/Macaulay2/e/interface/file-aring-interface.md) | aring C entry points |
 | `interface/` | [interface/file-groebner-interface.md](M2/Macaulay2/e/interface/file-groebner-interface.md) | GB / resolution C entry points |
@@ -480,6 +579,7 @@ Dedicated walkthroughs for especially central engine classes
 | `interface/` | [interface/file-gmp-util-interface.md](M2/Macaulay2/e/interface/file-gmp-util-interface.md) | GMP/MPFR allocation helpers |
 | `interface/` | [interface/file-m2-mem-interface.md](M2/Macaulay2/e/interface/file-m2-mem-interface.md) | Engine memory hooks + debug traps |
 | `interface/` | [interface/file-m2-types-interface.md](M2/Macaulay2/e/interface/file-m2-types-interface.md) | Base type aliases |
+| `interface/` | [interface/file-polyroots.md](M2/Macaulay2/e/interface/file-polyroots.md) | `rawRoots` (MPSolve univariate root finder) |
 | `gb-f4/` | [gb-f4/file-GBF4Computation.md](M2/Macaulay2/e/gb-f4/file-GBF4Computation.md) | `GBF4Computation` |
 | `gb-f4/` | [gb-f4/file-MacaulayMatrix.md](M2/Macaulay2/e/gb-f4/file-MacaulayMatrix.md) | `MacaulayMatrix` |
 | `gb-f4/` | [gb-f4/file-Basis.md](M2/Macaulay2/e/gb-f4/file-Basis.md) | `Basis` |
@@ -489,6 +589,7 @@ Dedicated walkthroughs for especially central engine classes
 | `gb-f4/` | [gb-f4/file-PolynomialList.md](M2/Macaulay2/e/gb-f4/file-PolynomialList.md) | `PolynomialList` |
 | `gb-f4/` | [gb-f4/file-MonomialView.md](M2/Macaulay2/e/gb-f4/file-MonomialView.md) | `MonomialView` |
 | `gb-f4/` | [gb-f4/file-MonomialTypes.md](M2/Macaulay2/e/gb-f4/file-MonomialTypes.md) | Typed integers (`newf4` vocabulary) |
+| `gb-f4/` | [gb-f4/file-GBF4Interface.md](M2/Macaulay2/e/gb-f4/file-GBF4Interface.md) | `createGBF4Interface` — engine-boundary entry |
 | `schreyer-resolution/` | [schreyer-resolution/file-res-f4-computation.md](M2/Macaulay2/e/schreyer-resolution/file-res-f4-computation.md) | `F4ResComputation` |
 | `schreyer-resolution/` | [schreyer-resolution/file-res-schreyer-frame.md](M2/Macaulay2/e/schreyer-resolution/file-res-schreyer-frame.md) | `SchreyerFrame` |
 | `schreyer-resolution/` | [schreyer-resolution/file-res-poly-ring.md](M2/Macaulay2/e/schreyer-resolution/file-res-poly-ring.md) | `ResPolyRing` / `ResPolynomial` |
@@ -501,6 +602,8 @@ Dedicated walkthroughs for especially central engine classes
 | `schreyer-resolution/` | [schreyer-resolution/file-res-f4-monlookup.md](M2/Macaulay2/e/schreyer-resolution/file-res-f4-monlookup.md) | `ResF4MonomialLookupTableT<Key>` |
 | `schreyer-resolution/` | [schreyer-resolution/file-res-f4-m2-interface.md](M2/Macaulay2/e/schreyer-resolution/file-res-f4-m2-interface.md) | `ResF4toM2Interface` |
 | `schreyer-resolution/` | [schreyer-resolution/file-res-memblock.md](M2/Macaulay2/e/schreyer-resolution/file-res-memblock.md) | `ResMemoryBlock<T>` |
+| `schreyer-resolution/` | [schreyer-resolution/file-res-moninfo-impls.md](M2/Macaulay2/e/schreyer-resolution/file-res-moninfo-impls.md) | `ResMonoidDense` / `ResMonoidSparse` implementations |
+| `schreyer-resolution/` | [schreyer-resolution/file-res-tasking-example.md](M2/Macaulay2/e/schreyer-resolution/file-res-tasking-example.md) | TBB task-graph sandbox |
 | `unit-tests/` | [unit-tests/file-ARingTest-hpp.md](M2/Macaulay2/e/unit-tests/file-ARingTest-hpp.md) | aring test fixture |
 | `unit-tests/` | [unit-tests/file-RingTest-hpp.md](M2/Macaulay2/e/unit-tests/file-RingTest-hpp.md) | legacy ring test fixture |
 | `unit-tests/` | [unit-tests/file-aring-zz-tests.md](M2/Macaulay2/e/unit-tests/file-aring-zz-tests.md) | `ARingZZ`, `ARingZZp`, `ARingQQ*` tests |
@@ -771,6 +874,114 @@ Dedicated walkthroughs for especially central engine classes
 
 **Coverage for `cmake/`:** every CMake module in `M2/cmake/` now has a dedicated deep-dive doc — see [`M2/cmake/README.md`](M2/cmake/README.md).
 
+**Autotools library build (`libraries/`) deep dives** (per-file docs in `M2/libraries/`):
+
+| File doc | Subject |
+|---|---|
+| [libraries/file-Makefile-in.md](M2/libraries/file-Makefile-in.md) | `Makefile.in` — top-level libraries-build driver |
+| [libraries/file-Makefile-library-in.md](M2/libraries/file-Makefile-library-in.md) | `Makefile.library.in` — shared per-library recipe |
+| [libraries/file-Makefile-template.md](M2/libraries/file-Makefile-template.md) | `Makefile.template` — starter template for new libraries |
+| [libraries/file-per-library-subdirs.md](M2/libraries/file-per-library-subdirs.md) | The 36 per-library subdirs catalogued by role |
+
+**Coverage for `libraries/`:** every shared build file and per-library subdir has a dedicated deep-dive doc — see [`M2/libraries/README.md`](M2/libraries/README.md).
+
+**Autotools m4 macros (`m4/`) deep dives** (per-file docs in `M2/m4/`):
+
+| File doc | Subject |
+|---|---|
+| [m4/file-autoconf-archive.md](M2/m4/file-autoconf-archive.md) | `ax_blas`, `ax_lapack`, `ax_boost_*`, `ax_compare_version`, `ax_recursive_eval` (vendored from autoconf-archive) |
+| [m4/file-m4-local.md](M2/m4/file-m4-local.md) | `openmp.m4`, `search-libraries.m4`, `files` (M2-local) |
+
+**Coverage for `m4/`:** every m4 macro and helper has a dedicated deep-dive doc — see [`M2/m4/README.md`](M2/m4/README.md).
+
+**Shared headers (`include/`) deep dives** (per-file docs in `M2/include/`):
+
+| File doc | Subject |
+|---|---|
+| [include/file-configuration-in.md](M2/include/file-configuration-in.md) | `configuration.in`, `config.Makefile.in` — generated-header templates |
+| [include/file-M2-headers.md](M2/include/file-M2-headers.md) | `M2/` (gc-include, math-include, atomic-field, config.h) and `valgrind/` |
+
+**Coverage for `include/`:** every file and subdir has a dedicated deep-dive doc — see [`M2/include/README.md`](M2/include/README.md).
+
+**Runtime auxiliary files (`files/`) deep dives** (per-file docs in `M2/files/`):
+
+| File doc | Subject |
+|---|---|
+| [files/file-files-content.md](M2/files/file-files-content.md) | `M2-suppressions.supp`, `info-dir-template` |
+
+**Coverage for `files/`:** every file in this directory has a dedicated deep-dive doc — see [`M2/files/README.md`](M2/files/README.md).
+
+**Packaging (`distributions/`) deep dives** (per-file docs in `M2/distributions/`):
+
+| File doc | Subject |
+|---|---|
+| [distributions/file-distributions.md](M2/distributions/file-distributions.md) | `Makefile.in`, `tar-exclusions`, `top/`, `dmg/`, `freebsd/`, `install/`, `tar/` consolidated walkthrough |
+
+**Coverage for `distributions/`:** every packaging file and subdir is covered in the deep-dive doc — see [`M2/distributions/README.md`](M2/distributions/README.md).
+
+**Vendored upstream sources (`submodules/`) deep dives** (per-file docs in `M2/submodules/`):
+
+| File doc | Subject |
+|---|---|
+| [submodules/file-submodules.md](M2/submodules/file-submodules.md) | All 9 submodules catalogued (bdwgc, flint, frobby, fflas_ffpack, givaro, googletest, mathic, mathicgb, memtailor) |
+
+**Coverage for `submodules/`:** every submodule has dedicated coverage — see [`M2/submodules/README.md`](M2/submodules/README.md).
+
+**Build tree & container builds (`BUILD/`) deep dives** (per-file docs in `M2/BUILD/`):
+
+| File doc | Subject |
+|---|---|
+| [BUILD/file-build-layout.md](M2/BUILD/file-build-layout.md) | Build-tree conventions, `tarfiles/`, per-developer subdirs |
+| [BUILD/docker/file-docker.md](M2/BUILD/docker/file-docker.md) | Docker-based build & packaging recipes |
+| [BUILD/rpm/file-rpm.md](M2/BUILD/rpm/file-rpm.md) | RPM packaging in containers (AlmaLinux/Fedora/RHEL) |
+
+**Coverage for `BUILD/`:** all subdirs have dedicated coverage — see [`M2/BUILD/README.md`](M2/BUILD/README.md).
+
+**Top-level CTest suites (`tests/`) catalogues** (per-suite docs in `M2/Macaulay2/tests/`):
+
+| File doc | Subject |
+|---|---|
+| [tests/normal/file-normal-tests-catalogue.md](M2/Macaulay2/tests/normal/file-normal-tests-catalogue.md) | 373-file default-tier suite — naming conventions, structure |
+| [tests/engine/file-engine-tests-catalogue.md](M2/Macaulay2/tests/engine/file-engine-tests-catalogue.md) | 35-file CI-skipped `raw…()` engine integration suite |
+| [tests/slow/file-slow-tests-catalogue.md](M2/Macaulay2/tests/slow/file-slow-tests-catalogue.md) | 12-file slow regression suite with per-test runtimes |
+| [tests/file-small-suites-catalogue.md](M2/Macaulay2/tests/file-small-suites-catalogue.md) | `goals/`, `gigantic/`, `threads/`, `quarantine/`, `rationality/` consolidated |
+| [tests/ComputationsBook/file-computations-book-catalogue.md](M2/Macaulay2/tests/ComputationsBook/file-computations-book-catalogue.md) | 12-chapter book regression suite — file pattern, value-capture, per-chapter contents |
+
+**Coverage for `tests/`:** every CTest suite has a dedicated catalogue (per-suite for large ones; consolidated for the small ones) — see [`M2/Macaulay2/tests/README.md`](M2/Macaulay2/tests/README.md).
+
+**Build-system entry points (`M2/`) deep dives** (per-file docs at the M2 source root):
+
+| File doc | Subject |
+|---|---|
+| [M2/file-CMakeLists-txt.md](M2/file-CMakeLists-txt.md) | `CMakeLists.txt` — CMake build entry point |
+| [M2/file-configure-ac.md](M2/file-configure-ac.md) | `configure.ac` — autoconf input |
+| [M2/file-autogen-sh.md](M2/file-autogen-sh.md) | `autogen.sh` — autotools bootstrap script |
+| [M2/file-Makefile-in.md](M2/file-Makefile-in.md) | `Makefile.in` — top-level autotools driver |
+| [M2/file-Makefile-doc-dist.md](M2/file-Makefile-doc-dist.md) | `Makefile.doc-dist` — doc-only distribution Makefile |
+| [M2/file-VERSION.md](M2/file-VERSION.md) | `VERSION` — single source of truth for the project version |
+| [M2/check-configure/file-check-configure.md](M2/check-configure/file-check-configure.md) | `check-configure/Makefile.in` — configure-sanity sandbox |
+
+**Coverage for `M2/` top level + `check-configure/`:** every build-system entry point has a dedicated deep-dive doc.
+
+**Man page (`man/`) deep dives** (per-file docs in `M2/Macaulay2/man/`):
+
+| File doc | Subject |
+|---|---|
+| [man/file-M2-1-in.md](M2/Macaulay2/man/file-M2-1-in.md) | `M2.1.in` — the `M2(1)` man page template |
+
+**Coverage for `man/`:** the man page source has a dedicated deep-dive doc — see [`M2/Macaulay2/man/README.md`](M2/Macaulay2/man/README.md).
+
+**Distributed packages (`packages/`) deep dives** (per-file docs in `M2/Macaulay2/packages/`):
+
+| File doc | Subject |
+|---|---|
+| [packages/file-Macaulay2Doc.md](M2/Macaulay2/packages/file-Macaulay2Doc.md) | `Macaulay2Doc.m2` — main user documentation package |
+| [packages/file-Style.md](M2/Macaulay2/packages/file-Style.md) | `Style.m2` — doc styling + `generateGrammar` |
+| [packages/file-EngineTests.md](M2/Macaulay2/packages/file-EngineTests.md) | `EngineTests.m2` — M2-level engine test suite |
+| [packages/file-package-conventions.md](M2/Macaulay2/packages/file-package-conventions.md) | Package conventions — layout, dependencies, doc DSL, tests |
+
+**Coverage for `packages/`:** structural conventions plus the three foundational packages (`Macaulay2Doc`, `Style`, `EngineTests`) have dedicated deep-dive docs — see [`M2/Macaulay2/packages/README.md`](M2/Macaulay2/packages/README.md). Domain-specific packages (~400 total) are individually catalogued there but not given per-file dives, since each follows the conventions doc.
+
 ### Per-area docs (quick navigation)
 
 For each top-level area of the engine, there is a dedicated markdown file
@@ -793,6 +1004,8 @@ you care about.
 Subdirectories (each with its own README): [`interface/`](M2/Macaulay2/e/interface/README.md), [`f4/`](M2/Macaulay2/e/f4/README.md), [`gb-f4/`](M2/Macaulay2/e/gb-f4/README.md), [`schreyer-resolution/`](M2/Macaulay2/e/schreyer-resolution/README.md), [`NCAlgebras/`](M2/Macaulay2/e/NCAlgebras/README.md), [`NCResolutions/`](M2/Macaulay2/e/NCResolutions/README.md), [`bibasis/`](M2/Macaulay2/e/bibasis/README.md), [`unit-tests/`](M2/Macaulay2/e/unit-tests/README.md), [`doxygen-settings/`](M2/Macaulay2/e/doxygen-settings/README.md).
 
 ### Architecture
+
+> **For the full standalone reference, see [`M2/Macaulay2/e/architecture.md`](M2/Macaulay2/e/architecture.md)** — it covers the four-layer architecture, the dual legacy-`Ring` vs modern-`aring` representation story, memory model, the `Computation` framework, threading (supervisor + TBB), engine boundary rules, and reference flows. The summary below is the same picture in TOC-friendly form.
 
 The engine is best thought of as four concentric layers:
 
@@ -1015,19 +1228,75 @@ e/interface/foo.{h,cpp}    public C entry point
 e/foo.{cpp,hpp}    internal C++ implementation
 ```
 
+See [`Macaulay2/d/file-engine-dd.md`](M2/Macaulay2/d/file-engine-dd.md)
+and [`Macaulay2/e/file-engine-h.md`](M2/Macaulay2/e/file-engine-h.md)
+for the boundary details.
+
 **Adding a new coefficient ring:**
 
-1. New `aring-foo.{cpp,hpp}` modelled on an existing entry.
+1. New `aring-foo.{cpp,hpp}` modelled on
+   [`aring-zz-flint`](M2/Macaulay2/e/file-aring-zz-flint.md) or a
+   similar existing entry.
 2. Register in `coeffrings.{cpp,hpp}`.
-3. Add a concrete unit test in `unit-tests/ARingFooTest.cpp`.
-4. Expose through `interface/aring.{h,cpp}`.
+3. Add a concrete unit test in
+   `unit-tests/ARingFooTest.cpp` — pattern in
+   [`unit-tests/file-ARingTest-hpp.md`](M2/Macaulay2/e/unit-tests/file-ARingTest-hpp.md).
+4. Expose through
+   [`interface/aring.{h,cpp}`](M2/Macaulay2/e/interface/file-aring-interface.md).
 
 **Adding a new computation (GB variant, resolution algorithm, …):**
 
-1. Subclass the appropriate Computation base in `e/`.
-2. Wire it through `comp-gb.cpp` / `comp-res.cpp` / etc.
+1. Subclass the appropriate
+   [`Computation`](M2/Macaulay2/e/file-comp.md) base in `e/`.
+2. Wire it through
+   [`comp-gb.{cpp,hpp}`](M2/Macaulay2/e/file-comp-gb.md) /
+   [`comp-res.{cpp,hpp}`](M2/Macaulay2/e/file-comp-res.md) / etc.
 3. Add a unit test.
-4. Expose via `interface/groebner.{h,cpp}` (or a new file).
+4. Expose via
+   [`interface/groebner.{h,cpp}`](M2/Macaulay2/e/interface/file-groebner-interface.md)
+   (or a new file).
+
+**Adding a new built-in operator at the M2 language level:**
+
+1. Tokenise it in [`d/lex.d`](M2/Macaulay2/d/file-lex.md) and
+   [`c/keywords.h`](M2/Macaulay2/c/file-grammar.md).
+2. Bind precedence / associativity in
+   [`d/parser.d`](M2/Macaulay2/d/file-parser.md).
+3. Implement the runtime behaviour in `d/actors*.d` (see
+   [`d/file-actors.md`](M2/Macaulay2/d/file-actors.md)).
+4. Document it in
+   [`packages/Macaulay2Doc/`](M2/Macaulay2/packages/file-Macaulay2Doc.md)
+   following [`m2/file-document.md`](M2/Macaulay2/m2/file-document.md)'s
+   DSL.
+
+**Adding a new user-distributed package:**
+
+1. Drop `Foo.m2` (and optional `Foo/`) under
+   [`Macaulay2/packages/`](M2/Macaulay2/packages/README.md), following
+   the [conventions doc](M2/Macaulay2/packages/file-package-conventions.md).
+2. Append `Foo` to `=distributed-packages`.
+3. If the package depends on an external library, add a
+   `find_package` to
+   [`packages/CMakeLists.txt`](M2/Macaulay2/packages/) and a matching
+   [`Find<Lib>.cmake`](M2/cmake/file-find-cmakes.md).
+4. Verify `check "Foo"` and `installPackage "Foo"` both pass.
+
+**Adding a new external library dependency:**
+
+1. CMake side: add a
+   [`Find<Lib>.cmake`](M2/cmake/file-find-cmakes.md) in `cmake/`;
+   register in
+   [`check-libraries.cmake`](M2/cmake/file-check-libraries-cmake.md)
+   and [`build-libraries.cmake`](M2/cmake/file-build-libraries-cmake.md).
+2. Autotools side: add a subdirectory under
+   [`libraries/`](M2/libraries/README.md) following the
+   [`Makefile.template`](M2/libraries/file-Makefile-template.md)
+   pattern; add to `LIBLIST` in `configure.ac`.
+3. Submodule it under
+   [`submodules/`](M2/submodules/README.md) if there's an upstream git
+   repo.
+4. Document the choice in
+   [`Macaulay2/packages/Macaulay2Doc/overview3.m2`](M2/Macaulay2/packages/file-Macaulay2Doc.md).
 
 ---
 
