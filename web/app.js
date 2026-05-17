@@ -579,6 +579,56 @@ const nodes = [
   }
 ];
 
+const compactTreeSummaries = new Map(
+  Object.entries({
+    repo: "Repository overview",
+    m2: "Source root",
+    version: "Version metadata",
+    macaulay2: "Core codebase",
+    cmake: "Build modules",
+    libraries: "Autotools deps",
+    submodules: "Bundled deps",
+    distributions: "Packaging",
+    include: "Shared headers",
+    files: "Runtime files",
+    m4: "Autoconf macros",
+    "check-configure": "Configure checks",
+    build: "Build workspace",
+    c: "scc1 translator",
+    d: "Interpreter runtime",
+    e: "C++ math kernel",
+    m2core: "Core language",
+    packages: "Distributed packages",
+    bin: "Binary linkage",
+    system: "Thread supervisor",
+    editors: "Editor grammars",
+    docs: "Developer docs",
+    tests: "Integration tests",
+    man: "Man pages",
+    "html-check-links": "HTML link checks",
+    "engine-interface": "Engine API",
+    "engine-areas": "Engine area docs",
+    f4: "Original F4",
+    "gb-f4": "Refactored F4",
+    schreyer: "Schreyer resolutions",
+    "nc-algebras": "NC algebras",
+    "nc-resolutions": "NC resolutions",
+    bibasis: "Janet bases",
+    "unit-tests": "Engine gtests",
+    "engine-docs": "Doxygen settings",
+    "coeff-rings": "Coefficient rings",
+    "poly-rings": "Polynomial rings",
+    monoids: "Monoids",
+    matrices: "Matrices",
+    "free-modules": "Free modules",
+    groebner: "Groebner bases",
+    resolutions: "Resolutions",
+    computations: "Misc algorithms",
+    "ring-elements": "Elements and maps",
+    utilities: "Engine utilities"
+  })
+);
+
 const pipeline = [
   "engine-areas",
   "e",
@@ -1517,6 +1567,14 @@ function highlight(value) {
   return escaped.replace(new RegExp(`(${query})`, "ig"), "<mark>$1</mark>");
 }
 
+function compactTreeSummary(node) {
+  if (compactTreeSummaries.has(node.id)) return compactTreeSummaries.get(node.id);
+  return String(node.summary || "")
+    .split(/\s+/)
+    .slice(0, 4)
+    .join(" ");
+}
+
 function expandAncestors(id) {
   let cursor = byId.get(id);
   while (cursor && cursor.parent) {
@@ -1622,7 +1680,7 @@ function renderTreeBranch(id) {
             <span class="tree-tag">${escapeHtml(node.kind)}</span>
           </span>
           <span class="tree-path">${highlight(node.path)}</span>
-          <span class="tree-summary">${highlight(node.summary)}</span>
+          <span class="tree-summary">${highlight(compactTreeSummary(node))}</span>
         </button>
       </div>
       ${childMarkup}
