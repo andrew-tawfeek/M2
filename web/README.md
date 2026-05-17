@@ -20,9 +20,17 @@ http://127.0.0.1:4173/web/
 - `index.html` - page shell and controls.
 - `styles.css` - layout, tree styling, responsive behavior.
 - `app.js` - embedded repository map data and interactions.
+- `search-index.json` - generated static search index for markdown/README files.
+- `build-search-index.mjs` - regenerates `search-index.json` from the repository.
 
 The map data is summarized from the repository Markdown files, especially the
 top-level `README.md`, `M2/README.md`, and the per-directory READMEs under
 `M2/Macaulay2/`. The central view is organized around research workflows:
 tracing mathematical operations, changing engine algorithms, documenting
 subsystems, testing, and iterating through the build.
+
+Regenerate the markdown search index from the repository root with:
+
+```sh
+node web/build-search-index.mjs
+```

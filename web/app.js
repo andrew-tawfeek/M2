@@ -696,6 +696,13 @@ const workflows = [
 ];
 
 const byId = new Map(nodes.map((node) => [node.id, node]));
+const sourceToNode = new Map();
+for (const node of nodes) {
+  if (node.source && !sourceToNode.has(node.source)) {
+    sourceToNode.set(node.source, node.id);
+  }
+}
+
 const children = new Map();
 for (const node of nodes) {
   if (!node.parent) continue;
@@ -705,82 +712,23 @@ for (const node of nodes) {
 
 const state = {
   selected: "repo",
+  activeSource: null,
   query: "",
-  expanded: new Set([
-    "repo",
-    "m2",
-    "macaulay2",
-    "e",
-    "engine-areas",
-    "cmake",
-    "packages"
-  ])
+  expanded: new Set()
 };
 
 const treeEl = document.querySelector("#tree");
 const detailsEl = document.querySelector("#details");
-const guideEl = document.querySelector("#guide");
-const focusStripEl = document.querySelector("#focusStrip");
+const workspaceEl = document.querySelector(".workspace--tree");
+const paneResizer = document.querySelector("#paneResizer");
 const searchInput = document.querySelector("#searchInput");
 const matchCount = document.querySelector("#matchCount");
 const selectedKind = document.querySelector("#selectedKind");
-const fontChoiceButtons = document.querySelectorAll("[data-font-choice]");
-
-const focusPresets = [
-  {
-    id: "core-stack",
-    label: "Core Stack",
-    select: "macaulay2",
-    expand: ["repo", "m2", "macaulay2", "c", "d", "e", "engine-interface", "m2core"]
-  },
-  {
-    id: "engine",
-    label: "Engine",
-    select: "engine-areas",
-    expand: ["repo", "m2", "macaulay2", "e", "engine-areas"]
-  },
-  {
-    id: "math-domains",
-    label: "Math Domains",
-    select: "groebner",
-    expand: ["repo", "m2", "macaulay2", "e", "engine-areas", ...mathAtlas]
-  },
-  {
-    id: "docs-tests",
-    label: "Docs & Tests",
-    select: "docs",
-    expand: ["repo", "m2", "macaulay2", "e", "docs", "tests", "unit-tests", "html-check-links"]
-  },
-  {
-    id: "build",
-    label: "Build",
-    select: "cmake",
-    expand: ["repo", "m2", "cmake", "libraries", "submodules", "build"]
-  },
-  {
-    id: "packages",
-    label: "Packages",
-    select: "packages",
-    expand: ["repo", "m2", "macaulay2", "packages", "m2core", "tests"]
-  }
-];
-
-const fontChoices = new Set(["sans", "serif", "readable"]);
-
-function applyFontChoice(choice) {
-  const nextChoice = fontChoices.has(choice) ? choice : "sans";
-  document.body.dataset.font = nextChoice;
-  fontChoiceButtons.forEach((button) => {
-    const active = button.dataset.fontChoice === nextChoice;
-    button.classList.toggle("is-active", active);
-    button.setAttribute("aria-pressed", String(active));
-  });
-  try {
-    localStorage.setItem("m2InternalsFont", nextChoice);
-  } catch {
-    // Preferences are optional; the controls still work without storage.
-  }
-}
+const readmeCache = new Map();
+let searchIndexPromise = null;
+let readmeRequestId = 0;
+let isResizingPane = false;
+let activeResizePointer = null;
 
 function escapeHtml(value) {
   return String(value)
@@ -794,6 +742,401 @@ function escapeHtml(value) {
 function sourceHref(source) {
   if (!source) return "#";
   return `../${source}`;
+}
+
+function sourceDirectoryHref(source) {
+  const href = sourceHref(source);
+  const slash = href.lastIndexOf("/");
+  return slash === -1 ? "./" : href.slice(0, slash + 1);
+}
+
+function sourceFromRenderedHref(href) {
+  const url = new URL(href, window.location.href);
+  const rootUrl = new URL("../", window.location.href);
+  if (!url.href.startsWith(rootUrl.href)) return "";
+  return decodeURIComponent(url.href.slice(rootUrl.href.length)).split("#")[0];
+}
+
+function markdownHref(target, source) {
+  const trimmed = String(target || "").trim();
+  if (!trimmed) return "#";
+  if (/^(?:[a-z][a-z0-9+.-]*:|#|\/)/i.test(trimmed)) return trimmed;
+  return `${sourceDirectoryHref(source)}${trimmed}`;
+}
+
+function stashHtml(stash, html) {
+  const token = `\uE000${stash.length}\uE001`;
+  stash.push(html);
+  return token;
+}
+
+function restoreStashedHtml(value, stash) {
+  let restored = value;
+  for (let index = 0; index <= stash.length; index += 1) {
+    const next = restored.replace(/\uE000(\d+)\uE001/g, (_, stashIndex) => stash[Number(stashIndex)]);
+    if (next === restored) return restored;
+    restored = next;
+  }
+  return restored;
+}
+
+function renderInlineMarkdown(value, source) {
+  const stash = [];
+  let text = String(value || "")
+    .replace(/`([^`]+)`/g, (_, code) =>
+      stashHtml(stash, `<code>${escapeHtml(code)}</code>`)
+    )
+    .replace(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (_, alt, href) =>
+      stashHtml(
+        stash,
+        `<a href="${escapeHtml(markdownHref(href, source))}">${escapeHtml(alt || href)}</a>`
+      )
+    )
+    .replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (_, label, href) =>
+      stashHtml(
+        stash,
+        `<a href="${escapeHtml(markdownHref(href, source))}">${escapeHtml(label)}</a>`
+      )
+    );
+
+  text = escapeHtml(text)
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/__([^_]+)__/g, "<strong>$1</strong>")
+    .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+
+  return restoreStashedHtml(text, stash);
+}
+
+function splitTableRow(line) {
+  return line
+    .trim()
+    .replace(/^\|/, "")
+    .replace(/\|$/, "")
+    .split("|")
+    .map((cell) => cell.trim());
+}
+
+function isTableSeparator(line) {
+  return /^(\s*\|)?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line);
+}
+
+function renderMarkdownTable(lines, start, source) {
+  const header = splitTableRow(lines[start]);
+  let cursor = start + 2;
+  const rows = [];
+  while (cursor < lines.length && lines[cursor].includes("|") && lines[cursor].trim()) {
+    rows.push(splitTableRow(lines[cursor]));
+    cursor += 1;
+  }
+
+  return {
+    cursor,
+    html: `
+      <div class="markdown-table-wrap">
+        <table>
+          <thead><tr>${header.map((cell) => `<th>${renderInlineMarkdown(cell, source)}</th>`).join("")}</tr></thead>
+          <tbody>
+            ${rows
+              .map((row) => `<tr>${row.map((cell) => `<td>${renderInlineMarkdown(cell, source)}</td>`).join("")}</tr>`)
+              .join("")}
+          </tbody>
+        </table>
+      </div>`
+  };
+}
+
+function renderMarkdown(markdown, source) {
+  const lines = String(markdown || "").replace(/\r\n?/g, "\n").split("\n");
+  const html = [];
+  let paragraph = [];
+  let listType = "";
+  let codeLines = null;
+  let codeLanguage = "";
+
+  const closeParagraph = () => {
+    if (!paragraph.length) return;
+    html.push(`<p>${renderInlineMarkdown(paragraph.join(" "), source)}</p>`);
+    paragraph = [];
+  };
+
+  const closeList = () => {
+    if (!listType) return;
+    html.push(`</${listType}>`);
+    listType = "";
+  };
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const trimmed = line.trim();
+
+    if (codeLines) {
+      if (/^```/.test(trimmed)) {
+        html.push(
+          `<pre><code${codeLanguage ? ` class="language-${escapeHtml(codeLanguage)}"` : ""}>${escapeHtml(
+            codeLines.join("\n")
+          )}</code></pre>`
+        );
+        codeLines = null;
+        codeLanguage = "";
+      } else {
+        codeLines.push(line);
+      }
+      continue;
+    }
+
+    if (/^```/.test(trimmed)) {
+      closeParagraph();
+      closeList();
+      codeLines = [];
+      codeLanguage = trimmed.replace(/^```/, "").trim().split(/\s+/)[0] || "";
+      continue;
+    }
+
+    if (!trimmed) {
+      closeParagraph();
+      closeList();
+      continue;
+    }
+
+    const setextHeading = (lines[index + 1] || "").trim().match(/^(=+|-{3,})$/);
+    if (setextHeading) {
+      closeParagraph();
+      closeList();
+      const level = setextHeading[1].startsWith("=") ? 2 : 3;
+      html.push(`<h${level}>${renderInlineMarkdown(trimmed, source)}</h${level}>`);
+      index += 1;
+      continue;
+    }
+
+    if (line.includes("|") && isTableSeparator(lines[index + 1] || "")) {
+      closeParagraph();
+      closeList();
+      const table = renderMarkdownTable(lines, index, source);
+      html.push(table.html);
+      index = table.cursor - 1;
+      continue;
+    }
+
+    const heading = trimmed.match(/^(#{1,6})\s+(.+)$/);
+    if (heading) {
+      closeParagraph();
+      closeList();
+      const level = Math.min(heading[1].length + 1, 6);
+      html.push(`<h${level}>${renderInlineMarkdown(heading[2].replace(/\s+#*$/, ""), source)}</h${level}>`);
+      continue;
+    }
+
+    if (/^(-{3,}|\*{3,}|_{3,})$/.test(trimmed)) {
+      closeParagraph();
+      closeList();
+      html.push("<hr />");
+      continue;
+    }
+
+    const quote = trimmed.match(/^>\s?(.*)$/);
+    if (quote) {
+      closeParagraph();
+      closeList();
+      html.push(`<blockquote>${renderInlineMarkdown(quote[1], source)}</blockquote>`);
+      continue;
+    }
+
+    const unordered = line.match(/^\s*[-*+]\s+(.+)$/);
+    const ordered = line.match(/^\s*\d+\.\s+(.+)$/);
+    if (unordered || ordered) {
+      closeParagraph();
+      const nextType = unordered ? "ul" : "ol";
+      if (listType && listType !== nextType) closeList();
+      if (!listType) {
+        listType = nextType;
+        html.push(`<${listType}>`);
+      }
+      html.push(`<li>${renderInlineMarkdown((unordered || ordered)[1], source)}</li>`);
+      continue;
+    }
+
+    closeList();
+    paragraph.push(trimmed);
+  }
+
+  closeParagraph();
+  closeList();
+  if (codeLines) {
+    html.push(`<pre><code>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+  }
+
+  return html.join("");
+}
+
+async function loadMarkdown(source) {
+  if (!source) return "";
+  if (readmeCache.has(source)) return readmeCache.get(source);
+  const response = await fetch(sourceHref(source));
+  if (!response.ok) {
+    throw new Error(`${response.status} ${response.statusText}`);
+  }
+  const markdown = await response.text();
+  readmeCache.set(source, markdown);
+  return markdown;
+}
+
+async function loadSearchIndex() {
+  if (!searchIndexPromise) {
+    searchIndexPromise = fetch("./search-index.json")
+      .then((response) => {
+        if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+        return response.json();
+      })
+      .then((index) => index.documents || []);
+  }
+  return searchIndexPromise;
+}
+
+function searchTerms(query) {
+  return query
+    .toLowerCase()
+    .split(/\s+/)
+    .map((term) => term.trim())
+    .filter(Boolean);
+}
+
+function countOccurrences(text, term) {
+  let count = 0;
+  let cursor = text.indexOf(term);
+  while (cursor !== -1) {
+    count += 1;
+    cursor = text.indexOf(term, cursor + term.length);
+  }
+  return count;
+}
+
+function markdownSearchSnippets(text, terms) {
+  const lines = String(text || "").replace(/\r\n?/g, "\n").split("\n");
+  const snippets = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const lowerLine = line.toLowerCase();
+    if (terms.some((term) => lowerLine.includes(term))) {
+      snippets.push({
+        line: index + 1,
+        text: line.trim() || "(blank line)"
+      });
+    }
+    if (snippets.length >= 3) break;
+  }
+  return snippets;
+}
+
+function markdownSearchResults(documents, query) {
+  const terms = searchTerms(query);
+  if (!terms.length) return [];
+
+  return documents
+    .map((document) => {
+      const title = document.title || document.path;
+      const lowerTitle = title.toLowerCase();
+      const lowerPath = document.path.toLowerCase();
+      const lowerText = document.text.toLowerCase();
+      const matchesAllTerms = terms.every(
+        (term) => lowerTitle.includes(term) || lowerPath.includes(term) || lowerText.includes(term)
+      );
+      if (!matchesAllTerms) return null;
+
+      const textHits = terms.reduce((total, term) => total + countOccurrences(lowerText, term), 0);
+      const titleHits = terms.filter((term) => lowerTitle.includes(term)).length;
+      const pathHits = terms.filter((term) => lowerPath.includes(term)).length;
+      return {
+        ...document,
+        score: textHits + titleHits * 12 + pathHits * 6,
+        snippets: markdownSearchSnippets(document.text, terms)
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score || a.path.localeCompare(b.path));
+}
+
+function highlightTerms(value, terms) {
+  let escaped = escapeHtml(value);
+  for (const term of terms) {
+    const pattern = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    escaped = escaped.replace(new RegExp(`(${pattern})`, "ig"), "<mark>$1</mark>");
+  }
+  return escaped;
+}
+
+function openMarkdownSource(source) {
+  const linkedNode = sourceToNode.get(source);
+  state.query = "";
+  searchInput.value = "";
+
+  if (linkedNode) {
+    if ((children.get(linkedNode) || []).length) {
+      state.expanded.add(linkedNode);
+    }
+    setSelected(linkedNode);
+    return;
+  }
+
+  state.activeSource = source;
+  render();
+}
+
+function paneSizeBounds() {
+  const rect = workspaceEl.getBoundingClientRect();
+  const resizerWidth = paneResizer.getBoundingClientRect().width || 18;
+  const compact = window.matchMedia("(max-width: 1180px)").matches;
+  const min = compact ? 260 : 280;
+  const minReadmeWidth = compact ? 380 : 460;
+  const max = Math.max(min, Math.min(680, rect.width - resizerWidth - minReadmeWidth));
+  return { min, max };
+}
+
+function currentTreePaneWidth() {
+  const value = parseFloat(getComputedStyle(workspaceEl).getPropertyValue("--tree-pane-width"));
+  return Number.isFinite(value) ? value : 380;
+}
+
+function setTreePaneWidth(width, options = {}) {
+  const { persist = true } = options;
+  const { min, max } = paneSizeBounds();
+  const clamped = Math.round(Math.min(max, Math.max(min, width)));
+  workspaceEl.style.setProperty("--tree-pane-width", `${clamped}px`);
+  paneResizer.setAttribute("aria-valuemin", String(min));
+  paneResizer.setAttribute("aria-valuemax", String(max));
+  paneResizer.setAttribute("aria-valuenow", String(clamped));
+  if (persist) {
+    try {
+      localStorage.setItem("m2InternalsTreePaneWidth", String(clamped));
+    } catch {
+      // Workspace sizing is still usable without persisted preferences.
+    }
+  }
+}
+
+function setTreePaneWidthFromPointer(clientX, options = {}) {
+  const rect = workspaceEl.getBoundingClientRect();
+  setTreePaneWidth(clientX - rect.left, options);
+}
+
+function finishPaneResize(event) {
+  if (!isResizingPane) return;
+  isResizingPane = false;
+  document.body.classList.remove("is-resizing");
+  if (event?.pointerId === activeResizePointer && paneResizer.hasPointerCapture(event.pointerId)) {
+    paneResizer.releasePointerCapture(event.pointerId);
+  }
+  activeResizePointer = null;
+  setTreePaneWidth(currentTreePaneWidth());
+}
+
+function initTreePaneWidth() {
+  let width = 380;
+  try {
+    width = parseFloat(localStorage.getItem("m2InternalsTreePaneWidth")) || width;
+  } catch {
+    // Preference loading is optional.
+  }
+  setTreePaneWidth(width, { persist: false });
 }
 
 function searchableText(node) {
@@ -836,6 +1179,7 @@ function highlight(value) {
 function setSelected(id) {
   if (!byId.has(id)) return;
   state.selected = id;
+  state.activeSource = null;
   let cursor = byId.get(id);
   while (cursor && cursor.parent) {
     state.expanded.add(cursor.parent);
@@ -858,7 +1202,7 @@ function renderTreeBranch(id) {
   const node = byId.get(id);
   const childIds = (children.get(id) || []).filter(visibleInTree);
   const hasChildren = childIds.length > 0;
-  const isExpanded = state.query || state.expanded.has(id);
+  const isExpanded = Boolean(state.query) || state.expanded.has(id);
   const toggle = hasChildren ? (isExpanded ? "-" : "+") : "";
   const childMarkup =
     hasChildren && isExpanded
@@ -892,62 +1236,99 @@ function renderTree() {
   matchCount.textContent = `${matches} ${matches === 1 ? "node" : "nodes"}`;
 }
 
-function applyPreset(id) {
-  const preset = focusPresets.find((item) => item.id === id);
-  if (!preset) return;
-  state.query = "";
-  searchInput.value = "";
-  state.expanded = new Set(preset.expand);
-  setSelected(preset.select);
-}
+async function renderDetails() {
+  const requestId = ++readmeRequestId;
 
-function renderFocusStrip() {
-  focusStripEl.innerHTML = focusPresets
-    .map((preset) => {
-      const active = preset.expand.includes(state.selected) || preset.select === state.selected;
-      return `<button class="${active ? "is-active" : ""}" type="button" data-preset="${preset.id}">${escapeHtml(preset.label)}</button>`;
-    })
-    .join("");
-}
+  if (state.query) {
+    selectedKind.textContent = "search";
+    detailsEl.innerHTML = `
+      <header class="details__intro">
+        <div>
+          <h2>Search results</h2>
+          <p>Searching all indexed markdown files for ${escapeHtml(state.query)}.</p>
+        </div>
+      </header>
+      <div class="search-results">
+        <div class="readme-loading">Searching markdown index...</div>
+      </div>`;
 
-function renderGuide() {
-  const selected = byId.get(state.selected);
-  guideEl.innerHTML = `
-    <section class="guide-block">
-      <h2>Focus Presets</h2>
-      <div class="guide-buttons">
-        ${focusPresets
-          .map((preset) => `<button type="button" data-preset="${preset.id}">${escapeHtml(preset.label)}</button>`)
-          .join("")}
-      </div>
-    </section>
-    <section class="guide-block">
-      <h2>Mathematical Domains</h2>
-      <div class="guide-list">
-        ${mathAtlas
-          .map((id) => {
-            const node = byId.get(id);
-            return `
-              <button class="${state.selected === id ? "is-selected" : ""}" type="button" data-select="${id}">
-                <span>${escapeHtml(node.title)}</span>
-                <small>${escapeHtml(node.kind)}</small>
-              </button>`;
-          })
-          .join("")}
-      </div>
-    </section>
-    <section class="guide-block guide-block--current">
-      <h2>Current Node</h2>
-      <p>${escapeHtml(selected.path)}</p>
-      <strong>${escapeHtml(selected.title)}</strong>
-    </section>`;
-}
+    try {
+      const documents = await loadSearchIndex();
+      if (requestId !== readmeRequestId) return;
+      const results = markdownSearchResults(documents, state.query);
+      const terms = searchTerms(state.query);
+      const treeMatches = nodes.filter((node) => nodeMatches(node)).length;
+      matchCount.textContent = `${treeMatches} ${treeMatches === 1 ? "node" : "nodes"} / ${results.length} ${
+        results.length === 1 ? "doc" : "docs"
+      }`;
 
-function renderDetails() {
-  const node = byId.get(state.selected);
+      detailsEl.innerHTML = `
+        <header class="details__intro">
+          <div>
+            <h2>Search results</h2>
+            <p>${results.length} markdown ${results.length === 1 ? "file contains" : "files contain"} ${escapeHtml(
+        state.query
+      )}.</p>
+          </div>
+        </header>
+        <div class="search-results">
+          ${
+            results.length
+              ? results
+                  .slice(0, 40)
+                  .map(
+                    (result) => `
+                      <article class="search-result">
+                        <button type="button" data-search-source="${escapeHtml(result.path)}">
+                          <span class="search-result__title">${highlightTerms(result.title || result.path, terms)}</span>
+                          <span class="search-result__path">${highlightTerms(result.path, terms)}</span>
+                          <span class="search-result__snippets">
+                            ${result.snippets
+                              .map(
+                                (snippet) => `
+                                  <span>
+                                    <b>Line ${snippet.line}</b>
+                                    ${highlightTerms(snippet.text, terms)}
+                                  </span>`
+                              )
+                              .join("")}
+                          </span>
+                        </button>
+                      </article>`
+                  )
+                  .join("")
+              : `<div class="empty">No markdown files contain this query.</div>`
+          }
+        </div>`;
+    } catch (error) {
+      if (requestId !== readmeRequestId) return;
+      detailsEl.innerHTML = `
+        <header class="details__intro">
+          <div>
+            <h2>Search unavailable</h2>
+            <p>The markdown search index could not be loaded.</p>
+          </div>
+        </header>
+        <div class="readme-error">
+          <strong>${escapeHtml(error.message)}</strong>
+        </div>`;
+    }
+    return;
+  }
+
+  const node = state.activeSource
+    ? {
+        title: state.activeSource,
+        path: state.activeSource,
+        kind: "markdown",
+        source: state.activeSource,
+        summary: "Markdown file from the Macaulay2 workspace."
+      }
+    : byId.get(state.selected);
+
   selectedKind.textContent = node.kind;
   const parent = node.parent ? byId.get(node.parent) : null;
-  const childNodes = (children.get(node.id) || []).map((id) => byId.get(id));
+  const childNodes = node.id ? (children.get(node.id) || []).map((id) => byId.get(id)) : [];
   const relatives = [
     parent ? `<button type="button" data-select="${parent.id}">Parent: ${escapeHtml(parent.title)}</button>` : "",
     ...childNodes
@@ -958,41 +1339,66 @@ function renderDetails() {
     .join("");
 
   detailsEl.innerHTML = `
-    <h2>${escapeHtml(node.title)}</h2>
-    <a class="details__path" href="${sourceHref(node.source)}">${escapeHtml(node.path)}</a>
-    <p>${escapeHtml(node.summary)}</p>
-    <h3>Research notes</h3>
-    <ul>${(node.details || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-    <h3>Source note</h3>
-    <p>Summarized from <a href="${sourceHref(node.source)}">${escapeHtml(node.source || "README.md")}</a>.</p>
+    <header class="details__intro">
+      <div>
+        <h2>${escapeHtml(node.title)}</h2>
+        <p>${escapeHtml(node.summary)}</p>
+      </div>
+      <a class="details__path" href="${sourceHref(node.source)}">${escapeHtml(node.source || node.path)}</a>
+    </header>
+    <div class="readme-content" aria-live="polite">
+      <div class="readme-loading">Loading ${escapeHtml(node.source || "README")}...</div>
+    </div>
     <div class="detail-links">
       ${relatives}
     </div>`;
+
+  const contentEl = detailsEl.querySelector(".readme-content");
+  try {
+    const markdown = await loadMarkdown(node.source);
+    if (requestId !== readmeRequestId) return;
+    contentEl.innerHTML = renderMarkdown(markdown, node.source);
+  } catch (error) {
+    if (requestId !== readmeRequestId) return;
+    contentEl.innerHTML = `
+      <div class="readme-error">
+        <strong>README unavailable</strong>
+        <p>${escapeHtml(error.message)}</p>
+        <p>${escapeHtml(node.summary)}</p>
+      </div>`;
+  }
 }
 
 function render() {
-  renderFocusStrip();
-  renderGuide();
   renderTree();
   renderDetails();
 }
 
 document.addEventListener("click", (event) => {
-  const fontButton = event.target.closest("[data-font-choice]");
-  if (fontButton) {
-    applyFontChoice(fontButton.dataset.fontChoice);
+  const searchResultButton = event.target.closest("[data-search-source]");
+  if (searchResultButton) {
+    openMarkdownSource(searchResultButton.dataset.searchSource);
     return;
   }
 
-  const presetButton = event.target.closest("[data-preset]");
-  if (presetButton) {
-    applyPreset(presetButton.dataset.preset);
-    return;
+  const readmeLink = event.target.closest(".readme-content a[href]");
+  if (readmeLink) {
+    const linkedSource = sourceFromRenderedHref(readmeLink.href);
+    const linkedNode = sourceToNode.get(linkedSource);
+    if (linkedNode) {
+      event.preventDefault();
+      openMarkdownSource(linkedSource);
+      return;
+    }
   }
 
   const selectButton = event.target.closest("[data-select]");
   if (selectButton) {
-    setSelected(selectButton.dataset.select);
+    const selectedId = selectButton.dataset.select;
+    if ((children.get(selectedId) || []).length) {
+      state.expanded.add(selectedId);
+    }
+    setSelected(selectedId);
     return;
   }
 
@@ -1002,25 +1408,60 @@ document.addEventListener("click", (event) => {
   }
 });
 
+paneResizer.addEventListener("pointerdown", (event) => {
+  if (event.button !== 0) return;
+  isResizingPane = true;
+  activeResizePointer = event.pointerId;
+  document.body.classList.add("is-resizing");
+  paneResizer.setPointerCapture(event.pointerId);
+  setTreePaneWidthFromPointer(event.clientX, { persist: false });
+  event.preventDefault();
+});
+
+paneResizer.addEventListener("pointermove", (event) => {
+  if (!isResizingPane || event.pointerId !== activeResizePointer) return;
+  setTreePaneWidthFromPointer(event.clientX, { persist: false });
+});
+
+paneResizer.addEventListener("pointerup", finishPaneResize);
+paneResizer.addEventListener("pointercancel", finishPaneResize);
+document.addEventListener("pointerup", finishPaneResize);
+document.addEventListener("pointercancel", finishPaneResize);
+window.addEventListener("blur", finishPaneResize);
+
+paneResizer.addEventListener("dblclick", () => {
+  setTreePaneWidth(380);
+});
+
+paneResizer.addEventListener("keydown", (event) => {
+  const { min, max } = paneSizeBounds();
+  const step = event.shiftKey ? 48 : 24;
+  let nextWidth = currentTreePaneWidth();
+
+  if (event.key === "ArrowLeft") {
+    nextWidth -= step;
+  } else if (event.key === "ArrowRight") {
+    nextWidth += step;
+  } else if (event.key === "Home") {
+    nextWidth = min;
+  } else if (event.key === "End") {
+    nextWidth = max;
+  } else {
+    return;
+  }
+
+  event.preventDefault();
+  setTreePaneWidth(nextWidth);
+});
+
+window.addEventListener("resize", () => {
+  setTreePaneWidth(currentTreePaneWidth(), { persist: false });
+});
+
 searchInput.addEventListener("input", (event) => {
   state.query = event.target.value.trim().toLowerCase();
   render();
 });
 
-document.querySelector("#expandAll").addEventListener("click", () => {
-  nodes.forEach((node) => state.expanded.add(node.id));
-  render();
-});
-
-document.querySelector("#collapseAll").addEventListener("click", () => {
-  state.expanded = new Set(["repo", "m2", "macaulay2"]);
-  render();
-});
-
-try {
-  applyFontChoice(localStorage.getItem("m2InternalsFont") || "sans");
-} catch {
-  applyFontChoice("sans");
-}
-
+initTreePaneWidth();
 render();

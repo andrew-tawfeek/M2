@@ -56,29 +56,9 @@
             placeholder="Groebner, aring, docs, build, profiling"
           />
         </div>
-        <div class="focus-strip" id="focusStrip" aria-label="Tree focus presets">
-        </div>
-        <div class="font-switch" aria-label="Font preference">
-          <span>Font</span>
-          <button class="is-active" type="button" data-font-choice="sans">Sans</button>
-          <button type="button" data-font-choice="serif">Serif</button>
-          <button type="button" data-font-choice="readable">Dyslexia</button>
-        </div>
-        <div class="toolbar__actions">
-          <button id="expandAll" type="button">Expand</button>
-          <button id="collapseAll" type="button">Focus</button>
-        </div>
       </nav>
 
       <main class="workspace workspace--tree">
-        <aside class="guide-panel" aria-label="Research paths">
-          <div class="panel-head">
-            <p>Research Paths</p>
-            <span>shortcuts</span>
-          </div>
-          <div id="guide" class="guide"></div>
-        </aside>
-
         <section class="tree-panel tree-panel--primary" aria-label="Expandable repository tree">
           <div class="panel-head panel-head--map">
             <div>
@@ -90,13 +70,25 @@
           <div id="tree" class="tree tree--primary"></div>
         </section>
 
-        <aside class="detail-panel" aria-label="Selected node details">
+        <div
+          id="paneResizer"
+          class="pane-resizer"
+          role="separator"
+          aria-label="Resize workspace tree"
+          aria-orientation="vertical"
+          aria-valuemin="280"
+          aria-valuemax="680"
+          aria-valuenow="380"
+          tabindex="0"
+        ></div>
+
+        <section class="detail-panel readme-panel" aria-label="Selected README contents">
           <div class="panel-head">
-            <p>Inspector</p>
+            <p>README</p>
             <span id="selectedKind">root</span>
           </div>
           <article id="details" class="details"></article>
-        </aside>
+        </section>
       </main>
     </div>
 
