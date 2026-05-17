@@ -696,6 +696,7 @@ const workflows = [
 ];
 
 const byId = new Map(nodes.map((node) => [node.id, node]));
+const pinnedExpandedIds = new Set(["repo", "m2", "macaulay2"]);
 const sourceToNode = new Map();
 for (const node of nodes) {
   if (node.source && !sourceToNode.has(node.source)) {
@@ -714,7 +715,7 @@ const state = {
   selected: "repo",
   activeSource: null,
   query: "",
-  expanded: new Set()
+  expanded: new Set(pinnedExpandedIds)
 };
 
 const treeEl = document.querySelector("#tree");
@@ -754,7 +755,12 @@ function sourceFromRenderedHref(href) {
   const url = new URL(href, window.location.href);
   const rootUrl = new URL("../", window.location.href);
   if (!url.href.startsWith(rootUrl.href)) return "";
-  return decodeURIComponent(url.href.slice(rootUrl.href.length)).split("#")[0];
+  return decodeURIComponent(url.href.slice(rootUrl.href.length)).split(/[?#]/)[0];
+}
+
+function isMarkdownSource(source) {
+  const fileName = (source.split("/").pop() || "").toLowerCase();
+  return fileName === "readme" || fileName.startsWith("readme.") || fileName.endsWith(".md");
 }
 
 function markdownHref(target, source) {
@@ -1189,6 +1195,11 @@ function setSelected(id) {
 }
 
 function toggleExpanded(id) {
+  if (pinnedExpandedIds.has(id)) {
+    state.expanded.add(id);
+    return;
+  }
+
   if (state.expanded.has(id)) {
     state.expanded.delete(id);
   } else {
@@ -1202,20 +1213,26 @@ function renderTreeBranch(id) {
   const node = byId.get(id);
   const childIds = (children.get(id) || []).filter(visibleInTree);
   const hasChildren = childIds.length > 0;
-  const isExpanded = Boolean(state.query) || state.expanded.has(id);
+  const isPinned = pinnedExpandedIds.has(id);
+  const isExpanded = Boolean(state.query) || isPinned || state.expanded.has(id);
   const toggle = hasChildren ? (isExpanded ? "-" : "+") : "";
   const nodeClasses = [
     "tree-node",
     hasChildren ? "tree-node--branch" : "tree-node--leaf",
     hasChildren && isExpanded ? "is-expanded" : "",
-    hasChildren && !isExpanded ? "is-collapsed" : ""
+    hasChildren && !isExpanded ? "is-collapsed" : "",
+    hasChildren && isPinned ? "is-pinned" : ""
   ]
     .filter(Boolean)
     .join(" ");
   const toggleAttributes = hasChildren
-    ? `aria-expanded="${isExpanded}" aria-label="${isExpanded ? "Collapse" : "Expand"} ${escapeHtml(
-        node.title
-      )}" title="${isExpanded ? "Collapse" : "Expand"}"`
+    ? isPinned
+      ? `disabled aria-expanded="true" aria-label="${escapeHtml(
+          node.title
+        )} is pinned open" title="Pinned open"`
+      : `aria-expanded="${isExpanded}" aria-label="${isExpanded ? "Collapse" : "Expand"} ${escapeHtml(
+          node.title
+        )}" title="${isExpanded ? "Collapse" : "Expand"}"`
     : "disabled aria-hidden=\"true\"";
   const childMarkup =
     hasChildren && isExpanded
@@ -1395,8 +1412,7 @@ document.addEventListener("click", (event) => {
   const readmeLink = event.target.closest(".readme-content a[href]");
   if (readmeLink) {
     const linkedSource = sourceFromRenderedHref(readmeLink.href);
-    const linkedNode = sourceToNode.get(linkedSource);
-    if (linkedNode) {
+    if (linkedSource && isMarkdownSource(linkedSource)) {
       event.preventDefault();
       openMarkdownSource(linkedSource);
       return;

@@ -59,18 +59,18 @@ button {
 .page-shell {
   width: min(1500px, calc(100% - 2rem));
   margin: 0 auto;
-  padding: 24px 0 32px;
+  padding: 12px 0 28px;
 }
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
-  align-items: end;
-  gap: 28px;
-  min-height: 220px;
-  padding: 28px 28px 24px;
+  grid-template-columns: minmax(0, 1fr) minmax(96px, 150px);
+  align-items: center;
+  gap: 10px;
+  min-height: 0;
+  padding: 6px 12px;
   border: 1px solid var(--hairline);
-  border-radius: var(--radius);
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.78);
   box-shadow: var(--shadow);
   overflow: hidden;
@@ -80,28 +80,20 @@ h1 {
   max-width: 880px;
   margin: 0;
   font-family: var(--font-current);
-  font-size: 3.4rem;
-  line-height: 0.95;
+  font-size: 1.45rem;
+  line-height: 1;
   font-weight: 760;
   letter-spacing: 0;
   white-space: nowrap;
-}
-
-.lede {
-  max-width: 760px;
-  margin: 20px 0 0;
-  color: var(--muted);
-  font-size: 1.0625rem;
-  line-height: 1.55;
 }
 
 .hero__diagram {
   align-self: stretch;
   display: grid;
   place-items: center;
-  min-height: 160px;
+  min-height: 42px;
   border: 1px solid var(--hairline);
-  border-radius: var(--radius);
+  border-radius: 8px;
   background:
     linear-gradient(135deg, rgba(238, 244, 247, 0.92), rgba(255, 255, 255, 0.55)),
     repeating-linear-gradient(135deg, transparent 0 12px, rgba(48, 79, 159, 0.06) 12px 13px);
@@ -109,7 +101,7 @@ h1 {
 
 .hero__diagram svg {
   display: block;
-  width: min(100%, 420px);
+  width: min(100%, 118px);
   height: auto;
 }
 
@@ -1124,7 +1116,7 @@ mark {
 @media (max-width: 840px) {
   .page-shell {
     width: min(100% - 20px, 1500px);
-    padding-top: 10px;
+    padding-top: 8px;
   }
 
   .hero,
@@ -1139,12 +1131,16 @@ mark {
 
   .hero {
     min-height: 0;
-    padding: 20px;
+    padding: 8px 10px;
   }
 
   h1 {
-    font-size: 1.55rem;
+    font-size: 1.25rem;
     line-height: 1;
+  }
+
+  .hero__diagram {
+    display: none;
   }
 
   .toolbar {
