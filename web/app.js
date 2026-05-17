@@ -769,6 +769,7 @@ const state = {
   activeAnchor: null,
   treeContext: null,
   query: "",
+  searchFilter: "both",
   expanded: new Set(pinnedExpandedIds)
 };
 
@@ -780,6 +781,7 @@ const mapView = document.querySelector("#mapView");
 const workspaceMap = document.querySelector("#workspaceMap");
 const paneResizer = document.querySelector("#paneResizer");
 const searchInput = document.querySelector("#searchInput");
+const searchFilterEl = document.querySelector("#searchFilter");
 const mapToggle = document.querySelector("#mapToggle");
 const matchCount = document.querySelector("#matchCount");
 const mapCount = document.querySelector("#mapCount");
@@ -1224,7 +1226,7 @@ function countOccurrences(text, term) {
   return count;
 }
 
-function markdownSearchSnippets(text, terms) {
+function markdownSearchSnippets(text, terms, cap = 50) {
   const lines = String(text || "").replace(/\r\n?/g, "\n").split("\n");
   const snippets = [];
   for (let index = 0; index < lines.length; index += 1) {
@@ -1236,9 +1238,35 @@ function markdownSearchSnippets(text, terms) {
         text: line.trim() || "(blank line)"
       });
     }
-    if (snippets.length >= 3) break;
+    if (snippets.length >= cap) break;
   }
   return snippets;
+}
+
+function groupDefinitionResults(definitions) {
+  const byPath = new Map();
+  for (const def of definitions) {
+    if (!byPath.has(def.path)) {
+      byPath.set(def.path, {
+        resultKind: "definition-group",
+        path: def.path,
+        score: def.score,
+        snippets: []
+      });
+    }
+    const group = byPath.get(def.path);
+    if (def.score > group.score) group.score = def.score;
+    group.snippets.push({
+      line: def.line,
+      text: `${def.kind}: ${def.signature}`,
+      symbol: def.symbol,
+      kind: def.kind,
+      signature: def.signature
+    });
+  }
+  return [...byPath.values()].sort(
+    (a, b) => b.score - a.score || a.path.localeCompare(b.path)
+  );
 }
 
 function markdownSearchResults(documents, query) {
@@ -1332,47 +1360,78 @@ function highlightTerms(value, terms) {
 }
 
 function renderSearchResult(result, terms) {
-  const snippets = (result.snippets || [])
-    .map(
-      (snippet) => `
-        <span>
-          <b>Line ${snippet.line}</b>
-          ${highlightTerms(snippet.text, terms)}
-        </span>`
-    )
-    .join("");
+  const snippets = result.snippets || [];
+  const count = snippets.length;
+  const headPreview = count
+    ? `<span class="search-result__preview"><b>Line ${snippets[0].line}</b> ${highlightTerms(
+        snippets[0].text,
+        terms
+      )}</span>`
+    : "";
 
-  if (result.resultKind === "definition") {
+  if (result.resultKind === "definition-group") {
+    const fileName = result.path.split("/").pop();
+    const snippetButtons = snippets
+      .map(
+        (snippet) => `
+          <button
+            type="button"
+            class="search-result__snippet"
+            data-definition-path="${escapeHtml(result.path)}"
+            data-definition-line="${escapeHtml(snippet.line)}"
+            data-definition-symbol="${escapeHtml(snippet.symbol || "")}"
+            data-definition-kind="${escapeHtml(snippet.kind || "")}"
+            data-definition-signature="${escapeHtml(snippet.signature || "")}"
+          >
+            <b>Line ${snippet.line}</b>
+            <span>${highlightTerms(snippet.text, terms)}</span>
+          </button>`
+      )
+      .join("");
+
     return `
-      <article class="search-result search-result--definition">
-        <button
-          type="button"
-          data-definition-path="${escapeHtml(result.path)}"
-          data-definition-line="${escapeHtml(result.line)}"
-          data-definition-symbol="${escapeHtml(result.symbol)}"
-          data-definition-kind="${escapeHtml(result.kind)}"
-          data-definition-signature="${escapeHtml(result.signature)}"
-        >
+      <article class="search-result search-result--definition search-result--group">
+        <button class="search-result__head" type="button" data-search-group-toggle aria-expanded="false">
           <span class="search-result__title">
-            ${highlightTerms(result.title, terms)}
-            <span class="search-result__badge">source definition</span>
+            ${highlightTerms(fileName, terms)}
+            <span class="search-result__badge">${count} source ${count === 1 ? "match" : "matches"}</span>
           </span>
-          <span class="search-result__path">${highlightTerms(result.pathLabel, terms)}</span>
-          <span class="search-result__snippets">${snippets}</span>
+          <span class="search-result__path">${highlightTerms(result.path, terms)}</span>
+          ${headPreview}
         </button>
+        <div class="search-result__group-snippets" hidden>${snippetButtons}</div>
       </article>`;
   }
 
+  const fileName = result.path.split("/").pop();
+  const docTitle = result.title && result.title !== result.path ? result.title : fileName;
+  const snippetButtons = snippets
+    .map(
+      (snippet) => `
+        <button
+          type="button"
+          class="search-result__snippet"
+          data-search-source="${escapeHtml(result.path)}"
+        >
+          <b>Line ${snippet.line}</b>
+          <span>${highlightTerms(snippet.text, terms)}</span>
+        </button>`
+    )
+    .join("");
+
   return `
-    <article class="search-result search-result--markdown">
-      <button type="button" data-search-source="${escapeHtml(result.path)}">
+    <article class="search-result search-result--markdown search-result--group">
+      <button class="search-result__head" type="button" data-search-group-toggle aria-expanded="false">
         <span class="search-result__title">
-          ${highlightTerms(result.title || result.path, terms)}
-          <span class="search-result__badge search-result__badge--markdown">markdown file</span>
+          ${highlightTerms(docTitle, terms)}
+          <span class="search-result__badge search-result__badge--markdown">${count} doc ${
+    count === 1 ? "match" : "matches"
+  }</span>
         </span>
         <span class="search-result__path">${highlightTerms(result.path, terms)}</span>
-        <span class="search-result__snippets">${snippets}</span>
+        ${headPreview}
       </button>
+      <div class="search-result__group-snippets" hidden>${snippetButtons}</div>
     </article>`;
 }
 
@@ -1728,6 +1787,12 @@ function renderViewShell() {
     mapToggle.textContent = showingMap ? "Close Map" : "Open Map";
     mapToggle.setAttribute("aria-pressed", String(showingMap));
   }
+  if (searchFilterEl) {
+    searchFilterEl.hidden = !state.query;
+    for (const button of searchFilterEl.querySelectorAll("[data-search-filter]")) {
+      button.setAttribute("aria-pressed", String(button.dataset.searchFilter === state.searchFilter));
+    }
+  }
 }
 
 async function renderDetails() {
@@ -1751,9 +1816,13 @@ async function renderDetails() {
       if (requestId !== readmeRequestId) return;
       const definitionResults = definitionSearchResults(index.definitions, state.query);
       const markdownResults = markdownSearchResults(index.documents, state.query);
-      const results = [...definitionResults, ...markdownResults].sort(
-        (a, b) => b.score - a.score || a.path.localeCompare(b.path) || (a.line || 0) - (b.line || 0)
-      );
+      const definitionGroups = groupDefinitionResults(definitionResults);
+      const filter = state.searchFilter || "both";
+      const groups = [];
+      if (filter !== "markdown") groups.push(...definitionGroups);
+      if (filter !== "source") groups.push(...markdownResults);
+      groups.sort((a, b) => b.score - a.score || a.path.localeCompare(b.path));
+
       const terms = searchTerms(state.query);
       const treeMatches = nodes.filter((node) => nodeMatches(node)).length;
       matchCount.textContent = `${treeMatches} ${treeMatches === 1 ? "node" : "nodes"} / ${
@@ -1768,17 +1837,16 @@ async function renderDetails() {
             <h2>Search results</h2>
             <p>Matches for ${escapeHtml(state.query)}: ${definitionResults.length} source ${
         definitionResults.length === 1 ? "definition" : "definitions"
-      }, ${markdownResults.length} markdown ${markdownResults.length === 1 ? "file" : "files"}.</p>
+      } across ${definitionGroups.length} ${definitionGroups.length === 1 ? "file" : "files"}, ${
+        markdownResults.length
+      } markdown ${markdownResults.length === 1 ? "file" : "files"}.</p>
           </div>
         </header>
         <div class="search-results">
           ${
-            results.length
-              ? results
-                  .slice(0, 40)
-                  .map((result) => renderSearchResult(result, terms))
-                  .join("")
-              : `<div class="empty">No source definitions or markdown files contain this query.</div>`
+            groups.length
+              ? groups.map((result) => renderSearchResult(result, terms)).join("")
+              : `<div class="empty">No matches for the current filter.</div>`
           }
         </div>`;
     } catch (error) {
@@ -1945,6 +2013,22 @@ document.addEventListener("click", (event) => {
   const searchResultButton = event.target.closest("[data-search-source]");
   if (searchResultButton) {
     openMarkdownSource(searchResultButton.dataset.searchSource);
+    return;
+  }
+
+  const filterButton = event.target.closest("[data-search-filter]");
+  if (filterButton) {
+    state.searchFilter = filterButton.dataset.searchFilter || "both";
+    render();
+    return;
+  }
+
+  const groupToggle = event.target.closest("[data-search-group-toggle]");
+  if (groupToggle) {
+    const expanded = groupToggle.getAttribute("aria-expanded") === "true";
+    groupToggle.setAttribute("aria-expanded", String(!expanded));
+    const snippets = groupToggle.parentElement?.querySelector(".search-result__group-snippets");
+    if (snippets) snippets.hidden = expanded;
     return;
   }
 

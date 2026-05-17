@@ -50,6 +50,11 @@
             autocomplete="off"
             placeholder="Groebner, aring, docs, build, profiling"
           />
+          <div id="searchFilter" class="search-filter" hidden role="group" aria-label="Filter search results">
+            <button type="button" data-search-filter="both" aria-pressed="true">Both</button>
+            <button type="button" data-search-filter="markdown" aria-pressed="false">Markdown</button>
+            <button type="button" data-search-filter="source" aria-pressed="false">Source</button>
+          </div>
         </div>
         <div class="toolbar-actions">
           <button id="mapToggle" class="toolbar-button" type="button" aria-pressed="false">Open Map</button>
