@@ -23,7 +23,7 @@ typedef struct RingElement RingElement;
 #endif
 
 /**
-   Chinese remainder and rational reconstruction interface routines
+   Chinese remainder and rational reconstruction interface routines 
  */
 ```
 
