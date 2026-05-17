@@ -57,12 +57,7 @@
             placeholder="Groebner, aring, docs, build, profiling"
           />
         </div>
-        <div class="segmented" role="tablist" aria-label="Map view">
-          <button class="is-active" data-view="architecture" role="tab" aria-selected="true">
-            Internals
-          </button>
-          <button data-view="directories" role="tab" aria-selected="false">Directories</button>
-          <button data-view="workflows" role="tab" aria-selected="false">Workflows</button>
+        <div class="focus-strip" id="focusStrip" aria-label="Tree focus presets">
         </div>
         <div class="toolbar__actions">
           <button id="expandAll" type="button">Expand</button>
@@ -70,24 +65,24 @@
         </div>
       </nav>
 
-      <main class="workspace">
-        <aside class="tree-panel" aria-label="Repository tree">
+      <main class="workspace workspace--tree">
+        <aside class="guide-panel" aria-label="Research paths">
           <div class="panel-head">
-            <p>Directory Tree</p>
-            <span id="matchCount">0 nodes</span>
+            <p>Research Paths</p>
+            <span>shortcuts</span>
           </div>
-          <div id="tree" class="tree"></div>
+          <div id="guide" class="guide"></div>
         </aside>
 
-        <section class="map-panel" aria-live="polite">
+        <section class="tree-panel tree-panel--primary" aria-label="Expandable repository tree">
           <div class="panel-head panel-head--map">
             <div>
-              <p id="mapTitle">Architecture</p>
-              <span id="mapSubtitle">Compilation and runtime layers</span>
+              <p>Expandable Workspace Tree</p>
+              <span>Open nodes to follow implementation boundaries</span>
             </div>
-            <span class="doc-pill">README-backed internals guide</span>
+            <span id="matchCount" class="doc-pill">0 nodes</span>
           </div>
-          <div id="mapCanvas" class="map-canvas"></div>
+          <div id="tree" class="tree tree--primary"></div>
         </section>
 
         <aside class="detail-panel" aria-label="Selected node details">

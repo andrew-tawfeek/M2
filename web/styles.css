@@ -161,18 +161,19 @@ h1 {
   background: transparent;
 }
 
-.segmented,
+.focus-strip,
 .toolbar__actions {
   display: flex;
   gap: 6px;
   min-width: 0;
 }
 
-.segmented {
+.focus-strip {
   justify-content: center;
+  flex-wrap: wrap;
 }
 
-.segmented button,
+.focus-strip button,
 .toolbar__actions button {
   min-height: 38px;
   padding: 0 13px;
@@ -183,16 +184,16 @@ h1 {
   cursor: pointer;
 }
 
-.segmented button:hover,
+.focus-strip button:hover,
 .toolbar__actions button:hover,
-.segmented button:focus-visible,
+.focus-strip button:focus-visible,
 .toolbar__actions button:focus-visible {
   border-color: var(--ink);
   color: var(--ink);
   outline: 0;
 }
 
-.segmented button.is-active {
+.focus-strip button.is-active {
   color: #ffffff;
   border-color: var(--ink);
   background: var(--ink);
@@ -200,14 +201,19 @@ h1 {
 
 .workspace {
   display: grid;
-  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr) minmax(280px, 360px);
+  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr) minmax(300px, 380px);
   gap: 16px;
   align-items: start;
 }
 
+.workspace--tree {
+  min-height: 720px;
+}
+
 .tree-panel,
 .map-panel,
-.detail-panel {
+.detail-panel,
+.guide-panel {
   min-height: 420px;
   border: 1px solid var(--hairline);
   border-radius: var(--radius);
@@ -215,12 +221,16 @@ h1 {
   box-shadow: 0 14px 40px rgba(24, 33, 47, 0.08);
 }
 
-.tree-panel,
+.guide-panel,
 .detail-panel {
   position: sticky;
   top: 86px;
   max-height: calc(100vh - 112px);
   overflow: hidden;
+}
+
+.tree-panel--primary {
+  min-height: calc(100vh - 112px);
 }
 
 .panel-head {
@@ -274,6 +284,12 @@ h1 {
   padding: 10px 10px 18px;
 }
 
+.tree--primary {
+  height: calc(100vh - 168px);
+  min-height: 640px;
+  padding: 18px 18px 28px;
+}
+
 .tree ul {
   position: relative;
   margin: 0;
@@ -311,7 +327,7 @@ h1 {
   grid-template-columns: 24px minmax(0, 1fr);
   align-items: center;
   width: 100%;
-  min-height: 32px;
+  min-height: 44px;
   padding: 0 6px 0 0;
   border-radius: 6px;
 }
@@ -335,11 +351,10 @@ h1 {
 
 .tree-label {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 8px;
+  gap: 3px;
   align-items: center;
-  min-height: 30px;
-  padding: 4px 7px;
+  min-height: 44px;
+  padding: 7px 9px;
   color: var(--ink);
   text-align: left;
   border-radius: 6px;
@@ -356,12 +371,37 @@ h1 {
   box-shadow: inset 3px 0 0 var(--blue);
 }
 
+.tree-title-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
 .tree-title {
   overflow: hidden;
   font-size: 0.92rem;
   font-weight: 720;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.tree-path,
+.tree-summary {
+  display: block;
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tree-path {
+  font-family: "Menlo", "Consolas", monospace;
+  font-size: 0.72rem;
+}
+
+.tree-summary {
+  font-size: 0.78rem;
 }
 
 .tree-tag {
@@ -371,6 +411,83 @@ h1 {
   background: #f1f5f9;
   font-family: "Menlo", "Consolas", monospace;
   font-size: 0.68rem;
+}
+
+.guide {
+  height: calc(100vh - 168px);
+  min-height: 360px;
+  overflow: auto;
+  padding: 14px;
+}
+
+.guide-block {
+  padding: 13px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.guide-block + .guide-block {
+  margin-top: 12px;
+}
+
+.guide-block h2 {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.guide-buttons,
+.guide-list {
+  display: grid;
+  gap: 7px;
+}
+
+.guide-buttons button,
+.guide-list button {
+  display: grid;
+  gap: 2px;
+  min-height: 34px;
+  padding: 8px 9px;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  color: var(--ink);
+  background: var(--paper);
+  text-align: left;
+  cursor: pointer;
+}
+
+.guide-buttons button:hover,
+.guide-list button:hover,
+.guide-buttons button:focus-visible,
+.guide-list button:focus-visible,
+.guide-list button.is-selected {
+  outline: 0;
+  border-color: var(--ink);
+  background: var(--paper-2);
+}
+
+.guide-list span {
+  font-weight: 750;
+}
+
+.guide-list small,
+.guide-block--current p {
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+.guide-block--current p {
+  margin: 0 0 7px;
+  overflow-wrap: anywhere;
+  font-family: "Menlo", "Consolas", monospace;
+}
+
+.guide-block--current strong {
+  display: block;
+  line-height: 1.25;
 }
 
 .map-canvas {
@@ -813,22 +930,24 @@ mark {
     position: static;
   }
 
-  .segmented {
+  .focus-strip {
     justify-content: stretch;
   }
 
-  .segmented button,
+  .focus-strip button,
   .toolbar__actions button {
     flex: 1 1 0;
     padding: 0 8px;
   }
 
-  .tree-panel {
+  .tree-panel,
+  .guide-panel {
     position: static;
     max-height: none;
   }
 
-  .tree {
+  .tree,
+  .guide {
     height: 420px;
   }
 

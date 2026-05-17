@@ -705,7 +705,6 @@ for (const node of nodes) {
 
 const state = {
   selected: "repo",
-  view: "architecture",
   query: "",
   expanded: new Set([
     "repo",
@@ -720,12 +719,50 @@ const state = {
 
 const treeEl = document.querySelector("#tree");
 const detailsEl = document.querySelector("#details");
-const mapCanvas = document.querySelector("#mapCanvas");
+const guideEl = document.querySelector("#guide");
+const focusStripEl = document.querySelector("#focusStrip");
 const searchInput = document.querySelector("#searchInput");
 const matchCount = document.querySelector("#matchCount");
 const selectedKind = document.querySelector("#selectedKind");
-const mapTitle = document.querySelector("#mapTitle");
-const mapSubtitle = document.querySelector("#mapSubtitle");
+
+const focusPresets = [
+  {
+    id: "core-stack",
+    label: "Core Stack",
+    select: "macaulay2",
+    expand: ["repo", "m2", "macaulay2", "c", "d", "e", "engine-interface", "m2core"]
+  },
+  {
+    id: "engine",
+    label: "Engine",
+    select: "engine-areas",
+    expand: ["repo", "m2", "macaulay2", "e", "engine-areas"]
+  },
+  {
+    id: "math-domains",
+    label: "Math Domains",
+    select: "groebner",
+    expand: ["repo", "m2", "macaulay2", "e", "engine-areas", ...mathAtlas]
+  },
+  {
+    id: "docs-tests",
+    label: "Docs & Tests",
+    select: "docs",
+    expand: ["repo", "m2", "macaulay2", "e", "docs", "tests", "unit-tests", "html-check-links"]
+  },
+  {
+    id: "build",
+    label: "Build",
+    select: "cmake",
+    expand: ["repo", "m2", "cmake", "libraries", "submodules", "build"]
+  },
+  {
+    id: "packages",
+    label: "Packages",
+    select: "packages",
+    expand: ["repo", "m2", "macaulay2", "packages", "m2core", "tests"]
+  }
+];
 
 function escapeHtml(value) {
   return String(value)
@@ -817,8 +854,12 @@ function renderTreeBranch(id) {
     hasChildren ? `aria-expanded="${isExpanded}"` : "disabled"
   }>${toggle}</button>
         <button class="tree-label ${state.selected === id ? "is-selected" : ""}" type="button" data-select="${id}">
-          <span class="tree-title">${highlight(node.title)}</span>
-          <span class="tree-tag">${escapeHtml(node.kind)}</span>
+          <span class="tree-title-row">
+            <span class="tree-title">${highlight(node.title)}</span>
+            <span class="tree-tag">${escapeHtml(node.kind)}</span>
+          </span>
+          <span class="tree-path">${highlight(node.path)}</span>
+          <span class="tree-summary">${highlight(node.summary)}</span>
         </button>
       </div>
       ${childMarkup}
@@ -831,6 +872,57 @@ function renderTree() {
     ? nodes.filter((node) => nodeMatches(node)).length
     : nodes.length;
   matchCount.textContent = `${matches} ${matches === 1 ? "node" : "nodes"}`;
+}
+
+function applyPreset(id) {
+  const preset = focusPresets.find((item) => item.id === id);
+  if (!preset) return;
+  state.query = "";
+  searchInput.value = "";
+  state.expanded = new Set(preset.expand);
+  setSelected(preset.select);
+}
+
+function renderFocusStrip() {
+  focusStripEl.innerHTML = focusPresets
+    .map((preset) => {
+      const active = preset.expand.includes(state.selected) || preset.select === state.selected;
+      return `<button class="${active ? "is-active" : ""}" type="button" data-preset="${preset.id}">${escapeHtml(preset.label)}</button>`;
+    })
+    .join("");
+}
+
+function renderGuide() {
+  const selected = byId.get(state.selected);
+  guideEl.innerHTML = `
+    <section class="guide-block">
+      <h2>Focus Presets</h2>
+      <div class="guide-buttons">
+        ${focusPresets
+          .map((preset) => `<button type="button" data-preset="${preset.id}">${escapeHtml(preset.label)}</button>`)
+          .join("")}
+      </div>
+    </section>
+    <section class="guide-block">
+      <h2>Mathematical Domains</h2>
+      <div class="guide-list">
+        ${mathAtlas
+          .map((id) => {
+            const node = byId.get(id);
+            return `
+              <button class="${state.selected === id ? "is-selected" : ""}" type="button" data-select="${id}">
+                <span>${escapeHtml(node.title)}</span>
+                <small>${escapeHtml(node.kind)}</small>
+              </button>`;
+          })
+          .join("")}
+      </div>
+    </section>
+    <section class="guide-block guide-block--current">
+      <h2>Current Node</h2>
+      <p>${escapeHtml(selected.path)}</p>
+      <strong>${escapeHtml(selected.title)}</strong>
+    </section>`;
 }
 
 function renderDetails() {
@@ -860,139 +952,20 @@ function renderDetails() {
     </div>`;
 }
 
-function renderArchitecture() {
-  mapTitle.textContent = "Internals";
-  mapSubtitle.textContent = "From mathematical idea to shipped code";
-  mapCanvas.innerHTML = `
-    <div class="architecture">
-      <section class="architecture-intro">
-        <p>Primary route</p>
-        <h2>Start from the mathematical subsystem, then follow the boundary crossings.</h2>
-      </section>
-      ${pipeline
-        .map((id, index) => {
-          const node = byId.get(id);
-          return `
-            <button class="flow-card ${state.selected === id ? "is-selected" : ""}" type="button" data-select="${id}" style="--accent:${node.accent}">
-              <span class="flow-index">${String(index + 1).padStart(2, "0")}</span>
-              <span class="flow-copy">
-                <h2>${escapeHtml(node.title)}</h2>
-                <p>${escapeHtml(node.summary)}</p>
-              </span>
-              <span class="flow-path">${escapeHtml(node.path)}</span>
-            </button>`;
-        })
-        .join("")}
-      <section class="atlas">
-        <div class="atlas-head">
-          <p>Mathematical engine atlas</p>
-          <span>Jump to the subsystem before touching files</span>
-        </div>
-        <div class="atlas-grid">
-          ${mathAtlas
-            .map((id) => {
-              const node = byId.get(id);
-              return `
-                <button class="atlas-card ${state.selected === id ? "is-selected" : ""}" type="button" data-select="${id}" style="--accent:${node.accent}">
-                  <span>${escapeHtml(node.kind)}</span>
-                  <strong>${escapeHtml(node.title)}</strong>
-                  <small>${escapeHtml(node.summary)}</small>
-                </button>`;
-            })
-            .join("")}
-        </div>
-      </section>
-    </div>`;
-}
-
-function depthOf(id) {
-  let depth = 0;
-  let cursor = byId.get(id);
-  while (cursor && cursor.parent) {
-    depth += 1;
-    cursor = byId.get(cursor.parent);
-  }
-  return depth;
-}
-
-function renderDirectories() {
-  mapTitle.textContent = "Directories";
-  mapSubtitle.textContent = "Top-down repository structure";
-  const visibleNodes = nodes.filter((node) => {
-    if (!state.query) return depthOf(node.id) <= 3 || node.parent === "engine-areas";
-    return nodeMatches(node) || hasMatchingDescendant(node.id);
-  });
-  const levels = new Map();
-  for (const node of visibleNodes) {
-    const depth = depthOf(node.id);
-    if (!levels.has(depth)) levels.set(depth, []);
-    levels.get(depth).push(node);
-  }
-
-  mapCanvas.innerHTML = `
-    <div class="directory-board">
-      ${[...levels.entries()]
-        .sort((a, b) => a[0] - b[0])
-        .map(([depth, levelNodes]) => {
-          return `
-            <section class="level-row">
-              <div class="level-label">Level ${depth}</div>
-              <div class="level-grid">
-                ${levelNodes
-                  .map((node) => {
-                    return `
-                      <button class="node-card ${state.selected === node.id ? "is-selected" : ""}" type="button" data-select="${node.id}" style="--accent:${node.accent}">
-                        <span class="node-path">${escapeHtml(node.path)}</span>
-                        <h2>${highlight(node.title)}</h2>
-                        <p>${highlight(node.summary)}</p>
-                      </button>`;
-                  })
-                  .join("")}
-              </div>
-            </section>`;
-        })
-        .join("")}
-    </div>`;
-}
-
-function renderWorkflows() {
-  mapTitle.textContent = "Workflows";
-  mapSubtitle.textContent = "Common cross-directory paths";
-  mapCanvas.innerHTML = `
-    <div class="workflow-grid">
-      ${workflows
-        .map((workflow) => {
-          return `
-            <article class="workflow-card">
-              <h2>${escapeHtml(workflow.title)}</h2>
-              <p>${escapeHtml(workflow.summary)}</p>
-              <ol>
-                ${workflow.steps
-                  .map(([id, label]) => {
-                    const node = byId.get(id);
-                    return `<li><button type="button" data-select="${id}">${escapeHtml(node.title)}</button> ${escapeHtml(label)}</li>`;
-                  })
-                  .join("")}
-              </ol>
-            </article>`;
-        })
-        .join("")}
-    </div>`;
-}
-
-function renderMap() {
-  if (state.view === "architecture") renderArchitecture();
-  if (state.view === "directories") renderDirectories();
-  if (state.view === "workflows") renderWorkflows();
-}
-
 function render() {
+  renderFocusStrip();
+  renderGuide();
   renderTree();
   renderDetails();
-  renderMap();
 }
 
 document.addEventListener("click", (event) => {
+  const presetButton = event.target.closest("[data-preset]");
+  if (presetButton) {
+    applyPreset(presetButton.dataset.preset);
+    return;
+  }
+
   const selectButton = event.target.closest("[data-select]");
   if (selectButton) {
     setSelected(selectButton.dataset.select);
@@ -1010,26 +983,14 @@ searchInput.addEventListener("input", (event) => {
   render();
 });
 
-document.querySelectorAll("[data-view]").forEach((button) => {
-  button.addEventListener("click", () => {
-    state.view = button.dataset.view;
-    document.querySelectorAll("[data-view]").forEach((other) => {
-      const active = other === button;
-      other.classList.toggle("is-active", active);
-      other.setAttribute("aria-selected", String(active));
-    });
-    renderMap();
-  });
-});
-
 document.querySelector("#expandAll").addEventListener("click", () => {
   nodes.forEach((node) => state.expanded.add(node.id));
-  renderTree();
+  render();
 });
 
 document.querySelector("#collapseAll").addEventListener("click", () => {
   state.expanded = new Set(["repo", "m2", "macaulay2"]);
-  renderTree();
+  render();
 });
 
 render();
