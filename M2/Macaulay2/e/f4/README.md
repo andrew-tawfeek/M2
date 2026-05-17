@@ -18,6 +18,14 @@ hard to refactor. Both are still built.
 | [`file-f4-spairs.md`](file-f4-spairs.md) | `F4SPairSet` |
 | [`file-f4-m2-interface.md`](file-f4-m2-interface.md) | `F4toM2Interface` |
 | [`file-monhashtable.md`](file-monhashtable.md) | Monomial hash-table traits |
+| [`file-varpower-monomial.md`](file-varpower-monomial.md) | Sparse `(variable, exponent)` encoding |
+| [`file-ntuple-monomial.md`](file-ntuple-monomial.md) | Dense `int64_t[nvars]` encoding |
+| [`file-moninfo.md`](file-moninfo.md) | `MonomialInfo` (F4 monomial layout) |
+| [`file-f4.md`](file-f4.md) | `F4GB` (the F4 algorithm) |
+| [`file-hilb-fcn.md`](file-hilb-fcn.md) | `HilbertController` (Hilbert-driven early exit) |
+| [`file-memblock.md`](file-memblock.md) | `F4MemoryBlock<T>` (slab allocator) |
+| [`file-f4-monlookup.md`](file-f4-monlookup.md) | `F4MonomialLookupTableT<Key>` (tree index) |
+| [`file-f4-types.md`](file-f4-types.md) | F4 type vocabulary (`spair`, `gbelem_type`, …) |
 
 ## Files
 

@@ -712,8 +712,11 @@ for (const node of nodes) {
 }
 
 const state = {
+  view: "tree",
   selected: "repo",
   activeSource: null,
+  activeDefinition: null,
+  activeAnchor: null,
   treeContext: null,
   query: "",
   expanded: new Set(pinnedExpandedIds)
@@ -722,9 +725,14 @@ const state = {
 const treeEl = document.querySelector("#tree");
 const detailsEl = document.querySelector("#details");
 const workspaceEl = document.querySelector(".workspace--tree");
+const treeWorkspace = document.querySelector("#treeWorkspace");
+const mapView = document.querySelector("#mapView");
+const workspaceMap = document.querySelector("#workspaceMap");
 const paneResizer = document.querySelector("#paneResizer");
 const searchInput = document.querySelector("#searchInput");
+const mapToggle = document.querySelector("#mapToggle");
 const matchCount = document.querySelector("#matchCount");
+const mapCount = document.querySelector("#mapCount");
 const selectedKind = document.querySelector("#selectedKind");
 const readmeCache = new Map();
 let searchIndexPromise = null;
@@ -758,6 +766,27 @@ function sourceFromRenderedHref(href) {
   const rootUrl = new URL("../", window.location.href);
   if (!url.href.startsWith(rootUrl.href)) return "";
   return decodeURIComponent(url.href.slice(rootUrl.href.length)).split(/[?#]/)[0];
+}
+
+function currentMarkdownSource() {
+  if (state.activeSource) return state.activeSource;
+  if (state.activeDefinition) return state.activeDefinition.path;
+  return byId.get(state.selected)?.source || "";
+}
+
+function markdownTargetFromLink(link) {
+  const rawHref = link.getAttribute("href") || "";
+  const hash = decodeURIComponent(new URL(link.href, window.location.href).hash.replace(/^#/, ""));
+  if (rawHref.startsWith("#")) {
+    return {
+      source: currentMarkdownSource(),
+      hash
+    };
+  }
+  return {
+    source: sourceFromRenderedHref(link.href),
+    hash
+  };
 }
 
 function isMarkdownSource(source) {
@@ -802,6 +831,41 @@ function markdownHref(target, source) {
   return `${sourceDirectoryHref(source)}${trimmed}`;
 }
 
+function linkLeavesMarkdownReader(href) {
+  if (!href || href === "#" || href.startsWith("#")) return false;
+  const linkedSource = sourceFromRenderedHref(href);
+  return !(linkedSource && isMarkdownSource(linkedSource));
+}
+
+function renderMarkdownLink(label, target, source) {
+  const href = markdownHref(target, source);
+  const classes = ["readme-link"];
+  if (linkLeavesMarkdownReader(href)) classes.push("readme-link--external");
+  return `<a class="${classes.join(" ")}" href="${escapeHtml(href)}">${escapeHtml(label)}</a>`;
+}
+
+function markdownHeadingText(value) {
+  return String(value || "")
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/[*_~#]/g, "")
+    .trim();
+}
+
+function markdownHeadingId(value, counts) {
+  const base =
+    markdownHeadingText(value)
+      .toLowerCase()
+      .replace(/&amp;/g, "and")
+      .replace(/[^a-z0-9 -]/g, "")
+      .trim()
+      .replace(/\s+/g, "-") || "section";
+  const count = counts.get(base) || 0;
+  counts.set(base, count + 1);
+  return count ? `${base}-${count}` : base;
+}
+
 function stashHtml(stash, html) {
   const token = `\uE000${stash.length}\uE001`;
   stash.push(html);
@@ -827,13 +891,13 @@ function renderInlineMarkdown(value, source) {
     .replace(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (_, alt, href) =>
       stashHtml(
         stash,
-        `<a href="${escapeHtml(markdownHref(href, source))}">${escapeHtml(alt || href)}</a>`
+        renderMarkdownLink(alt || href, href, source)
       )
     )
     .replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (_, label, href) =>
       stashHtml(
         stash,
-        `<a href="${escapeHtml(markdownHref(href, source))}">${escapeHtml(label)}</a>`
+        renderMarkdownLink(label, href, source)
       )
     );
 
@@ -886,6 +950,7 @@ function renderMarkdownTable(lines, start, source) {
 function renderMarkdown(markdown, source) {
   const lines = String(markdown || "").replace(/\r\n?/g, "\n").split("\n");
   const html = [];
+  const headingCounts = new Map();
   let paragraph = [];
   let listType = "";
   let codeLines = null;
@@ -941,7 +1006,8 @@ function renderMarkdown(markdown, source) {
       closeParagraph();
       closeList();
       const level = setextHeading[1].startsWith("=") ? 2 : 3;
-      html.push(`<h${level}>${renderInlineMarkdown(trimmed, source)}</h${level}>`);
+      const id = markdownHeadingId(trimmed, headingCounts);
+      html.push(`<h${level} id="${escapeHtml(id)}">${renderInlineMarkdown(trimmed, source)}</h${level}>`);
       index += 1;
       continue;
     }
@@ -960,7 +1026,9 @@ function renderMarkdown(markdown, source) {
       closeParagraph();
       closeList();
       const level = Math.min(heading[1].length + 1, 6);
-      html.push(`<h${level}>${renderInlineMarkdown(heading[2].replace(/\s+#*$/, ""), source)}</h${level}>`);
+      const headingText = heading[2].replace(/\s+#*$/, "");
+      const id = markdownHeadingId(headingText, headingCounts);
+      html.push(`<h${level} id="${escapeHtml(id)}">${renderInlineMarkdown(headingText, source)}</h${level}>`);
       continue;
     }
 
@@ -1006,6 +1074,39 @@ function renderMarkdown(markdown, source) {
   return html.join("");
 }
 
+function renderSourceSnippet(text, targetLine, context = 10) {
+  const lines = String(text || "").replace(/\r\n?/g, "\n").split("\n");
+  const lineNumber = Math.max(1, Number(targetLine) || 1);
+  const start = Math.max(1, lineNumber - context);
+  const end = Math.min(lines.length, lineNumber + context);
+  const rows = [];
+
+  for (let line = start; line <= end; line += 1) {
+    rows.push(`
+      <span class="source-line ${line === lineNumber ? "is-target" : ""}">
+        <span class="source-line__number">${line}</span>
+        <span class="source-line__text">${escapeHtml(lines[line - 1] || "")}</span>
+      </span>`);
+  }
+
+  return `<pre class="source-snippet"><code>${rows.join("")}</code></pre>`;
+}
+
+function scrollReadmeAnchorIntoView(contentEl, anchor) {
+  if (!contentEl || !anchor) return;
+  window.requestAnimationFrame(() => {
+    const target = Array.from(contentEl.querySelectorAll("[id]")).find((element) => element.id === anchor);
+    if (!target) return;
+
+    contentEl.querySelectorAll(".is-anchor-target").forEach((element) => {
+      element.classList.remove("is-anchor-target");
+    });
+    target.classList.add("is-anchor-target");
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    target.scrollIntoView({ block: "start", behavior });
+  });
+}
+
 async function loadMarkdown(source) {
   if (!source) return "";
   if (readmeCache.has(source)) return readmeCache.get(source);
@@ -1025,7 +1126,10 @@ async function loadSearchIndex() {
         if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
         return response.json();
       })
-      .then((index) => index.documents || []);
+      .then((index) => ({
+        documents: index.documents || [],
+        definitions: index.definitions || []
+      }));
   }
   return searchIndexPromise;
 }
@@ -1093,6 +1197,59 @@ function markdownSearchResults(documents, query) {
     .sort((a, b) => b.score - a.score || a.path.localeCompare(b.path));
 }
 
+function definitionSearchResults(definitions, query) {
+  const terms = searchTerms(query);
+  if (!terms.length) return [];
+  const exactQuery = terms.length === 1 ? terms[0] : "";
+
+  return definitions
+    .map((definition) => {
+      const symbol = definition.symbol || "";
+      const signature = definition.signature || "";
+      const kind = definition.kind || "source definition";
+      const lowerSymbol = symbol.toLowerCase();
+      const lowerPath = definition.path.toLowerCase();
+      const lowerSignature = signature.toLowerCase();
+      const lowerKind = kind.toLowerCase();
+      const matchesAllTerms = terms.every(
+        (term) =>
+          lowerSymbol.includes(term) ||
+          lowerPath.includes(term) ||
+          lowerKind.includes(term)
+      );
+      if (!matchesAllTerms) return null;
+
+      const exactSymbol = exactQuery && lowerSymbol === exactQuery;
+      const prefixSymbol = exactQuery && lowerSymbol.startsWith(exactQuery);
+      const symbolHits = terms.filter((term) => lowerSymbol.includes(term)).length;
+      const pathHits = terms.filter((term) => lowerPath.includes(term)).length;
+      const signatureHits = terms.reduce((total, term) => total + countOccurrences(lowerSignature, term), 0);
+      const kindHits = terms.filter((term) => lowerKind.includes(term)).length;
+      return {
+        ...definition,
+        resultKind: "definition",
+        title: `Definition: ${symbol}`,
+        pathLabel: `${definition.path}:${definition.line}`,
+        score:
+          (exactSymbol ? 100000 : 0) +
+          (prefixSymbol ? 15000 : 0) +
+          symbolHits * 1800 +
+          kindHits * 250 +
+          pathHits * 90 +
+          signatureHits * 20 -
+          definition.line / 10000,
+        snippets: [
+          {
+            line: definition.line,
+            text: `${kind}: ${signature}`
+          }
+        ]
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score || a.path.localeCompare(b.path) || a.line - b.line);
+}
+
 function highlightTerms(value, terms) {
   let escaped = escapeHtml(value);
   for (const term of terms) {
@@ -1102,22 +1259,82 @@ function highlightTerms(value, terms) {
   return escaped;
 }
 
-function openMarkdownSource(source) {
+function renderSearchResult(result, terms) {
+  const snippets = (result.snippets || [])
+    .map(
+      (snippet) => `
+        <span>
+          <b>Line ${snippet.line}</b>
+          ${highlightTerms(snippet.text, terms)}
+        </span>`
+    )
+    .join("");
+
+  if (result.resultKind === "definition") {
+    return `
+      <article class="search-result search-result--definition">
+        <button
+          type="button"
+          data-definition-path="${escapeHtml(result.path)}"
+          data-definition-line="${escapeHtml(result.line)}"
+          data-definition-symbol="${escapeHtml(result.symbol)}"
+          data-definition-kind="${escapeHtml(result.kind)}"
+          data-definition-signature="${escapeHtml(result.signature)}"
+        >
+          <span class="search-result__title">
+            ${highlightTerms(result.title, terms)}
+            <span class="search-result__badge">source definition</span>
+          </span>
+          <span class="search-result__path">${highlightTerms(result.pathLabel, terms)}</span>
+          <span class="search-result__snippets">${snippets}</span>
+        </button>
+      </article>`;
+  }
+
+  return `
+    <article class="search-result">
+      <button type="button" data-search-source="${escapeHtml(result.path)}">
+        <span class="search-result__title">${highlightTerms(result.title || result.path, terms)}</span>
+        <span class="search-result__path">${highlightTerms(result.path, terms)}</span>
+        <span class="search-result__snippets">${snippets}</span>
+      </button>
+    </article>`;
+}
+
+function openMarkdownSource(source, options = {}) {
+  const { anchor = "" } = options;
   const linkedNode = sourceToNode.get(source);
   const treeTarget = treeNodeForSource(source);
+  state.view = "tree";
   state.query = "";
   searchInput.value = "";
+  state.activeDefinition = null;
+  state.activeAnchor = anchor;
 
   if (linkedNode) {
     if ((children.get(linkedNode) || []).length) {
       state.expanded.add(linkedNode);
     }
-    setSelected(linkedNode, { scroll: true });
+    setSelected(linkedNode, { scroll: true, anchor });
     return;
   }
 
   state.treeContext = treeTarget;
   state.activeSource = source;
+  expandAncestors(treeTarget);
+  render();
+  scrollTreeTargetIntoView(treeTarget);
+}
+
+function openDefinitionHint(definition) {
+  const treeTarget = treeNodeForSource(definition.path);
+  state.view = "tree";
+  state.query = "";
+  searchInput.value = "";
+  state.activeSource = null;
+  state.activeDefinition = definition;
+  state.activeAnchor = null;
+  state.treeContext = treeTarget;
   expandAncestors(treeTarget);
   render();
   scrollTreeTargetIntoView(treeTarget);
@@ -1211,6 +1428,88 @@ function visibleInTree(id) {
   return nodeMatches(node) || hasMatchingDescendant(id);
 }
 
+function nodeDepth(id) {
+  let depth = 0;
+  let cursor = byId.get(id);
+  while (cursor?.parent) {
+    depth += 1;
+    cursor = byId.get(cursor.parent);
+  }
+  return depth;
+}
+
+function mapLevelLabel(depth) {
+  return ["root", "source root", "primary areas", "subsystems", "focused files"][Math.min(depth, 4)];
+}
+
+function visibleInMap(id) {
+  if (!state.query) return true;
+  return visibleInTree(id);
+}
+
+function renderMapCard(id) {
+  const node = byId.get(id);
+  const childCount = (children.get(id) || []).length;
+  const classes = [
+    "workspace-map-card",
+    state.selected === id && !state.activeSource && !state.activeDefinition ? "is-selected" : "",
+    state.treeContext === id ? "is-context" : ""
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return `
+    <button class="${classes}" type="button" data-map-select="${escapeHtml(id)}" style="--accent: ${escapeHtml(
+    node.accent || "var(--blue)"
+  )}">
+      <span class="workspace-map-card__kind">${escapeHtml(node.kind)}</span>
+      <strong>${highlight(node.title)}</strong>
+      <code>${highlight(node.path)}</code>
+      <small>${highlight(node.summary)}</small>
+      <span class="workspace-map-card__meta">${childCount} ${childCount === 1 ? "child" : "children"}</span>
+    </button>`;
+}
+
+function renderWorkspaceMap() {
+  if (!workspaceMap) return;
+  const visibleIds = nodes.map((node) => node.id).filter(visibleInMap);
+  const levels = new Map();
+
+  for (const id of visibleIds) {
+    const depth = nodeDepth(id);
+    if (!levels.has(depth)) levels.set(depth, []);
+    levels.get(depth).push(id);
+  }
+
+  if (mapCount) {
+    mapCount.textContent = `${visibleIds.length} ${visibleIds.length === 1 ? "node" : "nodes"}`;
+  }
+
+  if (!visibleIds.length) {
+    workspaceMap.innerHTML = `<div class="empty">No map nodes match this search.</div>`;
+    return;
+  }
+
+  workspaceMap.innerHTML = `
+    <div class="workspace-map-board">
+      ${Array.from(levels.entries())
+        .sort((a, b) => a[0] - b[0])
+        .map(
+          ([depth, ids]) => `
+            <section class="workspace-map-level">
+              <div class="workspace-map-level__label">
+                <span>${escapeHtml(mapLevelLabel(depth))}</span>
+                <strong>${ids.length}</strong>
+              </div>
+              <div class="workspace-map-level__grid">
+                ${ids.map((id) => renderMapCard(id)).join("")}
+              </div>
+            </section>`
+        )
+        .join("")}
+    </div>`;
+}
+
 function highlight(value) {
   const escaped = escapeHtml(value);
   if (!state.query) return escaped;
@@ -1253,8 +1552,11 @@ function scrollTreeTargetIntoView(id) {
 
 function setSelected(id, options = {}) {
   if (!byId.has(id)) return;
+  state.view = "tree";
   state.selected = id;
   state.activeSource = null;
+  state.activeDefinition = null;
+  state.activeAnchor = options.anchor || null;
   state.treeContext = null;
   expandAncestors(id);
   render();
@@ -1335,6 +1637,16 @@ function renderTree() {
   matchCount.textContent = `${matches} ${matches === 1 ? "node" : "nodes"}`;
 }
 
+function renderViewShell() {
+  const showingMap = state.view === "map";
+  if (treeWorkspace) treeWorkspace.hidden = showingMap;
+  if (mapView) mapView.hidden = !showingMap;
+  if (mapToggle) {
+    mapToggle.textContent = showingMap ? "Close Map" : "Open Map";
+    mapToggle.setAttribute("aria-pressed", String(showingMap));
+  }
+}
+
 async function renderDetails() {
   const requestId = ++readmeRequestId;
 
@@ -1344,7 +1656,7 @@ async function renderDetails() {
       <header class="details__intro">
         <div>
           <h2>Search results</h2>
-          <p>Searching all indexed markdown files for ${escapeHtml(state.query)}.</p>
+          <p>Searching source definitions and indexed markdown files for ${escapeHtml(state.query)}.</p>
         </div>
       </header>
       <div class="search-results">
@@ -1352,22 +1664,28 @@ async function renderDetails() {
       </div>`;
 
     try {
-      const documents = await loadSearchIndex();
+      const index = await loadSearchIndex();
       if (requestId !== readmeRequestId) return;
-      const results = markdownSearchResults(documents, state.query);
+      const definitionResults = definitionSearchResults(index.definitions, state.query);
+      const markdownResults = markdownSearchResults(index.documents, state.query);
+      const results = [...definitionResults, ...markdownResults].sort(
+        (a, b) => b.score - a.score || a.path.localeCompare(b.path) || (a.line || 0) - (b.line || 0)
+      );
       const terms = searchTerms(state.query);
       const treeMatches = nodes.filter((node) => nodeMatches(node)).length;
-      matchCount.textContent = `${treeMatches} ${treeMatches === 1 ? "node" : "nodes"} / ${results.length} ${
-        results.length === 1 ? "doc" : "docs"
+      matchCount.textContent = `${treeMatches} ${treeMatches === 1 ? "node" : "nodes"} / ${
+        definitionResults.length
+      } ${definitionResults.length === 1 ? "def" : "defs"} / ${markdownResults.length} ${
+        markdownResults.length === 1 ? "doc" : "docs"
       }`;
 
       detailsEl.innerHTML = `
         <header class="details__intro">
           <div>
             <h2>Search results</h2>
-            <p>${results.length} markdown ${results.length === 1 ? "file contains" : "files contain"} ${escapeHtml(
-        state.query
-      )}.</p>
+            <p>Matches for ${escapeHtml(state.query)}: ${definitionResults.length} source ${
+        definitionResults.length === 1 ? "definition" : "definitions"
+      }, ${markdownResults.length} markdown ${markdownResults.length === 1 ? "file" : "files"}.</p>
           </div>
         </header>
         <div class="search-results">
@@ -1375,28 +1693,9 @@ async function renderDetails() {
             results.length
               ? results
                   .slice(0, 40)
-                  .map(
-                    (result) => `
-                      <article class="search-result">
-                        <button type="button" data-search-source="${escapeHtml(result.path)}">
-                          <span class="search-result__title">${highlightTerms(result.title || result.path, terms)}</span>
-                          <span class="search-result__path">${highlightTerms(result.path, terms)}</span>
-                          <span class="search-result__snippets">
-                            ${result.snippets
-                              .map(
-                                (snippet) => `
-                                  <span>
-                                    <b>Line ${snippet.line}</b>
-                                    ${highlightTerms(snippet.text, terms)}
-                                  </span>`
-                              )
-                              .join("")}
-                          </span>
-                        </button>
-                      </article>`
-                  )
+                  .map((result) => renderSearchResult(result, terms))
                   .join("")
-              : `<div class="empty">No markdown files contain this query.</div>`
+              : `<div class="empty">No source definitions or markdown files contain this query.</div>`
           }
         </div>`;
     } catch (error) {
@@ -1410,6 +1709,42 @@ async function renderDetails() {
         </header>
         <div class="readme-error">
           <strong>${escapeHtml(error.message)}</strong>
+        </div>`;
+    }
+    return;
+  }
+
+  if (state.activeDefinition) {
+    const definition = state.activeDefinition;
+    selectedKind.textContent = "definition";
+    detailsEl.innerHTML = `
+      <header class="details__intro">
+        <div>
+          <h2>Definition: ${escapeHtml(definition.symbol)}</h2>
+          <p>${escapeHtml(definition.kind || "Source definition")} in ${escapeHtml(definition.path)} at line ${escapeHtml(
+      definition.line
+    )}.</p>
+        </div>
+        <a class="details__path" href="${sourceHref(definition.path)}">${escapeHtml(
+      `${definition.path}:${definition.line}`
+    )}</a>
+      </header>
+      <div class="readme-content" aria-live="polite">
+        <div class="readme-loading">Loading ${escapeHtml(definition.path)}...</div>
+      </div>`;
+
+    const contentEl = detailsEl.querySelector(".readme-content");
+    try {
+      const sourceText = await loadMarkdown(definition.path);
+      if (requestId !== readmeRequestId) return;
+      contentEl.innerHTML = renderSourceSnippet(sourceText, definition.line);
+    } catch (error) {
+      if (requestId !== readmeRequestId) return;
+      contentEl.innerHTML = `
+        <div class="readme-error">
+          <strong>Source unavailable</strong>
+          <p>${escapeHtml(error.message)}</p>
+          <p>${escapeHtml(definition.signature || "")}</p>
         </div>`;
     }
     return;
@@ -1457,6 +1792,7 @@ async function renderDetails() {
     const markdown = await loadMarkdown(node.source);
     if (requestId !== readmeRequestId) return;
     contentEl.innerHTML = renderMarkdown(markdown, node.source);
+    scrollReadmeAnchorIntoView(contentEl, state.activeAnchor);
   } catch (error) {
     if (requestId !== readmeRequestId) return;
     contentEl.innerHTML = `
@@ -1469,11 +1805,60 @@ async function renderDetails() {
 }
 
 function render() {
+  renderViewShell();
   renderTree();
-  renderDetails();
+  renderWorkspaceMap();
+  if (state.view === "tree") {
+    renderDetails();
+  } else {
+    readmeRequestId += 1;
+  }
+}
+
+function openMapView() {
+  state.view = "map";
+  render();
+  window.requestAnimationFrame(() => {
+    mapView?.scrollIntoView({ block: "start" });
+  });
+}
+
+function closeMapView() {
+  state.view = "tree";
+  render();
+  scrollTreeTargetIntoView(state.treeContext || state.selected);
 }
 
 document.addEventListener("click", (event) => {
+  const mapSelectButton = event.target.closest("[data-map-select]");
+  if (mapSelectButton) {
+    const selectedId = mapSelectButton.dataset.mapSelect;
+    state.query = "";
+    searchInput.value = "";
+    if ((children.get(selectedId) || []).length) {
+      state.expanded.add(selectedId);
+    }
+    setSelected(selectedId, { scroll: true });
+    return;
+  }
+
+  if (event.target.closest("[data-close-map]")) {
+    closeMapView();
+    return;
+  }
+
+  const definitionButton = event.target.closest("[data-definition-path]");
+  if (definitionButton) {
+    openDefinitionHint({
+      path: definitionButton.dataset.definitionPath,
+      line: Number(definitionButton.dataset.definitionLine || 1),
+      symbol: definitionButton.dataset.definitionSymbol || "",
+      kind: definitionButton.dataset.definitionKind || "source definition",
+      signature: definitionButton.dataset.definitionSignature || ""
+    });
+    return;
+  }
+
   const searchResultButton = event.target.closest("[data-search-source]");
   if (searchResultButton) {
     openMarkdownSource(searchResultButton.dataset.searchSource);
@@ -1482,10 +1867,10 @@ document.addEventListener("click", (event) => {
 
   const readmeLink = event.target.closest(".readme-content a[href]");
   if (readmeLink) {
-    const linkedSource = sourceFromRenderedHref(readmeLink.href);
-    if (linkedSource && isMarkdownSource(linkedSource)) {
+    const target = markdownTargetFromLink(readmeLink);
+    if (target.source && isMarkdownSource(target.source)) {
       event.preventDefault();
-      openMarkdownSource(linkedSource);
+      openMarkdownSource(target.source, { anchor: target.hash });
       return;
     }
   }
@@ -1553,7 +1938,16 @@ paneResizer.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("resize", () => {
+  if (state.view !== "tree") return;
   setTreePaneWidth(currentTreePaneWidth(), { persist: false });
+});
+
+mapToggle?.addEventListener("click", () => {
+  if (state.view === "map") {
+    closeMapView();
+  } else {
+    openMapView();
+  }
 });
 
 searchInput.addEventListener("input", (event) => {

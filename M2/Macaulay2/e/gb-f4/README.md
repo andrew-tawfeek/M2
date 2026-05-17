@@ -15,6 +15,12 @@ refactoring notes.
 | [`file-GBF4Computation.md`](file-GBF4Computation.md) | `GBF4Computation` (top-level) |
 | [`file-MacaulayMatrix.md`](file-MacaulayMatrix.md) | `MacaulayMatrix` |
 | [`file-Basis.md`](file-Basis.md) | `Basis` (evolving GB) |
+| [`file-SPairs.md`](file-SPairs.md) | `SPairs` (refactored F4 S-pair queue) |
+| [`file-MonomialHashTable.md`](file-MonomialHashTable.md) | `MonomialHashFunction` + table |
+| [`file-MonomialLookupTable.md`](file-MonomialLookupTable.md) | `MonomialLookupTable` (divisibility index) |
+| [`file-PolynomialList.md`](file-PolynomialList.md) | `PolynomialList` (typed polynomial container) |
+| [`file-MonomialView.md`](file-MonomialView.md) | `MonomialView` (non-owning encoded-monomial view) |
+| [`file-MonomialTypes.md`](file-MonomialTypes.md) | Typed integers (`Index`, `MonomialIndex`, `HashInt`, …) |
 
 ## Files
 

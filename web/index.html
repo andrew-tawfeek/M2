@@ -51,9 +51,12 @@
             placeholder="Groebner, aring, docs, build, profiling"
           />
         </div>
+        <div class="toolbar-actions">
+          <button id="mapToggle" class="toolbar-button" type="button" aria-pressed="false">Open Map</button>
+        </div>
       </nav>
 
-      <main class="workspace workspace--tree">
+      <main id="treeWorkspace" class="workspace workspace--tree">
         <section class="tree-panel tree-panel--primary" aria-label="Repository tree">
           <div class="panel-head panel-head--map">
             <div>
@@ -85,6 +88,22 @@
           <article id="details" class="details"></article>
         </section>
       </main>
+
+      <section id="mapView" class="workspace-map" aria-label="Workspace map" hidden>
+        <section class="map-panel map-panel--workspace">
+          <div class="panel-head panel-head--map">
+            <div>
+              <p>Workspace Map</p>
+              <span>Top-down directory and subsystem layout</span>
+            </div>
+            <div class="map-head-actions">
+              <span id="mapCount" class="doc-pill">0 nodes</span>
+              <button class="toolbar-button toolbar-button--subtle" type="button" data-close-map>Back to Tree</button>
+            </div>
+          </div>
+          <div id="workspaceMap" class="map-canvas map-canvas--workspace"></div>
+        </section>
+      </section>
     </div>
 
     <script src="./app.js"></script>

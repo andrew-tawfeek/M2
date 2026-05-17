@@ -183,6 +183,20 @@ Documented multi-level paths under the entries above:
 
 **Under [`M2/Macaulay2/e/`](M2/Macaulay2/e/README.md)** — full engine subdirectory and per-area listing is in the [Engine deep-dive](#engine-deep-dive-m2macaulay2e) section.
 
+**Under [`M2/Macaulay2/tests/`](M2/Macaulay2/tests/README.md)**
+
+| Path | Purpose |
+|---|---|
+| [`M2/Macaulay2/tests/normal/`](M2/Macaulay2/tests/normal/README.md) | Default-tier regression tests (377 `.m2` scripts) |
+| [`M2/Macaulay2/tests/engine/`](M2/Macaulay2/tests/engine/README.md) | Engine integration tests (CI-skipped, see #1213) |
+| [`M2/Macaulay2/tests/ComputationsBook/`](M2/Macaulay2/tests/ComputationsBook/README.md) | Book regression tests (per-chapter) |
+| [`M2/Macaulay2/tests/slow/`](M2/Macaulay2/tests/slow/README.md) | Slower regression tests |
+| [`M2/Macaulay2/tests/gigantic/`](M2/Macaulay2/tests/gigantic/README.md) | Extreme-scale stress tests |
+| [`M2/Macaulay2/tests/goals/`](M2/Macaulay2/tests/goals/README.md) | Worked-example / "goal" tests |
+| [`M2/Macaulay2/tests/rationality/`](M2/Macaulay2/tests/rationality/README.md) | Rationality-question tests |
+| [`M2/Macaulay2/tests/threads/`](M2/Macaulay2/tests/threads/README.md) | Thread-supervisor tests |
+| [`M2/Macaulay2/tests/quarantine/`](M2/Macaulay2/tests/quarantine/README.md) | Disabled tests awaiting fixes |
+
 ### Cross-cutting concerns
 
 These topics span multiple directories — once the per-directory READMEs land,
@@ -281,6 +295,115 @@ Dedicated walkthroughs for especially central engine classes
 | [file-assprime.md](M2/Macaulay2/e/file-assprime.md) | `AssociatedPrimes` | Other computations |
 | [file-comb.md](M2/Macaulay2/e/file-comb.md) | `Subsets` (combinatorial helpers) | Other computations |
 | [file-overflow.md](M2/Macaulay2/e/file-overflow.md) | Overflow-checked arithmetic | Utilities |
+| [file-buffer.md](M2/Macaulay2/e/file-buffer.md) | `buffer` (append-only byte buffer) | Utilities |
+| [file-text-io.md](M2/Macaulay2/e/file-text-io.md) | `text-io` (wrap / `bignum_text_out`) | Utilities |
+| [file-MemoryBlock.md](M2/Macaulay2/e/file-MemoryBlock.md) | `MemoryBlock` (bump allocator) | Utilities |
+| [file-ExponentList.md](M2/Macaulay2/e/file-ExponentList.md) | `ExponentList` (sparse monomial encoding) | Monoids & monomials |
+| [file-Polynomial.md](M2/Macaulay2/e/file-Polynomial.md) | `Monom` / `Poly` (modern polynomial value type) | Polynomial rings |
+| [file-VectorArithmetic.md](M2/Macaulay2/e/file-VectorArithmetic.md) | `VectorArithmetic` (templated arithmetic dispatcher) | Matrices |
+| [file-error.md](M2/Macaulay2/e/file-error.md) | `error.{c,h}` (engine error reporting) | Utilities |
+| [file-debug.md](M2/Macaulay2/e/file-debug.md) | `debug.{cpp,hpp}` (debugger-callable printers) | Utilities |
+| [file-coeffrings.md](M2/Macaulay2/e/file-coeffrings.md) | `CoefficientRing*` (registry + `SimpleARing` example) | Coefficient rings |
+| [file-aring-glue.md](M2/Macaulay2/e/file-aring-glue.md) | `ConcreteRing<R>` (bridge from `aring` to `Ring`) | Coefficient rings |
+| [file-aring-zz-flint.md](M2/Macaulay2/e/file-aring-zz-flint.md) | `ARingZZ` (ZZ via FLINT) | Coefficient rings |
+| [file-aring-zzp-flint.md](M2/Macaulay2/e/file-aring-zzp-flint.md) | `ARingZZpFlint` (Z/p via FLINT) | Coefficient rings |
+| [file-aring-RR.md](M2/Macaulay2/e/file-aring-RR.md) | `ARingRR` (RR via hardware `double`) | Coefficient rings |
+| [file-aring-CC.md](M2/Macaulay2/e/file-aring-CC.md) | `ARingCC` (CC via pair of `double`) | Coefficient rings |
+| [file-aring-qq-flint.md](M2/Macaulay2/e/file-aring-qq-flint.md) | `ARingQQFlint` (QQ via FLINT) | Coefficient rings |
+| [file-aring-gf-flint.md](M2/Macaulay2/e/file-aring-gf-flint.md) | `ARingGFFlint` (small GF via FLINT Zech) | Coefficient rings |
+| [file-aring-zz-gmp.md](M2/Macaulay2/e/file-aring-zz-gmp.md) | `ARingZZGMP` (ZZ via GMP) | Coefficient rings |
+| [file-aring-zzp.md](M2/Macaulay2/e/file-aring-zzp.md) | `ARingZZp` (portable Z/p via log tables) | Coefficient rings |
+| [file-aring-zzp-ffpack.md](M2/Macaulay2/e/file-aring-zzp-ffpack.md) | `ARingZZpFFPACK` (Z/p via FFLAS-FFPACK) | Coefficient rings |
+| [file-aring-RRR.md](M2/Macaulay2/e/file-aring-RRR.md) | `ARingRRR` (RR via MPFR) | Coefficient rings |
+| [file-aring-CCC.md](M2/Macaulay2/e/file-aring-CCC.md) | `ARingCCC` (CC via MPFR pair) | Coefficient rings |
+| [file-aring-tower.md](M2/Macaulay2/e/file-aring-tower.md) | `ARingTower` (iterated finite extension) | Coefficient rings |
+| [file-aring-RRi.md](M2/Macaulay2/e/file-aring-RRi.md) | `ARingRRi` (real intervals via MPFI) | Coefficient rings |
+| [file-aring-CCi.md](M2/Macaulay2/e/file-aring-CCi.md) | `ARingCCi` (complex intervals via MPFI) | Coefficient rings |
+| [file-aring-m2-gf.md](M2/Macaulay2/e/file-aring-m2-gf.md) | `ARingGFM2` (native M2 GF, no external dep) | Coefficient rings |
+| [file-aring-gf-flint-big.md](M2/Macaulay2/e/file-aring-gf-flint-big.md) | `ARingGFFlintBig` (large GF via FLINT `fq_nmod`) | Coefficient rings |
+| [file-M2FreeAlgebra.md](M2/Macaulay2/e/file-M2FreeAlgebra.md) | `M2FreeAlgebra` (`Ring` wrapper for NC algebras) | Polynomial rings |
+| [file-skew.md](M2/Macaulay2/e/file-skew.md) | `SkewMultiplication` (skew-commutative config) | Polynomial rings |
+| [file-ringelem.md](M2/Macaulay2/e/file-ringelem.md) | `ring_elem` (universal value type) | Ring elements & maps |
+| [file-hash.md](M2/Macaulay2/e/file-hash.md) | `EngineObject` / `MutableEngineObject` (GC bases) | Utilities |
+| [file-exceptions.md](M2/Macaulay2/e/file-exceptions.md) | Engine C++ exception hierarchy | Utilities |
+| [file-engine-h.md](M2/Macaulay2/e/file-engine-h.md) | `engine.h` aggregating header | Public interface |
+| [file-style.md](M2/Macaulay2/e/file-style.md) | `style.hpp` (comparison codes, `GEOHEAP_SIZE`) | Utilities |
+| [file-newdelete.md](M2/Macaulay2/e/file-newdelete.md) | `our_new_delete` GC allocation hook | Utilities |
+| [file-M2FreeAlgebraQuotient.md](M2/Macaulay2/e/file-M2FreeAlgebraQuotient.md) | `M2FreeAlgebraQuotient` (`Ring` wrapper for NC quotients) | Polynomial rings |
+| [file-BasicPoly.md](M2/Macaulay2/e/file-BasicPoly.md) | `BasicPoly` / `BasicPolyList` (portable polynomial type) | Polynomial rings |
+| [file-ExponentVector.md](M2/Macaulay2/e/file-ExponentVector.md) | `ExponentVector` (dense monomial encoding template) | Monoids & monomials |
+| [file-det.md](M2/Macaulay2/e/file-det.md) | Determinants and minors | Matrices |
+| [file-mutablecomplex.md](M2/Macaulay2/e/file-mutablecomplex.md) | `MutableComplex` (in-place chain complex) | Matrices |
+| [file-dpoly.md](M2/Macaulay2/e/file-dpoly.md) | Univariate polys over QQ ext. / finite fields | Other computations |
+| [file-schur.md](M2/Macaulay2/e/file-schur.md) | `SchurRing` (Schur function ring) | Polynomial rings |
+| [file-tower.md](M2/Macaulay2/e/file-tower.md) | `Tower` (legacy tower-of-extensions) | Coefficient rings |
+| [file-ntl-interface.md](M2/Macaulay2/e/file-ntl-interface.md) | Bridge to the NTL library | Coefficient rings |
+| [file-gauss.md](M2/Macaulay2/e/file-gauss.md) | `GaussElimComputation` | Gröbner bases |
+| [file-hermite.md](M2/Macaulay2/e/file-hermite.md) | `HermiteComputation` (ZZ Hermite normal form) | Gröbner bases |
+| [file-lapack.md](M2/Macaulay2/e/file-lapack.md) | LAPACK bridge for `RR` / `CC` matrices | Matrices |
+| [file-eigen.md](M2/Macaulay2/e/file-eigen.md) | Eigenvalues / SVD | Matrices |
+| [file-pfaff.md](M2/Macaulay2/e/file-pfaff.md) | `PfaffianComputation` | Matrices |
+| [file-matrix-con.md](M2/Macaulay2/e/file-matrix-con.md) | `MatrixConstructor` (immutable-matrix builder) | Matrices |
+| [file-matrix-stream.md](M2/Macaulay2/e/file-matrix-stream.md) | `MatrixStream` (streaming matrix construction) | Matrices |
+| [file-mat-linalg.md](M2/Macaulay2/e/file-mat-linalg.md) | Templated linear algebra for `DMat<R>` | Matrices |
+| [file-mat-arith.md](M2/Macaulay2/e/file-mat-arith.md) | Templated matrix arithmetic + `MatrixWindow` | Matrices |
+| [file-mat-elem-ops.md](M2/Macaulay2/e/file-mat-elem-ops.md) | `MatElementaryOps<MT>` | Matrices |
+| [file-monomial-sets.md](M2/Macaulay2/e/file-monomial-sets.md) | Fixed/variable-size monomial sets | Monoids & monomials |
+| [file-mat-util.md](M2/Macaulay2/e/file-mat-util.md) | Generic matrix helpers (`displayMat`) | Matrices |
+| [file-poly.md](M2/Macaulay2/e/file-poly.md) | `PolyRing` (standard commutative polynomial ring) | Polynomial rings |
+| [file-polyquotient.md](M2/Macaulay2/e/file-polyquotient.md) | `PolyQuotient` (concrete quotient subclass) | Polynomial rings |
+| [file-sagbi.md](M2/Macaulay2/e/file-sagbi.md) | SAGBI helpers (legacy) | Gröbner bases |
+| [file-points.md](M2/Macaulay2/e/file-points.md) | `PointsComputation<CoeffRing>` (ideal of points) | Other computations |
+| [file-interreduce.md](M2/Macaulay2/e/file-interreduce.md) | `Interreducer` | Gröbner bases |
+| [file-fractionfreeLU.md](M2/Macaulay2/e/file-fractionfreeLU.md) | `FF_LUComputation` (Bareiss LU over a domain) | Matrices |
+| [file-franzi.md](M2/Macaulay2/e/file-franzi.md) | `franzi-*` (Boolean-ring GB family) | Gröbner bases |
+| [file-mutablemat-defs.md](M2/Macaulay2/e/file-mutablemat-defs.md) | `MutableMat<Mat>` template internals | Matrices |
+| [file-util.md](M2/Macaulay2/e/file-util.md) | `util.hpp` (M2-side string/array conversions) | Utilities |
+| [file-cra-impl.md](M2/Macaulay2/e/file-cra-impl.md) | `ChineseRemainder` internals | Other computations |
+| [file-monordering.md](M2/Macaulay2/e/file-monordering.md) | `MonomialOrdering` constructors (impl) | Monoids & monomials |
+| [file-montableZZ.md](M2/Macaulay2/e/file-montableZZ.md) | `MonomialTableZZ` (ZZ-coeff monomial table) | Monoids & monomials |
+| [file-monomial-collection.md](M2/Macaulay2/e/file-monomial-collection.md) | `IntsSet` / `ModuleMonomSet` | Monoids & monomials |
+| [file-monsort.md](M2/Macaulay2/e/file-monsort.md) | Generic monomial sorter template | Monoids & monomials |
+| [file-mem.md](M2/Macaulay2/e/file-mem.md) | `stash` (size-class slab allocator) | Utilities |
+| [file-myalloc.md](M2/Macaulay2/e/file-myalloc.md) | `StatsAllocator` (debug allocator) | Utilities |
+| [file-finalize.md](M2/Macaulay2/e/file-finalize.md) | Engine-object finalisation hooks | Utilities |
+| [file-ring-vecs.md](M2/Macaulay2/e/file-ring-vecs.md) | `Ring`'s `vec` operations | Ring elements & maps |
+| [file-monideal-minprimes.md](M2/Macaulay2/e/file-monideal-minprimes.md) | `MinimalPrimes` of a monomial ideal | Other computations |
+| [file-interrupted.md](M2/Macaulay2/e/file-interrupted.md) | `system_interrupted()` (Ctrl+C polling) | Utilities |
+| [file-int-bag.md](M2/Macaulay2/e/file-int-bag.md) | `int_bag` (small value + varpower monomial) | Monoids & monomials |
+| [file-dmat-zz-flint.md](M2/Macaulay2/e/file-dmat-zz-flint.md) | `DMat<ARingZZ>` FLINT specialisation | Matrices |
+| [file-dmat-zzp-flint.md](M2/Macaulay2/e/file-dmat-zzp-flint.md) | `DMat<ARingZZpFlint>` FLINT specialisation | Matrices |
+| [file-memory-status.md](M2/Macaulay2/e/file-memory-status.md) | Placeholder memory-stats hooks | Utilities |
+| [file-dmat-qq-flint.md](M2/Macaulay2/e/file-dmat-qq-flint.md) | `DMat<ARingQQFlint>` FLINT specialisation | Matrices |
+| [file-dmat-gf-flint.md](M2/Macaulay2/e/file-dmat-gf-flint.md) | `DMat<ARingGFFlint*>` FLINT specialisations | Matrices |
+| [file-dmat-lu.md](M2/Macaulay2/e/file-dmat-lu.md) | LU decomposition specialisations | Matrices |
+| [file-dmat-ffpack.md](M2/Macaulay2/e/file-dmat-ffpack.md) | Historical FFLAS-FFPACK dispatcher (legacy) | Matrices |
+| [file-geovec.md](M2/Macaulay2/e/file-geovec.md) | Geometric heap for `vec` accumulation | Ring elements & maps |
+| [file-matrix-kbasis.md](M2/Macaulay2/e/file-matrix-kbasis.md) | k-basis of a graded module | Matrices |
+| [file-matrix-symm.md](M2/Macaulay2/e/file-matrix-symm.md) | `SymmMatrix` (symmetric power) | Matrices |
+| [file-matrix-sort.md](M2/Macaulay2/e/file-matrix-sort.md) | `MatrixSorter` (column sort) | Matrices |
+| [file-ZZ.md](M2/Macaulay2/e/file-ZZ.md) | Legacy `ZZ` (`Ring`-based) | Coefficient rings |
+| [file-ZZp.md](M2/Macaulay2/e/file-ZZp.md) | Legacy `Z_mod` (`Ring`-based) | Coefficient rings |
+| [file-GF.md](M2/Macaulay2/e/file-GF.md) | Legacy `GF` (`Ring`-based) | Coefficient rings |
+| [file-aring-translate.md](M2/Macaulay2/e/file-aring-translate.md) | Cross-ring coercion templates | Coefficient rings |
+| [file-aring-wrap.md](M2/Macaulay2/e/file-aring-wrap.md) | `RElementWrap<RingType>` | Coefficient rings |
+| [file-aring-qq.md](M2/Macaulay2/e/file-aring-qq.md) | `ARingQQ` typedef + dispatcher | Coefficient rings |
+| [file-BasicPolyListParser.md](M2/Macaulay2/e/file-BasicPolyListParser.md) | `BasicPolyList` text-format parsers | Polynomial rings |
+| [file-PolynomialStream.md](M2/Macaulay2/e/file-PolynomialStream.md) | Streaming polynomial-input concept (newf4) | Polynomial rings |
+| [file-polyroots.md](M2/Macaulay2/e/file-polyroots.md) | Univariate polynomial root finder | Other computations |
+| [file-schur2.md](M2/Macaulay2/e/file-schur2.md) | `SchurRing2` (refactored Schur ring) | Polynomial rings |
+| [file-schurSn.md](M2/Macaulay2/e/file-schurSn.md) | `SchurSnRing` (symmetric-group ring) | Polynomial rings |
+| [file-schur-poly-heap.md](M2/Macaulay2/e/file-schur-poly-heap.md) | `schur_poly_heap` accumulator | Polynomial rings |
+| [file-matrix-ncbasis.md](M2/Macaulay2/e/file-matrix-ncbasis.md) | Non-commutative `basis` | Matrices |
+| [file-SLP-defs.md](M2/Macaulay2/e/file-SLP-defs.md) | `SLProgram` / `M2SLProgram` declarations | Other computations |
+| [file-SLP-imp.md](M2/Macaulay2/e/file-SLP-imp.md) | `SLEvaluatorConcrete<RT>` | Other computations |
+| [file-monomial.md](M2/Macaulay2/e/file-monomial.md) | `EngineMonomial` (boundary monomial type) | Monoids & monomials |
+| [file-godboltTest.md](M2/Macaulay2/e/file-godboltTest.md) | Standalone Z/p log-table sandbox | (sandbox) |
+| [file-timing.md](M2/Macaulay2/e/file-timing.md) | `timing.hpp` (engine-side timestamps) | Utilities |
+| [file-dmat-qq-interface-flint.md](M2/Macaulay2/e/file-dmat-qq-interface-flint.md) | FLINT-mat translation for GMP-based `DMat<ARingQQ>` | Matrices |
+| [file-Eschreyer-cpp.md](M2/Macaulay2/e/file-Eschreyer-cpp.md) | `Eschreyer.cpp` implementation notes | Resolutions |
+| [file-aring-ZZ-comparison.md](M2/Macaulay2/e/file-aring-ZZ-comparison.md) | Cross-reference: the three `ZZ` paths | Coefficient rings |
+| [file-m2tbb.md](M2/Macaulay2/e/file-m2tbb.md) | `m2tbb.hpp` (TBB wrapper) | Utilities |
 
 **Subdirectory file deep dives** (per-file docs alongside their source):
 
@@ -290,16 +413,165 @@ Dedicated walkthroughs for especially central engine classes
 | `NCAlgebras/` | [NCAlgebras/file-FreeAlgebra.md](M2/Macaulay2/e/NCAlgebras/file-FreeAlgebra.md) | `FreeAlgebra` |
 | `NCAlgebras/` | [NCAlgebras/file-NCGroebner.md](M2/Macaulay2/e/NCAlgebras/file-NCGroebner.md) | `NCGroebner` |
 | `NCAlgebras/` | [NCAlgebras/file-NCF4.md](M2/Macaulay2/e/NCAlgebras/file-NCF4.md) | `NCF4` |
+| `NCAlgebras/` | [NCAlgebras/file-WordTable.md](M2/Macaulay2/e/NCAlgebras/file-WordTable.md) | `WordTable` |
+| `NCAlgebras/` | [NCAlgebras/file-OverlapTable.md](M2/Macaulay2/e/NCAlgebras/file-OverlapTable.md) | `OverlapTable` |
+| `NCAlgebras/` | [NCAlgebras/file-NCReduction.md](M2/Macaulay2/e/NCAlgebras/file-NCReduction.md) | `PolynomialHeap` (NC reduction) |
+| `NCAlgebras/` | [NCAlgebras/file-SuffixTree.md](M2/Macaulay2/e/NCAlgebras/file-SuffixTree.md) | `SuffixTree` |
+| `NCAlgebras/` | [NCAlgebras/file-FreeAlgebraQuotient.md](M2/Macaulay2/e/NCAlgebras/file-FreeAlgebraQuotient.md) | `FreeAlgebraQuotient` |
+| `NCAlgebras/` | [NCAlgebras/file-Word.md](M2/Macaulay2/e/NCAlgebras/file-Word.md) | `Word` (non-owning word view) |
+| `NCAlgebras/` | [NCAlgebras/file-Range.md](M2/Macaulay2/e/NCAlgebras/file-Range.md) | `Range<T>` (iterator-pair view) |
 | `f4/` | [f4/file-f4-computation.md](M2/Macaulay2/e/f4/file-f4-computation.md) | `F4Computation` |
 | `f4/` | [f4/file-f4-spairs.md](M2/Macaulay2/e/f4/file-f4-spairs.md) | `F4SPairSet` |
 | `f4/` | [f4/file-f4-m2-interface.md](M2/Macaulay2/e/f4/file-f4-m2-interface.md) | `F4toM2Interface` |
 | `f4/` | [f4/file-monhashtable.md](M2/Macaulay2/e/f4/file-monhashtable.md) | Monomial hash-table traits |
+| `f4/` | [f4/file-varpower-monomial.md](M2/Macaulay2/e/f4/file-varpower-monomial.md) | F4-internal sparse monomial encoding |
+| `f4/` | [f4/file-ntuple-monomial.md](M2/Macaulay2/e/f4/file-ntuple-monomial.md) | F4-internal dense monomial encoding |
+| `f4/` | [f4/file-moninfo.md](M2/Macaulay2/e/f4/file-moninfo.md) | `MonomialInfo` (F4 monomial layout) |
+| `f4/` | [f4/file-f4.md](M2/Macaulay2/e/f4/file-f4.md) | `F4GB` (the F4 algorithm) |
+| `f4/` | [f4/file-hilb-fcn.md](M2/Macaulay2/e/f4/file-hilb-fcn.md) | `HilbertController` |
+| `f4/` | [f4/file-memblock.md](M2/Macaulay2/e/f4/file-memblock.md) | `F4MemoryBlock<T>` |
+| `f4/` | [f4/file-f4-monlookup.md](M2/Macaulay2/e/f4/file-f4-monlookup.md) | `F4MonomialLookupTableT<Key>` |
+| `f4/` | [f4/file-f4-types.md](M2/Macaulay2/e/f4/file-f4-types.md) | F4 type vocabulary |
+| `bibasis/` | [bibasis/file-bibasis.md](M2/Macaulay2/e/bibasis/file-bibasis.md) | `BIBasis` driver |
+| `bibasis/` | [bibasis/file-monom.md](M2/Macaulay2/e/bibasis/file-monom.md) | `Monom` + ordering specialisations |
+| `bibasis/` | [bibasis/file-janettree.md](M2/Macaulay2/e/bibasis/file-janettree.md) | `JanetTree<MonomType>` |
+| `bibasis/` | [bibasis/file-polynom.md](M2/Macaulay2/e/bibasis/file-polynom.md) | `Polynom<MonomType>` |
+| `NCResolutions/` | [NCResolutions/file-nc-res-computation.md](M2/Macaulay2/e/NCResolutions/file-nc-res-computation.md) | `NCResComputation` |
+| `interface/` | [interface/file-aring-interface.md](M2/Macaulay2/e/interface/file-aring-interface.md) | aring C entry points |
+| `interface/` | [interface/file-groebner-interface.md](M2/Macaulay2/e/interface/file-groebner-interface.md) | GB / resolution C entry points |
+| `interface/` | [interface/file-ring-interface.md](M2/Macaulay2/e/interface/file-ring-interface.md) | Legacy `Ring` C entry points |
+| `interface/` | [interface/file-matrix-interface.md](M2/Macaulay2/e/interface/file-matrix-interface.md) | `Matrix` C entry points |
+| `interface/` | [interface/file-freemodule-interface.md](M2/Macaulay2/e/interface/file-freemodule-interface.md) | `FreeModule` C entry points |
+| `interface/` | [interface/file-monoid-interface.md](M2/Macaulay2/e/interface/file-monoid-interface.md) | `Monoid` C entry points |
+| `interface/` | [interface/file-computation-interface.md](M2/Macaulay2/e/interface/file-computation-interface.md) | Computation status / stop-condition enums |
+| `interface/` | [interface/file-ringelement-interface.md](M2/Macaulay2/e/interface/file-ringelement-interface.md) | `RingElement` C entry points |
+| `interface/` | [interface/file-ringmap-interface.md](M2/Macaulay2/e/interface/file-ringmap-interface.md) | `RingMap` C entry points |
+| `interface/` | [interface/file-monomial-ideal-interface.md](M2/Macaulay2/e/interface/file-monomial-ideal-interface.md) | `MonomialIdeal` C entry points |
+| `interface/` | [interface/file-mutable-matrix-interface.md](M2/Macaulay2/e/interface/file-mutable-matrix-interface.md) | `MutableMatrix` C entry points |
+| `interface/` | [interface/file-monomial-ordering-interface.md](M2/Macaulay2/e/interface/file-monomial-ordering-interface.md) | `MonomialOrdering` enum + constructors |
+| `interface/` | [interface/file-flint-interface.md](M2/Macaulay2/e/interface/file-flint-interface.md) | FLINT primality / factorisation |
+| `interface/` | [interface/file-cone-interface.md](M2/Macaulay2/e/interface/file-cone-interface.md) | Cone operations |
+| `interface/` | [interface/file-factory-interface.md](M2/Macaulay2/e/interface/file-factory-interface.md) | Polynomial GCD / factorisation |
+| `interface/` | [interface/file-cra-interface.md](M2/Macaulay2/e/interface/file-cra-interface.md) | CRT / rational reconstruction |
+| `interface/` | [interface/file-NAG-interface.md](M2/Macaulay2/e/interface/file-NAG-interface.md) | Numerical Algebraic Geometry C API |
+| `interface/` | [interface/file-random-interface.md](M2/Macaulay2/e/interface/file-random-interface.md) | Engine RNG entry points |
+| `interface/` | [interface/file-gmp-util-interface.md](M2/Macaulay2/e/interface/file-gmp-util-interface.md) | GMP/MPFR allocation helpers |
+| `interface/` | [interface/file-m2-mem-interface.md](M2/Macaulay2/e/interface/file-m2-mem-interface.md) | Engine memory hooks + debug traps |
+| `interface/` | [interface/file-m2-types-interface.md](M2/Macaulay2/e/interface/file-m2-types-interface.md) | Base type aliases |
 | `gb-f4/` | [gb-f4/file-GBF4Computation.md](M2/Macaulay2/e/gb-f4/file-GBF4Computation.md) | `GBF4Computation` |
 | `gb-f4/` | [gb-f4/file-MacaulayMatrix.md](M2/Macaulay2/e/gb-f4/file-MacaulayMatrix.md) | `MacaulayMatrix` |
 | `gb-f4/` | [gb-f4/file-Basis.md](M2/Macaulay2/e/gb-f4/file-Basis.md) | `Basis` |
+| `gb-f4/` | [gb-f4/file-SPairs.md](M2/Macaulay2/e/gb-f4/file-SPairs.md) | `SPairs` (refactored F4) |
+| `gb-f4/` | [gb-f4/file-MonomialHashTable.md](M2/Macaulay2/e/gb-f4/file-MonomialHashTable.md) | `MonomialHashFunction` + table |
+| `gb-f4/` | [gb-f4/file-MonomialLookupTable.md](M2/Macaulay2/e/gb-f4/file-MonomialLookupTable.md) | `MonomialLookupTable` (divisibility) |
+| `gb-f4/` | [gb-f4/file-PolynomialList.md](M2/Macaulay2/e/gb-f4/file-PolynomialList.md) | `PolynomialList` |
+| `gb-f4/` | [gb-f4/file-MonomialView.md](M2/Macaulay2/e/gb-f4/file-MonomialView.md) | `MonomialView` |
+| `gb-f4/` | [gb-f4/file-MonomialTypes.md](M2/Macaulay2/e/gb-f4/file-MonomialTypes.md) | Typed integers (`newf4` vocabulary) |
 | `schreyer-resolution/` | [schreyer-resolution/file-res-f4-computation.md](M2/Macaulay2/e/schreyer-resolution/file-res-f4-computation.md) | `F4ResComputation` |
 | `schreyer-resolution/` | [schreyer-resolution/file-res-schreyer-frame.md](M2/Macaulay2/e/schreyer-resolution/file-res-schreyer-frame.md) | `SchreyerFrame` |
 | `schreyer-resolution/` | [schreyer-resolution/file-res-poly-ring.md](M2/Macaulay2/e/schreyer-resolution/file-res-poly-ring.md) | `ResPolyRing` / `ResPolynomial` |
+| `schreyer-resolution/` | [schreyer-resolution/file-res-monomial-sorter.md](M2/Macaulay2/e/schreyer-resolution/file-res-monomial-sorter.md) | `MonomialSorterObject` |
+| `schreyer-resolution/` | [schreyer-resolution/file-res-dep-graph.md](M2/Macaulay2/e/schreyer-resolution/file-res-dep-graph.md) | TBB dependency graph |
+| `schreyer-resolution/` | [schreyer-resolution/file-res-moninfo.md](M2/Macaulay2/e/schreyer-resolution/file-res-moninfo.md) | `ResMonoid` dispatcher |
+| `schreyer-resolution/` | [schreyer-resolution/file-res-schreyer-order.md](M2/Macaulay2/e/schreyer-resolution/file-res-schreyer-order.md) | `ResSchreyerOrder` |
+| `schreyer-resolution/` | [schreyer-resolution/file-res-f4.md](M2/Macaulay2/e/schreyer-resolution/file-res-f4.md) | `F4Res` (F4 reduction loop) |
+| `schreyer-resolution/` | [schreyer-resolution/file-res-monomial-types.md](M2/Macaulay2/e/schreyer-resolution/file-res-monomial-types.md) | Type vocabulary + encoding typedefs |
+| `schreyer-resolution/` | [schreyer-resolution/file-res-f4-monlookup.md](M2/Macaulay2/e/schreyer-resolution/file-res-f4-monlookup.md) | `ResF4MonomialLookupTableT<Key>` |
+| `schreyer-resolution/` | [schreyer-resolution/file-res-f4-m2-interface.md](M2/Macaulay2/e/schreyer-resolution/file-res-f4-m2-interface.md) | `ResF4toM2Interface` |
+| `schreyer-resolution/` | [schreyer-resolution/file-res-memblock.md](M2/Macaulay2/e/schreyer-resolution/file-res-memblock.md) | `ResMemoryBlock<T>` |
+
+**Core M2 layer file deep dives** (per-file docs in `M2/Macaulay2/m2/`):
+
+| File doc | Subject |
+|---|---|
+| [m2/file-Core.md](M2/Macaulay2/m2/file-Core.md) | `Core.m2` — Core package definition |
+| [m2/file-loadsequence.md](M2/Macaulay2/m2/file-loadsequence.md) | `loadsequence` — load order manifest |
+| [m2/file-exports.md](M2/Macaulay2/m2/file-exports.md) | `exports.m2` — public-symbol manifest |
+| [m2/file-packages.md](M2/Macaulay2/m2/file-packages.md) | `packages.m2` — package machinery |
+| [m2/file-classes.md](M2/Macaulay2/m2/file-classes.md) | `classes.m2` — type hierarchy |
+| [m2/file-methods.md](M2/Macaulay2/m2/file-methods.md) | `methods.m2` — method dispatch |
+| [m2/file-expressions.md](M2/Macaulay2/m2/file-expressions.md) | `expressions.m2` — `Expression` AST + precedence |
+| [m2/file-rings.md](M2/Macaulay2/m2/file-rings.md) | `rings.m2` — `Ring` base type |
+| [m2/file-enginering.md](M2/Macaulay2/m2/file-enginering.md) | `enginering.m2` — `EngineRing` + `RingElement` |
+| [m2/file-monoids.md](M2/Macaulay2/m2/file-monoids.md) | `monoids.m2` — `Monoid` type |
+| [m2/file-polyrings.md](M2/Macaulay2/m2/file-polyrings.md) | `polyrings.m2` — `PolynomialRing` type |
+| [m2/file-matrix.md](M2/Macaulay2/m2/file-matrix.md) | `matrix.m2` — M2-side `Matrix` |
+| [m2/file-modules.md](M2/Macaulay2/m2/file-modules.md) | `modules.m2` — `Module` type |
+| [m2/file-gb.md](M2/Macaulay2/m2/file-gb.md) | `gb.m2` — M2-side GB front-end |
+| [m2/file-hilbert.md](M2/Macaulay2/m2/file-hilbert.md) | `hilbert.m2` — Hilbert function / series |
+| [m2/file-betti.md](M2/Macaulay2/m2/file-betti.md) | `betti.m2` — `BettiTally` |
+| [m2/file-complexes.md](M2/Macaulay2/m2/file-complexes.md) | `complexes.m2` — `Complex` / `ChainComplex` dispatch |
+| [m2/file-document.md](M2/Macaulay2/m2/file-document.md) | `document.m2` — docs DSL |
+| [m2/file-installPackage.md](M2/Macaulay2/m2/file-installPackage.md) | `installPackage.m2` — HTML / info / PDF renderer |
+| [m2/file-examples.md](M2/Macaulay2/m2/file-examples.md) | `examples.m2` — example runner |
+| [m2/file-help.md](M2/Macaulay2/m2/file-help.md) | `help.m2` — interactive help |
+| [m2/file-option.md](M2/Macaulay2/m2/file-option.md) | `option.m2` — `Option` / `OptionTable` |
+| [m2/file-gateway.md](M2/Macaulay2/m2/file-gateway.md) | `gateway.m2` — `ScriptedFunctor` |
+| [m2/file-code.md](M2/Macaulay2/m2/file-code.md) | `code.m2` — code introspection |
+| [m2/file-integers.md](M2/Macaulay2/m2/file-integers.md) | `integers.m2` — `Number` + `ZZ` |
+| [m2/file-rationals.md](M2/Macaulay2/m2/file-rationals.md) | `rationals.m2` — `QQ` |
+| [m2/file-reals.md](M2/Macaulay2/m2/file-reals.md) | `reals.m2` — `RR`, `CC`, intervals, `ImmutableType` |
+| [m2/file-nets.md](M2/Macaulay2/m2/file-nets.md) | `nets.m2` — 2-D character grids |
+| [m2/file-printing.md](M2/Macaulay2/m2/file-printing.md) | `printing.m2` — printing primitives |
+| [m2/file-html.md](M2/Macaulay2/m2/file-html.md) | `html.m2` — HTML output formatter |
+| [m2/file-files.md](M2/Macaulay2/m2/file-files.md) | `files.m2` — file / directory operations |
+| [m2/file-system.md](M2/Macaulay2/m2/file-system.md) | `system.m2` — system commands |
+| [m2/file-quotring.md](M2/Macaulay2/m2/file-quotring.md) | `quotring.m2` — `QuotientRing` |
+| [m2/file-ringmap.md](M2/Macaulay2/m2/file-ringmap.md) | `ringmap.m2` — `RingMap` |
+| [m2/file-monideal.md](M2/Macaulay2/m2/file-monideal.md) | `monideal.m2` — `MonomialIdeal` |
+| [m2/file-Hom.md](M2/Macaulay2/m2/file-Hom.md) | `Hom.m2` — `Hom` / `Ext` / `Tor` |
+| [m2/file-intersect.md](M2/Macaulay2/m2/file-intersect.md) | `intersect.m2` — generic `intersect` |
+| [m2/file-factor.md](M2/Macaulay2/m2/file-factor.md) | `factor.m2` — polynomial / integer factorisation |
+| [m2/file-localring.md](M2/Macaulay2/m2/file-localring.md) | `localring.m2` — `LocalRing` stub |
+| [m2/file-galois.md](M2/Macaulay2/m2/file-galois.md) | `galois.m2` — `GaloisField` |
+| [m2/file-freealgebras.md](M2/Macaulay2/m2/file-freealgebras.md) | `freealgebras.m2` — `FreeAlgebra` stubs |
+| [m2/file-hypertext.md](M2/Macaulay2/m2/file-hypertext.md) | `hypertext.m2` — `Hypertext` AST |
+| [m2/file-latex.md](M2/Macaulay2/m2/file-latex.md) | `latex.m2` — `tex` / `texMath` |
+| [m2/file-lists.md](M2/Macaulay2/m2/file-lists.md) | `lists.m2` — `List` / `Sequence` / `Array` |
+| [m2/file-regex.md](M2/Macaulay2/m2/file-regex.md) | `regex.m2` — regex |
+| [m2/file-threads.md](M2/Macaulay2/m2/file-threads.md) | `threads.m2` — `AtomicInt` + `Task` |
+| [m2/file-set.md](M2/Macaulay2/m2/file-set.md) | `set.m2` — `Set` / `Tally` / `VirtualTally` |
+| [m2/file-iterators.md](M2/Macaulay2/m2/file-iterators.md) | `iterators.m2` — `Iterator` |
+| [m2/file-combinatorics.md](M2/Macaulay2/m2/file-combinatorics.md) | `combinatorics.m2` — `subsets`, `partitions` |
+| [m2/file-markdown.md](M2/Macaulay2/m2/file-markdown.md) | `markdown.m2` — Markdown output |
+| [m2/file-mathml.md](M2/Macaulay2/m2/file-mathml.md) | `mathml.m2` — MathML output |
+| [m2/file-texmacs.md](M2/Macaulay2/m2/file-texmacs.md) | `texmacs.m2` — TeXmacs frontend protocol |
+| [m2/file-multilin.md](M2/Macaulay2/m2/file-multilin.md) | `multilin.m2` — `exteriorPower`, `minors`, `pfaffians` |
+| [m2/file-minPres.md](M2/Macaulay2/m2/file-minPres.md) | `minPres.m2` — `minimalPresentation` |
+| [m2/file-pushforward.md](M2/Macaulay2/m2/file-pushforward.md) | `pushforward.m2` — `pushForward` |
+| [m2/file-programs.md](M2/Macaulay2/m2/file-programs.md) | `programs.m2` — external programs |
+| [m2/file-engine.md](M2/Macaulay2/m2/file-engine.md) | `engine.m2` — `Raw*` type wrappers |
+| [m2/file-matrix1.md](M2/Macaulay2/m2/file-matrix1.md) | `matrix1.m2` — `Ideal`, kernel, image |
+| [m2/file-matrix2.md](M2/Macaulay2/m2/file-matrix2.md) | `matrix2.m2` — LU, det, solve, rank |
+| [m2/file-variables.md](M2/Macaulay2/m2/file-variables.md) | `variables.m2` — `IndexedVariable` |
+| [m2/file-indeterminates.md](M2/Macaulay2/m2/file-indeterminates.md) | `indeterminates.m2` — variable-name generation |
+| [m2/file-shared.md](M2/Macaulay2/m2/file-shared.md) | `shared.m2` — method-stub manifest |
+| [m2/file-newring.md](M2/Macaulay2/m2/file-newring.md) | `newring.m2` — `flattenRing`, `tensor` |
+| [m2/file-quotient.md](M2/Macaulay2/m2/file-quotient.md) | `quotient.m2` — `I : J` |
+| [m2/file-computations.md](M2/Macaulay2/m2/file-computations.md) | `computations.m2` — `Computation` framework |
+| [m2/file-mutablemat.md](M2/Macaulay2/m2/file-mutablemat.md) | `mutablemat.m2` — `MutableMatrix` |
+| [m2/file-debugging.md](M2/Macaulay2/m2/file-debugging.md) | `debugging.m2` — warnings + debugger |
+| [m2/file-remember.md](M2/Macaulay2/m2/file-remember.md) | `remember.m2` — `memoize` |
+| [m2/file-basis.md](M2/Macaulay2/m2/file-basis.md) | `basis.m2` — `basis(d, M)` |
+| [m2/file-format.md](M2/Macaulay2/m2/file-format.md) | `format.m2` — formatter dispatch |
+| [m2/file-autoload.md](M2/Macaulay2/m2/file-autoload.md) | `autoload.m2` — lazy loading |
+| [m2/file-typicalvalues.md](M2/Macaulay2/m2/file-typicalvalues.md) | `typicalvalues.m2` — return-type hints |
+| [m2/file-genmat.md](M2/Macaulay2/m2/file-genmat.md) | `genmat.m2` — `genericMatrix` |
+| [m2/file-monomcurve.md](M2/Macaulay2/m2/file-monomcurve.md) | `monomcurve.m2` — `monomialCurveIdeal` |
+| [m2/file-schubert.md](M2/Macaulay2/m2/file-schubert.md) | `schubert.m2` — Schubert calculus |
+| [m2/file-fano.md](M2/Macaulay2/m2/file-fano.md) | `fano.m2` — Fano variety |
+| [m2/file-integrate.md](M2/Macaulay2/m2/file-integrate.md) | `integrate.m2` — Simpson's rule |
+| [m2/file-powers.md](M2/Macaulay2/m2/file-powers.md) | `powers.m2` — `binomial` |
+| [m2/file-fold.md](M2/Macaulay2/m2/file-fold.md) | `fold.m2` — `accumulate` / `fold` |
+| [m2/file-intervals.md](M2/Macaulay2/m2/file-intervals.md) | `intervals.m2` — interval constructors |
+| [m2/file-flint.md](M2/Macaulay2/m2/file-flint.md) | `flint.m2` — `ZZFlintRing` / `QQFlintRing` |
+| [m2/file-profile.md](M2/Macaulay2/m2/file-profile.md) | `profile.m2` — profiler |
+| [m2/file-robust.md](M2/Macaulay2/m2/file-robust.md) | `robust.m2` — `timelimit` (legacy) |
+| [m2/file-validate.md](M2/Macaulay2/m2/file-validate.md) | `validate.m2` — `Hypertext` validation |
+| [m2/file-testing.md](M2/Macaulay2/m2/file-testing.md) | `testing.m2` — `check Package`, `TEST` |
+| [m2/file-max.md](M2/Macaulay2/m2/file-max.md) | `max.m2` — `InfiniteNumber`, `max`, `min` |
+| [m2/file-pretty.md](M2/Macaulay2/m2/file-pretty.md) | `pretty.m2` — pretty-printer |
+| [m2/file-peek.md](M2/Macaulay2/m2/file-peek.md) | `peek.m2` — structural introspection |
 
 ### Per-area docs (quick navigation)
 
