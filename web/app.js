@@ -1042,10 +1042,13 @@ function renderMarkdown(markdown, source) {
 
     if (codeLines) {
       if (/^```/.test(trimmed)) {
+        const lineCount = codeLines.length;
+        const langTag = codeLanguage ? `<code class="code-block__lang">${escapeHtml(codeLanguage)}</code> · ` : "";
+        const summary = `${langTag}${lineCount} line${lineCount === 1 ? "" : "s"}`;
         html.push(
-          `<pre><code${codeLanguage ? ` class="language-${escapeHtml(codeLanguage)}"` : ""}>${escapeHtml(
-            codeLines.join("\n")
-          )}</code></pre>`
+          `<details class="code-block"><summary class="code-block__summary">${summary}</summary><pre><code${
+            codeLanguage ? ` class="language-${escapeHtml(codeLanguage)}"` : ""
+          }>${escapeHtml(codeLines.join("\n"))}</code></pre></details>`
         );
         codeLines = null;
         codeLanguage = "";
@@ -1142,7 +1145,13 @@ function renderMarkdown(markdown, source) {
   closeParagraph();
   closeList();
   if (codeLines) {
-    html.push(`<pre><code>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+    const lineCount = codeLines.length;
+    const summary = `${lineCount} line${lineCount === 1 ? "" : "s"}`;
+    html.push(
+      `<details class="code-block"><summary class="code-block__summary">${summary}</summary><pre><code>${escapeHtml(
+        codeLines.join("\n")
+      )}</code></pre></details>`
+    );
   }
 
   return html.join("");
