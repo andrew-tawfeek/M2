@@ -29,21 +29,15 @@ SUBDIRS = {
 
 INCLUDE_RE = re.compile(r'^\s*#\s*include\s*[<"]([^">]+)[">]')
 
-# Forward declarations:  "class Foo;"  or  "struct Foo;"  optionally preceded
-# by "template<...>" on the same or previous line. We match the simple
-# single-line form and template-prefixed single-line forms. We deliberately
-# skip "friend class X;" — those are intra-class and don't represent a
-# cross-file dependency.
-FWD_DECL_RE = re.compile(
-    r'^\s*(?:template\s*<[^>]*>\s*)?(?:class|struct)\s+([A-Za-z_]\w*)\s*;\s*(?://.*)?$'
+# After comment-stripping, find each "class NAME" or "struct NAME" occurrence
+# along with whether it's preceded by "friend" and what punctuation comes
+# next (";" → forward decl, "{" → definition).
+CLASS_HEAD_RE = re.compile(
+    r'(?P<friend>\bfriend\s+)?\b(?P<kind>class|struct)\s+(?P<name>[A-Za-z_]\w*)\b'
 )
-FRIEND_RE = re.compile(r'^\s*friend\b')
-
-# Class/struct DEFINITIONS — must have a "{" to be a definition, not a
-# forward decl. We allow inheritance ":" and template prefixes.
-CLASS_DEF_RE = re.compile(
-    r'^\s*(?:template\s*<[^>]*>\s*)?(?:class|struct)\s+([A-Za-z_]\w*)\s*(?:final\s+)?(?::[^{;]+)?\{'
-)
+BLOCK_COMMENT_RE = re.compile(r'/\*.*?\*/', re.DOTALL)
+LINE_COMMENT_RE = re.compile(r'//[^\n]*')
+STRING_RE = re.compile(r'"(?:\\.|[^"\\])*"')
 
 
 def list_top_level_units():
@@ -147,37 +141,77 @@ def parse_includes(paths):
     return out
 
 
-def parse_class_defs(paths):
-    """Return set of class/struct names defined (with a body) in these files."""
-    out = set()
+def _strip_comments_and_strings(text):
+    """Strip /*…*/ block comments, // line comments, and "…" string
+    literals. Avoids false positives like class names appearing in
+    comments or in stringified code."""
+    text = BLOCK_COMMENT_RE.sub("", text)
+    text = LINE_COMMENT_RE.sub("", text)
+    text = STRING_RE.sub('""', text)
+    return text
+
+
+def _next_significant_char(text, start):
+    """Return the next character in {';', '{'} after position `start`,
+    skipping over balanced angle-bracketed and parenthesised regions
+    (e.g. "class Foo : public Bar<int, baz()> { ... }"). Returns
+    (char, position) or (None, -1) if not found."""
+    i = start
+    n = len(text)
+    while i < n:
+        c = text[i]
+        if c == ';' or c == '{':
+            return c, i
+        if c == '<' or c == '(':
+            # find matching close, accounting for nesting
+            stack = [c]
+            i += 1
+            while i < n and stack:
+                ch = text[i]
+                if ch == '<' or ch == '(' or ch == '[':
+                    stack.append(ch)
+                elif ch == '>' or ch == ')' or ch == ']':
+                    if stack:
+                        stack.pop()
+                i += 1
+            continue
+        i += 1
+    return None, -1
+
+
+def parse_class_defs_and_decls(paths):
+    """Return (defs, decls): two sets of class/struct names.
+
+    A class is a *definition* if its head (`class Foo : public Bar ...`)
+    is followed by `{`. It is a *forward declaration* if followed by `;`
+    (and not preceded by `friend`)."""
+    defs = set()
+    decls = set()
     for p in paths:
         try:
             text = p.read_text(encoding="utf-8", errors="replace")
         except OSError:
             continue
-        for ln in text.splitlines():
-            m = CLASS_DEF_RE.match(ln)
-            if m:
-                out.add(m.group(1))
-    return out
+        text = _strip_comments_and_strings(text)
+        for m in CLASS_HEAD_RE.finditer(text):
+            is_friend = bool(m.group("friend"))
+            name = m.group("name")
+            ch, _ = _next_significant_char(text, m.end())
+            if ch == ';' and not is_friend:
+                decls.add(name)
+            elif ch == '{' and not is_friend:
+                defs.add(name)
+    return defs, decls
+
+
+def parse_class_defs(paths):
+    defs, _ = parse_class_defs_and_decls(paths)
+    return defs
 
 
 def parse_forward_decls(paths):
-    """Return set of class/struct names forward-declared in these files
-    (excluding friend declarations and self-definitions on the same line)."""
-    out = set()
-    for p in paths:
-        try:
-            text = p.read_text(encoding="utf-8", errors="replace")
-        except OSError:
-            continue
-        for ln in text.splitlines():
-            if FRIEND_RE.match(ln):
-                continue
-            m = FWD_DECL_RE.match(ln)
-            if m:
-                out.add(m.group(1))
-    return out
+    _, decls = parse_class_defs_and_decls(paths)
+    return decls
 
 
 def main():
@@ -238,36 +272,66 @@ def main():
         except OSError:
             pass
 
-    # Build edges from includes. Only count includes that resolve to a
-    # node we know about.
+    # Build a class-name -> providing-node-id index. We only look at
+    # top-level unit files for class definitions because forward
+    # declarations in the engine almost always refer to top-level types.
+    class_to_node = {}
+    unit_paths_for_node = {}
+    for node in nodes:
+        if node["kind"] != "unit":
+            continue
+        paths = [E_DIR / f for f in node["files"]]
+        unit_paths_for_node[node["id"]] = paths
+        for cls in parse_class_defs(paths):
+            # First definer wins; if a class appears in multiple places
+            # (rare; usually a definition + a re-declaration in a different
+            # namespace) we keep the first.
+            class_to_node.setdefault(cls, node["id"])
+
+    # Build edges:
+    #  - "include" edges from #include directives  (solid)
+    #  - "decl"    edges from `class X;` / `struct X;` forward declarations
+    #              that resolve to a known providing node, AND for which
+    #              we did NOT already include that node (otherwise the
+    #              forward decl is redundant noise alongside the include)
     edges = []
     seen_edges = set()
     for node in nodes:
         if node["kind"] != "unit":
             continue
-        paths = [E_DIR / f for f in node["files"]]
+        paths = unit_paths_for_node[node["id"]]
         includes = parse_includes(paths)
+        include_targets = set()
         for inc in includes:
-            # Resolve include to a target node
             target = None
-            # Direct match (e.g. "matrix.hpp")
             if inc in basename_to_node:
                 target = basename_to_node[inc]
             else:
-                # Try by stripping leading "../" pieces
                 base = Path(inc).name
                 if base in basename_to_node:
                     target = basename_to_node[base]
-                # Subdir-qualified include like "f4/F4.hpp"
-                elif inc in basename_to_node:
-                    target = basename_to_node[inc]
             if not target or target == node["id"]:
                 continue
-            key = (node["id"], target)
+            include_targets.add(target)
+            key = (node["id"], target, "include")
             if key in seen_edges:
                 continue
             seen_edges.add(key)
-            edges.append({"source": node["id"], "target": target})
+            edges.append({"source": node["id"], "target": target, "kind": "include"})
+        # Forward declarations
+        for cls in parse_forward_decls(paths):
+            target = class_to_node.get(cls)
+            if not target or target == node["id"]:
+                continue
+            if target in include_targets:
+                # Already a direct include — the fwd decl is just internal
+                # tidiness, not a separate dependency.
+                continue
+            key = (node["id"], target, "decl")
+            if key in seen_edges:
+                continue
+            seen_edges.add(key)
+            edges.append({"source": node["id"], "target": target, "kind": "decl"})
 
     payload = {"nodes": nodes, "edges": edges}
     OUT.write_text(json.dumps(payload, indent=1))

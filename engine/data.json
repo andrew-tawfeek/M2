@@ -2260,3719 +2260,5153 @@
  "edges": [
   {
    "source": "BasicPoly",
-   "target": "dir:gb-f4"
+   "target": "dir:gb-f4",
+   "kind": "include"
   },
   {
    "source": "BasicPoly",
-   "target": "exceptions"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "BasicPolyList",
-   "target": "matrix"
+   "target": "PolynomialStream",
+   "kind": "include"
   },
   {
    "source": "BasicPolyList",
-   "target": "matrix-stream"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "BasicPolyList",
-   "target": "BasicPoly"
+   "target": "matrix-stream",
+   "kind": "include"
   },
   {
    "source": "BasicPolyList",
-   "target": "PolynomialStream"
+   "target": "BasicPoly",
+   "kind": "include"
   },
   {
    "source": "BasicPolyList",
-   "target": "exceptions"
+   "target": "exceptions",
+   "kind": "include"
+  },
+  {
+   "source": "BasicPolyList",
+   "target": "freemod",
+   "kind": "decl"
   },
   {
    "source": "BasicPolyListParser",
-   "target": "BasicPolyList"
+   "target": "BasicPolyList",
+   "kind": "include"
   },
   {
    "source": "Eschreyer",
-   "target": "text-io"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "Eschreyer",
-   "target": "matrix"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "Eschreyer",
-   "target": "schorder"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "Eschreyer",
-   "target": "matrix-con"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "Eschreyer",
-   "target": "polyring"
+   "target": "schorder",
+   "kind": "include"
   },
   {
    "source": "Eschreyer",
-   "target": "monoid"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "Eschreyer",
-   "target": "gbring"
+   "target": "comp",
+   "kind": "include"
   },
   {
    "source": "Eschreyer",
-   "target": "comp"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "ExponentList",
-   "target": "engine-includes"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "ExponentList",
-   "target": "error"
+   "target": "overflow",
+   "kind": "include"
   },
   {
    "source": "ExponentList",
-   "target": "buffer"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "ExponentList",
-   "target": "overflow"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "ExponentList",
-   "target": "ExponentVector"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "ExponentVector",
-   "target": "util"
+   "target": "overflow",
+   "kind": "include"
   },
   {
    "source": "ExponentVector",
-   "target": "style"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "ExponentVector",
-   "target": "overflow"
+   "target": "util",
+   "kind": "include"
   },
   {
    "source": "ExponentVector",
-   "target": "buffer"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "GF",
-   "target": "ZZ"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "GF",
-   "target": "text-io"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "GF",
-   "target": "poly"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "GF",
-   "target": "aring-m2-gf"
+   "target": "aring-m2-gf",
+   "kind": "include"
   },
   {
    "source": "GF",
-   "target": "relem"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "GF",
-   "target": "ringmap"
+   "target": "ZZ",
+   "kind": "include"
   },
   {
    "source": "GF",
-   "target": "monoid"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "GF",
-   "target": "interrupted"
+   "target": "poly",
+   "kind": "include"
   },
   {
    "source": "LLL",
-   "target": "text-io"
+   "target": "mat",
+   "kind": "include"
   },
   {
    "source": "LLL",
-   "target": "matrix"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "LLL",
-   "target": "relem"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "LLL",
-   "target": "interrupted"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "LLL",
-   "target": "mat"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebra",
-   "target": "engine-includes"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebra",
-   "target": "Polynomial"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebra",
-   "target": "dir:NCAlgebras"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebra",
-   "target": "relem"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebra",
-   "target": "monomial"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebra",
-   "target": "ringelem"
+   "target": "dir:NCAlgebras",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebra",
-   "target": "monoid"
+   "target": "monomial",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebra",
-   "target": "ring"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebra",
-   "target": "exceptions"
+   "target": "Polynomial",
+   "kind": "include"
+  },
+  {
+   "source": "M2FreeAlgebra",
+   "target": "polyring",
+   "kind": "decl"
+  },
+  {
+   "source": "M2FreeAlgebra",
+   "target": "buffer",
+   "kind": "decl"
+  },
+  {
+   "source": "M2FreeAlgebra",
+   "target": "ringmap",
+   "kind": "decl"
   },
   {
    "source": "M2FreeAlgebraQuotient",
-   "target": "engine-includes"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebraQuotient",
-   "target": "dir:NCAlgebras"
+   "target": "Polynomial",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebraQuotient",
-   "target": "Polynomial"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebraQuotient",
-   "target": "matrix"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebraQuotient",
-   "target": "ringelem"
+   "target": "M2FreeAlgebra",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebraQuotient",
-   "target": "M2FreeAlgebra"
+   "target": "dir:NCAlgebras",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebraQuotient",
-   "target": "ring"
+   "target": "engine-includes",
+   "kind": "include"
+  },
+  {
+   "source": "M2FreeAlgebraQuotient",
+   "target": "monoid",
+   "kind": "decl"
+  },
+  {
+   "source": "M2FreeAlgebraQuotient",
+   "target": "buffer",
+   "kind": "decl"
+  },
+  {
+   "source": "M2FreeAlgebraQuotient",
+   "target": "ringmap",
+   "kind": "decl"
   },
   {
    "source": "NAG",
-   "target": "engine-includes"
+   "target": "SLP",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "aring"
+   "target": "lapack",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "error"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "hash"
+   "target": "hash",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "buffer"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "aring-glue"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "lapack"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "newdelete"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "dir:interface"
+   "target": "poly",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "matrix"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "relem"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "ring"
+   "target": "aring-glue",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "SLP"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "poly"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "aring-CC"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "matrix-con"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "ringelem"
+   "target": "aring-CC",
+   "kind": "include"
+  },
+  {
+   "source": "NAG",
+   "target": "SLP-defs",
+   "kind": "decl"
+  },
+  {
+   "source": "NAG",
+   "target": "freemod",
+   "kind": "decl"
   },
   {
    "source": "Polynomial",
-   "target": "newdelete"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "Polynomial",
-   "target": "ringelem"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "Polynomial",
-   "target": "style"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "SLP-imp",
-   "target": "timing"
+   "target": "timing",
+   "kind": "include"
   },
   {
    "source": "SLP",
-   "target": "mutablemat-imp"
+   "target": "mutablemat-imp",
+   "kind": "include"
   },
   {
    "source": "SLP",
-   "target": "matrix"
+   "target": "SLP-imp",
+   "kind": "include"
   },
   {
    "source": "SLP",
-   "target": "mutablemat-defs"
+   "target": "aring-glue",
+   "kind": "include"
   },
   {
    "source": "SLP",
-   "target": "buffer"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "SLP",
-   "target": "aring-glue"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "SLP",
-   "target": "SLP-defs"
+   "target": "mutablemat-defs",
+   "kind": "include"
   },
   {
    "source": "SLP",
-   "target": "SLP-imp"
+   "target": "SLP-defs",
+   "kind": "include"
   },
   {
    "source": "VectorArithmetic",
-   "target": "newdelete"
+   "target": "aring-glue",
+   "kind": "include"
   },
   {
    "source": "VectorArithmetic",
-   "target": "dir:NCAlgebras"
+   "target": "MemoryBlock",
+   "kind": "include"
   },
   {
    "source": "VectorArithmetic",
-   "target": "MemoryBlock"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "VectorArithmetic",
-   "target": "ringelem"
+   "target": "dir:NCAlgebras",
+   "kind": "include"
   },
   {
    "source": "VectorArithmetic",
-   "target": "m2tbb"
+   "target": "m2tbb",
+   "kind": "include"
   },
   {
    "source": "VectorArithmetic",
-   "target": "aring-glue"
+   "target": "newdelete",
+   "kind": "include"
+  },
+  {
+   "source": "VectorArithmetic",
+   "target": "ring",
+   "kind": "decl"
   },
   {
    "source": "ZZ",
-   "target": "text-io"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "ZZ",
-   "target": "error"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "ZZ",
-   "target": "aring-zz-gmp"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "ZZ",
-   "target": "relem"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "ZZ",
-   "target": "ringmap"
+   "target": "aring-zz-gmp",
+   "kind": "include"
   },
   {
    "source": "ZZ",
-   "target": "monoid"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "ZZ",
-   "target": "gbring"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "ZZ",
-   "target": "ring"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "ZZ",
-   "target": "exceptions"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "ZZp",
-   "target": "ZZ"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "ZZp",
-   "target": "text-io"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "ZZp",
-   "target": "error"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "ZZp",
-   "target": "coeffrings"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "ZZp",
-   "target": "ringmap"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "ZZp",
-   "target": "monoid"
+   "target": "aring-zzp",
+   "kind": "include"
   },
   {
    "source": "ZZp",
-   "target": "gbring"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "ZZp",
-   "target": "ring"
+   "target": "ZZ",
+   "kind": "include"
   },
   {
    "source": "ZZp",
-   "target": "aring-zzp"
+   "target": "coeffrings",
+   "kind": "include"
   },
   {
    "source": "aring-CC",
-   "target": "aring"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-CC",
-   "target": "aring-RR"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-CC",
-   "target": "dir:interface"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-CC",
-   "target": "ringelem"
+   "target": "aring-RR",
+   "kind": "include"
   },
   {
    "source": "aring-CC",
-   "target": "buffer"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-CC",
-   "target": "ringmap"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-CCC",
-   "target": "aring-RRR"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-CCC",
-   "target": "text-io"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "aring-CCC",
-   "target": "aring"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-CCC",
-   "target": "dir:interface"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-CCC",
-   "target": "ringelem"
+   "target": "aring-RRR",
+   "kind": "include"
   },
   {
    "source": "aring-CCC",
-   "target": "buffer"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-CCC",
-   "target": "ringmap"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-CCi",
-   "target": "aring-RRR"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-CCi",
-   "target": "aring"
+   "target": "aring-RRi",
+   "kind": "include"
   },
   {
    "source": "aring-CCi",
-   "target": "aring-CCC"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-CCi",
-   "target": "dir:interface"
+   "target": "aring-CCC",
+   "kind": "include"
   },
   {
    "source": "aring-CCi",
-   "target": "ringelem"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-CCi",
-   "target": "buffer"
+   "target": "aring-RRR",
+   "kind": "include"
   },
   {
    "source": "aring-CCi",
-   "target": "ringmap"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-CCi",
-   "target": "aring-RRi"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-RR",
-   "target": "aring"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-RR",
-   "target": "ringelem"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-RR",
-   "target": "buffer"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-RR",
-   "target": "ringmap"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "aring-RR",
-   "target": "dir:interface"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-RR",
-   "target": "exceptions"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-RRR",
-   "target": "aring"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-RRR",
-   "target": "dir:interface"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-RRR",
-   "target": "ringelem"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-RRR",
-   "target": "buffer"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-RRR",
-   "target": "ringmap"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-RRi",
-   "target": "aring-RRR"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-RRi",
-   "target": "aring"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-RRi",
-   "target": "ringelem"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-RRi",
-   "target": "buffer"
+   "target": "aring-RRR",
+   "kind": "include"
   },
   {
    "source": "aring-RRi",
-   "target": "ringmap"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-RRi",
-   "target": "dir:interface"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint-big",
-   "target": "aring"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint-big",
-   "target": "poly"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint-big",
-   "target": "dir:interface"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint-big",
-   "target": "relem"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint-big",
-   "target": "ringelem"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint-big",
-   "target": "ringmap"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint-big",
-   "target": "buffer"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint-big",
-   "target": "exceptions"
+   "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "aring-gf-flint-big",
+   "target": "polyring",
+   "kind": "decl"
   },
   {
    "source": "aring-gf-flint",
-   "target": "poly"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint",
-   "target": "dir:interface"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint",
-   "target": "aring"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint",
-   "target": "relem"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint",
-   "target": "ringelem"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint",
-   "target": "ringmap"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint",
-   "target": "buffer"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-gf-flint",
-   "target": "exceptions"
+   "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "aring-gf-flint",
+   "target": "polyring",
+   "kind": "decl"
   },
   {
    "source": "aring-glue",
-   "target": "mutablemat"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "aring-glue",
-   "target": "aring"
+   "target": "mutablemat",
+   "kind": "include"
   },
   {
    "source": "aring-glue",
-   "target": "aring-qq"
+   "target": "aring-translate",
+   "kind": "include"
   },
   {
    "source": "aring-glue",
-   "target": "aring-translate"
+   "target": "aring-qq",
+   "kind": "include"
   },
   {
    "source": "aring-glue",
-   "target": "ring"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-m2-gf",
-   "target": "aring"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "aring-m2-gf",
-   "target": "relem"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "aring-m2-gf",
-   "target": "ringelem"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-m2-gf",
-   "target": "polyring"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-m2-gf",
-   "target": "ringmap"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-m2-gf",
-   "target": "monoid"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "aring-m2-gf",
-   "target": "interrupted"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-m2-gf",
-   "target": "buffer"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "aring-m2-gf",
-   "target": "dir:interface"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "aring-m2-gf",
-   "target": "exceptions"
+   "target": "aring",
+   "kind": "include"
+  },
+  {
+   "source": "aring-m2-gf",
+   "target": "GF",
+   "kind": "decl"
   },
   {
    "source": "aring-qq-flint",
-   "target": "aring"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "aring-qq-flint",
-   "target": "dir:interface"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-qq-flint",
-   "target": "ringelem"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-qq-flint",
-   "target": "buffer"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-qq-flint",
-   "target": "ringmap"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "aring-qq-flint",
-   "target": "ring"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-qq-flint",
-   "target": "exceptions"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-qq-gmp",
-   "target": "aring"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "aring-qq-gmp",
-   "target": "dir:interface"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-qq-gmp",
-   "target": "ringelem"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-qq-gmp",
-   "target": "ringmap"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-qq-gmp",
-   "target": "buffer"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "aring-qq-gmp",
-   "target": "ring"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-qq-gmp",
-   "target": "exceptions"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-qq",
-   "target": "aring-qq-gmp"
+   "target": "aring-qq-gmp",
+   "kind": "include"
   },
   {
    "source": "aring-qq",
-   "target": "aring-qq-flint"
+   "target": "aring-qq-flint",
+   "kind": "include"
   },
   {
    "source": "aring-tower",
-   "target": "aring"
+   "target": "aring-zzp-ffpack",
+   "kind": "include"
   },
   {
    "source": "aring-tower",
-   "target": "aring-zzp-ffpack"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "aring-tower",
-   "target": "ringelem"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-tower",
-   "target": "style"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "aring-tower",
-   "target": "ExponentVector"
+   "target": "aring",
+   "kind": "include"
+  },
+  {
+   "source": "aring-tower",
+   "target": "dpoly",
+   "kind": "decl"
+  },
+  {
+   "source": "aring-tower",
+   "target": "ringmap",
+   "kind": "decl"
   },
   {
    "source": "aring-translate",
-   "target": "aring-RRR"
+   "target": "aring-zzp-ffpack",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-zzp"
+   "target": "aring-RRi",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-zz-flint"
+   "target": "aring-zzp-flint",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-gf-flint"
+   "target": "aring-qq",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-CC"
+   "target": "aring-gf-flint-big",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-zzp-ffpack"
+   "target": "aring-gf-flint",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-CCC"
+   "target": "aring-CCC",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-zz-gmp"
+   "target": "aring-m2-gf",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-m2-gf"
+   "target": "aring-zzp",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-gf-flint-big"
+   "target": "aring-RR",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-zzp-flint"
+   "target": "aring-zz-gmp",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-qq"
+   "target": "aring-tower",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-tower"
+   "target": "aring-RRR",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-CCi"
+   "target": "aring-CCi",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-RRi"
+   "target": "aring-CC",
+   "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-RR"
+   "target": "aring-zz-flint",
+   "kind": "include"
   },
   {
    "source": "aring-wrap",
-   "target": "aring"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-zz-flint",
-   "target": "ZZ"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-zz-flint",
-   "target": "aring"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-zz-flint",
-   "target": "dir:interface"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-zz-flint",
-   "target": "ringelem"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "aring-zz-flint",
-   "target": "buffer"
+   "target": "ZZ",
+   "kind": "include"
   },
   {
    "source": "aring-zz-flint",
-   "target": "ringmap"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-zz-flint",
-   "target": "exceptions"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-zz-gmp",
-   "target": "ZZ"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-zz-gmp",
-   "target": "aring"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-zz-gmp",
-   "target": "dir:interface"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-zz-gmp",
-   "target": "ringelem"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "aring-zz-gmp",
-   "target": "buffer"
+   "target": "ZZ",
+   "kind": "include"
   },
   {
    "source": "aring-zz-gmp",
-   "target": "ringmap"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-zz-gmp",
-   "target": "exceptions"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-zzp-ffpack",
-   "target": "aring"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-zzp-ffpack",
-   "target": "ringelem"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-zzp-ffpack",
-   "target": "buffer"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "aring-zzp-ffpack",
-   "target": "ringmap"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-zzp-ffpack",
-   "target": "exceptions"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-zzp-flint",
-   "target": "aring-zzp"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-zzp-flint",
-   "target": "aring"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-zzp-flint",
-   "target": "dir:interface"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-zzp-flint",
-   "target": "ringelem"
+   "target": "aring-zzp",
+   "kind": "include"
   },
   {
    "source": "aring-zzp-flint",
-   "target": "buffer"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "aring-zzp-flint",
-   "target": "ringmap"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-zzp-flint",
-   "target": "exceptions"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "aring-zzp",
-   "target": "aring"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "aring-zzp",
-   "target": "ringelem"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring-zzp",
-   "target": "buffer"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "aring-zzp",
-   "target": "ringmap"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "aring-zzp",
-   "target": "dir:interface"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "aring-zzp",
-   "target": "exceptions"
+   "target": "aring",
+   "kind": "include"
+  },
+  {
+   "source": "aring-zzp",
+   "target": "ZZp",
+   "kind": "decl"
   },
   {
    "source": "aring",
-   "target": "ringelem"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "aring",
-   "target": "buffer"
+   "target": "aring-zzp",
+   "kind": "include"
   },
   {
    "source": "aring",
-   "target": "aring-zzp"
+   "target": "buffer",
+   "kind": "include"
+  },
+  {
+   "source": "aring",
+   "target": "polyring",
+   "kind": "decl"
+  },
+  {
+   "source": "aring",
+   "target": "ringmap",
+   "kind": "decl"
   },
   {
    "source": "assprime",
-   "target": "monideal"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "betti",
-   "target": "buffer"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "buffer",
-   "target": "engine-includes"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "buffer",
-   "target": "newdelete"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "buffer",
-   "target": "ringelem"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "coeffrings",
-   "target": "ZZ"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "coeffrings",
-   "target": "aring"
+   "target": "ZZ",
+   "kind": "include"
   },
   {
    "source": "coeffrings",
-   "target": "ringelem"
+   "target": "aring",
+   "kind": "include"
+  },
+  {
+   "source": "coeffrings",
+   "target": "ZZp",
+   "kind": "decl"
   },
   {
    "source": "comb",
-   "target": "text-io"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "comp-gb-declared",
-   "target": "reducedgb-marked"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "comp-gb-declared",
-   "target": "matrix"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "comp-gb-declared",
-   "target": "reducedgb"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "comp-gb-declared",
-   "target": "polyring"
+   "target": "reducedgb-marked",
+   "kind": "include"
   },
   {
    "source": "comp-gb-declared",
-   "target": "comp-gb"
+   "target": "reducedgb",
+   "kind": "include"
   },
   {
    "source": "comp-gb-proxy",
-   "target": "comp-gb"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "comp-gb",
-   "target": "gbweight"
+   "target": "gb-homog2",
+   "kind": "include"
   },
   {
    "source": "comp-gb",
-   "target": "comp-gb-proxy"
+   "target": "gb-sugarless",
+   "kind": "include"
   },
   {
    "source": "comp-gb",
-   "target": "text-io"
+   "target": "gb-default",
+   "kind": "include"
   },
   {
    "source": "comp-gb",
-   "target": "gb-homog2"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "comp-gb",
-   "target": "finalize"
+   "target": "gb-toric",
+   "kind": "include"
   },
   {
    "source": "comp-gb",
-   "target": "hermite"
+   "target": "gauss",
+   "kind": "include"
   },
   {
    "source": "comp-gb",
-   "target": "gb-sugarless"
+   "target": "comp-gb-proxy",
+   "kind": "include"
   },
   {
    "source": "comp-gb",
-   "target": "util"
+   "target": "comp",
+   "kind": "include"
   },
   {
    "source": "comp-gb",
-   "target": "gb-default"
+   "target": "util",
+   "kind": "include"
   },
   {
    "source": "comp-gb",
-   "target": "gauss"
+   "target": "hermite",
+   "kind": "include"
   },
   {
    "source": "comp-gb",
-   "target": "gb-toric"
+   "target": "gbweight",
+   "kind": "include"
   },
   {
    "source": "comp-gb",
-   "target": "comp"
+   "target": "finalize",
+   "kind": "include"
+  },
+  {
+   "source": "comp-gb",
+   "target": "buffer",
+   "kind": "decl"
   },
   {
    "source": "comp-res",
-   "target": "text-io"
+   "target": "res-a1",
+   "kind": "include"
   },
   {
    "source": "comp-res",
-   "target": "finalize"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "comp-res",
-   "target": "dir:schreyer-resolution"
+   "target": "dir:NCResolutions",
+   "kind": "include"
   },
   {
    "source": "comp-res",
-   "target": "res-a1"
+   "target": "res-a2",
+   "kind": "include"
   },
   {
    "source": "comp-res",
-   "target": "dir:NCResolutions"
+   "target": "comp",
+   "kind": "include"
   },
   {
    "source": "comp-res",
-   "target": "res-a2"
+   "target": "res-a0",
+   "kind": "include"
   },
   {
    "source": "comp-res",
-   "target": "res-a0"
+   "target": "dir:schreyer-resolution",
+   "kind": "include"
   },
   {
    "source": "comp-res",
-   "target": "comp"
+   "target": "finalize",
+   "kind": "include"
+  },
+  {
+   "source": "comp-res",
+   "target": "buffer",
+   "kind": "decl"
   },
   {
    "source": "comp",
-   "target": "finalize"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "comp",
-   "target": "hash"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "comp",
-   "target": "buffer"
+   "target": "hash",
+   "kind": "include"
   },
   {
    "source": "comp",
-   "target": "dir:interface"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "comp",
-   "target": "exceptions"
+   "target": "finalize",
+   "kind": "include"
+  },
+  {
+   "source": "comp",
+   "target": "comp-gb",
+   "kind": "decl"
+  },
+  {
+   "source": "comp",
+   "target": "comp-res",
+   "kind": "decl"
   },
   {
    "source": "complex",
-   "target": "dir:interface"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "cra",
-   "target": "matrix"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "cra",
-   "target": "poly"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "cra",
-   "target": "error"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "cra",
-   "target": "matrix-con"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "cra",
-   "target": "ringelem"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "cra",
-   "target": "style"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "cra",
-   "target": "freemod"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "cra",
-   "target": "monoid"
+   "target": "freemod",
+   "kind": "include"
   },
   {
    "source": "cra",
-   "target": "ring"
+   "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "cra",
+   "target": "relem",
+   "kind": "decl"
   },
   {
    "source": "debug",
-   "target": "text-io"
+   "target": "res-a1-poly",
+   "kind": "include"
   },
   {
    "source": "debug",
-   "target": "mat"
+   "target": "res-a0-poly",
+   "kind": "include"
   },
   {
    "source": "debug",
-   "target": "matrix"
+   "target": "mat",
+   "kind": "include"
   },
   {
    "source": "debug",
-   "target": "res-a1-poly"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "debug",
-   "target": "hermite"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "debug",
-   "target": "monideal"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "debug",
-   "target": "relem"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "debug",
-   "target": "ringelem"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "debug",
-   "target": "res-a0-poly"
+   "target": "hermite",
+   "kind": "include"
   },
   {
    "source": "debug",
-   "target": "gbring"
+   "target": "relem",
+   "kind": "include"
+  },
+  {
+   "source": "debug",
+   "target": "ring",
+   "kind": "decl"
+  },
+  {
+   "source": "debug",
+   "target": "freemod",
+   "kind": "decl"
   },
   {
    "source": "det",
-   "target": "text-io"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "det",
-   "target": "matrix"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "det",
-   "target": "matrix-con"
+   "target": "comb",
+   "kind": "include"
   },
   {
    "source": "det",
-   "target": "comb"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "det",
-   "target": "interrupted"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "dmat-gf-flint-big",
-   "target": "aring-gf-flint-big"
+   "target": "aring-gf-flint-big",
+   "kind": "include"
   },
   {
    "source": "dmat-gf-flint",
-   "target": "aring-gf-flint"
+   "target": "aring-gf-flint",
+   "kind": "include"
+  },
+  {
+   "source": "dmat-gf-flint",
+   "target": "dmat-gf-flint-big",
+   "kind": "decl"
   },
   {
    "source": "dmat-lu-inplace",
-   "target": "mat-util"
+   "target": "dmat",
+   "kind": "include"
   },
   {
    "source": "dmat-lu-inplace",
-   "target": "mat-elem-ops"
+   "target": "mat-elem-ops",
+   "kind": "include"
   },
   {
    "source": "dmat-lu-inplace",
-   "target": "dmat"
+   "target": "mat-util",
+   "kind": "include"
   },
   {
    "source": "dmat-lu-qq",
-   "target": "dmat-qq-interface-flint"
+   "target": "dmat-qq-interface-flint",
+   "kind": "include"
   },
   {
    "source": "dmat-lu",
-   "target": "mat-util"
+   "target": "dmat",
+   "kind": "include"
   },
   {
    "source": "dmat-lu",
-   "target": "mat-elem-ops"
+   "target": "mat-elem-ops",
+   "kind": "include"
   },
   {
    "source": "dmat-lu",
-   "target": "dmat"
+   "target": "dmat-lu-zzp-ffpack",
+   "kind": "include"
   },
   {
    "source": "dmat-lu",
-   "target": "dmat-lu-zzp-ffpack"
+   "target": "dmat-lu-inplace",
+   "kind": "include"
   },
   {
    "source": "dmat-lu",
-   "target": "dmat-lu-qq"
+   "target": "dmat-lu-zzp-flint",
+   "kind": "include"
   },
   {
    "source": "dmat-lu",
-   "target": "dmat-lu-zzp-flint"
+   "target": "dmat-lu-qq",
+   "kind": "include"
   },
   {
    "source": "dmat-lu",
-   "target": "dmat-lu-inplace"
+   "target": "mat-util",
+   "kind": "include"
+  },
+  {
+   "source": "dmat-lu",
+   "target": "aring-glue",
+   "kind": "decl"
   },
   {
    "source": "dmat-qq-flint",
-   "target": "aring-qq-flint"
+   "target": "aring-qq-flint",
+   "kind": "include"
+  },
+  {
+   "source": "dmat-qq-flint",
+   "target": "dmat-gf-flint-big",
+   "kind": "decl"
   },
   {
    "source": "dmat-zz-flint",
-   "target": "aring-zz-flint"
+   "target": "aring-zz-flint",
+   "kind": "include"
+  },
+  {
+   "source": "dmat-zz-flint",
+   "target": "dmat-gf-flint-big",
+   "kind": "decl"
   },
   {
    "source": "dmat-zzp-flint",
-   "target": "aring-zzp-flint"
+   "target": "aring-zzp-flint",
+   "kind": "include"
+  },
+  {
+   "source": "dmat-zzp-flint",
+   "target": "dmat-gf-flint-big",
+   "kind": "decl"
   },
   {
    "source": "dmat",
-   "target": "engine-includes"
+   "target": "dmat-gf-flint",
+   "kind": "include"
   },
   {
    "source": "dmat",
-   "target": "mat-util"
+   "target": "dmat-zz-flint",
+   "kind": "include"
   },
   {
    "source": "dmat",
-   "target": "dmat-zzp-flint"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "dmat",
-   "target": "error"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "dmat",
-   "target": "dmat-gf-flint-big"
+   "target": "dmat-zzp-flint",
+   "kind": "include"
   },
   {
    "source": "dmat",
-   "target": "dmat-zz-flint"
+   "target": "dmat-gf-flint-big",
+   "kind": "include"
   },
   {
    "source": "dmat",
-   "target": "mat-linalg"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "dmat",
-   "target": "dmat-qq-flint"
+   "target": "mat-linalg",
+   "kind": "include"
   },
   {
    "source": "dmat",
-   "target": "dmat-gf-flint"
+   "target": "mat-util",
+   "kind": "include"
   },
   {
    "source": "dmat",
-   "target": "exceptions"
+   "target": "dmat-qq-flint",
+   "kind": "include"
   },
   {
    "source": "dpoly",
-   "target": "ZZ"
+   "target": "ZZ",
+   "kind": "include"
   },
   {
    "source": "dpoly",
-   "target": "ringelem"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "dpoly",
-   "target": "buffer"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "dpoly",
-   "target": "dir:interface"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "dpoly",
-   "target": "ExponentVector"
+   "target": "buffer",
+   "kind": "include"
+  },
+  {
+   "source": "dpoly",
+   "target": "tower",
+   "kind": "decl"
   },
   {
    "source": "eigen",
-   "target": "aring-RRR"
+   "target": "dmat",
+   "kind": "include"
   },
   {
    "source": "eigen",
-   "target": "aring-RR"
+   "target": "aring-RRR",
+   "kind": "include"
   },
   {
    "source": "eigen",
-   "target": "aring-CC"
+   "target": "aring-CCC",
+   "kind": "include"
   },
   {
    "source": "eigen",
-   "target": "dmat"
+   "target": "mpreal",
+   "kind": "include"
   },
   {
    "source": "eigen",
-   "target": "aring-CCC"
+   "target": "aring-RR",
+   "kind": "include"
   },
   {
    "source": "eigen",
-   "target": "mpreal"
+   "target": "aring-CC",
+   "kind": "include"
   },
   {
    "source": "engine-includes",
-   "target": "dir:interface"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "engine",
-   "target": "engine-includes"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "engine",
-   "target": "mem"
+   "target": "mem",
+   "kind": "include"
   },
   {
    "source": "engine",
-   "target": "error"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "engine",
-   "target": "hash"
+   "target": "hash",
+   "kind": "include"
   },
   {
    "source": "engine",
-   "target": "dir:interface"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "engine",
-   "target": "aring-glue"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "engine",
-   "target": "style"
+   "target": "poly",
+   "kind": "include"
   },
   {
    "source": "engine",
-   "target": "poly"
+   "target": "aring-glue",
+   "kind": "include"
+  },
+  {
+   "source": "engine",
+   "target": "matrix",
+   "kind": "decl"
+  },
+  {
+   "source": "engine",
+   "target": "mutablecomplex",
+   "kind": "decl"
+  },
+  {
+   "source": "engine",
+   "target": "comp",
+   "kind": "decl"
+  },
+  {
+   "source": "engine",
+   "target": "freemod",
+   "kind": "decl"
+  },
+  {
+   "source": "engine",
+   "target": "mat",
+   "kind": "decl"
+  },
+  {
+   "source": "engine",
+   "target": "ringmap",
+   "kind": "decl"
   },
   {
    "source": "exptable",
-   "target": "dir:interface"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "exptable",
-   "target": "table"
+   "target": "table",
+   "kind": "include"
   },
   {
    "source": "finalize",
-   "target": "engine-includes"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "finalize",
-   "target": "schorder"
+   "target": "mat",
+   "kind": "include"
   },
   {
    "source": "finalize",
-   "target": "monideal"
+   "target": "schorder",
+   "kind": "include"
   },
   {
    "source": "finalize",
-   "target": "comp-gb"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "finalize",
-   "target": "comp-res"
+   "target": "comp-res",
+   "kind": "include"
   },
   {
    "source": "finalize",
-   "target": "mat"
+   "target": "engine-includes",
+   "kind": "include"
+  },
+  {
+   "source": "finalize",
+   "target": "polyring",
+   "kind": "decl"
   },
   {
    "source": "fplll-interface",
-   "target": "mutablemat"
+   "target": "mutablemat",
+   "kind": "include"
+  },
+  {
+   "source": "fplll-interface",
+   "target": "mat",
+   "kind": "decl"
   },
   {
    "source": "frac",
-   "target": "text-io"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "frac",
-   "target": "relem"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "frac",
-   "target": "polyring"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "frac",
-   "target": "dir:interface"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "frac",
-   "target": "ringmap"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "frac",
-   "target": "monoid"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "frac",
-   "target": "gbring"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "frac",
-   "target": "ring"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "frac",
-   "target": "exceptions"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "fractionfreeLU",
-   "target": "interrupted"
+   "target": "mat",
+   "kind": "include"
   },
   {
    "source": "fractionfreeLU",
-   "target": "mat"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "franzi-brp-test",
-   "target": "franzi-brp"
+   "target": "franzi-brp",
+   "kind": "include"
   },
   {
    "source": "franzi-gb",
-   "target": "franzi-brp"
+   "target": "franzi-brp",
+   "kind": "include"
   },
   {
    "source": "franzi-interface",
-   "target": "franzi-brp"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "franzi-interface",
-   "target": "matrix"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "franzi-interface",
-   "target": "matrix-con"
+   "target": "franzi-brp",
+   "kind": "include"
   },
   {
    "source": "freemod",
-   "target": "matrix"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "freemod",
-   "target": "Eschreyer"
+   "target": "Eschreyer",
+   "kind": "include"
   },
   {
    "source": "freemod",
-   "target": "schorder"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "freemod",
-   "target": "matrix-con"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "freemod",
-   "target": "util"
+   "target": "schorder",
+   "kind": "include"
   },
   {
    "source": "freemod",
-   "target": "polyring"
+   "target": "comb",
+   "kind": "include"
   },
   {
    "source": "freemod",
-   "target": "comb"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "freemod",
-   "target": "gbring"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "freemod",
-   "target": "ring"
+   "target": "util",
+   "kind": "include"
   },
   {
    "source": "gauss",
-   "target": "text-io"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "gauss",
-   "target": "matrix"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "gauss",
-   "target": "newdelete"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "gauss",
-   "target": "matrix-con"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "gauss",
-   "target": "relem"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "gauss",
-   "target": "polyring"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "gauss",
-   "target": "style"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "gauss",
-   "target": "interrupted"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "gauss",
-   "target": "comp-gb"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "text-io"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "newdelete"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "montable"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "reducedgb"
+   "target": "montableZZ",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "hilb"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "comp-gb"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "gbring"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "gbweight"
+   "target": "hilb",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "matrix"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "relem"
+   "target": "gbweight",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "polyring"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "monsort"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "interrupted"
+   "target": "montable",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "matrix-con"
+   "target": "reducedgb",
+   "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "montableZZ"
+   "target": "monsort",
+   "kind": "include"
   },
   {
    "source": "gb-homog2",
-   "target": "text-io"
+   "target": "spair",
+   "kind": "include"
   },
   {
    "source": "gb-homog2",
-   "target": "gbweight"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "gb-homog2",
-   "target": "matrix"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "gb-homog2",
-   "target": "spair"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "gb-homog2",
-   "target": "matrix-con"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "gb-homog2",
-   "target": "relem"
+   "target": "hilb",
+   "kind": "include"
   },
   {
    "source": "gb-homog2",
-   "target": "hilb"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "gb-homog2",
-   "target": "polyring"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "gb-homog2",
-   "target": "style"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "gb-homog2",
-   "target": "interrupted"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "gb-homog2",
-   "target": "comp-gb"
+   "target": "gbweight",
+   "kind": "include"
   },
   {
    "source": "gb-sugarless",
-   "target": "gbweight"
+   "target": "spair",
+   "kind": "include"
   },
   {
    "source": "gb-sugarless",
-   "target": "text-io"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "gb-sugarless",
-   "target": "matrix"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "gb-sugarless",
-   "target": "spair"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "gb-sugarless",
-   "target": "matrix-con"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "gb-sugarless",
-   "target": "relem"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "gb-sugarless",
-   "target": "reducedgb"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "gb-sugarless",
-   "target": "polyring"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "gb-sugarless",
-   "target": "style"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "gb-sugarless",
-   "target": "interrupted"
+   "target": "gbweight",
+   "kind": "include"
   },
   {
    "source": "gb-sugarless",
-   "target": "comp-gb"
+   "target": "reducedgb",
+   "kind": "include"
   },
   {
    "source": "gb-toric",
-   "target": "text-io"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "gb-toric",
-   "target": "matrix"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "gb-toric",
-   "target": "matrix-con"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "gb-toric",
-   "target": "comp-gb"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "gb-toric",
-   "target": "interrupted"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "gb-toric",
-   "target": "ExponentVector"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "gb-walk",
-   "target": "reducedgb-marked"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "gb-walk",
-   "target": "engine-includes"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "gb-walk",
-   "target": "comp-gb-declared"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "gb-walk",
-   "target": "error"
+   "target": "reducedgb-marked",
+   "kind": "include"
   },
   {
    "source": "gb-walk",
-   "target": "polyring"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "gb-walk",
-   "target": "dir:interface"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "gb-walk",
-   "target": "gbring"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "gb-walk",
-   "target": "comp-gb"
+   "target": "comp-gb-declared",
+   "kind": "include"
+  },
+  {
+   "source": "gb-walk",
+   "target": "comp",
+   "kind": "decl"
+  },
+  {
+   "source": "gb-walk",
+   "target": "freemod",
+   "kind": "decl"
+  },
+  {
+   "source": "gb-walk",
+   "target": "buffer",
+   "kind": "decl"
+  },
+  {
+   "source": "gb-walk",
+   "target": "relem",
+   "kind": "decl"
+  },
+  {
+   "source": "gb-walk",
+   "target": "matrix",
+   "kind": "decl"
   },
   {
    "source": "gbring",
-   "target": "engine-includes"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "text-io"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "mem"
+   "target": "mem",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "skew"
+   "target": "debug",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "buffer"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "aring-glue"
+   "target": "ZZp",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "newdelete"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "schorder"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "ZZp"
+   "target": "weylalg",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "style"
+   "target": "skew",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "debug"
+   "target": "coeffrings",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "ExponentVector"
+   "target": "aring-glue",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "ring"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "coeffrings"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "ZZ"
+   "target": "schorder",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "ringelem"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "freemod"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "monoid"
+   "target": "ZZ",
+   "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "weylalg"
+   "target": "freemod",
+   "kind": "include"
+  },
+  {
+   "source": "gbring",
+   "target": "solvable",
+   "kind": "decl"
   },
   {
    "source": "gbweight",
-   "target": "engine-includes"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "gbweight",
-   "target": "newdelete"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "gbweight",
-   "target": "polyring"
+   "target": "freemod",
+   "kind": "include"
   },
   {
    "source": "gbweight",
-   "target": "freemod"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "gbweight",
-   "target": "monoid"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "gbweight",
-   "target": "gbring"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "gbweight",
-   "target": "ExponentVector"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "hash",
-   "target": "newdelete"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "hermite",
-   "target": "text-io"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "hermite",
-   "target": "ZZ"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "hermite",
-   "target": "matrix"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "hermite",
-   "target": "matrix-con"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "hermite",
-   "target": "relem"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "hermite",
-   "target": "polyring"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "hermite",
-   "target": "style"
+   "target": "ZZ",
+   "kind": "include"
   },
   {
    "source": "hermite",
-   "target": "comp-gb"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "mem"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "error"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "hash"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "ExponentList"
+   "target": "mem",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "buffer"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "newdelete"
+   "target": "hash",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "int-bag"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "monideal"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "ExponentVector"
+   "target": "int-bag",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "dir:interface"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "matrix"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "relem"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "polyring"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "interrupted"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "ring"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "ringelem"
+   "target": "ExponentList",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "freemod"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "monoid"
+   "target": "freemod",
+   "kind": "include"
   },
   {
    "source": "imonorder",
-   "target": "engine-includes"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "imonorder",
-   "target": "dir:interface"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "imonorder",
-   "target": "overflow"
+   "target": "overflow",
+   "kind": "include"
   },
   {
    "source": "imonorder",
-   "target": "ExponentVector"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "int-bag",
-   "target": "newdelete"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "interreduce",
-   "target": "text-io"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "interreduce",
-   "target": "freemod"
+   "target": "freemod",
+   "kind": "include"
   },
   {
    "source": "interreduce",
-   "target": "gbring"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "lapack",
-   "target": "aring-RRR"
+   "target": "aring-CC",
+   "kind": "include"
   },
   {
    "source": "lapack",
-   "target": "aring-RR"
+   "target": "dmat",
+   "kind": "include"
   },
   {
    "source": "lapack",
-   "target": "aring-CC"
+   "target": "mat-arith",
+   "kind": "include"
   },
   {
    "source": "lapack",
-   "target": "dmat"
+   "target": "aring-CCC",
+   "kind": "include"
   },
   {
    "source": "lapack",
-   "target": "aring-CCC"
+   "target": "aring-RR",
+   "kind": "include"
   },
   {
    "source": "lapack",
-   "target": "coeffrings"
+   "target": "aring-RRR",
+   "kind": "include"
   },
   {
    "source": "lapack",
-   "target": "mat-arith"
+   "target": "coeffrings",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "text-io"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "matrix"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "poly"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "matrix-con"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "relem"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "polyring"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "dir:interface"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "ringmap"
+   "target": "debug",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "monoid"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "comp-gb"
+   "target": "mutablecomplex",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "gbring"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "mutablecomplex"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "ring"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "exceptions"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "localring",
-   "target": "debug"
+   "target": "poly",
+   "kind": "include"
   },
   {
    "source": "mat-arith",
-   "target": "smat"
+   "target": "dmat",
+   "kind": "include"
   },
   {
    "source": "mat-arith",
-   "target": "dmat"
+   "target": "smat",
+   "kind": "include"
+  },
+  {
+   "source": "mat-arith",
+   "target": "mat-elem-ops",
+   "kind": "decl"
+  },
+  {
+   "source": "mat-elem-ops",
+   "target": "smat",
+   "kind": "decl"
+  },
+  {
+   "source": "mat-elem-ops",
+   "target": "dmat-gf-flint-big",
+   "kind": "decl"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-RRR"
+   "target": "aring-qq",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "dir:interface"
+   "target": "lapack",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-CCC"
+   "target": "aring-zzp",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-zz-gmp"
+   "target": "aring-RR",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "util"
+   "target": "eigen",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-m2-gf"
+   "target": "dmat",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-zz-flint"
+   "target": "aring-gf-flint",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "lapack"
+   "target": "dmat-lu",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-gf-flint"
+   "target": "aring-CCC",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-zzp-flint"
+   "target": "aring-RRR",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "dmat-qq-interface-flint"
+   "target": "dmat-qq-interface-flint",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "dmat"
+   "target": "mat-arith",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "dmat-lu"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "eigen"
+   "target": "aring-m2-gf",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "mat-arith"
+   "target": "aring-zzp-ffpack",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-RR"
+   "target": "aring-zzp-flint",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-CC"
+   "target": "aring-gf-flint-big",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-zzp-ffpack"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-gf-flint-big"
+   "target": "aring-zz-gmp",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-qq"
+   "target": "aring-zz-flint",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-zzp"
+   "target": "util",
+   "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "exceptions"
+   "target": "aring-CC",
+   "kind": "include"
   },
   {
    "source": "mat-util",
-   "target": "text-io"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "mat-util",
-   "target": "buffer"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-RRR"
+   "target": "aring-qq",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-CCC"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-zz-gmp"
+   "target": "lapack",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "hash"
+   "target": "aring-tower",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "util"
+   "target": "aring-zzp",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-tower"
+   "target": "aring-RR",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-m2-gf"
+   "target": "hash",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-glue"
+   "target": "ZZp",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "mutablemat"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-zz-flint"
+   "target": "dmat",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "lapack"
+   "target": "mutablemat",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "ZZp"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-zzp-flint"
+   "target": "aring-CCC",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "matrix"
+   "target": "aring-RRR",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "dmat"
+   "target": "coeffrings",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "relem"
+   "target": "aring-glue",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "coeffrings"
+   "target": "aring-m2-gf",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-RR"
+   "target": "smat",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-zzp-ffpack"
+   "target": "aring-zzp-ffpack",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "matrix-con"
+   "target": "aring-zzp-flint",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-qq"
+   "target": "aring-zz-gmp",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "smat"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-zzp"
+   "target": "aring-zz-flint",
+   "kind": "include"
   },
   {
    "source": "mat",
-   "target": "exceptions"
+   "target": "util",
+   "kind": "include"
+  },
+  {
+   "source": "mat",
+   "target": "ring",
+   "kind": "decl"
+  },
+  {
+   "source": "mat",
+   "target": "buffer",
+   "kind": "decl"
+  },
+  {
+   "source": "mat",
+   "target": "mutablemat-defs",
+   "kind": "decl"
+  },
+  {
+   "source": "mat",
+   "target": "mpreal",
+   "kind": "decl"
   },
   {
    "source": "matrix-con",
-   "target": "matrix"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "matrix-con",
-   "target": "debug"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "matrix-con",
-   "target": "ring"
+   "target": "debug",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "engine-includes"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "error"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "util"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "newdelete"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "int-bag"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "monideal"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "style"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "ExponentVector"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "dir:interface"
+   "target": "int-bag",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "matrix"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "polyring"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "interrupted"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "ring"
+   "target": "util",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "matrix-con"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "ringelem"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "freemod"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "monoid"
+   "target": "freemod",
+   "kind": "include"
   },
   {
    "source": "matrix-ncbasis",
-   "target": "Polynomial"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "matrix-ncbasis",
-   "target": "dir:NCAlgebras"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "matrix-ncbasis",
-   "target": "interrupted"
+   "target": "dir:NCAlgebras",
+   "kind": "include"
   },
   {
    "source": "matrix-ncbasis",
-   "target": "monoid"
+   "target": "Polynomial",
+   "kind": "include"
   },
   {
    "source": "matrix-sort",
-   "target": "matrix"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "matrix-stream",
-   "target": "poly"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "matrix-stream",
-   "target": "matrix"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "matrix-stream",
-   "target": "matrix-con"
+   "target": "poly",
+   "kind": "include"
   },
   {
    "source": "matrix-symm",
-   "target": "matrix"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "matrix-symm",
-   "target": "matrix-con"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "text-io"
+   "target": "monomial-collection",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "monomial-collection"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "util"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "monideal"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "dir:interface"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "style"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "exptable"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "M2FreeAlgebra"
+   "target": "M2FreeAlgebra",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "assprime"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "ExponentVector"
+   "target": "exptable",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "relem"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "polyring"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "ring"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "matrix-con"
+   "target": "comb",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "comb"
+   "target": "assprime",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "freemod"
+   "target": "util",
+   "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "monoid"
+   "target": "freemod",
+   "kind": "include"
   },
   {
    "source": "mem",
-   "target": "text-io"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "mem",
-   "target": "newdelete"
+   "target": "newdelete",
+   "kind": "include"
+  },
+  {
+   "source": "mem",
+   "target": "buffer",
+   "kind": "decl"
   },
   {
    "source": "monideal-minprimes",
-   "target": "text-io"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "monideal-minprimes",
-   "target": "monideal"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "monideal",
-   "target": "text-io"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "monideal",
-   "target": "mem"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "monideal",
-   "target": "int-bag"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "monideal",
-   "target": "polyring"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "monideal",
-   "target": "ExponentList"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "monideal",
-   "target": "monoid"
+   "target": "mem",
+   "kind": "include"
   },
   {
    "source": "monideal",
-   "target": "debug"
+   "target": "ExponentList",
+   "kind": "include"
   },
   {
    "source": "monideal",
-   "target": "ring"
+   "target": "debug",
+   "kind": "include"
   },
   {
    "source": "monideal",
-   "target": "ExponentVector"
+   "target": "int-bag",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "imonorder"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "error"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "hash"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "util"
+   "target": "hash",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "ExponentList"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "buffer"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "overflow"
+   "target": "imonorder",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "newdelete"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "dir:interface"
+   "target": "util",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "style"
+   "target": "overflow",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "ExponentVector"
+   "target": "ExponentList",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "polyring"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "exceptions"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "monomial-collection",
-   "target": "Polynomial"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "monomial-collection",
-   "target": "style"
+   "target": "Polynomial",
+   "kind": "include"
   },
   {
    "source": "monomial",
-   "target": "engine-includes"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "monomial",
-   "target": "error"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "monomial",
-   "target": "hash"
+   "target": "ExponentList",
+   "kind": "include"
   },
   {
    "source": "monomial",
-   "target": "ExponentList"
+   "target": "hash",
+   "kind": "include"
   },
   {
    "source": "monomial",
-   "target": "buffer"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "monomial",
-   "target": "monoid"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "monsort",
-   "target": "newdelete"
+   "target": "dir:f4",
+   "kind": "include"
   },
   {
    "source": "monsort",
-   "target": "dir:interface"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "monsort",
-   "target": "dir:f4"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "montable",
-   "target": "mem"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "montable",
-   "target": "newdelete"
+   "target": "mem",
+   "kind": "include"
   },
   {
    "source": "montable",
-   "target": "style"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "montable",
-   "target": "ExponentVector"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "montableZZ",
-   "target": "newdelete"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "montableZZ",
-   "target": "style"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "montableZZ",
-   "target": "buffer"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "montableZZ",
-   "target": "ExponentVector"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "mutablecomplex",
-   "target": "engine-includes"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "mutablecomplex",
-   "target": "localring"
+   "target": "mat",
+   "kind": "include"
   },
   {
    "source": "mutablecomplex",
-   "target": "hash"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "mutablecomplex",
-   "target": "polyring"
+   "target": "localring",
+   "kind": "include"
   },
   {
    "source": "mutablecomplex",
-   "target": "style"
+   "target": "debug",
+   "kind": "include"
   },
   {
    "source": "mutablecomplex",
-   "target": "debug"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "mutablecomplex",
-   "target": "ring"
+   "target": "hash",
+   "kind": "include"
   },
   {
    "source": "mutablecomplex",
-   "target": "mat"
+   "target": "engine-includes",
+   "kind": "include"
+  },
+  {
+   "source": "mutablecomplex",
+   "target": "gb-toric",
+   "kind": "decl"
   },
   {
    "source": "mutablemat-defs",
-   "target": "mat-elem-ops"
+   "target": "dmat",
+   "kind": "include"
   },
   {
    "source": "mutablemat-defs",
-   "target": "dmat"
+   "target": "mat",
+   "kind": "include"
   },
   {
    "source": "mutablemat-defs",
-   "target": "matrix-con"
+   "target": "mat-arith",
+   "kind": "include"
   },
   {
    "source": "mutablemat-defs",
-   "target": "mat-linalg"
+   "target": "mat-elem-ops",
+   "kind": "include"
   },
   {
    "source": "mutablemat-defs",
-   "target": "smat"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "mutablemat-defs",
-   "target": "mat-arith"
+   "target": "smat",
+   "kind": "include"
   },
   {
    "source": "mutablemat-defs",
-   "target": "mat"
+   "target": "mat-linalg",
+   "kind": "include"
+  },
+  {
+   "source": "mutablemat-defs",
+   "target": "aring-CCC",
+   "kind": "decl"
+  },
+  {
+   "source": "mutablemat-defs",
+   "target": "aring-RRR",
+   "kind": "decl"
+  },
+  {
+   "source": "mutablemat-defs",
+   "target": "aring-RR",
+   "kind": "decl"
+  },
+  {
+   "source": "mutablemat-defs",
+   "target": "aring-CC",
+   "kind": "decl"
+  },
+  {
+   "source": "mutablemat-defs",
+   "target": "aring-zzp",
+   "kind": "decl"
+  },
+  {
+   "source": "mutablemat-defs",
+   "target": "dmat-gf-flint-big",
+   "kind": "decl"
   },
   {
    "source": "mutablemat",
-   "target": "mutablemat-imp"
+   "target": "SLP-imp",
+   "kind": "include"
   },
   {
    "source": "mutablemat",
-   "target": "mutablemat-defs"
+   "target": "mutablemat-imp",
+   "kind": "include"
   },
   {
    "source": "mutablemat",
-   "target": "SLP-imp"
+   "target": "mutablemat-defs",
+   "kind": "include"
   },
   {
    "source": "mutablemat",
-   "target": "SLP-defs"
+   "target": "SLP-defs",
+   "kind": "include"
   },
   {
    "source": "newdelete",
-   "target": "dir:interface"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "ntl-debugio",
-   "target": "ntl-interface"
+   "target": "ntl-interface",
+   "kind": "include"
   },
   {
    "source": "ntl-interface",
-   "target": "mat"
+   "target": "mat",
+   "kind": "include"
   },
   {
    "source": "ntl-internal",
-   "target": "ntl-interface"
+   "target": "ntl-interface",
+   "kind": "include"
   },
   {
    "source": "overflow-test",
-   "target": "overflow"
+   "target": "overflow",
+   "kind": "include"
   },
   {
    "source": "overflow",
-   "target": "exceptions"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "pfaff",
-   "target": "matrix"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "pfaff",
-   "target": "matrix-con"
+   "target": "comb",
+   "kind": "include"
   },
   {
    "source": "pfaff",
-   "target": "comb"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "pfaff",
-   "target": "interrupted"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "points",
-   "target": "dmat"
+   "target": "dmat",
+   "kind": "include"
   },
   {
    "source": "points",
-   "target": "matrix-con"
+   "target": "mat",
+   "kind": "include"
   },
   {
    "source": "points",
-   "target": "error"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "points",
-   "target": "monideal"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "points",
-   "target": "polyring"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "points",
-   "target": "aring-zzp"
+   "target": "aring-zzp",
+   "kind": "include"
   },
   {
    "source": "points",
-   "target": "mat"
+   "target": "error",
+   "kind": "include"
+  },
+  {
+   "source": "points",
+   "target": "matrix",
+   "kind": "decl"
   },
   {
    "source": "poly",
-   "target": "text-io"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "skew"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "aring-glue"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "ringmap"
+   "target": "debug",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "geopoly"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "gbring"
+   "target": "monomial",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "debug"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "ExponentVector"
+   "target": "frac",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "matrix"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "geovec"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "relem"
+   "target": "skew",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "polyring"
+   "target": "aring-glue",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "ring"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "frac"
+   "target": "geovec",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "ZZ"
+   "target": "geopoly",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "monomial"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "ringelem"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "poly",
-   "target": "monoid"
+   "target": "ZZ",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "comp-gb",
+   "kind": "decl"
+  },
+  {
+   "source": "poly",
+   "target": "cra",
+   "kind": "decl"
   },
   {
    "source": "polyquotient",
-   "target": "engine-includes"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "qring"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "matrix"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "poly"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "error"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "matrix-con"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "relem"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "ringelem"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "polyring"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "dir:interface"
+   "target": "qring",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "buffer"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "monoid"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "comp-gb"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "ring"
+   "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "polyquotient",
+   "target": "gbring",
+   "kind": "decl"
+  },
+  {
+   "source": "polyquotient",
+   "target": "freemod",
+   "kind": "decl"
+  },
+  {
+   "source": "polyquotient",
+   "target": "ringmap",
+   "kind": "decl"
   },
   {
    "source": "polyring",
-   "target": "qring"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "polyring",
-   "target": "matrix"
+   "target": "polyquotient",
+   "kind": "include"
   },
   {
    "source": "polyring",
-   "target": "matrix-con"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "polyring",
-   "target": "util"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "polyring",
-   "target": "ringelem"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "polyring",
-   "target": "skew"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "polyring",
-   "target": "dir:interface"
+   "target": "qring",
+   "kind": "include"
   },
   {
    "source": "polyring",
-   "target": "monoid"
+   "target": "skew",
+   "kind": "include"
   },
   {
    "source": "polyring",
-   "target": "polyquotient"
+   "target": "util",
+   "kind": "include"
   },
   {
    "source": "polyring",
-   "target": "geopoly"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "polyring",
-   "target": "ring"
+   "target": "geopoly",
+   "kind": "include"
+  },
+  {
+   "source": "polyring",
+   "target": "gbring",
+   "kind": "decl"
+  },
+  {
+   "source": "polyring",
+   "target": "comp-gb",
+   "kind": "decl"
+  },
+  {
+   "source": "polyring",
+   "target": "monideal",
+   "kind": "decl"
+  },
+  {
+   "source": "polyring",
+   "target": "montableZZ",
+   "kind": "decl"
+  },
+  {
+   "source": "polyring",
+   "target": "buffer",
+   "kind": "decl"
+  },
+  {
+   "source": "polyring",
+   "target": "montable",
+   "kind": "decl"
+  },
+  {
+   "source": "polyring",
+   "target": "poly",
+   "kind": "decl"
   },
   {
    "source": "qring",
-   "target": "poly"
+   "target": "aring-glue",
+   "kind": "include"
   },
   {
    "source": "qring",
-   "target": "monideal"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "qring",
-   "target": "montable"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "qring",
-   "target": "aring-glue"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "qring",
-   "target": "ringelem"
+   "target": "montableZZ",
+   "kind": "include"
   },
   {
    "source": "qring",
-   "target": "style"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "qring",
-   "target": "montableZZ"
+   "target": "montable",
+   "kind": "include"
   },
   {
    "source": "qring",
-   "target": "gbring"
+   "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "qring",
+   "target": "freemod",
+   "kind": "decl"
   },
   {
    "source": "reader",
-   "target": "aring-zzp"
+   "target": "aring-zzp",
+   "kind": "include"
   },
   {
    "source": "reducedgb-ZZ",
-   "target": "text-io"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "reducedgb-ZZ",
-   "target": "monideal"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "reducedgb-ZZ",
-   "target": "reducedgb"
+   "target": "reducedgb",
+   "kind": "include"
   },
   {
    "source": "reducedgb-field-local",
-   "target": "gbweight"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "reducedgb-field-local",
-   "target": "text-io"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "reducedgb-field-local",
-   "target": "monideal"
+   "target": "reducedgb-field",
+   "kind": "include"
   },
   {
    "source": "reducedgb-field-local",
-   "target": "montable"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "reducedgb-field-local",
-   "target": "reducedgb-field"
+   "target": "montable",
+   "kind": "include"
   },
   {
    "source": "reducedgb-field-local",
-   "target": "polyring"
+   "target": "gbweight",
+   "kind": "include"
   },
   {
    "source": "reducedgb-field",
-   "target": "monideal"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "reducedgb-field",
-   "target": "reducedgb"
+   "target": "reducedgb",
+   "kind": "include"
   },
   {
    "source": "reducedgb-marked",
-   "target": "matrix-con"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "reducedgb-marked",
-   "target": "monideal"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "reducedgb-marked",
-   "target": "reducedgb"
+   "target": "reducedgb",
+   "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "gbweight"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "matrix"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "matrix-con"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "reducedgb-ZZ"
+   "target": "reducedgb-field",
+   "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "gbring"
+   "target": "reducedgb-field-local",
+   "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "montable"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "reducedgb-field"
+   "target": "montableZZ",
+   "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "polyring"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "montableZZ"
+   "target": "reducedgb-ZZ",
+   "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "comp-gb"
+   "target": "montable",
+   "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "reducedgb-field-local"
+   "target": "gbweight",
+   "kind": "include"
   },
   {
    "source": "relem",
-   "target": "localring"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "relem",
-   "target": "monomial"
+   "target": "frac",
+   "kind": "include"
   },
   {
    "source": "relem",
-   "target": "polyring"
+   "target": "aring-glue",
+   "kind": "include"
   },
   {
    "source": "relem",
-   "target": "M2FreeAlgebra"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "relem",
-   "target": "monoid"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "relem",
-   "target": "aring-glue"
+   "target": "localring",
+   "kind": "include"
   },
   {
    "source": "relem",
-   "target": "frac"
+   "target": "M2FreeAlgebra",
+   "kind": "include"
   },
   {
    "source": "relem",
-   "target": "ring"
+   "target": "monomial",
+   "kind": "include"
   },
   {
    "source": "res-a0-pair",
-   "target": "monideal"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "res-a0-pair",
-   "target": "newdelete"
+   "target": "newdelete",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0-pair",
+   "target": "res-a0-poly",
+   "kind": "decl"
   },
   {
    "source": "res-a0-poly",
-   "target": "text-io"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "res-a0-poly",
-   "target": "monideal"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "res-a0-poly",
-   "target": "geovec"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "res-a0-poly",
-   "target": "polyring"
+   "target": "res-a0-pair",
+   "kind": "include"
   },
   {
    "source": "res-a0-poly",
-   "target": "freemod"
+   "target": "geovec",
+   "kind": "include"
   },
   {
    "source": "res-a0-poly",
-   "target": "res-a0-pair"
+   "target": "freemod",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "comp-res"
+   "target": "geobucket",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "text-io"
+   "target": "res-a0-poly",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "matrix"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "poly"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "matrix-con"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "monideal"
+   "target": "betti",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "res-a0-poly"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "style"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "buffer"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "interrupted"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "geobucket"
+   "target": "comp-res",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "betti"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "res-a0",
-   "target": "ExponentVector"
+   "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0",
+   "target": "res-a0-pair",
+   "kind": "decl"
   },
   {
    "source": "res-a1-poly",
-   "target": "text-io"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "res-a1-poly",
-   "target": "monideal"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "res-a1-poly",
-   "target": "geovec"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "res-a1-poly",
-   "target": "polyring"
+   "target": "geovec",
+   "kind": "include"
   },
   {
    "source": "res-a1-poly",
-   "target": "freemod"
+   "target": "freemod",
+   "kind": "include"
   },
   {
    "source": "res-a1",
-   "target": "text-io"
+   "target": "res-a1-poly",
+   "kind": "include"
   },
   {
    "source": "res-a1",
-   "target": "matrix"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "res-a1",
-   "target": "res-a1-poly"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "res-a1",
-   "target": "matrix-con"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "res-a1",
-   "target": "monideal"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "res-a1",
-   "target": "polyring"
+   "target": "monideal",
+   "kind": "include"
   },
   {
    "source": "res-a1",
-   "target": "style"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "res-a1",
-   "target": "interrupted"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "res-a1",
-   "target": "comp-res"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "res-a1",
-   "target": "ExponentVector"
+   "target": "comp-res",
+   "kind": "include"
   },
   {
    "source": "res-a2-gb",
-   "target": "text-io"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "res-a2-gb",
-   "target": "matrix-con"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "res-a2-gb",
-   "target": "hilb"
+   "target": "hilb",
+   "kind": "include"
   },
   {
    "source": "res-a2-gb",
-   "target": "style"
+   "target": "res-a2",
+   "kind": "include"
   },
   {
    "source": "res-a2-gb",
-   "target": "interrupted"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "res-a2-gb",
-   "target": "res-a2"
+   "target": "style",
+   "kind": "include"
   },
   {
    "source": "res-a2-gb",
-   "target": "comp-gb"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "res-a2",
-   "target": "text-io"
+   "target": "spair",
+   "kind": "include"
   },
   {
    "source": "res-a2",
-   "target": "matrix"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "res-a2",
-   "target": "spair"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "res-a2",
-   "target": "matrix-con"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "res-a2",
-   "target": "relem"
+   "target": "hilb",
+   "kind": "include"
   },
   {
    "source": "res-a2",
-   "target": "hilb"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "res-a2",
-   "target": "polyring"
+   "target": "interrupted",
+   "kind": "include"
   },
   {
    "source": "res-a2",
-   "target": "interrupted"
+   "target": "comp-res",
+   "kind": "include"
   },
   {
    "source": "res-a2",
-   "target": "comp-res"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "ring-vecs",
-   "target": "text-io"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "ring-vecs",
-   "target": "matrix"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "ring-vecs",
-   "target": "poly"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "ring-vecs",
-   "target": "geovec"
+   "target": "geovec",
+   "kind": "include"
   },
   {
    "source": "ring-vecs",
-   "target": "ringmap"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "ring-vecs",
-   "target": "ring"
+   "target": "poly",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "ZZ"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "aring"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "poly"
+   "target": "ringelem",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "newdelete"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "error"
+   "target": "exceptions",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "hash"
+   "target": "aring",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "polyring"
+   "target": "hash",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "ringelem"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "freemod"
+   "target": "ZZ",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "monoid"
+   "target": "freemod",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "coeffrings"
+   "target": "coeffrings",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "exceptions"
+   "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "ring",
+   "target": "solvable",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "weylalg",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "tower",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "gbring",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "relem",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "mat",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "schur",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "schurSn",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "skewpoly",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "buffer",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "schur2",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "matrix",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "M2FreeAlgebraQuotient",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "localring",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "M2FreeAlgebra",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "frac",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "GF",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "ZZp",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "ringmap",
+   "kind": "decl"
   },
   {
    "source": "ringelem",
-   "target": "monoid"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "ringelem",
-   "target": "newdelete"
+   "target": "newdelete",
+   "kind": "include"
+  },
+  {
+   "source": "ringelem",
+   "target": "schur2",
+   "kind": "decl"
+  },
+  {
+   "source": "ringelem",
+   "target": "localring",
+   "kind": "decl"
   },
   {
    "source": "ringmap",
-   "target": "matrix"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "ringmap",
-   "target": "matrix-con"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "ringmap",
-   "target": "relem"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "ringmap",
-   "target": "polyring"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "ringmap",
-   "target": "ring"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "sagbi",
-   "target": "matrix"
+   "target": "comp-gb",
+   "kind": "include"
   },
   {
    "source": "sagbi",
-   "target": "poly"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "sagbi",
-   "target": "matrix-con"
+   "target": "matrix-con",
+   "kind": "include"
   },
   {
    "source": "sagbi",
-   "target": "comp-gb"
+   "target": "poly",
+   "kind": "include"
   },
   {
    "source": "schorder",
-   "target": "matrix"
+   "target": "Eschreyer",
+   "kind": "include"
   },
   {
    "source": "schorder",
-   "target": "Eschreyer"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "schorder",
-   "target": "finalize"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "schorder",
-   "target": "polyring"
+   "target": "matrix",
+   "kind": "include"
   },
   {
    "source": "schorder",
-   "target": "buffer"
+   "target": "comb",
+   "kind": "include"
   },
   {
    "source": "schorder",
-   "target": "comb"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "schorder",
-   "target": "monoid"
+   "target": "finalize",
+   "kind": "include"
   },
   {
    "source": "schur",
-   "target": "text-io"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "schur",
-   "target": "ZZ"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "schur",
-   "target": "poly"
+   "target": "ZZ",
+   "kind": "include"
   },
   {
    "source": "schur",
-   "target": "monoid"
+   "target": "poly",
+   "kind": "include"
   },
   {
    "source": "schur2",
-   "target": "text-io"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "schur2",
-   "target": "ZZ"
+   "target": "schur-poly-heap",
+   "kind": "include"
   },
   {
    "source": "schur2",
-   "target": "poly"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "schur2",
-   "target": "relem"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "schur2",
-   "target": "monomial"
+   "target": "monomial",
+   "kind": "include"
   },
   {
    "source": "schur2",
-   "target": "ringmap"
+   "target": "ZZ",
+   "kind": "include"
   },
   {
    "source": "schur2",
-   "target": "monoid"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "schur2",
-   "target": "schur-poly-heap"
+   "target": "poly",
+   "kind": "include"
   },
   {
    "source": "schurSn",
-   "target": "schur2"
+   "target": "schur2",
+   "kind": "include"
   },
   {
    "source": "skew",
-   "target": "monoid"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "skewpoly",
-   "target": "gbring"
+   "target": "poly",
+   "kind": "include"
   },
   {
    "source": "skewpoly",
-   "target": "skew"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "skewpoly",
-   "target": "poly"
+   "target": "skew",
+   "kind": "include"
   },
   {
    "source": "smat",
-   "target": "ZZp"
+   "target": "ZZp",
+   "kind": "include"
+  },
+  {
+   "source": "smat",
+   "target": "mat-elem-ops",
+   "kind": "decl"
+  },
+  {
+   "source": "smat",
+   "target": "mat",
+   "kind": "decl"
   },
   {
    "source": "solvable",
-   "target": "gbring"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "solvable",
-   "target": "poly"
+   "target": "poly",
+   "kind": "include"
   },
   {
    "source": "spair",
-   "target": "polyring"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "spair",
-   "target": "freemod"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "spair",
-   "target": "gbring"
+   "target": "freemod",
+   "kind": "include"
   },
   {
    "source": "style",
-   "target": "engine-includes"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "style",
-   "target": "newdelete"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "table",
-   "target": "dir:interface"
+   "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "table",
+   "target": "mpreal",
+   "kind": "decl"
   },
   {
    "source": "text-io",
-   "target": "engine-includes"
+   "target": "engine-includes",
+   "kind": "include"
   },
   {
    "source": "text-io",
-   "target": "newdelete"
+   "target": "newdelete",
+   "kind": "include"
   },
   {
    "source": "text-io",
-   "target": "buffer"
+   "target": "buffer",
+   "kind": "include"
   },
   {
    "source": "tower",
-   "target": "relem"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "tower",
-   "target": "polyring"
+   "target": "monoid",
+   "kind": "include"
   },
   {
    "source": "tower",
-   "target": "ExponentList"
+   "target": "polyring",
+   "kind": "include"
   },
   {
    "source": "tower",
-   "target": "ringmap"
+   "target": "ExponentList",
+   "kind": "include"
   },
   {
    "source": "tower",
-   "target": "monoid"
+   "target": "ringmap",
+   "kind": "include"
   },
   {
    "source": "tower",
-   "target": "ring"
+   "target": "dpoly",
+   "kind": "include"
   },
   {
    "source": "tower",
-   "target": "dpoly"
+   "target": "relem",
+   "kind": "include"
   },
   {
    "source": "util",
-   "target": "dir:interface"
+   "target": "dir:interface",
+   "kind": "include"
   },
   {
    "source": "weylalg",
-   "target": "text-io"
+   "target": "ExponentVector",
+   "kind": "include"
   },
   {
    "source": "weylalg",
-   "target": "poly"
+   "target": "text-io",
+   "kind": "include"
   },
   {
    "source": "weylalg",
-   "target": "geopoly"
+   "target": "gbring",
+   "kind": "include"
   },
   {
    "source": "weylalg",
-   "target": "gbring"
+   "target": "geopoly",
+   "kind": "include"
   },
   {
    "source": "weylalg",
-   "target": "ExponentVector"
+   "target": "poly",
+   "kind": "include"
   }
  ]
 }

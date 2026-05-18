@@ -62,6 +62,7 @@
   /* Edges layer covers the whole world; we draw lines in world coords. */
   svg#edges { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
   svg#edges path { fill: none; stroke: var(--edge); stroke-width: 1; transition: stroke 0.1s, stroke-width 0.1s; }
+  svg#edges path.decl { stroke-dasharray: 4 4; stroke: rgba(180,190,210,0.45); }
   svg#edges path.hi { stroke: var(--edge-hi); stroke-width: 2; }
   svg#edges path.in { stroke: var(--accent); stroke-width: 1.6; }
   svg#edges path.out { stroke: var(--accent-2); stroke-width: 1.6; }
@@ -147,7 +148,7 @@
     <div class="legend">
       <div><strong>Drag</strong> a node to move it. <strong>Click</strong> to see details.</div>
       <div style="margin-top:4px;"><kbd>Space</kbd>+drag or middle-mouse to pan. <kbd>Scroll</kbd> to zoom.</div>
-      <div style="margin-top:4px;">Edges go <span style="color:var(--accent-2)">→ outgoing</span> / <span style="color:var(--accent)">← incoming</span> when a node is selected.</div>
+      <div style="margin-top:4px;">Solid edge = <code>#include</code>; dashed = <code>class X;</code> forward declaration. <span style="color:var(--accent-2)">Outgoing</span> / <span style="color:var(--accent)">incoming</span> shown when a node is selected.</div>
       <div style="margin-top:4px;">Layout auto-saves to your browser.</div>
     </div>
     <div id="detail"><div class="empty">Click a node to see its description and dependencies.</div></div>
@@ -287,9 +288,17 @@ function buildNodes() {
   }
   for (const e of data.edges) {
     if (!state.nodes.has(e.source) || !state.nodes.has(e.target)) continue;
-    state.edges.push({ source: e.source, target: e.target, el: null });
-    state.nodes.get(e.source).outDeps.push(e.target);
-    state.nodes.get(e.target).inDeps.push(e.source);
+    const kind = e.kind || "include";
+    state.edges.push({ source: e.source, target: e.target, kind, el: null });
+    if (kind === "include") {
+      state.nodes.get(e.source).outDeps.push(e.target);
+      state.nodes.get(e.target).inDeps.push(e.source);
+    } else {
+      state.nodes.get(e.source).outDecls = state.nodes.get(e.source).outDecls || [];
+      state.nodes.get(e.target).inDecls = state.nodes.get(e.target).inDecls || [];
+      state.nodes.get(e.source).outDecls.push(e.target);
+      state.nodes.get(e.target).inDecls.push(e.source);
+    }
   }
 }
 
@@ -334,6 +343,7 @@ function renderEdges() {
     if (!a || !b) continue;
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     path.setAttribute("marker-end", "url(#arrow)");
+    if (e.kind === "decl") path.classList.add("decl");
     svg.appendChild(path);
     e.el = path;
     updateEdgePath(e);
@@ -423,8 +433,8 @@ function selectNode(id) {
   }
   state.selected = id;
   const node = state.nodes.get(id);
-  const inSet = new Set(node.inDeps);
-  const outSet = new Set(node.outDeps);
+  const inSet = new Set([...(node.inDeps || []), ...(node.inDecls || [])]);
+  const outSet = new Set([...(node.outDeps || []), ...(node.outDecls || [])]);
   for (const n of state.nodes.values()) {
     n.el.classList.toggle("selected", n.id === id);
     n.el.classList.toggle("dim", !(n.id === id || inSet.has(n.id) || outSet.has(n.id)));
@@ -458,18 +468,24 @@ function clearSelection() {
 }
 
 function showDetail(node) {
-  const out = node.outDeps.slice().sort();
-  const inn = node.inDeps.slice().sort();
+  const out = (node.outDeps || []).slice().sort();
+  const inn = (node.inDeps || []).slice().sort();
+  const outDecls = (node.outDecls || []).slice().sort();
+  const inDecls = (node.inDecls || []).slice().sort();
   const filesStr = node.files && node.files.length ? node.files.join("  ") : (node.kind === "subdir" ? "(subdirectory)" : "");
   detailEl.innerHTML = `
     <h2></h2>
     <div class="files"></div>
     <div class="summary"></div>
     <div class="deps">
-      <h3>Depends on (${out.length})</h3>
+      <h3>Includes (${out.length})</h3>
       <ul class="out"></ul>
-      <h3>Depended on by (${inn.length})</h3>
+      <h3>Forward-declares (${outDecls.length})</h3>
+      <ul class="outd"></ul>
+      <h3>Included by (${inn.length})</h3>
       <ul class="in"></ul>
+      <h3>Forward-declared by (${inDecls.length})</h3>
+      <ul class="ind"></ul>
     </div>
   `;
   detailEl.querySelector("h2").textContent = node.label;
@@ -489,7 +505,9 @@ function showDetail(node) {
     }
   };
   fillList(".out", out);
+  fillList(".outd", outDecls);
   fillList(".in", inn);
+  fillList(".ind", inDecls);
 }
 
 // ---------- pan & zoom ----------
