@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Macaulay2 engine — layout workbench</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #161a21;
+    --panel-2: #1d2230;
+    --border: #2a3142;
+    --ink: #d7dce5;
+    --ink-dim: #8b94a7;
+    --accent: #6aa0ff;
+    --accent-2: #57e3c0;
+    --group: rgba(106,160,255,0.10);
+    --group-border: rgba(106,160,255,0.55);
+    --node: #1a1f2b;
+    --node-border: #2a3142;
+    --node-hover: #232a3a;
+    --edge: rgba(180,190,210,0.35);
+    --edge-hi: #ffd166;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; font-size: 13px; overflow: hidden; }
+
+  #app { display: grid; grid-template-columns: 280px 1fr; height: 100vh; }
+
+  #sidebar { background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+  #sidebar header { padding: 14px 14px 10px; border-bottom: 1px solid var(--border); }
+  #sidebar header h1 { margin: 0 0 4px; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }
+  #sidebar header .sub { color: var(--ink-dim); font-size: 11px; line-height: 1.4; }
+  #sidebar .controls { padding: 10px 14px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
+  #sidebar .controls input[type=search],
+  #sidebar .controls button { width: 100%; padding: 6px 8px; border: 1px solid var(--border); background: var(--panel-2); color: var(--ink); border-radius: 4px; font: inherit; }
+  #sidebar .controls button { cursor: pointer; transition: background 0.1s; }
+  #sidebar .controls button:hover { background: #28304a; }
+  #sidebar .controls .row { display: flex; gap: 6px; }
+  #sidebar .controls .row button { flex: 1; }
+  #sidebar .legend { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--ink-dim); font-size: 11px; line-height: 1.5; }
+  #sidebar .legend kbd { background: var(--panel-2); border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 3px; padding: 0 4px; font-size: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--ink); }
+
+  #detail { flex: 1; overflow: auto; padding: 12px 14px; font-size: 12px; line-height: 1.5; }
+  #detail .empty { color: var(--ink-dim); font-style: italic; }
+  #detail h2 { margin: 0 0 4px; font-size: 14px; font-weight: 600; color: var(--accent); word-break: break-word; }
+  #detail .files { color: var(--ink-dim); font-size: 11px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin-bottom: 8px; word-break: break-word; }
+  #detail .summary { color: var(--ink); margin-bottom: 10px; }
+  #detail .deps { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  #detail .deps h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-dim); margin: 0 0 6px; font-weight: 600; }
+  #detail .deps ul { list-style: none; padding: 0; margin: 0 0 8px; max-height: 160px; overflow-y: auto; }
+  #detail .deps li { padding: 2px 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--ink); cursor: pointer; }
+  #detail .deps li:hover { color: var(--accent); }
+
+  #canvas-wrap { position: relative; overflow: hidden; background:
+      radial-gradient(circle at 25% 30%, rgba(106,160,255,0.04) 0%, transparent 60%),
+      radial-gradient(circle at 80% 70%, rgba(87,227,192,0.04) 0%, transparent 60%),
+      var(--bg);
+  }
+  #canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+  #world { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+
+  /* Edges layer covers the whole world; we draw lines in world coords. */
+  svg#edges { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+  svg#edges path { fill: none; stroke: var(--edge); stroke-width: 1; transition: stroke 0.1s, stroke-width 0.1s; }
+  svg#edges path.hi { stroke: var(--edge-hi); stroke-width: 2; }
+  svg#edges path.in { stroke: var(--accent); stroke-width: 1.6; }
+  svg#edges path.out { stroke: var(--accent-2); stroke-width: 1.6; }
+
+  .node {
+    position: absolute;
+    width: 180px;
+    background: var(--node);
+    border: 1px solid var(--node-border);
+    border-radius: 6px;
+    padding: 7px 9px;
+    cursor: grab;
+    user-select: none;
+    color: var(--ink);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    transition: border-color 0.1s, background 0.1s, box-shadow 0.1s;
+  }
+  .node.dragging { cursor: grabbing; z-index: 1000; box-shadow: 0 4px 14px rgba(0,0,0,0.7); }
+  .node:hover { background: var(--node-hover); border-color: #3a4358; }
+  .node.selected { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(106,160,255,0.35); }
+  .node.dim { opacity: 0.18; }
+  .node.subdir { background: #1c2030; border-style: dashed; }
+  .node.subdir .title { color: var(--accent-2); }
+  .node .title { font-weight: 600; font-size: 12px; word-break: break-word; line-height: 1.25; }
+  .node .desc { color: var(--ink-dim); font-size: 11px; line-height: 1.35; margin-top: 4px;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+  .group {
+    position: absolute;
+    border: 2px dashed var(--group-border);
+    background: var(--group);
+    border-radius: 8px;
+    pointer-events: auto;
+  }
+  .group .label {
+    position: absolute; top: -11px; left: 10px;
+    background: var(--bg); border: 1px solid var(--group-border); color: var(--accent);
+    padding: 1px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;
+    cursor: text; user-select: text;
+  }
+  .group .handle { position: absolute; width: 12px; height: 12px; background: var(--group-border); border-radius: 2px; }
+  .group .handle.move { left: -8px; top: -8px; cursor: grab; }
+  .group .handle.resize { right: -8px; bottom: -8px; cursor: nwse-resize; }
+  .group .handle.del { right: -8px; top: -8px; cursor: pointer; background: #d65656; color: white; font-size: 10px; line-height: 12px; text-align: center; font-weight: 700; }
+  .group.dragging { cursor: grabbing; }
+  .group.dragging .handle.move { cursor: grabbing; }
+
+  #hint { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: rgba(20,24,32,0.85); border: 1px solid var(--border); color: var(--ink-dim); padding: 5px 12px; border-radius: 12px; font-size: 11px; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
+  #hint.show { opacity: 1; }
+
+  #status { position: absolute; top: 10px; right: 10px; background: rgba(20,24,32,0.85); border: 1px solid var(--border); padding: 4px 10px; border-radius: 12px; font-size: 11px; color: var(--ink-dim); pointer-events: none; }
+
+  #group-add-bar {
+    position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+    background: rgba(20,24,32,0.95); border: 1px solid var(--accent); padding: 8px 12px; border-radius: 6px;
+    color: var(--ink); font-size: 12px; display: none; box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+  }
+  #group-add-bar.show { display: block; }
+</style>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <header>
+      <h1>Engine layout workbench</h1>
+      <div class="sub">Top-level files of <code>M2/Macaulay2/e/</code>. Drag nodes, draw groups, plan subdirectories.</div>
+    </header>
+    <div class="controls">
+      <input type="search" id="search" placeholder="Filter nodes by name…">
+      <div class="row">
+        <button id="btn-add-group">+ Add group</button>
+        <button id="btn-fit">Fit view</button>
+      </div>
+      <div class="row">
+        <button id="btn-save">Save layout</button>
+        <button id="btn-reset">Reset</button>
+      </div>
+      <div class="row">
+        <button id="btn-cluster">Auto-cluster</button>
+        <button id="btn-export">Export</button>
+      </div>
+    </div>
+    <div class="legend">
+      <div><strong>Drag</strong> a node to move it. <strong>Click</strong> to see details.</div>
+      <div style="margin-top:4px;"><kbd>Space</kbd>+drag or middle-mouse to pan. <kbd>Scroll</kbd> to zoom.</div>
+      <div style="margin-top:4px;">Edges go <span style="color:var(--accent-2)">→ outgoing</span> / <span style="color:var(--accent)">← incoming</span> when a node is selected.</div>
+      <div style="margin-top:4px;">Layout auto-saves to your browser.</div>
+    </div>
+    <div id="detail"><div class="empty">Click a node to see its description and dependencies.</div></div>
+  </aside>
+  <div id="canvas-wrap">
+    <div id="canvas">
+      <div id="world">
+        <svg id="edges"></svg>
+      </div>
+    </div>
+    <div id="status">—</div>
+    <div id="hint">Click on canvas to place group, or press Esc to cancel.</div>
+    <div id="group-add-bar">Click two corners on the canvas to place a group. <button id="cancel-group" style="margin-left:8px;background:transparent;color:var(--ink-dim);border:1px solid var(--border);border-radius:3px;padding:1px 6px;font:inherit;cursor:pointer;">cancel</button></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+"use strict";
+
+const STORAGE_KEY = "m2-engine-layout-v1";
+const NODE_W = 180;
+const NODE_H_DEFAULT = 56;
+
+const state = {
+  nodes: new Map(),     // id -> { id, label, summary, kind, files, x, y, w, h, el }
+  edges: [],            // [{ source, target, el }]
+  groups: [],           // [{ id, label, x, y, w, h, el }]
+  scale: 1,
+  panX: 0, panY: 0,
+  selected: null,
+  groupNextId: 1,
+  pendingGroup: null,   // null | { stage: 0|1, x0, y0 }
+};
+
+const world = document.getElementById("world");
+const svg = document.getElementById("edges");
+const canvasWrap = document.getElementById("canvas-wrap");
+const detailEl = document.getElementById("detail");
+const statusEl = document.getElementById("status");
+const hintEl = document.getElementById("hint");
+const groupBar = document.getElementById("group-add-bar");
+
+// --- arrow marker definitions ---
+svg.innerHTML = `
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(180,190,210,0.5)"/>
+    </marker>
+    <marker id="arrow-hi" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ffd166"/>
+    </marker>
+    <marker id="arrow-in" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6aa0ff"/>
+    </marker>
+    <marker id="arrow-out" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#57e3c0"/>
+    </marker>
+  </defs>
+`;
+
+// ---------- initial layout ----------
+function clusterKey(node) {
+  if (node.kind === "subdir") return "ZZ_subdir";
+  const id = node.id;
+  // group by leading prefix before first hyphen, but special-case prefixes
+  const m = id.match(/^([a-z0-9]+)(?:[-.]|$)/i);
+  if (!m) return "_other";
+  const head = m[1].toLowerCase();
+  // collapse common families
+  if (id.startsWith("aring")) return "aring";
+  if (id.startsWith("dmat")) return "dmat";
+  if (id.startsWith("mat-") || id === "mat") return "mat";
+  if (id.startsWith("matrix")) return "matrix";
+  if (id.startsWith("mutablemat")) return "matrix";
+  if (id.startsWith("smat")) return "matrix";
+  if (id.startsWith("gb-") || id === "gbring" || id === "gbweight") return "gb";
+  if (id.startsWith("comp-gb") || id === "spair" || id.startsWith("reducedgb") || id === "interreduce") return "gb";
+  if (id.startsWith("res-") || id === "betti" || id === "Eschreyer" || id.startsWith("comp-res")) return "res";
+  if (id.startsWith("monoid") || id.startsWith("monomial") || id.startsWith("monorder") || id.startsWith("monsort") || id.startsWith("montable") || id === "imonorder") return "monomials";
+  if (id.startsWith("monideal")) return "monideal";
+  if (id === "polyring" || id === "polyquotient" || id === "poly" || id === "qring" || id === "frac" || id === "skewpoly" || id === "weylalg" || id === "solvable" || id === "localring") return "polyring";
+  if (id === "freemod" || id === "schorder") return "freemod";
+  if (id === "ring" || id === "ringelem" || id === "ringmap" || id === "relem" || id === "ring-vecs" || id === "coeffrings") return "ring-core";
+  if (id.startsWith("schur") || id === "schurSn") return "schur";
+  if (id === "ZZ" || id === "ZZp" || id === "GF") return "aring";
+  if (id.startsWith("ntl-") || id.startsWith("fplll-")) return "interop";
+  if (id === "SLP" || id.startsWith("SLP-") || id === "NAG" || id === "points") return "nag";
+  if (id.startsWith("franzi")) return "franzi";
+  if (id === "lapack" || id === "eigen" || id === "fractionfreeLU" || id === "gauss" || id === "hermite" || id === "LLL" || id === "pfaff") return "linalg";
+  if (id === "Polynomial" || id.startsWith("Polynomial") || id.startsWith("BasicPoly") || id === "M2FreeAlgebra" || id === "M2FreeAlgebraQuotient") return "nc-poly";
+  if (id === "ExponentList" || id === "ExponentVector") return "monomials";
+  if (id === "buffer" || id === "text-io" || id === "reader") return "io";
+  if (id === "mem" || id === "myalloc" || id === "newdelete" || id === "memory-status" || id === "MemoryBlock" || id === "finalize") return "mem";
+  if (id === "overflow" || id === "overflow-test" || id === "exceptions" || id === "error" || id === "interrupted" || id === "debug") return "core-util";
+  return "_misc";
+}
+
+function initialLayout() {
+  // group nodes by cluster key
+  const clusters = new Map();
+  for (const node of state.nodes.values()) {
+    const k = clusterKey(node);
+    if (!clusters.has(k)) clusters.set(k, []);
+    clusters.get(k).push(node);
+  }
+  const keys = Array.from(clusters.keys()).sort();
+  // arrange clusters in a tidy grid: each cluster a column of N nodes wide,
+  // with padding between clusters
+  const COL_W = NODE_W + 20;
+  const ROW_H = NODE_H_DEFAULT + 18;
+  const CLUSTER_GAP = 60;
+  let xOffset = 60;
+  for (const k of keys) {
+    const arr = clusters.get(k).slice().sort((a,b) => a.id.localeCompare(b.id));
+    const cols = Math.max(1, Math.ceil(Math.sqrt(arr.length / 2.0)));
+    const rows = Math.ceil(arr.length / cols);
+    for (let i = 0; i < arr.length; i++) {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      arr[i].x = xOffset + col * COL_W;
+      arr[i].y = 60 + row * ROW_H;
+    }
+    xOffset += cols * COL_W + CLUSTER_GAP;
+  }
+}
+
+// ---------- build DOM ----------
+function buildNodes() {
+  const data = window.ENGINE_DATA;
+  for (const n of data.nodes) {
+    state.nodes.set(n.id, {
+      ...n,
+      x: 0, y: 0, w: NODE_W, h: NODE_H_DEFAULT,
+      inDeps: [], outDeps: [], el: null,
+    });
+  }
+  for (const e of data.edges) {
+    if (!state.nodes.has(e.source) || !state.nodes.has(e.target)) continue;
+    state.edges.push({ source: e.source, target: e.target, el: null });
+    state.nodes.get(e.source).outDeps.push(e.target);
+    state.nodes.get(e.target).inDeps.push(e.source);
+  }
+}
+
+function renderNodes() {
+  for (const node of state.nodes.values()) {
+    const el = document.createElement("div");
+    el.className = "node" + (node.kind === "subdir" ? " subdir" : "");
+    el.dataset.id = node.id;
+    el.style.left = node.x + "px";
+    el.style.top = node.y + "px";
+    el.innerHTML = `<div class="title"></div><div class="desc"></div>`;
+    el.querySelector(".title").textContent = node.label;
+    el.querySelector(".desc").textContent = node.summary || "(no description available)";
+    world.appendChild(el);
+    node.el = el;
+    // attach drag
+    attachNodeDrag(node, el);
+    // click selects (suppressed by drag handler if there was movement)
+    el.addEventListener("click", (e) => {
+      if (el.dataset.suppressClick === "1") { el.dataset.suppressClick = ""; return; }
+      e.stopPropagation();
+      selectNode(node.id);
+    });
+  }
+  // measure heights after layout
+  requestAnimationFrame(() => {
+    for (const node of state.nodes.values()) {
+      node.h = node.el.offsetHeight;
+    }
+    renderEdges();
+  });
+}
+
+function renderEdges() {
+  // remove existing
+  for (const e of state.edges) {
+    if (e.el) e.el.remove();
+  }
+  for (const e of state.edges) {
+    const a = state.nodes.get(e.source);
+    const b = state.nodes.get(e.target);
+    if (!a || !b) continue;
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("marker-end", "url(#arrow)");
+    svg.appendChild(path);
+    e.el = path;
+    updateEdgePath(e);
+  }
+}
+
+function rectFor(node) {
+  return { x: node.x, y: node.y, w: node.w, h: node.h };
+}
+// Find the intersection point of the line from (a.cx, a.cy) -> (b.cx, b.cy)
+// with the boundary of rect a (used as the start point, so the arrow doesn't
+// overlap the box). Returns {x,y}.
+function rectBoundary(rect, towardX, towardY) {
+  const cx = rect.x + rect.w / 2;
+  const cy = rect.y + rect.h / 2;
+  const dx = towardX - cx;
+  const dy = towardY - cy;
+  if (dx === 0 && dy === 0) return { x: cx, y: cy };
+  const hx = rect.w / 2;
+  const hy = rect.h / 2;
+  // scale needed to hit the rect's edge
+  const sx = dx !== 0 ? hx / Math.abs(dx) : Infinity;
+  const sy = dy !== 0 ? hy / Math.abs(dy) : Infinity;
+  const s = Math.min(sx, sy);
+  return { x: cx + dx * s, y: cy + dy * s };
+}
+
+function updateEdgePath(e) {
+  const a = state.nodes.get(e.source);
+  const b = state.nodes.get(e.target);
+  if (!a || !b || !e.el) return;
+  const ra = rectFor(a);
+  const rb = rectFor(b);
+  const acx = ra.x + ra.w/2, acy = ra.y + ra.h/2;
+  const bcx = rb.x + rb.w/2, bcy = rb.y + rb.h/2;
+  const p0 = rectBoundary(ra, bcx, bcy);
+  const p1 = rectBoundary(rb, acx, acy);
+  // small curve via midpoint offset perpendicular for legibility when many edges overlap
+  const mx = (p0.x + p1.x) / 2;
+  const my = (p0.y + p1.y) / 2;
+  e.el.setAttribute("d", `M ${p0.x} ${p0.y} Q ${mx} ${my} ${p1.x} ${p1.y}`);
+}
+
+function updateEdgesForNode(nodeId) {
+  for (const e of state.edges) {
+    if (e.source === nodeId || e.target === nodeId) updateEdgePath(e);
+  }
+}
+
+// ---------- dragging nodes ----------
+function attachNodeDrag(node, el) {
+  let startX, startY, origLeft, origTop, moved = false;
+  function onDown(e) {
+    if (e.button !== 0) return;
+    e.stopPropagation();
+    moved = false;
+    el.classList.add("dragging");
+    startX = e.clientX; startY = e.clientY;
+    origLeft = node.x; origTop = node.y;
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  }
+  function onMove(e) {
+    const dx = (e.clientX - startX) / state.scale;
+    const dy = (e.clientY - startY) / state.scale;
+    if (Math.abs(dx) + Math.abs(dy) > 2) moved = true;
+    node.x = origLeft + dx;
+    node.y = origTop + dy;
+    el.style.left = node.x + "px";
+    el.style.top = node.y + "px";
+    updateEdgesForNode(node.id);
+  }
+  function onUp() {
+    el.classList.remove("dragging");
+    window.removeEventListener("mousemove", onMove);
+    window.removeEventListener("mouseup", onUp);
+    if (moved) { saveLayout(); el.dataset.suppressClick = "1"; }
+  }
+  el.addEventListener("mousedown", onDown);
+}
+
+// ---------- selecting ----------
+function selectNode(id) {
+  if (state.selected === id) {
+    clearSelection();
+    return;
+  }
+  state.selected = id;
+  const node = state.nodes.get(id);
+  const inSet = new Set(node.inDeps);
+  const outSet = new Set(node.outDeps);
+  for (const n of state.nodes.values()) {
+    n.el.classList.toggle("selected", n.id === id);
+    n.el.classList.toggle("dim", !(n.id === id || inSet.has(n.id) || outSet.has(n.id)));
+  }
+  for (const e of state.edges) {
+    e.el.classList.remove("hi", "in", "out");
+    if (e.source === id) {
+      e.el.classList.add("out");
+      e.el.setAttribute("marker-end", "url(#arrow-out)");
+    } else if (e.target === id) {
+      e.el.classList.add("in");
+      e.el.setAttribute("marker-end", "url(#arrow-in)");
+    } else {
+      e.el.setAttribute("marker-end", "url(#arrow)");
+      e.el.style.opacity = "0.15";
+    }
+  }
+  showDetail(node);
+}
+function clearSelection() {
+  state.selected = null;
+  for (const n of state.nodes.values()) {
+    n.el.classList.remove("selected", "dim");
+  }
+  for (const e of state.edges) {
+    e.el.classList.remove("hi", "in", "out");
+    e.el.setAttribute("marker-end", "url(#arrow)");
+    e.el.style.opacity = "";
+  }
+  detailEl.innerHTML = `<div class="empty">Click a node to see its description and dependencies.</div>`;
+}
+
+function showDetail(node) {
+  const out = node.outDeps.slice().sort();
+  const inn = node.inDeps.slice().sort();
+  const filesStr = node.files && node.files.length ? node.files.join("  ") : (node.kind === "subdir" ? "(subdirectory)" : "");
+  detailEl.innerHTML = `
+    <h2></h2>
+    <div class="files"></div>
+    <div class="summary"></div>
+    <div class="deps">
+      <h3>Depends on (${out.length})</h3>
+      <ul class="out"></ul>
+      <h3>Depended on by (${inn.length})</h3>
+      <ul class="in"></ul>
+    </div>
+  `;
+  detailEl.querySelector("h2").textContent = node.label;
+  detailEl.querySelector(".files").textContent = filesStr;
+  detailEl.querySelector(".summary").textContent = node.summary || "(no description available)";
+  const fillList = (sel, ids) => {
+    const ul = detailEl.querySelector(sel);
+    if (!ids.length) { ul.innerHTML = `<li style="color:var(--ink-dim);font-style:italic;cursor:default">none</li>`; return; }
+    for (const id of ids) {
+      const li = document.createElement("li");
+      li.textContent = id;
+      li.addEventListener("click", () => {
+        const n = state.nodes.get(id);
+        if (n) { selectNode(id); centerOn(n); }
+      });
+      ul.appendChild(li);
+    }
+  };
+  fillList(".out", out);
+  fillList(".in", inn);
+}
+
+// ---------- pan & zoom ----------
+function applyTransform() {
+  world.style.transform = `translate(${state.panX}px, ${state.panY}px) scale(${state.scale})`;
+}
+
+let isPanning = false, panStartX, panStartY, panOrigX, panOrigY, panBySpace = false;
+
+canvasWrap.addEventListener("mousedown", (e) => {
+  if (e.button === 1 || (e.button === 0 && (e.target === canvasWrap || e.target === world || e.target.id === "canvas")) || (e.button === 0 && panBySpace)) {
+    if (state.pendingGroup) {
+      handleGroupClick(e);
+      return;
+    }
+    isPanning = true;
+    panStartX = e.clientX; panStartY = e.clientY;
+    panOrigX = state.panX; panOrigY = state.panY;
+    e.preventDefault();
+  }
+});
+window.addEventListener("mousemove", (e) => {
+  if (!isPanning) return;
+  state.panX = panOrigX + (e.clientX - panStartX);
+  state.panY = panOrigY + (e.clientY - panStartY);
+  applyTransform();
+});
+window.addEventListener("mouseup", () => { isPanning = false; });
+
+canvasWrap.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  const rect = canvasWrap.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  const wx = (mx - state.panX) / state.scale;
+  const wy = (my - state.panY) / state.scale;
+  const factor = Math.exp(-e.deltaY * 0.0015);
+  state.scale = Math.max(0.1, Math.min(3, state.scale * factor));
+  state.panX = mx - wx * state.scale;
+  state.panY = my - wy * state.scale;
+  applyTransform();
+  statusEl.textContent = `zoom ${(state.scale * 100).toFixed(0)}%`;
+}, { passive: false });
+
+window.addEventListener("keydown", (e) => {
+  if (e.code === "Space" && document.activeElement.tagName !== "INPUT") {
+    panBySpace = true;
+    document.body.style.cursor = "grab";
+    e.preventDefault();
+  }
+  if (e.key === "Escape") {
+    if (state.pendingGroup) cancelAddGroup();
+    else clearSelection();
+  }
+});
+window.addEventListener("keyup", (e) => {
+  if (e.code === "Space") {
+    panBySpace = false;
+    document.body.style.cursor = "";
+  }
+});
+
+canvasWrap.addEventListener("click", (e) => {
+  if (state.pendingGroup) return;
+  if (e.target === canvasWrap || e.target === world || e.target.id === "canvas") {
+    clearSelection();
+  }
+});
+
+function centerOn(node) {
+  const rect = canvasWrap.getBoundingClientRect();
+  const cx = node.x + node.w / 2;
+  const cy = node.y + node.h / 2;
+  state.panX = rect.width / 2 - cx * state.scale;
+  state.panY = rect.height / 2 - cy * state.scale;
+  applyTransform();
+}
+
+function fitView() {
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  for (const n of state.nodes.values()) {
+    minX = Math.min(minX, n.x); minY = Math.min(minY, n.y);
+    maxX = Math.max(maxX, n.x + n.w); maxY = Math.max(maxY, n.y + n.h);
+  }
+  for (const g of state.groups) {
+    minX = Math.min(minX, g.x); minY = Math.min(minY, g.y);
+    maxX = Math.max(maxX, g.x + g.w); maxY = Math.max(maxY, g.y + g.h);
+  }
+  const rect = canvasWrap.getBoundingClientRect();
+  const w = maxX - minX, h = maxY - minY;
+  const sx = (rect.width - 80) / w;
+  const sy = (rect.height - 80) / h;
+  state.scale = Math.min(sx, sy, 1);
+  state.panX = (rect.width - w * state.scale) / 2 - minX * state.scale;
+  state.panY = (rect.height - h * state.scale) / 2 - minY * state.scale;
+  applyTransform();
+  statusEl.textContent = `zoom ${(state.scale * 100).toFixed(0)}%`;
+}
+
+// ---------- groups ----------
+function makeGroup(g) {
+  const el = document.createElement("div");
+  el.className = "group";
+  el.style.left = g.x + "px"; el.style.top = g.y + "px";
+  el.style.width = g.w + "px"; el.style.height = g.h + "px";
+  el.innerHTML = `
+    <div class="label" contenteditable="true" spellcheck="false"></div>
+    <div class="handle move" title="Move"></div>
+    <div class="handle resize" title="Resize"></div>
+    <div class="handle del" title="Delete">×</div>
+  `;
+  el.querySelector(".label").textContent = g.label;
+  world.insertBefore(el, world.firstChild.nextSibling); // behind nodes, after SVG
+  g.el = el;
+
+  const labelEl = el.querySelector(".label");
+  labelEl.addEventListener("blur", () => { g.label = labelEl.textContent.trim() || "group"; saveLayout(); });
+  labelEl.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); labelEl.blur(); } });
+
+  // move via the move handle (or by dragging on the group body itself if not on a node)
+  let moveStart = null;
+  const moveHandle = el.querySelector(".handle.move");
+  function moveDown(e) {
+    if (e.button !== 0) return;
+    e.stopPropagation();
+    moveStart = { x: e.clientX, y: e.clientY, ox: g.x, oy: g.y };
+    el.classList.add("dragging");
+    window.addEventListener("mousemove", moveMove);
+    window.addEventListener("mouseup", moveUp);
+  }
+  function moveMove(e) {
+    const dx = (e.clientX - moveStart.x) / state.scale;
+    const dy = (e.clientY - moveStart.y) / state.scale;
+    g.x = moveStart.ox + dx; g.y = moveStart.oy + dy;
+    el.style.left = g.x + "px"; el.style.top = g.y + "px";
+  }
+  function moveUp() {
+    el.classList.remove("dragging");
+    window.removeEventListener("mousemove", moveMove);
+    window.removeEventListener("mouseup", moveUp);
+    saveLayout();
+  }
+  moveHandle.addEventListener("mousedown", moveDown);
+
+  // resize
+  const resizeHandle = el.querySelector(".handle.resize");
+  let rStart = null;
+  function rDown(e) {
+    if (e.button !== 0) return;
+    e.stopPropagation();
+    rStart = { x: e.clientX, y: e.clientY, ow: g.w, oh: g.h };
+    window.addEventListener("mousemove", rMove);
+    window.addEventListener("mouseup", rUp);
+  }
+  function rMove(e) {
+    const dw = (e.clientX - rStart.x) / state.scale;
+    const dh = (e.clientY - rStart.y) / state.scale;
+    g.w = Math.max(80, rStart.ow + dw);
+    g.h = Math.max(40, rStart.oh + dh);
+    el.style.width = g.w + "px"; el.style.height = g.h + "px";
+  }
+  function rUp() {
+    window.removeEventListener("mousemove", rMove);
+    window.removeEventListener("mouseup", rUp);
+    saveLayout();
+  }
+  resizeHandle.addEventListener("mousedown", rDown);
+
+  // delete
+  el.querySelector(".handle.del").addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (confirm(`Delete group "${g.label}"?`)) {
+      const i = state.groups.indexOf(g);
+      if (i >= 0) state.groups.splice(i, 1);
+      el.remove();
+      saveLayout();
+    }
+  });
+
+  return el;
+}
+
+function startAddGroup() {
+  state.pendingGroup = { stage: 0 };
+  groupBar.classList.add("show");
+  hintEl.classList.add("show");
+  hintEl.textContent = "Click first corner, then second corner. Esc to cancel.";
+}
+function cancelAddGroup() {
+  state.pendingGroup = null;
+  groupBar.classList.remove("show");
+  hintEl.classList.remove("show");
+}
+function handleGroupClick(e) {
+  const rect = canvasWrap.getBoundingClientRect();
+  const wx = (e.clientX - rect.left - state.panX) / state.scale;
+  const wy = (e.clientY - rect.top - state.panY) / state.scale;
+  if (state.pendingGroup.stage === 0) {
+    state.pendingGroup.x0 = wx;
+    state.pendingGroup.y0 = wy;
+    state.pendingGroup.stage = 1;
+    hintEl.textContent = "Click second corner. Esc to cancel.";
+  } else {
+    const x1 = wx, y1 = wy;
+    const x = Math.min(state.pendingGroup.x0, x1);
+    const y = Math.min(state.pendingGroup.y0, y1);
+    const w = Math.max(50, Math.abs(x1 - state.pendingGroup.x0));
+    const h = Math.max(30, Math.abs(y1 - state.pendingGroup.y0));
+    const label = prompt("Group label:", "new group");
+    if (label !== null) {
+      const g = { id: state.groupNextId++, label: label || "group", x, y, w, h, el: null };
+      state.groups.push(g);
+      makeGroup(g);
+      saveLayout();
+    }
+    cancelAddGroup();
+  }
+}
+
+// ---------- persistence ----------
+function saveLayout() {
+  const payload = {
+    scale: state.scale, panX: state.panX, panY: state.panY,
+    nodes: {}, groups: [],
+  };
+  for (const n of state.nodes.values()) payload.nodes[n.id] = { x: n.x, y: n.y };
+  for (const g of state.groups) payload.groups.push({ label: g.label, x: g.x, y: g.y, w: g.w, h: g.h });
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(payload)); } catch (_) {}
+}
+function loadLayout() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const p = JSON.parse(raw);
+    state.scale = p.scale || 1;
+    state.panX = p.panX || 0; state.panY = p.panY || 0;
+    if (p.nodes) {
+      for (const [id, pos] of Object.entries(p.nodes)) {
+        const n = state.nodes.get(id);
+        if (n) { n.x = pos.x; n.y = pos.y; }
+      }
+    }
+    if (p.groups) {
+      for (const gd of p.groups) {
+        const g = { id: state.groupNextId++, label: gd.label, x: gd.x, y: gd.y, w: gd.w, h: gd.h, el: null };
+        state.groups.push(g);
+      }
+    }
+    return true;
+  } catch (e) { return false; }
+}
+
+function resetLayout() {
+  if (!confirm("Reset layout to default? This clears your groups and node positions.")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
+// ---------- search ----------
+document.getElementById("search").addEventListener("input", (e) => {
+  const q = e.target.value.trim().toLowerCase();
+  for (const n of state.nodes.values()) {
+    if (!q) { n.el.classList.remove("dim"); n.el.style.display = ""; continue; }
+    const match = n.id.toLowerCase().includes(q) || n.label.toLowerCase().includes(q) || (n.summary || "").toLowerCase().includes(q);
+    n.el.classList.toggle("dim", !match);
+  }
+});
+
+// ---------- export ----------
+function exportLayout() {
+  const payload = {
+    nodes: {}, groups: [],
+  };
+  for (const n of state.nodes.values()) payload.nodes[n.id] = { x: n.x, y: n.y };
+  for (const g of state.groups) payload.groups.push({ label: g.label, x: g.x, y: g.y, w: g.w, h: g.h });
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "engine-layout.json"; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ---------- auto-cluster (re-run initial layout) ----------
+function autoCluster() {
+  if (!confirm("Re-layout nodes by inferred topic cluster? This moves all nodes (groups are kept).")) return;
+  initialLayout();
+  for (const n of state.nodes.values()) {
+    n.el.style.left = n.x + "px";
+    n.el.style.top = n.y + "px";
+  }
+  renderEdges();
+  fitView();
+  saveLayout();
+}
+
+// ---------- boot ----------
+document.getElementById("btn-add-group").addEventListener("click", startAddGroup);
+document.getElementById("cancel-group").addEventListener("click", cancelAddGroup);
+document.getElementById("btn-fit").addEventListener("click", fitView);
+document.getElementById("btn-save").addEventListener("click", () => { saveLayout(); statusEl.textContent = "saved"; setTimeout(() => statusEl.textContent = `zoom ${(state.scale*100).toFixed(0)}%`, 800); });
+document.getElementById("btn-reset").addEventListener("click", resetLayout);
+document.getElementById("btn-export").addEventListener("click", exportLayout);
+document.getElementById("btn-cluster").addEventListener("click", autoCluster);
+
+function boot() {
+  if (!window.ENGINE_DATA) {
+    detailEl.innerHTML = `<div class="empty" style="color:#d65656">data.js failed to load.</div>`;
+    return;
+  }
+  buildNodes();
+  initialLayout();
+  const restored = loadLayout();
+  renderNodes();
+  for (const g of state.groups) makeGroup(g);
+  applyTransform();
+  statusEl.textContent = `${state.nodes.size} files · ${state.edges.length} deps`;
+  if (!restored) {
+    // Center the view on first load
+    requestAnimationFrame(() => requestAnimationFrame(fitView));
+  }
+}
+boot();
+</script>
+</body>
+</html>

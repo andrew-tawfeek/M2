@@ -29,6 +29,22 @@ SUBDIRS = {
 
 INCLUDE_RE = re.compile(r'^\s*#\s*include\s*[<"]([^">]+)[">]')
 
+# Forward declarations:  "class Foo;"  or  "struct Foo;"  optionally preceded
+# by "template<...>" on the same or previous line. We match the simple
+# single-line form and template-prefixed single-line forms. We deliberately
+# skip "friend class X;" — those are intra-class and don't represent a
+# cross-file dependency.
+FWD_DECL_RE = re.compile(
+    r'^\s*(?:template\s*<[^>]*>\s*)?(?:class|struct)\s+([A-Za-z_]\w*)\s*;\s*(?://.*)?$'
+)
+FRIEND_RE = re.compile(r'^\s*friend\b')
+
+# Class/struct DEFINITIONS — must have a "{" to be a definition, not a
+# forward decl. We allow inheritance ":" and template prefixes.
+CLASS_DEF_RE = re.compile(
+    r'^\s*(?:template\s*<[^>]*>\s*)?(?:class|struct)\s+([A-Za-z_]\w*)\s*(?:final\s+)?(?::[^{;]+)?\{'
+)
+
 
 def list_top_level_units():
     """Group top-level source files by stem."""
@@ -131,6 +147,39 @@ def parse_includes(paths):
     return out
 
 
+def parse_class_defs(paths):
+    """Return set of class/struct names defined (with a body) in these files."""
+    out = set()
+    for p in paths:
+        try:
+            text = p.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        for ln in text.splitlines():
+            m = CLASS_DEF_RE.match(ln)
+            if m:
+                out.add(m.group(1))
+    return out
+
+
+def parse_forward_decls(paths):
+    """Return set of class/struct names forward-declared in these files
+    (excluding friend declarations and self-definitions on the same line)."""
+    out = set()
+    for p in paths:
+        try:
+            text = p.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        for ln in text.splitlines():
+            if FRIEND_RE.match(ln):
+                continue
+            m = FWD_DECL_RE.match(ln)
+            if m:
+                out.add(m.group(1))
+    return out
+
+
 def main():
     units = list_top_level_units()  # stem -> [filenames]
 
@@ -143,7 +192,7 @@ def main():
         node_id = stem
         node = {
             "id": node_id,
-            "label": f"{stem}.{{ {','.join(sorted({Path(f).suffix.lstrip('.') for f in files})) } }}",
+            "label": f"{stem}.{{{','.join(sorted({Path(f).suffix.lstrip('.') for f in files}))}}}",
             "files": sorted(files),
             "kind": "unit",
             "subdir": None,
