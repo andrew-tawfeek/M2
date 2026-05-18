@@ -215,6 +215,14 @@ Operations from the 27 packages with dedicated deep dives. **Auto-loaded** packa
 | `markovRing(d_1, …, d_n)`, `gaussianRing G`, `covarianceMatrix R`, `bidirectedEdgesMatrix G`, `directedEdgesMatrix G` | `GraphicalModels` | [`packages/file-GraphicalModels.md`](M2/Macaulay2/packages/file-GraphicalModels.md) |
 | `discreteVanishingIdeal(G, R)`, `gaussianVanishingIdeal(G, R)`, `conditionalIndependenceIdeal`, `gaussianParametrization`, `markovMatrices`, `gaussianMatrices` | `GraphicalModels` | same |
 | `globalMarkov G`, `localMarkov G`, `pairMarkov G`, `trekIdeal(R, G)`, `trekSeparation(G, A, B)`, `identifyParameters G`, `hiddenMap`, `marginMap` | `GraphicalModels` | same |
+| `makeWeylAlgebra R`, `makeWA R`, `Ddim M`, `holonomicRank M`, `isHolonomic M`, `dpairInds W`, `dpairVars W` | `WeylAlgebras` | [`packages/file-WeylAlgebras.md`](M2/Macaulay2/packages/file-WeylAlgebras.md) |
+| `gbw(I, w)`, `inw(I, w)`, `Dprune f`, `Fourier`, `FourierInverse`, `Dtransposition`, `makeCyclic M`, `factorWA f` | `WeylAlgebras` | same |
+| `createIntRing W`, `IntRing`, `WtoIR`, `IRtoW`, `createThetaRing`, `ThetaRing`, `createHomWeylAlgebra`, `HomWeylAlgebra` | `WeylAlgebras` | same |
+| `gkz(A, β)`, `AppellF1`, `eulerOperators(A, β)`, `toricIdealPartials A` (GKZ hypergeometric systems) | `HolonomicSystems` | [`packages/file-HolonomicSystems.md`](M2/Macaulay2/packages/file-HolonomicSystems.md) |
+| `cssExpts I`, `cssExptsMult I`, `cssLeadTerm`, `indicialIdeal I`, `solveFrobeniusIdeal I`, `nilssonSupport I`, `truncatedCanonicalSeries`, `distraction f`, `isTorusFixed I` | `HolonomicSystems` | same |
+| `diffOps(I, k)`, `putWeylAlgebra W`, `PolyGens`, `BasisElts` (differential operators on R/I) | `HolonomicSystems` | same |
+| `bertiniZeroDimSolve F`, `bertiniPosDimSolve F`, `bertiniParameterHomotopy(F, p, vals)`, `bertiniTrackHomotopy(H, start, end)`, `bertiniSample(W, n)`, `bertiniRefineSols`, `bertiniComponentMemberTest`, `bertiniUserHomotopy` | `Bertini` | [`packages/file-Bertini.md`](M2/Macaulay2/packages/file-Bertini.md) |
+| `MPType` option (machine / fixed / adaptive precision), `Configuration => { "BERTINIexecutable" => … }`, `subPoint`, `makeB'InputFile`, `importMainDataFile` | `Bertini` | same |
 | `taylorResolution I`, `scarfSimplicialComplex I`, `buchbergerSimplicialComplex I`, `lyubeznikSimplicialComplex I` | `SimplicialComplexes` | same |
 | `kleinBottleComplex`, `dunceHatComplex`, `realProjectiveSpaceComplex n`, `poincareSphereComplex`, `smallManifold(d, n, k)` | `SimplicialComplexes` | same |
 
