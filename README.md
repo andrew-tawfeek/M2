@@ -57,7 +57,7 @@ Four levels of documentation are reachable from this file:
    them; the lower half of this file mirrors the same entries into
    per-folder tables you can scan top-to-bottom.
 
-Plus **eighteen cross-cutting top-level meta docs** at the repo root:
+Plus **nineteen cross-cutting top-level meta docs** at the repo root:
 
 | Doc | What it is | When to use |
 |---|---|---|
@@ -78,6 +78,7 @@ Plus **eighteen cross-cutting top-level meta docs** at the repo root:
 | [`COMPUTATIONS.md`](COMPUTATIONS.md) | Catalogue of every computation engine: GB variants (default/F4/gb-f4/mathicgb/NC/BIBasis/...), resolution variants, Hilbert, LLL, NAG, factoring, primary decomposition | Choosing a strategy; understanding which backend handles which input; engine comparison tables |
 | [`INDEX.md`](INDEX.md) | Flat alphabetical catalogue of every doc file with one-line descriptions and concept-to-doc lookup hints | Looking up a doc by name when you don't remember its location; finding a doc by concept rather than by directory |
 | [`CHEATSHEET.md`](CHEATSHEET.md) | One-page quick-reference of common workflows: build, test, debug, find things, add things, file-naming conventions | Day-to-day commands you keep forgetting; pointer table back to the in-depth docs |
+| [`SYMBOLS.md`](SYMBOLS.md) | Symbol-to-doc reverse index: engine class name or M2 function name → source file + deep-dive doc | Looking up a doc starting from a class/function name you saw in code |
 | [`CONTRIBUTING-DOCS.md`](CONTRIBUTING-DOCS.md) | Conventions the docs follow | When editing docs (file naming, README structure, deep-dive shape, link integrity audit) |
 
 Plus build-system instructions: see the project
@@ -110,7 +111,7 @@ Plus build-system instructions: see the project
 - Build entry points: [`CMakeLists.txt`](M2/file-CMakeLists-txt.md) · [`configure.ac`](M2/file-configure-ac.md) · [`autogen.sh`](M2/file-autogen-sh.md) · [`Makefile.in`](M2/file-Makefile-in.md) · [`VERSION`](M2/file-VERSION.md)
 - Supporting tools: [`bin/`](M2/Macaulay2/bin/README.md) · [`system/`](M2/Macaulay2/system/README.md) · [`html-check-links/`](M2/Macaulay2/html-check-links/README.md) · [`editors/`](M2/Macaulay2/editors/README.md) · [`docs/`](M2/Macaulay2/docs/README.md) · [`man/`](M2/Macaulay2/man/README.md)
 - Tests: [`tests/`](M2/Macaulay2/tests/README.md) · [`e/unit-tests/`](M2/Macaulay2/e/unit-tests/README.md)
-- Packages: [`packages/`](M2/Macaulay2/packages/README.md) (with foundational deep dives for [`Macaulay2Doc`](M2/Macaulay2/packages/file-Macaulay2Doc.md) · [`Style`](M2/Macaulay2/packages/file-Style.md) · [`EngineTests`](M2/Macaulay2/packages/file-EngineTests.md) · [conventions](M2/Macaulay2/packages/file-package-conventions.md))
+- Packages: [`packages/`](M2/Macaulay2/packages/README.md) (with foundational deep dives for [`Macaulay2Doc`](M2/Macaulay2/packages/file-Macaulay2Doc.md) · [`Style`](M2/Macaulay2/packages/file-Style.md) · [`EngineTests`](M2/Macaulay2/packages/file-EngineTests.md) · [conventions](M2/Macaulay2/packages/file-package-conventions.md) · [`MinimalPrimes`](M2/Macaulay2/packages/file-MinimalPrimes.md) · [`PrimaryDecomposition`](M2/Macaulay2/packages/file-PrimaryDecomposition.md))
 - Build instructions: project [Wiki](https://github.com/Macaulay2/M2/wiki), `M2/INSTALL`, `M2/INSTALL-CMake.md`, and `.github/workflows/test_build.yml`
 - **Cross-cutting glossary: [`GLOSSARY.md`](GLOSSARY.md)** — terminology used across the documentation tree, with links to the deep-dives where each term is treated in detail (`scc1`, `aring` vs `Ring`, `ring_elem` vs `ElementType`, Schreyer frame, F4, Macaulay matrix, involutive basis, `our_new_delete`, `Computation`, `Expr`, error/interrupt flags, …)
 - **Guided reading tour: [`TOUR.md`](TOUR.md)** — suggested reading orders for different audiences (newcomer overview, engine debugger, package author, M2 user, build/port maintainer, engine extension, algorithm-specific paths)
@@ -129,6 +130,7 @@ Plus build-system instructions: see the project
 - **Computation engines: [`COMPUTATIONS.md`](COMPUTATIONS.md)** — sister catalogue of the algorithmic engines (GB: default/F4/gb-f4/mathicgb/NC/BIBasis/toric/walk/sugarless; resolution: Schreyer/res-a0/a1/a2/Eschreyer/NC; plus Hilbert, LLL, NAG, factoring, root finding, primary decomposition, polyhedral), strategy selection, comparison tables, when-to-use-which decision tree
 - **Flat alphabetical index: [`INDEX.md`](INDEX.md)** — every doc in the tree (top-level meta docs, architecture refs, per-area engine docs, per-directory READMEs, per-file deep dives) listed in one place, with a concept-to-doc lookup hints table and a "how to find a doc" flow chart for when you don't remember where something lives
 - **Day-to-day cheatsheet: [`CHEATSHEET.md`](CHEATSHEET.md)** — one-page command card: how to build / test / debug / find / add things, plus the file-naming conventions table and common slowdowns-and-fixes table
+- **Symbol-to-doc index: [`SYMBOLS.md`](SYMBOLS.md)** — given an engine class name (`FreeModule`, `Computation`, `ARingZZpFlint`, …) or an M2 function name (`gb`, `resolution`, `installPackage`, …), points at the source file and the deep-dive doc; covers the rings, modules, matrices, computations, memory, and NC-algebra hierarchies
 
 ### Finding a deep dive
 
@@ -303,16 +305,16 @@ they will cross-link to one another along these axes:
 
 ### Documentation status
 
-The documentation tree comprises **589 markdown files** across four
+The documentation tree comprises **595 markdown files** across four
 layers:
 
 | Layer | Count | Examples |
 |---|---|---|
-| Top-level meta docs | 18 | [`README.md`](README.md) · [`GLOSSARY.md`](GLOSSARY.md) · [`TOUR.md`](TOUR.md) · [`BUILD.md`](BUILD.md) · [`STARTUP.md`](STARTUP.md) · [`MEMORY.md`](MEMORY.md) · [`THREADING.md`](THREADING.md) · [`TESTING.md`](TESTING.md) · [`PACKAGES.md`](PACKAGES.md) · [`DEBUG.md`](DEBUG.md) · [`DOCUMENTATION-SYSTEM.md`](DOCUMENTATION-SYSTEM.md) · [`STYLE.md`](STYLE.md) · [`DEPENDENCIES.md`](DEPENDENCIES.md) · [`RING-ZOO.md`](RING-ZOO.md) · [`COMPUTATIONS.md`](COMPUTATIONS.md) · [`INDEX.md`](INDEX.md) · [`CHEATSHEET.md`](CHEATSHEET.md) · [`CONTRIBUTING-DOCS.md`](CONTRIBUTING-DOCS.md) |
+| Top-level meta docs | 19 | [`README.md`](README.md) · [`GLOSSARY.md`](GLOSSARY.md) · [`TOUR.md`](TOUR.md) · [`BUILD.md`](BUILD.md) · [`STARTUP.md`](STARTUP.md) · [`MEMORY.md`](MEMORY.md) · [`THREADING.md`](THREADING.md) · [`TESTING.md`](TESTING.md) · [`PACKAGES.md`](PACKAGES.md) · [`DEBUG.md`](DEBUG.md) · [`DOCUMENTATION-SYSTEM.md`](DOCUMENTATION-SYSTEM.md) · [`STYLE.md`](STYLE.md) · [`DEPENDENCIES.md`](DEPENDENCIES.md) · [`RING-ZOO.md`](RING-ZOO.md) · [`COMPUTATIONS.md`](COMPUTATIONS.md) · [`INDEX.md`](INDEX.md) · [`CHEATSHEET.md`](CHEATSHEET.md) · [`SYMBOLS.md`](SYMBOLS.md) · [`CONTRIBUTING-DOCS.md`](CONTRIBUTING-DOCS.md) |
 | Per-directory READMEs | 70 | one for every subdirectory under `M2/` |
 | Architecture references | 13 | 4 per-layer (`c/`, `d/`, `e/`, `m2/`) + 8 per-engine-subdir (`interface/`, `f4/`, `gb-f4/`, `schreyer-resolution/`, `NCAlgebras/`, `NCResolutions/`, `bibasis/`, `unit-tests/`) + 1 supervisor (`system/`) |
 | Per-area engine docs | ~10 | `coefficient-rings.md`, `polynomial-rings.md`, `monoids-and-monomials.md`, … |
-| Per-file deep dives | 486 | `file-<basename>.md` alongside each source file (some consolidated per family) |
+| Per-file deep dives | 491 | `file-<basename>.md` alongside each source file (some consolidated per family) |
 
 Every directory under `M2/` has both a `README.md` index and per-file
 deep-dive markdown files for every source file it contains. Some
@@ -1013,6 +1015,8 @@ Dedicated walkthroughs for especially central engine classes
 | [packages/file-Style.md](M2/Macaulay2/packages/file-Style.md) | `Style.m2` — doc styling + `generateGrammar` |
 | [packages/file-EngineTests.md](M2/Macaulay2/packages/file-EngineTests.md) | `EngineTests.m2` — M2-level engine test suite |
 | [packages/file-package-conventions.md](M2/Macaulay2/packages/file-package-conventions.md) | Package conventions — layout, dependencies, doc DSL, tests |
+| [packages/file-MinimalPrimes.md](M2/Macaulay2/packages/file-MinimalPrimes.md) | `MinimalPrimes.m2` — auto-loaded `minimalPrimes` / `radical` / `isPrime` implementation |
+| [packages/file-PrimaryDecomposition.md](M2/Macaulay2/packages/file-PrimaryDecomposition.md) | `PrimaryDecomposition.m2` — auto-loaded `primaryDecomposition` / `associatedPrimes` (SY, EHV, GTZ strategies) |
 
 **Coverage for `packages/`:** structural conventions plus the three foundational packages (`Macaulay2Doc`, `Style`, `EngineTests`) have dedicated deep-dive docs — see [`M2/Macaulay2/packages/README.md`](M2/Macaulay2/packages/README.md). Domain-specific packages (~400 total) are individually catalogued there but not given per-file dives, since each follows the conventions doc.
 
