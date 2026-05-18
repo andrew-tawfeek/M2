@@ -96,6 +96,10 @@ The full procedure lives in [`README`](README), but the short version:
 | `Isomorphism.m2` — auto-loaded probabilistic `isIsomorphic(N,M)` / `isomorphism(N,M)` / `checkDegrees` for modules; random-map approach + degree-shift detection + result caching | [`file-Isomorphism.md`](file-Isomorphism.md) |
 | The five small auto-loaded utility packages: `Classic` (classic-Macaulay polynomial parser), `ConwayPolynomials` (`GF(q)` database), `OnlineLookup` (`oeis` / `isc`), `PackageCitations` (`cite`), `TangentCone` (`tangentCone`) | [`file-utility-packages.md`](file-utility-packages.md) |
 | `Truncations.m2` — re-exported-by-`Complexes` `truncate` for modules/ideals/matrices + `effCone` / `nefCone` for the effective and nef cones | [`file-Truncations.md`](file-Truncations.md) |
+| `Polyhedra.m2` — JSAG-certified convex polyhedra, cones, fans, polyhedral complexes; the largest single package (~44 000 lines across 60+ files); imported by `Truncations` so effectively auto-loaded | [`file-Polyhedra.md`](file-Polyhedra.md) |
+| `NormalToricVarieties.m2` — normal toric varieties: `NormalToricVariety`, `ToricDivisor`, `ToricMap`; the five-divisor-group diagram; toric Chow rings; database of all smooth toric Fano varieties through dim 6 (~11 500 lines) | [`file-NormalToricVarieties.md`](file-NormalToricVarieties.md) |
+| `Schubert2.m2` — intersection theory for "abstract varieties": `AbstractVariety`, `AbstractSheaf`, Chern/Todd classes, `schubertCycle`, `blowup`, `flagBundle`; M2 successor to the classical Maple `Schubert` package | [`file-Schubert2.md`](file-Schubert2.md) |
+| `NumericalAlgebraicGeometry.m2` — JSAG-certified numerical AG: homotopy continuation, `solveSystem`, witness sets, irreducible decomposition; multiple software backends (M2engine, BERTINI, PHCPACK, HOM4PS2) | [`file-NumericalAlgebraicGeometry.md`](file-NumericalAlgebraicGeometry.md) |
 
 The full ~400 per-package coverage would be repetitive — these deep-dives cover the structural patterns every package follows plus the foundational and frequently-used packages that ship.
 
