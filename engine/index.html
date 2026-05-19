@@ -273,6 +273,7 @@ const state = {
   groups: [],           // [{ id, label, x, y, w, h, el }]
   aggregateEdges: [],
   autoGroupLabels: {},
+  hiddenAutoClusters: new Set(),
   scale: 1,
   panX: 0, panY: 0,
   selectedIds: new Set(),
@@ -654,6 +655,13 @@ function hasSelection() {
   return state.selectedIds.size > 0 || state.selectedGroupIds.size > 0;
 }
 
+function isTextEditingTarget(target = document.activeElement) {
+  if (!target) return false;
+  if (target.isContentEditable) return true;
+  const tagName = target.tagName;
+  return tagName === "INPUT" || tagName === "TEXTAREA" || tagName === "SELECT";
+}
+
 function nodeCenter(node) {
   return { x: node.x + node.w / 2, y: node.y + node.h / 2 };
 }
@@ -864,6 +872,31 @@ function renameGroup(group, value) {
   updateGroupLabel(group);
   saveLayout();
   refreshSelection();
+}
+
+function removeGroups(groupIds, opts = {}) {
+  const ids = new Set(groupIds.map((id) => String(id)));
+  const groups = state.groups.filter((group) => ids.has(String(group.id)));
+  if (!groups.length) return false;
+
+  if (opts.confirm) {
+    const label = groups.length === 1 ? `"${groups[0].label}"` : `${groups.length} groups`;
+    if (!confirm(`Delete group ${label}?`)) return false;
+  }
+
+  state.groups = state.groups.filter((group) => {
+    const removing = ids.has(String(group.id));
+    if (!removing) return true;
+    if (group.source === "auto" && group.cluster) state.hiddenAutoClusters.add(group.cluster);
+    if (group.el) group.el.remove();
+    state.selectedGroupIds.delete(String(group.id));
+    return false;
+  });
+
+  saveLayout();
+  refreshSelection();
+  statusEl.textContent = groups.length === 1 ? "group removed" : `${groups.length} groups removed`;
+  return true;
 }
 
 function cleanSummary(text) {
@@ -1349,10 +1382,14 @@ canvasWrap.addEventListener("wheel", (e) => {
 }, { passive: false });
 
 window.addEventListener("keydown", (e) => {
-  if (e.code === "Space" && document.activeElement.tagName !== "INPUT") {
+  if (e.code === "Space" && !isTextEditingTarget()) {
     panBySpace = true;
     document.body.style.cursor = "grab";
     e.preventDefault();
+  }
+  if (!state.pendingGroup && (e.key === "Backspace" || e.key === "Delete") && state.selectedGroupIds.size > 0 && !isTextEditingTarget(e.target)) {
+    e.preventDefault();
+    removeGroups([...state.selectedGroupIds]);
   }
   if (e.key === "Escape") {
     if (state.pendingGroup) cancelAddGroup();
@@ -1527,14 +1564,7 @@ function makeGroup(g) {
   // delete
   el.querySelector(".handle.del").addEventListener("click", (e) => {
     e.stopPropagation();
-    if (confirm(`Delete group "${g.label}"?`)) {
-      const i = state.groups.indexOf(g);
-      if (i >= 0) state.groups.splice(i, 1);
-      el.remove();
-      state.selectedGroupIds.delete(String(g.id));
-      saveLayout();
-      refreshSelection();
-    }
+    removeGroups([g.id], { confirm: true });
   });
 
   return el;
@@ -1571,6 +1601,7 @@ function clusterBounds(cluster) {
 function syncAutoGroups() {
   const clusters = new Set([...state.nodes.values()].map((node) => node.cluster));
   for (const cluster of clusters) {
+    if (state.hiddenAutoClusters.has(cluster)) continue;
     const id = `auto:${cluster}`;
     let group = getGroup(id);
     if (!group) {
@@ -1641,6 +1672,7 @@ function saveLayout() {
   const payload = {
     scale: state.scale, panX: state.panX, panY: state.panY,
     nodes: {}, groups: [], autoGroupLabels: {},
+    hiddenAutoClusters: [...state.hiddenAutoClusters],
   };
   for (const n of state.nodes.values()) payload.nodes[n.id] = { x: n.x, y: n.y, label: n.label };
   for (const g of state.groups) {
@@ -1670,6 +1702,7 @@ function loadLayout() {
       }
     }
     state.autoGroupLabels = p.autoGroupLabels || {};
+    state.hiddenAutoClusters = new Set(Array.isArray(p.hiddenAutoClusters) ? p.hiddenAutoClusters : []);
     if (p.groups) {
       for (const gd of p.groups) {
         const g = { id: state.groupNextId++, label: gd.label, source: gd.source || "manual", cluster: gd.cluster || null, x: gd.x, y: gd.y, w: gd.w, h: gd.h, el: null };
@@ -1710,10 +1743,12 @@ function exportLayout() {
 function autoCluster() {
   if (!confirm("Re-layout nodes by inferred topic cluster? This moves all nodes and refreshes suggested groups.")) return;
   initialLayout();
+  state.hiddenAutoClusters.clear();
   for (const n of state.nodes.values()) {
     n.el.style.left = n.x + "px";
     n.el.style.top = n.y + "px";
   }
+  syncAutoGroups();
   positionAutoGroups();
   renderEdges();
   updateFilterVisibility();
