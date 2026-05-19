@@ -274,6 +274,7 @@ const state = {
   aggregateEdges: [],
   autoGroupLabels: {},
   hiddenAutoClusters: new Set(),
+  autoGroupsEnabled: false,
   scale: 1,
   panX: 0, panY: 0,
   selectedIds: new Set(),
@@ -1673,6 +1674,7 @@ function saveLayout() {
     scale: state.scale, panX: state.panX, panY: state.panY,
     nodes: {}, groups: [], autoGroupLabels: {},
     hiddenAutoClusters: [...state.hiddenAutoClusters],
+    autoGroupsEnabled: state.autoGroupsEnabled,
   };
   for (const n of state.nodes.values()) payload.nodes[n.id] = { x: n.x, y: n.y, label: n.label };
   for (const g of state.groups) {
@@ -1703,10 +1705,12 @@ function loadLayout() {
     }
     state.autoGroupLabels = p.autoGroupLabels || {};
     state.hiddenAutoClusters = new Set(Array.isArray(p.hiddenAutoClusters) ? p.hiddenAutoClusters : []);
+    state.autoGroupsEnabled = p.autoGroupsEnabled === true;
     if (p.groups) {
       for (const gd of p.groups) {
         const g = { id: state.groupNextId++, label: gd.label, source: gd.source || "manual", cluster: gd.cluster || null, x: gd.x, y: gd.y, w: gd.w, h: gd.h, el: null };
         state.groups.push(g);
+        if (g.source === "auto") state.autoGroupsEnabled = true;
       }
     }
     return true;
@@ -1743,6 +1747,7 @@ function exportLayout() {
 function autoCluster() {
   if (!confirm("Re-layout nodes by inferred topic cluster? This moves all nodes and refreshes suggested groups.")) return;
   initialLayout();
+  state.autoGroupsEnabled = true;
   state.hiddenAutoClusters.clear();
   for (const n of state.nodes.values()) {
     n.el.style.left = n.x + "px";
@@ -1813,7 +1818,7 @@ function boot() {
   const restored = loadLayout();
   renderNodes();
   for (const g of state.groups) if (!g.el) makeGroup(g);
-  syncAutoGroups();
+  if (state.autoGroupsEnabled) syncAutoGroups();
   applyTransform();
   updateFilterVisibility();
   statusEl.textContent = `${state.nodes.size} files · ${state.edges.length} deps`;
