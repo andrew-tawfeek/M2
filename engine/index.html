@@ -5,155 +5,249 @@
 <title>Macaulay2 engine — layout workbench</title>
 <style>
   :root {
-    --bg: #0f1115;
-    --panel: #161a21;
-    --panel-2: #1d2230;
-    --border: #2a3142;
-    --ink: #d7dce5;
-    --ink-dim: #8b94a7;
-    --accent: #6aa0ff;
-    --accent-2: #57e3c0;
-    --group: rgba(106,160,255,0.10);
-    --group-border: rgba(106,160,255,0.55);
-    --node: #1a1f2b;
-    --node-border: #2a3142;
-    --node-hover: #232a3a;
-    --edge: rgba(180,190,210,0.35);
-    --edge-hi: #ffd166;
+    --bg: #e9e3d4;
+    --canvas: #efeadd;
+    --paper: #fbfaf5;
+    --panel: #f7f4eb;
+    --panel-2: #ffffff;
+    --panel-3: #ece6d7;
+    --border: #d3cab7;
+    --border-strong: #a89c84;
+    --ink: #252723;
+    --ink-dim: #69665d;
+    --muted: #8b8679;
+    --accent: #176c65;
+    --accent-2: #a6501d;
+    --accent-3: #2f5e99;
+    --accent-soft: rgba(23,108,101,0.13);
+    --warn-soft: rgba(166,80,29,0.13);
+    --group: rgba(23,108,101,0.08);
+    --group-border: rgba(23,108,101,0.58);
+    --node: #fffcf4;
+    --node-border: #c9bfa9;
+    --node-hover: #ffffff;
+    --edge: rgba(67,72,70,0.26);
+    --edge-hi: #b75b25;
+    --shadow: 0 12px 32px rgba(55,43,24,0.12);
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: "Avenir Next", "Segoe UI", system-ui, sans-serif;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; font-size: 13px; overflow: hidden; }
+  html, body { margin: 0; padding: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 13px; overflow: hidden; }
 
-  #app { display: grid; grid-template-columns: 280px 1fr; height: 100vh; }
+  #app { display: grid; grid-template-columns: minmax(320px, 360px) minmax(0, 1fr); height: 100vh; }
 
-  #sidebar { background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
-  #sidebar header { padding: 14px 14px 10px; border-bottom: 1px solid var(--border); }
-  #sidebar header h1 { margin: 0 0 4px; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }
-  #sidebar header .sub { color: var(--ink-dim); font-size: 11px; line-height: 1.4; }
-  #sidebar .controls { padding: 10px 14px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
-  #sidebar .controls input[type=search],
-  #sidebar .controls button { width: 100%; padding: 6px 8px; border: 1px solid var(--border); background: var(--panel-2); color: var(--ink); border-radius: 4px; font: inherit; }
-  #sidebar .controls button { cursor: pointer; transition: background 0.1s; }
-  #sidebar .controls button:hover { background: #28304a; }
-  #sidebar .controls .row { display: flex; gap: 6px; }
-  #sidebar .controls .row button { flex: 1; }
-  #sidebar .legend { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--ink-dim); font-size: 11px; line-height: 1.5; }
-  #sidebar .legend kbd { background: var(--panel-2); border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 3px; padding: 0 4px; font-size: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--ink); }
+  #sidebar { background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; box-shadow: 8px 0 30px rgba(64,52,31,0.08); z-index: 5; }
+  #sidebar header { padding: 18px 18px 14px; border-bottom: 1px solid var(--border); }
+  #sidebar header .eyebrow { color: var(--accent-2); font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; }
+  #sidebar header h1 { margin: 6px 0 6px; font-size: 20px; font-weight: 760; letter-spacing: 0; line-height: 1.05; }
+  #sidebar header .sub { color: var(--ink-dim); font-size: 12px; line-height: 1.45; }
+  #sidebar header code { font-family: var(--mono); color: var(--ink); }
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+  .stat { background: var(--panel-2); border: 1px solid var(--border); border-radius: 7px; padding: 8px; min-width: 0; }
+  .stat strong { display: block; font-size: 17px; line-height: 1; color: var(--ink); }
+  .stat span { display: block; color: var(--muted); font-size: 10px; margin-top: 5px; text-transform: uppercase; letter-spacing: 0.08em; }
 
-  #detail { flex: 1; overflow: auto; padding: 12px 14px; font-size: 12px; line-height: 1.5; }
-  #detail .empty { color: var(--ink-dim); font-style: italic; }
-  #detail h2 { margin: 0 0 4px; font-size: 14px; font-weight: 600; color: var(--accent); word-break: break-word; }
-  #detail .files { color: var(--ink-dim); font-size: 11px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin-bottom: 8px; word-break: break-word; }
-  #detail .summary { color: var(--ink); margin-bottom: 10px; }
-  #detail .deps { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
-  #detail .deps h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-dim); margin: 0 0 6px; font-weight: 600; }
-  #detail .deps ul { list-style: none; padding: 0; margin: 0 0 8px; max-height: 160px; overflow-y: auto; }
-  #detail .deps li { padding: 2px 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--ink); cursor: pointer; }
-  #detail .deps li:hover { color: var(--accent); }
+  #sidebar .controls { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; }
+  .section-label { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  .field-label { display: block; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+  #sidebar .controls input[type=search] { width: 100%; padding: 9px 10px; border: 1px solid var(--border); background: var(--panel-2); color: var(--ink); border-radius: 7px; font: inherit; outline: none; box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); }
+  #sidebar .controls input[type=search]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .search-meta { color: var(--muted); font-size: 11px; min-height: 16px; margin-top: 5px; }
+  button { font: inherit; color: var(--ink); }
+  #sidebar .controls button,
+  #canvas-wrap button { border: 1px solid var(--border); background: var(--panel-2); border-radius: 7px; cursor: pointer; transition: background 0.12s, border-color 0.12s, transform 0.12s, box-shadow 0.12s; }
+  #sidebar .controls button:hover,
+  #canvas-wrap button:hover { background: #fffdf7; border-color: var(--border-strong); }
+  #sidebar .controls button:active,
+  #canvas-wrap button:active { transform: translateY(1px); }
+  #sidebar .controls button:disabled,
+  #canvas-wrap button:disabled { opacity: 0.45; cursor: default; transform: none; }
+  .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .action-grid button { min-height: 34px; padding: 7px 8px; }
+  .segmented { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; background: var(--panel-3); border: 1px solid var(--border); border-radius: 8px; }
+  .segmented button { border: 0; background: transparent; min-height: 30px; padding: 6px 7px; color: var(--ink-dim); border-radius: 6px; }
+  .segmented button.active { background: var(--paper); color: var(--accent); box-shadow: 0 1px 4px rgba(60,45,20,0.14); }
+  .check-row { display: flex; align-items: center; gap: 8px; color: var(--ink-dim); font-size: 12px; }
+  .check-row input { accent-color: var(--accent); }
+
+  .cluster-panel { padding: 13px 18px 14px; border-bottom: 1px solid var(--border); }
+  .cluster-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; max-height: 112px; overflow: auto; padding-right: 2px; }
+  .cluster-chip { border: 1px solid var(--border); background: var(--panel-2); color: var(--ink-dim); border-radius: 999px; padding: 4px 8px; font-size: 11px; cursor: pointer; }
+  .cluster-chip strong { color: var(--ink); font-weight: 700; }
+  .cluster-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .cluster-chip.active strong { color: #fff; }
+
+  #detail { flex: 1; overflow: auto; padding: 16px 18px 20px; font-size: 12px; line-height: 1.5; background: linear-gradient(180deg, rgba(255,255,255,0.34), transparent 90px); }
+  #detail .empty { color: var(--ink-dim); background: var(--panel-2); border: 1px dashed var(--border); border-radius: 8px; padding: 13px; }
+  #detail h2 { margin: 3px 0 5px; font-size: 17px; font-weight: 760; color: var(--ink); word-break: break-word; line-height: 1.2; }
+  #detail .kicker { color: var(--accent-2); font-size: 10px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+  #detail .files { color: var(--ink-dim); font-size: 11px; font-family: var(--mono); margin-bottom: 10px; word-break: break-word; }
+  #detail .summary { color: var(--ink); margin: 0 0 12px; background: rgba(255,255,255,0.55); border-left: 3px solid var(--accent); padding: 9px 10px; border-radius: 0 7px 7px 0; }
+  .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin: 10px 0 14px; }
+  .metric { border: 1px solid var(--border); background: var(--panel-2); border-radius: 7px; padding: 8px; }
+  .metric strong { display: block; font-size: 18px; line-height: 1; color: var(--ink); }
+  .metric span { display: block; color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+  #detail .deps { display: flex; flex-direction: column; gap: 12px; }
+  #detail .deps h3 { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin: 0 0 6px; font-weight: 800; }
+  #detail .deps ul { list-style: none; padding: 0; margin: 0; max-height: 156px; overflow-y: auto; display: flex; flex-wrap: wrap; gap: 5px; }
+  #detail .deps li { padding: 4px 7px; font-family: var(--mono); color: var(--ink); cursor: pointer; border: 1px solid var(--border); background: var(--panel-2); border-radius: 999px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+  #detail .deps li:hover { color: var(--accent); border-color: var(--accent); }
+  #detail .deps li.empty-li { color: var(--muted); font-style: italic; cursor: default; border-style: dashed; background: transparent; }
 
   #canvas-wrap { position: relative; overflow: hidden; background:
-      radial-gradient(circle at 25% 30%, rgba(106,160,255,0.04) 0%, transparent 60%),
-      radial-gradient(circle at 80% 70%, rgba(87,227,192,0.04) 0%, transparent 60%),
-      var(--bg);
+      linear-gradient(rgba(83,70,42,0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(83,70,42,0.055) 1px, transparent 1px),
+      radial-gradient(circle at 18% 18%, rgba(23,108,101,0.12) 0%, transparent 34%),
+      radial-gradient(circle at 82% 76%, rgba(166,80,29,0.10) 0%, transparent 36%),
+      var(--canvas);
+    background-size: 36px 36px, 36px 36px, auto, auto, auto;
   }
   #canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
   #world { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
 
   /* Edges layer covers the whole world; we draw lines in world coords. */
   svg#edges { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
-  svg#edges path { fill: none; stroke: var(--edge); stroke-width: 1; transition: stroke 0.1s, stroke-width 0.1s; }
-  svg#edges path.decl { stroke-dasharray: 4 4; stroke: rgba(180,190,210,0.45); }
+  svg#edges path { fill: none; stroke: var(--edge); stroke-width: 1.2; transition: stroke 0.1s, stroke-width 0.1s, opacity 0.12s; }
+  svg#edges path.decl { stroke-dasharray: 5 5; stroke: rgba(166,80,29,0.42); }
   svg#edges path.hi { stroke: var(--edge-hi); stroke-width: 2; }
-  svg#edges path.in { stroke: var(--accent); stroke-width: 1.6; }
-  svg#edges path.out { stroke: var(--accent-2); stroke-width: 1.6; }
+  svg#edges path.in { stroke: var(--accent-3); stroke-width: 1.8; opacity: 0.92; }
+  svg#edges path.out { stroke: var(--accent); stroke-width: 1.8; opacity: 0.92; }
+  svg#edges path.hidden-edge { opacity: 0; pointer-events: none; }
+  svg#edges path.aggregate-edge { stroke-width: 2.4; opacity: 0.94; }
+  svg#edges path.aggregate-edge.decl { stroke-dasharray: 7 5; }
 
   .node {
     position: absolute;
     width: 180px;
+    z-index: 3;
     background: var(--node);
     border: 1px solid var(--node-border);
-    border-radius: 6px;
-    padding: 7px 9px;
+    border-radius: 8px;
+    padding: 8px 9px;
     cursor: grab;
     user-select: none;
     color: var(--ink);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-    transition: border-color 0.1s, background 0.1s, box-shadow 0.1s;
+    box-shadow: 0 2px 8px rgba(70,55,28,0.12);
+    transition: border-color 0.1s, background 0.1s, box-shadow 0.1s, opacity 0.12s, filter 0.12s, transform 0.12s;
   }
-  .node.dragging { cursor: grabbing; z-index: 1000; box-shadow: 0 4px 14px rgba(0,0,0,0.7); }
-  .node:hover { background: var(--node-hover); border-color: #3a4358; }
-  .node.selected { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(106,160,255,0.35); }
-  .node.dim { opacity: 0.18; }
-  .node.subdir { background: #1c2030; border-style: dashed; }
+  .node.dragging { cursor: grabbing; z-index: 1000; box-shadow: 0 14px 32px rgba(70,55,28,0.32); }
+  .node:hover { background: var(--node-hover); border-color: var(--border-strong); transform: translateY(-1px); }
+  .node.selected { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow); z-index: 4; }
+  .node.context-dim { opacity: 0.18; filter: grayscale(0.7); }
+  .node.filter-dim { opacity: 0.12; filter: grayscale(1); }
+  .node.subdir { background: #f3efe5; border-style: dashed; }
   .node.subdir .title { color: var(--accent-2); }
-  .node .title { font-weight: 600; font-size: 12px; word-break: break-word; line-height: 1.25; }
+  .node .title { font-weight: 730; font-size: 12px; word-break: break-word; line-height: 1.25; }
   .node .desc { color: var(--ink-dim); font-size: 11px; line-height: 1.35; margin-top: 4px;
     display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .node.search-match { border-color: var(--accent-2); box-shadow: 0 0 0 3px var(--warn-soft), 0 2px 8px rgba(70,55,28,0.12); }
 
   .group {
     position: absolute;
+    z-index: 1;
     border: 2px dashed var(--group-border);
     background: var(--group);
-    border-radius: 8px;
+    border-radius: 10px;
     pointer-events: auto;
+    cursor: move;
   }
   .group .label {
     position: absolute; top: -11px; left: 10px;
-    background: var(--bg); border: 1px solid var(--group-border); color: var(--accent);
-    padding: 1px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;
+    background: var(--paper); border: 1px solid var(--group-border); color: var(--accent);
+    padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 800;
     cursor: text; user-select: text;
   }
-  .group .handle { position: absolute; width: 12px; height: 12px; background: var(--group-border); border-radius: 2px; }
+  .group .handle { position: absolute; width: 14px; height: 14px; background: var(--group-border); border-radius: 3px; }
   .group .handle.move { left: -8px; top: -8px; cursor: grab; }
   .group .handle.resize { right: -8px; bottom: -8px; cursor: nwse-resize; }
-  .group .handle.del { right: -8px; top: -8px; cursor: pointer; background: #d65656; color: white; font-size: 10px; line-height: 12px; text-align: center; font-weight: 700; }
+  .group .handle.del { right: -8px; top: -8px; cursor: pointer; background: #b63f2d; color: white; font-size: 11px; line-height: 14px; text-align: center; font-weight: 800; }
   .group.dragging { cursor: grabbing; }
   .group.dragging .handle.move { cursor: grabbing; }
+  .group.auto { border-color: rgba(166,80,29,0.46); background: rgba(166,80,29,0.055); }
+  .group.auto .label { color: var(--accent-2); border-color: rgba(166,80,29,0.48); cursor: move; }
+  .group.auto .handle { display: none; }
+  .group.selected { border-color: var(--accent); background: rgba(23,108,101,0.14); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .group.related { border-color: rgba(47,94,153,0.6); background: rgba(47,94,153,0.07); }
+  .group.context-dim { opacity: 0.22; filter: grayscale(0.8); }
+  .editable-text { cursor: text; border-radius: 4px; outline: 0; }
+  .group .label.editable-text { cursor: text; }
+  .editable-text:hover { background: rgba(23,108,101,0.08); box-shadow: 0 0 0 2px rgba(23,108,101,0.08); }
+  .editable-text.is-editing { background: var(--paper); box-shadow: 0 0 0 3px var(--accent-soft); user-select: text; }
 
-  #hint { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: rgba(20,24,32,0.85); border: 1px solid var(--border); color: var(--ink-dim); padding: 5px 12px; border-radius: 12px; font-size: 11px; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
+  #hint { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); background: rgba(255,252,244,0.95); border: 1px solid var(--border); color: var(--ink-dim); padding: 6px 12px; border-radius: 999px; font-size: 11px; pointer-events: none; opacity: 0; transition: opacity 0.2s; box-shadow: var(--shadow); }
   #hint.show { opacity: 1; }
 
-  #status { position: absolute; top: 10px; right: 10px; background: rgba(20,24,32,0.85); border: 1px solid var(--border); padding: 4px 10px; border-radius: 12px; font-size: 11px; color: var(--ink-dim); pointer-events: none; }
+  #status { position: absolute; top: 16px; right: 16px; background: rgba(255,252,244,0.94); border: 1px solid var(--border); padding: 7px 10px; border-radius: 999px; font-size: 11px; color: var(--ink-dim); pointer-events: none; box-shadow: var(--shadow); }
+  #canvas-toolbar { position: absolute; top: 16px; left: 16px; display: flex; gap: 8px; align-items: center; z-index: 4; }
+  #canvas-toolbar button { min-height: 32px; padding: 7px 10px; background: rgba(255,252,244,0.94); box-shadow: var(--shadow); }
 
   #group-add-bar {
-    position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
-    background: rgba(20,24,32,0.95); border: 1px solid var(--accent); padding: 8px 12px; border-radius: 6px;
-    color: var(--ink); font-size: 12px; display: none; box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+    position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+    background: rgba(255,252,244,0.98); border: 1px solid var(--accent); padding: 9px 12px; border-radius: 8px;
+    color: var(--ink); font-size: 12px; display: none; box-shadow: var(--shadow); z-index: 6;
   }
   #group-add-bar.show { display: block; }
+  #group-add-bar button { margin-left: 8px; background: transparent; color: var(--ink-dim); border: 1px solid var(--border); border-radius: 6px; padding: 2px 7px; font: inherit; cursor: pointer; }
+
+  @media (max-width: 760px) {
+    #app { grid-template-columns: 1fr; grid-template-rows: minmax(320px, 44vh) 1fr; }
+    #sidebar { grid-row: 2; border-right: 0; border-top: 1px solid var(--border); }
+    #canvas-wrap { grid-row: 1; }
+  }
 </style>
 </head>
 <body>
 <div id="app">
   <aside id="sidebar">
     <header>
-      <h1>Engine layout workbench</h1>
-      <div class="sub">Top-level files of <code>M2/Macaulay2/e/</code>. Drag nodes, draw groups, plan subdirectories.</div>
+      <div class="eyebrow">Macaulay2 / engine</div>
+      <h1>Layout Workbench</h1>
+      <div class="sub">Top-level source units in <code>M2/Macaulay2/e/</code>, arranged for restructuring conversations.</div>
+      <div id="dataset-stats" class="stat-row" aria-live="polite">
+        <div class="stat"><strong>-</strong><span>files</span></div>
+        <div class="stat"><strong>-</strong><span>includes</span></div>
+        <div class="stat"><strong>-</strong><span>decls</span></div>
+      </div>
     </header>
     <div class="controls">
-      <input type="search" id="search" placeholder="Filter nodes by name…">
-      <div class="row">
-        <button id="btn-add-group">+ Add group</button>
-        <button id="btn-fit">Fit view</button>
+      <div>
+        <label class="field-label" for="search">Find</label>
+        <input type="search" id="search" placeholder="File, class, topic, summary">
+        <div id="search-meta" class="search-meta">195 files ready</div>
       </div>
-      <div class="row">
-        <button id="btn-save">Save layout</button>
-        <button id="btn-reset">Reset</button>
+      <div>
+        <div class="section-label">Edges</div>
+        <div class="segmented" id="edge-mode" role="group" aria-label="Edge visibility">
+          <button type="button" class="active" data-edge-mode="selection">Context</button>
+          <button type="button" data-edge-mode="all">All</button>
+          <button type="button" data-edge-mode="none">None</button>
+        </div>
       </div>
-      <div class="row">
-        <button id="btn-cluster">Auto-cluster</button>
-        <button id="btn-export">Export</button>
+      <label class="check-row">
+        <input type="checkbox" id="toggle-decls" checked>
+        Forward declarations
+      </label>
+      <div class="action-grid">
+        <button id="btn-add-group" title="Create a named planning group">Add group</button>
+        <button id="btn-focus-selected" title="Center the selected node" disabled>Center</button>
+        <button id="btn-save" title="Save this layout in the browser">Save</button>
+        <button id="btn-export" title="Export this layout as JSON">Export</button>
+        <button id="btn-cluster" title="Re-run the inferred cluster layout">Auto-cluster</button>
+        <button id="btn-reset" title="Reset saved node and group positions">Reset</button>
       </div>
     </div>
-    <div class="legend">
-      <div><strong>Drag</strong> a node to move it. <strong>Click</strong> to see details.</div>
-      <div style="margin-top:4px;"><kbd>Space</kbd>+drag or middle-mouse to pan. <kbd>Scroll</kbd> to zoom.</div>
-      <div style="margin-top:4px;">Solid edge = <code>#include</code>; dashed = <code>class X;</code> forward declaration. <span style="color:var(--accent-2)">Outgoing</span> / <span style="color:var(--accent)">incoming</span> shown when a node is selected.</div>
-      <div style="margin-top:4px;">Layout auto-saves to your browser.</div>
+    <div class="cluster-panel">
+      <div class="section-label">Clusters</div>
+      <div id="cluster-list" class="cluster-list"></div>
     </div>
     <div id="detail"><div class="empty">Click a node to see its description and dependencies.</div></div>
   </aside>
   <div id="canvas-wrap">
+    <div id="canvas-toolbar">
+      <button id="btn-fit" title="Fit all nodes in view">Fit view</button>
+      <button id="btn-clear" title="Clear selection and filters">Clear</button>
+    </div>
     <div id="canvas">
       <div id="world">
         <svg id="edges"></svg>
@@ -161,7 +255,7 @@
     </div>
     <div id="status">—</div>
     <div id="hint">Click on canvas to place group, or press Esc to cancel.</div>
-    <div id="group-add-bar">Click two corners on the canvas to place a group. <button id="cancel-group" style="margin-left:8px;background:transparent;color:var(--ink-dim);border:1px solid var(--border);border-radius:3px;padding:1px 6px;font:inherit;cursor:pointer;">cancel</button></div>
+    <div id="group-add-bar">Place a group with two canvas clicks. <button id="cancel-group">cancel</button></div>
   </div>
 </div>
 
@@ -169,7 +263,7 @@
 <script>
 "use strict";
 
-const STORAGE_KEY = "m2-engine-layout-v1";
+const STORAGE_KEY = "m2-engine-layout-v4";
 const NODE_W = 180;
 const NODE_H_DEFAULT = 56;
 
@@ -177,9 +271,16 @@ const state = {
   nodes: new Map(),     // id -> { id, label, summary, kind, files, x, y, w, h, el }
   edges: [],            // [{ source, target, el }]
   groups: [],           // [{ id, label, x, y, w, h, el }]
+  aggregateEdges: [],
+  autoGroupLabels: {},
   scale: 1,
   panX: 0, panY: 0,
-  selected: null,
+  selectedIds: new Set(),
+  selectedGroupIds: new Set(),
+  activeCluster: "all",
+  edgeMode: "selection",
+  searchQuery: "",
+  showDecls: true,
   groupNextId: 1,
   pendingGroup: null,   // null | { stage: 0|1, x0, y0 }
 };
@@ -191,21 +292,79 @@ const detailEl = document.getElementById("detail");
 const statusEl = document.getElementById("status");
 const hintEl = document.getElementById("hint");
 const groupBar = document.getElementById("group-add-bar");
+const searchEl = document.getElementById("search");
+const searchMetaEl = document.getElementById("search-meta");
+const clusterListEl = document.getElementById("cluster-list");
+const statsEl = document.getElementById("dataset-stats");
+const focusSelectedBtn = document.getElementById("btn-focus-selected");
+const toggleDeclsEl = document.getElementById("toggle-decls");
+
+const CLUSTER_LABELS = {
+  "_misc": "Misc",
+  "_other": "Other",
+  "aring": "Coefficient rings",
+  "core-util": "Core utilities",
+  "dmat": "Dense matrices",
+  "franzi": "Franzi",
+  "freemod": "Free modules",
+  "gb": "Groebner",
+  "interop": "Interop",
+  "io": "IO",
+  "linalg": "Linear algebra",
+  "mat": "Matrices",
+  "matrix": "Matrix API",
+  "mem": "Memory",
+  "monideal": "Monomial ideals",
+  "monomials": "Monomials",
+  "nag": "Numerical AG",
+  "nc-poly": "NC polynomial",
+  "polyring": "Polynomial rings",
+  "res": "Resolutions",
+  "ring-core": "Ring core",
+  "schur": "Schur",
+  "ZZ_subdir": "Subdirectories",
+};
+
+const CLUSTER_DIR_NAMES = {
+  "_misc": "misc/",
+  "_other": "other/",
+  "aring": "coefficient-rings/",
+  "core-util": "core-utils/",
+  "dmat": "dense-matrices/",
+  "franzi": "franzi/",
+  "freemod": "free-modules/",
+  "gb": "groebner/",
+  "interop": "interop/",
+  "io": "io/",
+  "linalg": "linear-algebra/",
+  "mat": "matrix-kernels/",
+  "matrix": "matrix-api/",
+  "mem": "memory/",
+  "monideal": "monomial-ideals/",
+  "monomials": "monomials/",
+  "nag": "numerical-ag/",
+  "nc-poly": "nc-polynomial/",
+  "polyring": "polynomial-rings/",
+  "res": "resolutions/",
+  "ring-core": "ring-core/",
+  "schur": "schur/",
+  "ZZ_subdir": "existing-subdirs/",
+};
 
 // --- arrow marker definitions ---
 svg.innerHTML = `
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(180,190,210,0.5)"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(67,72,70,0.38)"/>
     </marker>
     <marker id="arrow-hi" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ffd166"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b75b25"/>
     </marker>
     <marker id="arrow-in" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6aa0ff"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f5e99"/>
     </marker>
     <marker id="arrow-out" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#57e3c0"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#176c65"/>
     </marker>
   </defs>
 `;
@@ -256,23 +415,34 @@ function initialLayout() {
     clusters.get(k).push(node);
   }
   const keys = Array.from(clusters.keys()).sort();
-  // arrange clusters in a tidy grid: each cluster a column of N nodes wide,
-  // with padding between clusters
+  // arrange clusters into wrapped blocks so the first fit view stays readable
   const COL_W = NODE_W + 20;
   const ROW_H = NODE_H_DEFAULT + 18;
-  const CLUSTER_GAP = 60;
-  let xOffset = 60;
+  const CLUSTER_GAP_X = 76;
+  const CLUSTER_GAP_Y = 86;
+  const TARGET_W = 2200;
+  let xOffset = 72;
+  let yOffset = 82;
+  let rowHeight = 0;
   for (const k of keys) {
     const arr = clusters.get(k).slice().sort((a,b) => a.id.localeCompare(b.id));
-    const cols = Math.max(1, Math.ceil(Math.sqrt(arr.length / 2.0)));
+    const cols = Math.max(1, Math.min(6, Math.ceil(Math.sqrt(arr.length * 1.45))));
     const rows = Math.ceil(arr.length / cols);
+    const blockW = cols * COL_W;
+    const blockH = rows * ROW_H;
+    if (xOffset > 72 && xOffset + blockW > TARGET_W) {
+      xOffset = 72;
+      yOffset += rowHeight + CLUSTER_GAP_Y;
+      rowHeight = 0;
+    }
     for (let i = 0; i < arr.length; i++) {
       const col = i % cols;
       const row = Math.floor(i / cols);
       arr[i].x = xOffset + col * COL_W;
-      arr[i].y = 60 + row * ROW_H;
+      arr[i].y = yOffset + row * ROW_H;
     }
-    xOffset += cols * COL_W + CLUSTER_GAP;
+    xOffset += blockW + CLUSTER_GAP_X;
+    rowHeight = Math.max(rowHeight, blockH);
   }
 }
 
@@ -282,8 +452,10 @@ function buildNodes() {
   for (const n of data.nodes) {
     state.nodes.set(n.id, {
       ...n,
+      originalLabel: n.label,
+      cluster: clusterKey(n),
       x: 0, y: 0, w: NODE_W, h: NODE_H_DEFAULT,
-      inDeps: [], outDeps: [], el: null,
+      inDeps: [], outDeps: [], inDecls: [], outDecls: [], el: null,
     });
   }
   for (const e of data.edges) {
@@ -294,8 +466,6 @@ function buildNodes() {
       state.nodes.get(e.source).outDeps.push(e.target);
       state.nodes.get(e.target).inDeps.push(e.source);
     } else {
-      state.nodes.get(e.source).outDecls = state.nodes.get(e.source).outDecls || [];
-      state.nodes.get(e.target).inDecls = state.nodes.get(e.target).inDecls || [];
       state.nodes.get(e.source).outDecls.push(e.target);
       state.nodes.get(e.target).inDecls.push(e.source);
     }
@@ -310,8 +480,14 @@ function renderNodes() {
     el.style.left = node.x + "px";
     el.style.top = node.y + "px";
     el.innerHTML = `<div class="title"></div><div class="desc"></div>`;
-    el.querySelector(".title").textContent = node.label;
-    el.querySelector(".desc").textContent = node.summary || "(no description available)";
+    const titleEl = el.querySelector(".title");
+    titleEl.textContent = node.label;
+    makeEditableText(titleEl, {
+      getValue: () => node.label,
+      setValue: (value) => renameNode(node, value),
+      fallback: () => node.originalLabel || node.id,
+    });
+    el.querySelector(".desc").textContent = cleanSummary(node.summary) || "(no description available)";
     world.appendChild(el);
     node.el = el;
     // attach drag
@@ -320,7 +496,7 @@ function renderNodes() {
     el.addEventListener("click", (e) => {
       if (el.dataset.suppressClick === "1") { el.dataset.suppressClick = ""; return; }
       e.stopPropagation();
-      selectNode(node.id);
+      selectNode(node.id, { additive: e.shiftKey });
     });
   }
   // measure heights after layout
@@ -328,11 +504,13 @@ function renderNodes() {
     for (const node of state.nodes.values()) {
       node.h = node.el.offsetHeight;
     }
+    positionAutoGroups();
     renderEdges();
   });
 }
 
 function renderEdges() {
+  clearAggregateEdges();
   // remove existing
   for (const e of state.edges) {
     if (e.el) e.el.remove();
@@ -348,6 +526,7 @@ function renderEdges() {
     e.el = path;
     updateEdgePath(e);
   }
+  updateEdgeDisplay();
 }
 
 function rectFor(node) {
@@ -415,88 +594,564 @@ function attachNodeDrag(node, el) {
     el.style.left = node.x + "px";
     el.style.top = node.y + "px";
     updateEdgesForNode(node.id);
+    if (state.selectedGroupIds.size > 0) renderAggregateEdges();
   }
   function onUp() {
     el.classList.remove("dragging");
     window.removeEventListener("mousemove", onMove);
     window.removeEventListener("mouseup", onUp);
-    if (moved) { saveLayout(); el.dataset.suppressClick = "1"; }
+    if (moved) {
+      positionAutoGroups();
+      refreshSelection();
+      saveLayout();
+      el.dataset.suppressClick = "1";
+    }
   }
   el.addEventListener("mousedown", onDown);
 }
 
 // ---------- selecting ----------
-function selectNode(id) {
-  if (state.selected === id) {
-    clearSelection();
-    return;
+function selectNode(id, opts = {}) {
+  const additive = Boolean(opts.additive);
+  if (!additive) state.selectedGroupIds.clear();
+  if (additive) {
+    if (state.selectedIds.has(id)) state.selectedIds.delete(id);
+    else state.selectedIds.add(id);
+  } else if (state.selectedIds.size === 1 && state.selectedIds.has(id) && state.selectedGroupIds.size === 0) {
+    state.selectedIds.clear();
+  } else {
+    state.selectedIds = new Set([id]);
   }
-  state.selected = id;
-  const node = state.nodes.get(id);
-  const inSet = new Set([...(node.inDeps || []), ...(node.inDecls || [])]);
-  const outSet = new Set([...(node.outDeps || []), ...(node.outDecls || [])]);
-  for (const n of state.nodes.values()) {
-    n.el.classList.toggle("selected", n.id === id);
-    n.el.classList.toggle("dim", !(n.id === id || inSet.has(n.id) || outSet.has(n.id)));
+  refreshSelection();
+}
+
+function selectGroup(id, opts = {}) {
+  const key = String(id);
+  const additive = Boolean(opts.additive);
+  if (!additive) state.selectedIds.clear();
+  if (additive) {
+    if (state.selectedGroupIds.has(key)) state.selectedGroupIds.delete(key);
+    else state.selectedGroupIds.add(key);
+  } else if (state.selectedGroupIds.size === 1 && state.selectedGroupIds.has(key) && state.selectedIds.size === 0) {
+    state.selectedGroupIds.clear();
+  } else {
+    state.selectedGroupIds = new Set([key]);
   }
+  refreshSelection();
+}
+
+function clearSelection() {
+  state.selectedIds.clear();
+  state.selectedGroupIds.clear();
+  refreshSelection();
+}
+
+function getGroup(id) {
+  return state.groups.find((g) => String(g.id) === String(id));
+}
+
+function hasSelection() {
+  return state.selectedIds.size > 0 || state.selectedGroupIds.size > 0;
+}
+
+function nodeCenter(node) {
+  return { x: node.x + node.w / 2, y: node.y + node.h / 2 };
+}
+
+function groupRect(group) {
+  return { x: group.x, y: group.y, w: group.w, h: group.h };
+}
+
+function groupContainsNode(group, node) {
+  const c = nodeCenter(node);
+  return c.x >= group.x && c.x <= group.x + group.w && c.y >= group.y && c.y <= group.y + group.h;
+}
+
+function nodesInGroup(group) {
+  const ids = [];
+  for (const node of state.nodes.values()) {
+    if (groupContainsNode(group, node)) ids.push(node.id);
+  }
+  return ids.sort();
+}
+
+function groupIdExcluded(groupId, excludeGroupIds = null) {
+  if (excludeGroupIds === null || excludeGroupIds === undefined) return false;
+  if (excludeGroupIds instanceof Set) return excludeGroupIds.has(String(groupId));
+  return String(groupId) === String(excludeGroupIds);
+}
+
+function groupForNode(nodeId, excludeGroupIds = null) {
+  const node = state.nodes.get(nodeId);
+  if (!node) return null;
+  const candidates = state.groups
+    .filter((group) => !groupIdExcluded(group.id, excludeGroupIds) && groupContainsNode(group, node))
+    .sort((a, b) => {
+      const aArea = a.w * a.h;
+      const bArea = b.w * b.h;
+      if (aArea !== bArea) return aArea - bArea;
+      if (a.source === b.source) return 0;
+      return a.source === "manual" ? -1 : 1;
+    });
+  return candidates[0] || null;
+}
+
+function selectedNodeSet() {
+  const ids = new Set(state.selectedIds);
+  for (const groupId of state.selectedGroupIds) {
+    const group = getGroup(groupId);
+    if (!group) continue;
+    for (const id of nodesInGroup(group)) ids.add(id);
+  }
+  return ids;
+}
+
+function dependencySetsForNodes(nodeIds) {
+  const selected = new Set(nodeIds);
+  const out = new Set();
+  const inn = new Set();
+  const outDecls = new Set();
+  const inDecls = new Set();
+  for (const id of selected) {
+    const node = state.nodes.get(id);
+    if (!node) continue;
+    for (const dep of node.outDeps || []) if (!selected.has(dep)) out.add(dep);
+    for (const dep of node.inDeps || []) if (!selected.has(dep)) inn.add(dep);
+    for (const dep of node.outDecls || []) if (!selected.has(dep)) outDecls.add(dep);
+    for (const dep of node.inDecls || []) if (!selected.has(dep)) inDecls.add(dep);
+  }
+  return { out, inn, outDecls, inDecls };
+}
+
+function refreshSelection() {
+  const nodeIds = selectedNodeSet();
+  const depSets = dependencySetsForNodes(nodeIds);
+  const relatedNodes = new Set([...depSets.out, ...depSets.inn, ...depSets.outDecls, ...depSets.inDecls]);
+  const relatedGroups = new Set();
+  for (const id of relatedNodes) {
+    const group = groupForNode(id, state.selectedGroupIds);
+    if (group) relatedGroups.add(String(group.id));
+  }
+
+  for (const node of state.nodes.values()) {
+    const selected = nodeIds.has(node.id);
+    const related = relatedNodes.has(node.id);
+    node.el.classList.toggle("selected", selected);
+    node.el.classList.toggle("context-dim", hasSelection() && !selected && !related);
+  }
+  for (const group of state.groups) {
+    if (!group.el) continue;
+    const selected = state.selectedGroupIds.has(String(group.id));
+    const related = relatedGroups.has(String(group.id));
+    group.el.classList.toggle("selected", selected);
+    group.el.classList.toggle("related", related);
+    group.el.classList.toggle("context-dim", hasSelection() && !selected && !related);
+  }
+
+  focusSelectedBtn.disabled = !hasSelection();
+  updateEdgeDisplay();
+
+  if (state.selectedGroupIds.size === 1 && state.selectedIds.size === 0) {
+    const group = getGroup([...state.selectedGroupIds][0]);
+    if (group) showGroupDetail(group);
+  } else if (state.selectedIds.size === 1 && state.selectedGroupIds.size === 0) {
+    showDetail(state.nodes.get([...state.selectedIds][0]));
+  } else if (hasSelection()) {
+    showSelectionDetail([...state.selectedIds].sort(), [...state.selectedGroupIds].sort());
+  } else {
+    detailEl.innerHTML = `<div class="empty">Click a node or group to see its description and dependencies.</div>`;
+  }
+}
+
+function clusterLabel(key) {
+  return CLUSTER_LABELS[key] || key.replace(/^_/, "").replace(/-/g, " ");
+}
+
+function suggestedGroupName(key) {
+  return CLUSTER_DIR_NAMES[key] || `${clusterLabel(key).toLowerCase().replace(/\s+/g, "-")}/`;
+}
+
+function selectEditableText(el) {
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  const selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+}
+
+function makeEditableText(el, { getValue, setValue, fallback }) {
+  el.classList.add("editable-text");
+  el.contentEditable = "false";
+  el.spellcheck = false;
+  el.title = "Double-click to rename";
+  let before = "";
+  let cancelling = false;
+
+  const finish = (save) => {
+    if (el.contentEditable !== "true") return;
+    const raw = el.textContent.trim().replace(/\s+/g, " ");
+    const value = save && raw ? raw : before;
+    el.contentEditable = "false";
+    el.classList.remove("is-editing");
+    el.textContent = value || fallback();
+    if (save && raw && raw !== before) setValue(raw);
+  };
+
+  el.addEventListener("dblclick", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    before = getValue();
+    cancelling = false;
+    el.contentEditable = "true";
+    el.classList.add("is-editing");
+    el.textContent = before;
+    el.focus();
+    selectEditableText(el);
+  });
+  el.addEventListener("click", (e) => {
+    if (el.contentEditable === "true") e.stopPropagation();
+  });
+  el.addEventListener("mousedown", (e) => {
+    if (el.contentEditable === "true") e.stopPropagation();
+  });
+  el.addEventListener("keydown", (e) => {
+    if (el.contentEditable !== "true") return;
+    if (e.key === "Enter") {
+      e.preventDefault();
+      finish(true);
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      cancelling = true;
+      finish(false);
+    }
+  });
+  el.addEventListener("blur", () => {
+    finish(!cancelling);
+    cancelling = false;
+  });
+}
+
+function updateNodeLabel(node) {
+  if (!node.el) return;
+  const title = node.el.querySelector(".title");
+  if (title) title.textContent = node.label;
+}
+
+function renameNode(node, value) {
+  const label = value.trim() || node.originalLabel || node.id;
+  node.label = label;
+  updateNodeLabel(node);
+  requestAnimationFrame(() => {
+    node.h = node.el.offsetHeight;
+    updateEdgesForNode(node.id);
+    positionAutoGroups();
+  });
+  updateFilterVisibility();
+  saveLayout();
+  refreshSelection();
+}
+
+function updateGroupLabel(group) {
+  if (!group.el) return;
+  const label = group.el.querySelector(".label");
+  if (label) label.textContent = group.label;
+}
+
+function renameGroup(group, value) {
+  const label = value.trim() || (group.cluster ? suggestedGroupName(group.cluster) : "group");
+  group.label = label;
+  if (group.source === "auto" && group.cluster) state.autoGroupLabels[group.cluster] = label;
+  updateGroupLabel(group);
+  saveLayout();
+  refreshSelection();
+}
+
+function cleanSummary(text) {
+  return (text || "")
+    .replace(/\*\*/g, "")
+    .replace(/`/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function renderStats() {
+  const includeCount = state.edges.filter((e) => e.kind === "include").length;
+  const declCount = state.edges.length - includeCount;
+  statsEl.innerHTML = `
+    <div class="stat"><strong>${state.nodes.size}</strong><span>files</span></div>
+    <div class="stat"><strong>${includeCount}</strong><span>includes</span></div>
+    <div class="stat"><strong>${declCount}</strong><span>decls</span></div>
+  `;
+  searchMetaEl.textContent = `${state.nodes.size} files ready`;
+}
+
+function renderClusterFilters() {
+  const counts = new Map();
+  for (const node of state.nodes.values()) {
+    counts.set(node.cluster, (counts.get(node.cluster) || 0) + 1);
+  }
+  const chips = [["all", "All", state.nodes.size], ...Array.from(counts.entries())
+    .sort((a, b) => clusterLabel(a[0]).localeCompare(clusterLabel(b[0])))
+    .map(([key, count]) => [key, clusterLabel(key), count])];
+  clusterListEl.innerHTML = "";
+  for (const [key, label, count] of chips) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "cluster-chip" + (state.activeCluster === key ? " active" : "");
+    button.dataset.cluster = key;
+    button.innerHTML = `${label} <strong>${count}</strong>`;
+    button.addEventListener("click", () => {
+      state.activeCluster = key;
+      renderClusterFilters();
+      updateFilterVisibility();
+      fitActiveView();
+    });
+    clusterListEl.appendChild(button);
+  }
+}
+
+function nodeMatchesQuery(node, query) {
+  if (!query) return true;
+  const haystack = [
+    node.id,
+    node.label,
+    node.originalLabel || "",
+    node.summary || "",
+    ...(node.files || []),
+    node.doc || "",
+    clusterLabel(node.cluster),
+  ].join(" ").toLowerCase();
+  return haystack.includes(query);
+}
+
+function nodePassesFilters(node) {
+  const clusterMatch = state.activeCluster === "all" || node.cluster === state.activeCluster;
+  return clusterMatch && nodeMatchesQuery(node, state.searchQuery);
+}
+
+function updateFilterVisibility() {
+  let visible = 0;
+  const hasQuery = Boolean(state.searchQuery);
+  for (const node of state.nodes.values()) {
+    const passes = nodePassesFilters(node);
+    if (passes) visible++;
+    node.filteredOut = !passes;
+    node.el.classList.toggle("filter-dim", !passes);
+    node.el.classList.toggle("search-match", hasQuery && passes);
+  }
+  const clusterText = state.activeCluster === "all" ? "files" : clusterLabel(state.activeCluster).toLowerCase();
+  searchMetaEl.textContent = hasQuery
+    ? `${visible} match${visible === 1 ? "" : "es"} in ${clusterText}`
+    : `${visible} ${clusterText}`;
+  updateEdgeDisplay();
+}
+
+function updateEdgeButtons() {
+  document.querySelectorAll("#edge-mode button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.edgeMode === state.edgeMode);
+  });
+}
+
+function updateEdgeDisplay() {
+  const selectedNodes = selectedNodeSet();
+  const selected = selectedNodes.size > 0;
+  const groupSelected = state.selectedGroupIds.size > 0;
+  const filtersActive = state.activeCluster !== "all" || Boolean(state.searchQuery);
   for (const e of state.edges) {
+    if (!e.el) continue;
+    const source = state.nodes.get(e.source);
+    const target = state.nodes.get(e.target);
+    const connected = Boolean(selected && (selectedNodes.has(e.source) || selectedNodes.has(e.target)));
+    const endpointsPass = !filtersActive || (!source.filteredOut && !target.filteredOut) || connected;
+    let visible = endpointsPass && (state.showDecls || e.kind !== "decl");
+    if (state.edgeMode === "none") visible = false;
+    if (state.edgeMode === "selection") visible = visible && connected && !groupSelected;
+
     e.el.classList.remove("hi", "in", "out");
-    if (e.source === id) {
+    e.el.classList.toggle("hidden-edge", !visible);
+    e.el.style.opacity = "";
+    e.el.setAttribute("marker-end", "url(#arrow)");
+    if (!visible) continue;
+
+    if (selected && selectedNodes.has(e.source)) {
       e.el.classList.add("out");
       e.el.setAttribute("marker-end", "url(#arrow-out)");
-    } else if (e.target === id) {
+    } else if (selected && selectedNodes.has(e.target)) {
       e.el.classList.add("in");
       e.el.setAttribute("marker-end", "url(#arrow-in)");
-    } else {
-      e.el.setAttribute("marker-end", "url(#arrow)");
-      e.el.style.opacity = "0.15";
+    } else if (selected && state.edgeMode === "all") {
+      e.el.style.opacity = "0.16";
     }
   }
-  showDetail(node);
+  renderAggregateEdges();
 }
-function clearSelection() {
-  state.selected = null;
-  for (const n of state.nodes.values()) {
-    n.el.classList.remove("selected", "dim");
+
+function endpointForNode(nodeId, excludeGroupId = null) {
+  const group = groupForNode(nodeId, excludeGroupId);
+  if (group) {
+    return {
+      type: "group",
+      id: group.id,
+      key: `group:${group.id}`,
+      label: group.label,
+      rect: groupRect(group),
+    };
   }
-  for (const e of state.edges) {
-    e.el.classList.remove("hi", "in", "out");
-    e.el.setAttribute("marker-end", "url(#arrow)");
-    e.el.style.opacity = "";
+  const node = state.nodes.get(nodeId);
+  return node ? {
+    type: "node",
+    id: node.id,
+    key: `node:${node.id}`,
+    label: node.id,
+    rect: rectFor(node),
+  } : null;
+}
+
+function groupDependencySummary(group) {
+  const members = new Set(nodesInGroup(group));
+  const outgoing = new Map();
+  const incoming = new Map();
+  let internal = 0;
+
+  const addEndpoint = (map, endpoint, edge) => {
+    if (!endpoint) return;
+    if (!map.has(endpoint.key)) {
+      map.set(endpoint.key, { ...endpoint, include: 0, decl: 0, nodes: new Set() });
+    }
+    const item = map.get(endpoint.key);
+    if (edge.kind === "decl") item.decl++;
+    else item.include++;
+  };
+
+  for (const edge of state.edges) {
+    if (edge.kind === "decl" && !state.showDecls) continue;
+    const sourceInside = members.has(edge.source);
+    const targetInside = members.has(edge.target);
+    if (sourceInside && targetInside) {
+      internal++;
+    } else if (sourceInside) {
+      const endpoint = endpointForNode(edge.target, group.id);
+      addEndpoint(outgoing, endpoint, edge);
+      if (endpoint) outgoing.get(endpoint.key).nodes.add(edge.target);
+    } else if (targetInside) {
+      const endpoint = endpointForNode(edge.source, group.id);
+      addEndpoint(incoming, endpoint, edge);
+      if (endpoint) incoming.get(endpoint.key).nodes.add(edge.source);
+    }
   }
-  detailEl.innerHTML = `<div class="empty">Click a node to see its description and dependencies.</div>`;
+
+  return {
+    members: [...members].sort(),
+    outgoing: [...outgoing.values()].sort((a, b) => a.label.localeCompare(b.label)),
+    incoming: [...incoming.values()].sort((a, b) => a.label.localeCompare(b.label)),
+    internal,
+  };
+}
+
+function clearAggregateEdges() {
+  for (const path of state.aggregateEdges) path.remove();
+  state.aggregateEdges = [];
+}
+
+function aggregatePath(fromRect, toRect) {
+  const fromCx = fromRect.x + fromRect.w / 2;
+  const fromCy = fromRect.y + fromRect.h / 2;
+  const toCx = toRect.x + toRect.w / 2;
+  const toCy = toRect.y + toRect.h / 2;
+  const p0 = rectBoundary(fromRect, toCx, toCy);
+  const p1 = rectBoundary(toRect, fromCx, fromCy);
+  const dx = p1.x - p0.x;
+  const dy = p1.y - p0.y;
+  const len = Math.max(1, Math.hypot(dx, dy));
+  const bend = Math.min(120, len * 0.18);
+  const mx = (p0.x + p1.x) / 2 - (dy / len) * bend;
+  const my = (p0.y + p1.y) / 2 + (dx / len) * bend;
+  return `M ${p0.x} ${p0.y} Q ${mx} ${my} ${p1.x} ${p1.y}`;
+}
+
+function renderAggregateEdges() {
+  clearAggregateEdges();
+  if (state.edgeMode === "none" || state.selectedGroupIds.size === 0) return;
+
+  const draw = (from, to, direction, onlyDecls = false) => {
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.classList.add("aggregate-edge", direction);
+    if (onlyDecls) path.classList.add("decl");
+    path.setAttribute("marker-end", direction === "out" ? "url(#arrow-out)" : "url(#arrow-in)");
+    path.setAttribute("d", aggregatePath(from, to));
+    svg.appendChild(path);
+    state.aggregateEdges.push(path);
+  };
+
+  for (const groupId of state.selectedGroupIds) {
+    const group = getGroup(groupId);
+    if (!group) continue;
+    const summary = groupDependencySummary(group);
+    const sourceRect = groupRect(group);
+    for (const dep of summary.outgoing) {
+      draw(sourceRect, dep.rect, "out", dep.include === 0 && dep.decl > 0);
+    }
+    for (const dep of summary.incoming) {
+      draw(dep.rect, sourceRect, "in", dep.include === 0 && dep.decl > 0);
+    }
+  }
 }
 
 function showDetail(node) {
+  if (!node) return;
   const out = (node.outDeps || []).slice().sort();
   const inn = (node.inDeps || []).slice().sort();
   const outDecls = (node.outDecls || []).slice().sort();
   const inDecls = (node.inDecls || []).slice().sort();
   const filesStr = node.files && node.files.length ? node.files.join("  ") : (node.kind === "subdir" ? "(subdirectory)" : "");
   detailEl.innerHTML = `
+    <div class="kicker"></div>
     <h2></h2>
     <div class="files"></div>
     <div class="summary"></div>
+    <div class="metric-grid">
+      <div class="metric"><strong>${out.length}</strong><span>includes</span></div>
+      <div class="metric"><strong>${inn.length}</strong><span>included by</span></div>
+      <div class="metric"><strong>${outDecls.length}</strong><span>declares</span></div>
+      <div class="metric"><strong>${inDecls.length}</strong><span>declared by</span></div>
+    </div>
     <div class="deps">
-      <h3>Includes (${out.length})</h3>
-      <ul class="out"></ul>
-      <h3>Forward-declares (${outDecls.length})</h3>
-      <ul class="outd"></ul>
-      <h3>Included by (${inn.length})</h3>
-      <ul class="in"></ul>
-      <h3>Forward-declared by (${inDecls.length})</h3>
-      <ul class="ind"></ul>
+      <section>
+        <h3>Includes</h3>
+        <ul class="out"></ul>
+      </section>
+      <section>
+        <h3>Included by</h3>
+        <ul class="in"></ul>
+      </section>
+      <section>
+        <h3>Forward-declares</h3>
+        <ul class="outd"></ul>
+      </section>
+      <section>
+        <h3>Forward-declared by</h3>
+        <ul class="ind"></ul>
+      </section>
     </div>
   `;
-  detailEl.querySelector("h2").textContent = node.label;
+  detailEl.querySelector(".kicker").textContent = clusterLabel(node.cluster);
+  const heading = detailEl.querySelector("h2");
+  heading.textContent = node.label;
+  makeEditableText(heading, {
+    getValue: () => node.label,
+    setValue: (value) => renameNode(node, value),
+    fallback: () => node.originalLabel || node.id,
+  });
   detailEl.querySelector(".files").textContent = filesStr;
-  detailEl.querySelector(".summary").textContent = node.summary || "(no description available)";
+  detailEl.querySelector(".summary").textContent = cleanSummary(node.summary) || "(no description available)";
   const fillList = (sel, ids) => {
     const ul = detailEl.querySelector(sel);
-    if (!ids.length) { ul.innerHTML = `<li style="color:var(--ink-dim);font-style:italic;cursor:default">none</li>`; return; }
+    if (!ids.length) { ul.innerHTML = `<li class="empty-li">none</li>`; return; }
     for (const id of ids) {
       const li = document.createElement("li");
-      li.textContent = id;
+      const depNode = state.nodes.get(id);
+      li.textContent = depNode ? depNode.label : id;
+      li.title = id;
       li.addEventListener("click", () => {
         const n = state.nodes.get(id);
         if (n) { selectNode(id); centerOn(n); }
@@ -510,6 +1165,142 @@ function showDetail(node) {
   fillList(".ind", inDecls);
 }
 
+function fillNodeList(container, ids) {
+  if (!ids.length) {
+    container.innerHTML = `<li class="empty-li">none</li>`;
+    return;
+  }
+  for (const id of ids) {
+    const li = document.createElement("li");
+    const node = state.nodes.get(id);
+    li.textContent = node ? node.label : id;
+    li.title = id;
+    li.addEventListener("click", () => {
+      if (node) { selectNode(id); centerOn(node); }
+    });
+    container.appendChild(li);
+  }
+}
+
+function fillEndpointList(container, endpoints) {
+  if (!endpoints.length) {
+    container.innerHTML = `<li class="empty-li">none</li>`;
+    return;
+  }
+  for (const dep of endpoints) {
+    const li = document.createElement("li");
+    const count = dep.include + dep.decl;
+    const node = dep.type === "node" ? state.nodes.get(dep.id) : null;
+    const label = node ? node.label : dep.label;
+    li.textContent = `${label}${count > 1 ? ` (${count})` : ""}`;
+    li.title = dep.label;
+    li.addEventListener("click", () => {
+      if (dep.type === "group") {
+        selectGroup(dep.id);
+        const group = getGroup(dep.id);
+        if (group) centerOnRect(groupRect(group));
+      } else {
+        const node = state.nodes.get(dep.id);
+        if (node) { selectNode(dep.id); centerOn(node); }
+      }
+    });
+    container.appendChild(li);
+  }
+}
+
+function fillGroupList(container, ids) {
+  if (!ids.length) {
+    container.innerHTML = `<li class="empty-li">none</li>`;
+    return;
+  }
+  for (const id of ids) {
+    const group = getGroup(id);
+    if (!group) continue;
+    const li = document.createElement("li");
+    li.textContent = group.label;
+    li.addEventListener("click", () => {
+      selectGroup(group.id);
+      centerOnRect(groupRect(group));
+    });
+    container.appendChild(li);
+  }
+}
+
+function showSelectionDetail(ids, groupIds = []) {
+  const selectedNodes = [...selectedNodeSet()].sort();
+  const depSets = dependencySetsForNodes(selectedNodes);
+  const out = [...depSets.out].sort();
+  const inn = [...depSets.inn].sort();
+  const outDecls = [...depSets.outDecls].sort();
+  const inDecls = [...depSets.inDecls].sort();
+  const itemCount = ids.length + groupIds.length;
+  const heading = groupIds.length && ids.length
+    ? `${itemCount} selected items`
+    : groupIds.length
+      ? `${groupIds.length} selected groups`
+      : `${ids.length} source units`;
+  detailEl.innerHTML = `
+    <div class="kicker">Selection</div>
+    <h2>${heading}</h2>
+    <div class="summary">Combined dependency context for the selected boxes and groups.</div>
+    <div class="metric-grid">
+      <div class="metric"><strong>${itemCount}</strong><span>selected</span></div>
+      <div class="metric"><strong>${selectedNodes.length}</strong><span>source units</span></div>
+      <div class="metric"><strong>${out.length}</strong><span>includes</span></div>
+      <div class="metric"><strong>${inn.length}</strong><span>included by</span></div>
+    </div>
+    <div class="deps">
+      <section><h3>Selected groups</h3><ul class="selected-groups"></ul></section>
+      <section><h3>Selected boxes</h3><ul class="selected-list"></ul></section>
+      <section><h3>Includes</h3><ul class="out"></ul></section>
+      <section><h3>Included by</h3><ul class="in"></ul></section>
+      <section><h3>Forward-declares</h3><ul class="outd"></ul></section>
+      <section><h3>Forward-declared by</h3><ul class="ind"></ul></section>
+    </div>
+  `;
+  fillGroupList(detailEl.querySelector(".selected-groups"), groupIds);
+  fillNodeList(detailEl.querySelector(".selected-list"), selectedNodes);
+  fillNodeList(detailEl.querySelector(".out"), out);
+  fillNodeList(detailEl.querySelector(".in"), inn);
+  fillNodeList(detailEl.querySelector(".outd"), outDecls);
+  fillNodeList(detailEl.querySelector(".ind"), inDecls);
+}
+
+function showGroupDetail(group) {
+  const summary = groupDependencySummary(group);
+  detailEl.innerHTML = `
+    <div class="kicker">${group.source === "auto" ? "Suggested group" : "Group"}</div>
+    <h2></h2>
+    <div class="files"></div>
+    <div class="summary"></div>
+    <div class="metric-grid">
+      <div class="metric"><strong>${summary.members.length}</strong><span>members</span></div>
+      <div class="metric"><strong>${summary.outgoing.length}</strong><span>depends on</span></div>
+      <div class="metric"><strong>${summary.incoming.length}</strong><span>used by</span></div>
+      <div class="metric"><strong>${summary.internal}</strong><span>internal links</span></div>
+    </div>
+    <div class="deps">
+      <section><h3>Depends on</h3><ul class="out"></ul></section>
+      <section><h3>Used by</h3><ul class="in"></ul></section>
+      <section><h3>Members</h3><ul class="members"></ul></section>
+    </div>
+  `;
+  const heading = detailEl.querySelector("h2");
+  heading.textContent = group.label;
+  makeEditableText(heading, {
+    getValue: () => group.label,
+    setValue: (value) => renameGroup(group, value),
+    fallback: () => group.cluster ? suggestedGroupName(group.cluster) : "group",
+  });
+  detailEl.querySelector(".files").textContent = group.cluster ? clusterLabel(group.cluster) : "manual planning group";
+  detailEl.querySelector(".summary").textContent = group.source === "auto"
+    ? `Suggested directory name for the ${clusterLabel(group.cluster)} cluster.`
+    : "Manual planning group based on the boxes currently inside its boundary.";
+  fillEndpointList(detailEl.querySelector(".out"), summary.outgoing);
+  fillEndpointList(detailEl.querySelector(".in"), summary.incoming);
+  fillNodeList(detailEl.querySelector(".members"), summary.members);
+}
+
 // ---------- pan & zoom ----------
 function applyTransform() {
   world.style.transform = `translate(${state.panX}px, ${state.panY}px) scale(${state.scale})`;
@@ -518,11 +1309,16 @@ function applyTransform() {
 let isPanning = false, panStartX, panStartY, panOrigX, panOrigY, panBySpace = false;
 
 canvasWrap.addEventListener("mousedown", (e) => {
+  if (!state.pendingGroup || e.button !== 0) return;
+  if (e.target.closest("#canvas-toolbar") || e.target.closest("#group-add-bar")) return;
+  handleGroupClick(e);
+  e.preventDefault();
+  e.stopPropagation();
+}, true);
+
+canvasWrap.addEventListener("mousedown", (e) => {
+  if (state.pendingGroup) return;
   if (e.button === 1 || (e.button === 0 && (e.target === canvasWrap || e.target === world || e.target.id === "canvas")) || (e.button === 0 && panBySpace)) {
-    if (state.pendingGroup) {
-      handleGroupClick(e);
-      return;
-    }
     isPanning = true;
     panStartX = e.clientX; panStartY = e.clientY;
     panOrigX = state.panX; panOrigY = state.panY;
@@ -578,29 +1374,49 @@ canvasWrap.addEventListener("click", (e) => {
 });
 
 function centerOn(node) {
+  centerOnRect(rectFor(node));
+}
+
+function centerOnRect(target) {
   const rect = canvasWrap.getBoundingClientRect();
-  const cx = node.x + node.w / 2;
-  const cy = node.y + node.h / 2;
+  const cx = target.x + target.w / 2;
+  const cy = target.y + target.h / 2;
   state.panX = rect.width / 2 - cx * state.scale;
   state.panY = rect.height / 2 - cy * state.scale;
   applyTransform();
 }
 
-function fitView() {
+function getActiveNodes() {
+  const active = [];
+  for (const node of state.nodes.values()) {
+    if (!node.filteredOut) active.push(node);
+  }
+  return active.length ? active : Array.from(state.nodes.values());
+}
+
+function fitActiveView() {
+  fitView(getActiveNodes());
+}
+
+function fitView(nodes = null) {
+  const nodeList = nodes ? Array.from(nodes) : Array.from(state.nodes.values());
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-  for (const n of state.nodes.values()) {
+  for (const n of nodeList) {
     minX = Math.min(minX, n.x); minY = Math.min(minY, n.y);
     maxX = Math.max(maxX, n.x + n.w); maxY = Math.max(maxY, n.y + n.h);
   }
-  for (const g of state.groups) {
-    minX = Math.min(minX, g.x); minY = Math.min(minY, g.y);
-    maxX = Math.max(maxX, g.x + g.w); maxY = Math.max(maxY, g.y + g.h);
+  if (!nodes) {
+    for (const g of state.groups) {
+      minX = Math.min(minX, g.x); minY = Math.min(minY, g.y);
+      maxX = Math.max(maxX, g.x + g.w); maxY = Math.max(maxY, g.y + g.h);
+    }
   }
+  if (!Number.isFinite(minX)) return;
   const rect = canvasWrap.getBoundingClientRect();
   const w = maxX - minX, h = maxY - minY;
   const sx = (rect.width - 80) / w;
   const sy = (rect.height - 80) / h;
-  state.scale = Math.min(sx, sy, 1);
+  state.scale = Math.min(sx, sy, nodes ? 1.15 : 1);
   state.panX = (rect.width - w * state.scale) / 2 - minX * state.scale;
   state.panY = (rect.height - h * state.scale) / 2 - minY * state.scale;
   applyTransform();
@@ -610,30 +1426,45 @@ function fitView() {
 // ---------- groups ----------
 function makeGroup(g) {
   const el = document.createElement("div");
-  el.className = "group";
-  el.style.left = g.x + "px"; el.style.top = g.y + "px";
-  el.style.width = g.w + "px"; el.style.height = g.h + "px";
+  el.className = "group" + (g.source === "auto" ? " auto" : "");
+  el.dataset.id = g.id;
+  applyGroupPosition(g, el);
   el.innerHTML = `
-    <div class="label" contenteditable="true" spellcheck="false"></div>
+    <div class="label" contenteditable="false" spellcheck="false"></div>
     <div class="handle move" title="Move"></div>
     <div class="handle resize" title="Resize"></div>
     <div class="handle del" title="Delete">×</div>
   `;
   el.querySelector(".label").textContent = g.label;
-  world.insertBefore(el, world.firstChild.nextSibling); // behind nodes, after SVG
+  world.insertBefore(el, svg.nextSibling); // behind nodes, after SVG
   g.el = el;
 
   const labelEl = el.querySelector(".label");
-  labelEl.addEventListener("blur", () => { g.label = labelEl.textContent.trim() || "group"; saveLayout(); });
-  labelEl.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); labelEl.blur(); } });
+  makeEditableText(labelEl, {
+    getValue: () => g.label,
+    setValue: (value) => renameGroup(g, value),
+    fallback: () => g.cluster ? suggestedGroupName(g.cluster) : "group",
+  });
+  el.addEventListener("click", (e) => {
+    if (e.target.classList.contains("handle")) return;
+    e.stopPropagation();
+    selectGroup(g.id, { additive: e.shiftKey });
+  });
 
-  // move via the move handle (or by dragging on the group body itself if not on a node)
+  // Move by dragging the handle or exposed group body. Nodes inside travel with it.
   let moveStart = null;
   const moveHandle = el.querySelector(".handle.move");
-  function moveDown(e) {
+  function moveDown(e, opts = {}) {
     if (e.button !== 0) return;
+    if (!opts.fromHandle && e.target.classList.contains("handle")) return;
+    if (!opts.fromHandle && e.target === labelEl && g.source !== "auto") return;
     e.stopPropagation();
-    moveStart = { x: e.clientX, y: e.clientY, ox: g.x, oy: g.y };
+    const memberIds = nodesInGroup(g);
+    const memberPositions = new Map(memberIds.map((id) => {
+      const node = state.nodes.get(id);
+      return [id, { x: node.x, y: node.y }];
+    }));
+    moveStart = { x: e.clientX, y: e.clientY, ox: g.x, oy: g.y, memberPositions };
     el.classList.add("dragging");
     window.addEventListener("mousemove", moveMove);
     window.addEventListener("mouseup", moveUp);
@@ -642,15 +1473,31 @@ function makeGroup(g) {
     const dx = (e.clientX - moveStart.x) / state.scale;
     const dy = (e.clientY - moveStart.y) / state.scale;
     g.x = moveStart.ox + dx; g.y = moveStart.oy + dy;
-    el.style.left = g.x + "px"; el.style.top = g.y + "px";
+    applyGroupPosition(g);
+    for (const [id, pos] of moveStart.memberPositions) {
+      const node = state.nodes.get(id);
+      if (!node) continue;
+      node.x = pos.x + dx;
+      node.y = pos.y + dy;
+      node.el.style.left = node.x + "px";
+      node.el.style.top = node.y + "px";
+      updateEdgesForNode(id);
+    }
+    if (g.source !== "auto") positionAutoGroups();
+    renderAggregateEdges();
   }
   function moveUp() {
     el.classList.remove("dragging");
     window.removeEventListener("mousemove", moveMove);
     window.removeEventListener("mouseup", moveUp);
+    if (moveStart) {
+      refreshSelection();
+      moveStart = null;
+    }
     saveLayout();
   }
-  moveHandle.addEventListener("mousedown", moveDown);
+  moveHandle.addEventListener("mousedown", (e) => moveDown(e, { fromHandle: true }));
+  el.addEventListener("mousedown", moveDown);
 
   // resize
   const resizeHandle = el.querySelector(".handle.resize");
@@ -667,7 +1514,8 @@ function makeGroup(g) {
     const dh = (e.clientY - rStart.y) / state.scale;
     g.w = Math.max(80, rStart.ow + dw);
     g.h = Math.max(40, rStart.oh + dh);
-    el.style.width = g.w + "px"; el.style.height = g.h + "px";
+    applyGroupPosition(g);
+    renderAggregateEdges();
   }
   function rUp() {
     window.removeEventListener("mousemove", rMove);
@@ -683,11 +1531,73 @@ function makeGroup(g) {
       const i = state.groups.indexOf(g);
       if (i >= 0) state.groups.splice(i, 1);
       el.remove();
+      state.selectedGroupIds.delete(String(g.id));
       saveLayout();
+      refreshSelection();
     }
   });
 
   return el;
+}
+
+function applyGroupPosition(g, el = g.el) {
+  if (!el) return;
+  el.style.left = g.x + "px";
+  el.style.top = g.y + "px";
+  el.style.width = g.w + "px";
+  el.style.height = g.h + "px";
+}
+
+function clusterBounds(cluster) {
+  const nodes = [...state.nodes.values()].filter((node) => node.cluster === cluster);
+  if (!nodes.length) return null;
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  for (const node of nodes) {
+    minX = Math.min(minX, node.x);
+    minY = Math.min(minY, node.y);
+    maxX = Math.max(maxX, node.x + node.w);
+    maxY = Math.max(maxY, node.y + node.h);
+  }
+  const padX = 24;
+  const padY = 30;
+  return {
+    x: minX - padX,
+    y: minY - padY,
+    w: maxX - minX + padX * 2,
+    h: maxY - minY + padY * 2,
+  };
+}
+
+function syncAutoGroups() {
+  const clusters = new Set([...state.nodes.values()].map((node) => node.cluster));
+  for (const cluster of clusters) {
+    const id = `auto:${cluster}`;
+    let group = getGroup(id);
+    if (!group) {
+      group = {
+        id,
+        label: state.autoGroupLabels[cluster] || suggestedGroupName(cluster),
+        source: "auto",
+        cluster,
+        x: 0, y: 0, w: 0, h: 0,
+        el: null,
+      };
+      state.groups.push(group);
+      makeGroup(group);
+    }
+  }
+  positionAutoGroups();
+}
+
+function positionAutoGroups() {
+  for (const group of state.groups) {
+    if (group.source !== "auto") continue;
+    const bounds = clusterBounds(group.cluster);
+    if (!bounds) continue;
+    Object.assign(group, bounds);
+    applyGroupPosition(group);
+  }
+  renderAggregateEdges();
 }
 
 function startAddGroup() {
@@ -716,13 +1626,12 @@ function handleGroupClick(e) {
     const y = Math.min(state.pendingGroup.y0, y1);
     const w = Math.max(50, Math.abs(x1 - state.pendingGroup.x0));
     const h = Math.max(30, Math.abs(y1 - state.pendingGroup.y0));
-    const label = prompt("Group label:", "new group");
-    if (label !== null) {
-      const g = { id: state.groupNextId++, label: label || "group", x, y, w, h, el: null };
-      state.groups.push(g);
-      makeGroup(g);
-      saveLayout();
-    }
+    const id = state.groupNextId++;
+    const g = { id, label: `group ${id}`, source: "manual", cluster: null, x, y, w, h, el: null };
+    state.groups.push(g);
+    makeGroup(g);
+    saveLayout();
+    selectGroup(g.id);
     cancelAddGroup();
   }
 }
@@ -731,10 +1640,16 @@ function handleGroupClick(e) {
 function saveLayout() {
   const payload = {
     scale: state.scale, panX: state.panX, panY: state.panY,
-    nodes: {}, groups: [],
+    nodes: {}, groups: [], autoGroupLabels: {},
   };
-  for (const n of state.nodes.values()) payload.nodes[n.id] = { x: n.x, y: n.y };
-  for (const g of state.groups) payload.groups.push({ label: g.label, x: g.x, y: g.y, w: g.w, h: g.h });
+  for (const n of state.nodes.values()) payload.nodes[n.id] = { x: n.x, y: n.y, label: n.label };
+  for (const g of state.groups) {
+    if (g.source === "auto") {
+      if (g.cluster) payload.autoGroupLabels[g.cluster] = g.label;
+      continue;
+    }
+    payload.groups.push({ label: g.label, source: g.source || "manual", x: g.x, y: g.y, w: g.w, h: g.h });
+  }
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(payload)); } catch (_) {}
 }
 function loadLayout() {
@@ -747,12 +1662,17 @@ function loadLayout() {
     if (p.nodes) {
       for (const [id, pos] of Object.entries(p.nodes)) {
         const n = state.nodes.get(id);
-        if (n) { n.x = pos.x; n.y = pos.y; }
+        if (n) {
+          n.x = pos.x;
+          n.y = pos.y;
+          if (typeof pos.label === "string" && pos.label.trim()) n.label = pos.label.trim();
+        }
       }
     }
+    state.autoGroupLabels = p.autoGroupLabels || {};
     if (p.groups) {
       for (const gd of p.groups) {
-        const g = { id: state.groupNextId++, label: gd.label, x: gd.x, y: gd.y, w: gd.w, h: gd.h, el: null };
+        const g = { id: state.groupNextId++, label: gd.label, source: gd.source || "manual", cluster: gd.cluster || null, x: gd.x, y: gd.y, w: gd.w, h: gd.h, el: null };
         state.groups.push(g);
       }
     }
@@ -767,13 +1687,9 @@ function resetLayout() {
 }
 
 // ---------- search ----------
-document.getElementById("search").addEventListener("input", (e) => {
-  const q = e.target.value.trim().toLowerCase();
-  for (const n of state.nodes.values()) {
-    if (!q) { n.el.classList.remove("dim"); n.el.style.display = ""; continue; }
-    const match = n.id.toLowerCase().includes(q) || n.label.toLowerCase().includes(q) || (n.summary || "").toLowerCase().includes(q);
-    n.el.classList.toggle("dim", !match);
-  }
+searchEl.addEventListener("input", (e) => {
+  state.searchQuery = e.target.value.trim().toLowerCase();
+  updateFilterVisibility();
 });
 
 // ---------- export ----------
@@ -781,8 +1697,8 @@ function exportLayout() {
   const payload = {
     nodes: {}, groups: [],
   };
-  for (const n of state.nodes.values()) payload.nodes[n.id] = { x: n.x, y: n.y };
-  for (const g of state.groups) payload.groups.push({ label: g.label, x: g.x, y: g.y, w: g.w, h: g.h });
+  for (const n of state.nodes.values()) payload.nodes[n.id] = { x: n.x, y: n.y, label: n.label };
+  for (const g of state.groups) payload.groups.push({ label: g.label, source: g.source || "manual", cluster: g.cluster || null, x: g.x, y: g.y, w: g.w, h: g.h });
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -792,25 +1708,62 @@ function exportLayout() {
 
 // ---------- auto-cluster (re-run initial layout) ----------
 function autoCluster() {
-  if (!confirm("Re-layout nodes by inferred topic cluster? This moves all nodes (groups are kept).")) return;
+  if (!confirm("Re-layout nodes by inferred topic cluster? This moves all nodes and refreshes suggested groups.")) return;
   initialLayout();
   for (const n of state.nodes.values()) {
     n.el.style.left = n.x + "px";
     n.el.style.top = n.y + "px";
   }
+  positionAutoGroups();
   renderEdges();
-  fitView();
+  updateFilterVisibility();
+  fitActiveView();
   saveLayout();
 }
 
 // ---------- boot ----------
 document.getElementById("btn-add-group").addEventListener("click", startAddGroup);
 document.getElementById("cancel-group").addEventListener("click", cancelAddGroup);
-document.getElementById("btn-fit").addEventListener("click", fitView);
+document.getElementById("btn-fit").addEventListener("click", fitActiveView);
+document.getElementById("btn-clear").addEventListener("click", () => {
+  clearSelection();
+  state.activeCluster = "all";
+  state.searchQuery = "";
+  searchEl.value = "";
+  renderClusterFilters();
+  updateFilterVisibility();
+  fitView();
+});
 document.getElementById("btn-save").addEventListener("click", () => { saveLayout(); statusEl.textContent = "saved"; setTimeout(() => statusEl.textContent = `zoom ${(state.scale*100).toFixed(0)}%`, 800); });
 document.getElementById("btn-reset").addEventListener("click", resetLayout);
 document.getElementById("btn-export").addEventListener("click", exportLayout);
 document.getElementById("btn-cluster").addEventListener("click", autoCluster);
+focusSelectedBtn.addEventListener("click", () => {
+  if (state.selectedGroupIds.size === 1 && state.selectedIds.size === 0) {
+    const group = getGroup([...state.selectedGroupIds][0]);
+    if (group) centerOnRect(groupRect(group));
+  } else if (state.selectedIds.size === 1) {
+    const node = state.nodes.get([...state.selectedIds][0]);
+    if (node) centerOn(node);
+  } else if (hasSelection()) {
+    const targets = [
+      ...[...state.selectedIds].map((id) => state.nodes.get(id)).filter(Boolean),
+      ...[...state.selectedGroupIds].map((id) => getGroup(id)).filter(Boolean),
+    ];
+    fitView(targets);
+  }
+});
+toggleDeclsEl.addEventListener("change", () => {
+  state.showDecls = toggleDeclsEl.checked;
+  refreshSelection();
+});
+document.querySelectorAll("#edge-mode button").forEach((button) => {
+  button.addEventListener("click", () => {
+    state.edgeMode = button.dataset.edgeMode;
+    updateEdgeButtons();
+    updateEdgeDisplay();
+  });
+});
 
 function boot() {
   if (!window.ENGINE_DATA) {
@@ -818,15 +1771,20 @@ function boot() {
     return;
   }
   buildNodes();
+  renderStats();
+  renderClusterFilters();
+  updateEdgeButtons();
   initialLayout();
   const restored = loadLayout();
   renderNodes();
-  for (const g of state.groups) makeGroup(g);
+  for (const g of state.groups) if (!g.el) makeGroup(g);
+  syncAutoGroups();
   applyTransform();
+  updateFilterVisibility();
   statusEl.textContent = `${state.nodes.size} files · ${state.edges.length} deps`;
   if (!restored) {
     // Center the view on first load
-    requestAnimationFrame(() => requestAnimationFrame(fitView));
+    requestAnimationFrame(() => requestAnimationFrame(() => fitView()));
   }
 }
 boot();
