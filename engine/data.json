@@ -2270,17 +2270,12 @@
   },
   {
    "source": "BasicPolyList",
-   "target": "PolynomialStream",
-   "kind": "include"
-  },
-  {
-   "source": "BasicPolyList",
    "target": "matrix",
    "kind": "include"
   },
   {
    "source": "BasicPolyList",
-   "target": "matrix-stream",
+   "target": "PolynomialStream",
    "kind": "include"
   },
   {
@@ -2291,6 +2286,11 @@
   {
    "source": "BasicPolyList",
    "target": "exceptions",
+   "kind": "include"
+  },
+  {
+   "source": "BasicPolyList",
+   "target": "matrix-stream",
    "kind": "include"
   },
   {
@@ -2310,12 +2310,7 @@
   },
   {
    "source": "Eschreyer",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "Eschreyer",
-   "target": "text-io",
+   "target": "gbring",
    "kind": "include"
   },
   {
@@ -2325,12 +2320,12 @@
   },
   {
    "source": "Eschreyer",
-   "target": "schorder",
+   "target": "text-io",
    "kind": "include"
   },
   {
    "source": "Eschreyer",
-   "target": "matrix-con",
+   "target": "schorder",
    "kind": "include"
   },
   {
@@ -2340,17 +2335,17 @@
   },
   {
    "source": "Eschreyer",
-   "target": "gbring",
+   "target": "matrix-con",
+   "kind": "include"
+  },
+  {
+   "source": "Eschreyer",
+   "target": "polyring",
    "kind": "include"
   },
   {
    "source": "ExponentList",
-   "target": "ExponentVector",
-   "kind": "include"
-  },
-  {
-   "source": "ExponentList",
-   "target": "overflow",
+   "target": "buffer",
    "kind": "include"
   },
   {
@@ -2360,12 +2355,27 @@
   },
   {
    "source": "ExponentList",
+   "target": "ExponentVector",
+   "kind": "include"
+  },
+  {
+   "source": "ExponentList",
    "target": "error",
    "kind": "include"
   },
   {
    "source": "ExponentList",
+   "target": "overflow",
+   "kind": "include"
+  },
+  {
+   "source": "ExponentVector",
    "target": "buffer",
+   "kind": "include"
+  },
+  {
+   "source": "ExponentVector",
+   "target": "util",
    "kind": "include"
   },
   {
@@ -2379,28 +2389,18 @@
    "kind": "include"
   },
   {
-   "source": "ExponentVector",
-   "target": "util",
-   "kind": "include"
-  },
-  {
-   "source": "ExponentVector",
-   "target": "buffer",
-   "kind": "include"
-  },
-  {
    "source": "GF",
    "target": "monoid",
    "kind": "include"
   },
   {
    "source": "GF",
-   "target": "text-io",
+   "target": "interrupted",
    "kind": "include"
   },
   {
    "source": "GF",
-   "target": "interrupted",
+   "target": "text-io",
    "kind": "include"
   },
   {
@@ -2410,7 +2410,12 @@
   },
   {
    "source": "GF",
-   "target": "ringmap",
+   "target": "relem",
+   "kind": "include"
+  },
+  {
+   "source": "GF",
+   "target": "poly",
    "kind": "include"
   },
   {
@@ -2420,27 +2425,7 @@
   },
   {
    "source": "GF",
-   "target": "relem",
-   "kind": "include"
-  },
-  {
-   "source": "GF",
-   "target": "poly",
-   "kind": "include"
-  },
-  {
-   "source": "LLL",
-   "target": "mat",
-   "kind": "include"
-  },
-  {
-   "source": "LLL",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "LLL",
-   "target": "matrix",
+   "target": "ringmap",
    "kind": "include"
   },
   {
@@ -2450,37 +2435,27 @@
   },
   {
    "source": "LLL",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "LLL",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "LLL",
    "target": "relem",
    "kind": "include"
   },
   {
-   "source": "M2FreeAlgebra",
-   "target": "ring",
+   "source": "LLL",
+   "target": "mat",
    "kind": "include"
   },
   {
    "source": "M2FreeAlgebra",
    "target": "monoid",
-   "kind": "include"
-  },
-  {
-   "source": "M2FreeAlgebra",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "M2FreeAlgebra",
-   "target": "engine-includes",
-   "kind": "include"
-  },
-  {
-   "source": "M2FreeAlgebra",
-   "target": "exceptions",
-   "kind": "include"
-  },
-  {
-   "source": "M2FreeAlgebra",
-   "target": "dir:NCAlgebras",
    "kind": "include"
   },
   {
@@ -2490,7 +2465,32 @@
   },
   {
    "source": "M2FreeAlgebra",
+   "target": "dir:NCAlgebras",
+   "kind": "include"
+  },
+  {
+   "source": "M2FreeAlgebra",
+   "target": "engine-includes",
+   "kind": "include"
+  },
+  {
+   "source": "M2FreeAlgebra",
+   "target": "ring",
+   "kind": "include"
+  },
+  {
+   "source": "M2FreeAlgebra",
    "target": "relem",
+   "kind": "include"
+  },
+  {
+   "source": "M2FreeAlgebra",
+   "target": "exceptions",
+   "kind": "include"
+  },
+  {
+   "source": "M2FreeAlgebra",
+   "target": "ringelem",
    "kind": "include"
   },
   {
@@ -2500,12 +2500,12 @@
   },
   {
    "source": "M2FreeAlgebra",
-   "target": "polyring",
+   "target": "buffer",
    "kind": "decl"
   },
   {
    "source": "M2FreeAlgebra",
-   "target": "buffer",
+   "target": "polyring",
    "kind": "decl"
   },
   {
@@ -2515,22 +2515,7 @@
   },
   {
    "source": "M2FreeAlgebraQuotient",
-   "target": "ring",
-   "kind": "include"
-  },
-  {
-   "source": "M2FreeAlgebraQuotient",
-   "target": "Polynomial",
-   "kind": "include"
-  },
-  {
-   "source": "M2FreeAlgebraQuotient",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "M2FreeAlgebraQuotient",
-   "target": "ringelem",
+   "target": "dir:NCAlgebras",
    "kind": "include"
   },
   {
@@ -2540,7 +2525,12 @@
   },
   {
    "source": "M2FreeAlgebraQuotient",
-   "target": "dir:NCAlgebras",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "M2FreeAlgebraQuotient",
+   "target": "ring",
    "kind": "include"
   },
   {
@@ -2550,12 +2540,22 @@
   },
   {
    "source": "M2FreeAlgebraQuotient",
-   "target": "monoid",
-   "kind": "decl"
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "M2FreeAlgebraQuotient",
+   "target": "Polynomial",
+   "kind": "include"
   },
   {
    "source": "M2FreeAlgebraQuotient",
    "target": "buffer",
+   "kind": "decl"
+  },
+  {
+   "source": "M2FreeAlgebraQuotient",
+   "target": "monoid",
    "kind": "decl"
   },
   {
@@ -2565,57 +2565,7 @@
   },
   {
    "source": "NAG",
-   "target": "SLP",
-   "kind": "include"
-  },
-  {
-   "source": "NAG",
-   "target": "lapack",
-   "kind": "include"
-  },
-  {
-   "source": "NAG",
-   "target": "matrix-con",
-   "kind": "include"
-  },
-  {
-   "source": "NAG",
-   "target": "hash",
-   "kind": "include"
-  },
-  {
-   "source": "NAG",
-   "target": "error",
-   "kind": "include"
-  },
-  {
-   "source": "NAG",
-   "target": "relem",
-   "kind": "include"
-  },
-  {
-   "source": "NAG",
-   "target": "engine-includes",
-   "kind": "include"
-  },
-  {
-   "source": "NAG",
-   "target": "aring",
-   "kind": "include"
-  },
-  {
-   "source": "NAG",
-   "target": "poly",
-   "kind": "include"
-  },
-  {
-   "source": "NAG",
    "target": "buffer",
-   "kind": "include"
-  },
-  {
-   "source": "NAG",
-   "target": "matrix",
    "kind": "include"
   },
   {
@@ -2625,7 +2575,32 @@
   },
   {
    "source": "NAG",
+   "target": "newdelete",
+   "kind": "include"
+  },
+  {
+   "source": "NAG",
+   "target": "relem",
+   "kind": "include"
+  },
+  {
+   "source": "NAG",
+   "target": "matrix-con",
+   "kind": "include"
+  },
+  {
+   "source": "NAG",
+   "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "NAG",
    "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "NAG",
+   "target": "aring-CC",
    "kind": "include"
   },
   {
@@ -2635,17 +2610,42 @@
   },
   {
    "source": "NAG",
+   "target": "SLP",
+   "kind": "include"
+  },
+  {
+   "source": "NAG",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "NAG",
+   "target": "aring",
+   "kind": "include"
+  },
+  {
+   "source": "NAG",
+   "target": "error",
+   "kind": "include"
+  },
+  {
+   "source": "NAG",
+   "target": "hash",
+   "kind": "include"
+  },
+  {
+   "source": "NAG",
    "target": "ringelem",
    "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "newdelete",
+   "target": "engine-includes",
    "kind": "include"
   },
   {
    "source": "NAG",
-   "target": "aring-CC",
+   "target": "lapack",
    "kind": "include"
   },
   {
@@ -2660,17 +2660,17 @@
   },
   {
    "source": "Polynomial",
+   "target": "newdelete",
+   "kind": "include"
+  },
+  {
+   "source": "Polynomial",
    "target": "ringelem",
    "kind": "include"
   },
   {
    "source": "Polynomial",
    "target": "style",
-   "kind": "include"
-  },
-  {
-   "source": "Polynomial",
-   "target": "newdelete",
    "kind": "include"
   },
   {
@@ -2685,12 +2685,7 @@
   },
   {
    "source": "SLP",
-   "target": "SLP-imp",
-   "kind": "include"
-  },
-  {
-   "source": "SLP",
-   "target": "aring-glue",
+   "target": "buffer",
    "kind": "include"
   },
   {
@@ -2700,17 +2695,22 @@
   },
   {
    "source": "SLP",
-   "target": "buffer",
-   "kind": "include"
-  },
-  {
-   "source": "SLP",
-   "target": "mutablemat-defs",
+   "target": "aring-glue",
    "kind": "include"
   },
   {
    "source": "SLP",
    "target": "SLP-defs",
+   "kind": "include"
+  },
+  {
+   "source": "SLP",
+   "target": "SLP-imp",
+   "kind": "include"
+  },
+  {
+   "source": "SLP",
+   "target": "mutablemat-defs",
    "kind": "include"
   },
   {
@@ -2720,7 +2720,17 @@
   },
   {
    "source": "VectorArithmetic",
+   "target": "newdelete",
+   "kind": "include"
+  },
+  {
+   "source": "VectorArithmetic",
    "target": "MemoryBlock",
+   "kind": "include"
+  },
+  {
+   "source": "VectorArithmetic",
+   "target": "m2tbb",
    "kind": "include"
   },
   {
@@ -2735,42 +2745,12 @@
   },
   {
    "source": "VectorArithmetic",
-   "target": "m2tbb",
-   "kind": "include"
-  },
-  {
-   "source": "VectorArithmetic",
-   "target": "newdelete",
-   "kind": "include"
-  },
-  {
-   "source": "VectorArithmetic",
    "target": "ring",
    "kind": "decl"
   },
   {
    "source": "ZZ",
-   "target": "ring",
-   "kind": "include"
-  },
-  {
-   "source": "ZZ",
    "target": "monoid",
-   "kind": "include"
-  },
-  {
-   "source": "ZZ",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "ZZ",
-   "target": "ringmap",
-   "kind": "include"
-  },
-  {
-   "source": "ZZ",
-   "target": "aring-zz-gmp",
    "kind": "include"
   },
   {
@@ -2780,7 +2760,17 @@
   },
   {
    "source": "ZZ",
-   "target": "exceptions",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "ZZ",
+   "target": "aring-zz-gmp",
+   "kind": "include"
+  },
+  {
+   "source": "ZZ",
+   "target": "relem",
    "kind": "include"
   },
   {
@@ -2790,12 +2780,17 @@
   },
   {
    "source": "ZZ",
-   "target": "relem",
+   "target": "exceptions",
    "kind": "include"
   },
   {
-   "source": "ZZp",
+   "source": "ZZ",
    "target": "ring",
+   "kind": "include"
+  },
+  {
+   "source": "ZZ",
+   "target": "ringmap",
    "kind": "include"
   },
   {
@@ -2805,12 +2800,32 @@
   },
   {
    "source": "ZZp",
+   "target": "gbring",
+   "kind": "include"
+  },
+  {
+   "source": "ZZp",
+   "target": "ring",
+   "kind": "include"
+  },
+  {
+   "source": "ZZp",
    "target": "text-io",
    "kind": "include"
   },
   {
    "source": "ZZp",
+   "target": "coeffrings",
+   "kind": "include"
+  },
+  {
+   "source": "ZZp",
    "target": "error",
+   "kind": "include"
+  },
+  {
+   "source": "ZZp",
+   "target": "ZZ",
    "kind": "include"
   },
   {
@@ -2824,33 +2839,13 @@
    "kind": "include"
   },
   {
-   "source": "ZZp",
-   "target": "gbring",
-   "kind": "include"
-  },
-  {
-   "source": "ZZp",
-   "target": "ZZ",
-   "kind": "include"
-  },
-  {
-   "source": "ZZp",
-   "target": "coeffrings",
+   "source": "aring-CC",
+   "target": "buffer",
    "kind": "include"
   },
   {
    "source": "aring-CC",
-   "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "aring-CC",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "aring-CC",
-   "target": "ringmap",
+   "target": "aring",
    "kind": "include"
   },
   {
@@ -2860,17 +2855,22 @@
   },
   {
    "source": "aring-CC",
-   "target": "aring",
+   "target": "dir:interface",
    "kind": "include"
   },
   {
    "source": "aring-CC",
-   "target": "buffer",
+   "target": "ringmap",
+   "kind": "include"
+  },
+  {
+   "source": "aring-CC",
+   "target": "ringelem",
    "kind": "include"
   },
   {
    "source": "aring-CCC",
-   "target": "dir:interface",
+   "target": "buffer",
    "kind": "include"
   },
   {
@@ -2880,7 +2880,17 @@
   },
   {
    "source": "aring-CCC",
-   "target": "ringelem",
+   "target": "aring-RRR",
+   "kind": "include"
+  },
+  {
+   "source": "aring-CCC",
+   "target": "aring",
+   "kind": "include"
+  },
+  {
+   "source": "aring-CCC",
+   "target": "dir:interface",
    "kind": "include"
   },
   {
@@ -2890,22 +2900,17 @@
   },
   {
    "source": "aring-CCC",
-   "target": "aring-RRR",
-   "kind": "include"
-  },
-  {
-   "source": "aring-CCC",
-   "target": "buffer",
-   "kind": "include"
-  },
-  {
-   "source": "aring-CCC",
-   "target": "aring",
+   "target": "ringelem",
    "kind": "include"
   },
   {
    "source": "aring-CCi",
-   "target": "dir:interface",
+   "target": "buffer",
+   "kind": "include"
+  },
+  {
+   "source": "aring-CCi",
+   "target": "aring-RRR",
    "kind": "include"
   },
   {
@@ -2915,47 +2920,42 @@
   },
   {
    "source": "aring-CCi",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "aring-CCi",
    "target": "aring-CCC",
    "kind": "include"
   },
   {
    "source": "aring-CCi",
+   "target": "aring",
+   "kind": "include"
+  },
+  {
+   "source": "aring-CCi",
+   "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "aring-CCi",
    "target": "ringmap",
    "kind": "include"
   },
   {
    "source": "aring-CCi",
-   "target": "aring-RRR",
+   "target": "ringelem",
    "kind": "include"
   },
   {
-   "source": "aring-CCi",
+   "source": "aring-RR",
    "target": "buffer",
    "kind": "include"
   },
   {
-   "source": "aring-CCi",
+   "source": "aring-RR",
    "target": "aring",
    "kind": "include"
   },
   {
    "source": "aring-RR",
    "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "aring-RR",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "aring-RR",
-   "target": "ringmap",
    "kind": "include"
   },
   {
@@ -2965,27 +2965,12 @@
   },
   {
    "source": "aring-RR",
-   "target": "buffer",
+   "target": "ringmap",
    "kind": "include"
   },
   {
    "source": "aring-RR",
-   "target": "aring",
-   "kind": "include"
-  },
-  {
-   "source": "aring-RRR",
-   "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "aring-RRR",
    "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "aring-RRR",
-   "target": "ringmap",
    "kind": "include"
   },
   {
@@ -2999,18 +2984,23 @@
    "kind": "include"
   },
   {
-   "source": "aring-RRi",
+   "source": "aring-RRR",
    "target": "dir:interface",
    "kind": "include"
   },
   {
-   "source": "aring-RRi",
+   "source": "aring-RRR",
+   "target": "ringmap",
+   "kind": "include"
+  },
+  {
+   "source": "aring-RRR",
    "target": "ringelem",
    "kind": "include"
   },
   {
    "source": "aring-RRi",
-   "target": "ringmap",
+   "target": "buffer",
    "kind": "include"
   },
   {
@@ -3020,12 +3010,22 @@
   },
   {
    "source": "aring-RRi",
-   "target": "buffer",
+   "target": "aring",
    "kind": "include"
   },
   {
    "source": "aring-RRi",
-   "target": "aring",
+   "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "aring-RRi",
+   "target": "ringmap",
+   "kind": "include"
+  },
+  {
+   "source": "aring-RRi",
+   "target": "ringelem",
    "kind": "include"
   },
   {
@@ -3035,22 +3035,7 @@
   },
   {
    "source": "aring-gf-flint-big",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "aring-gf-flint-big",
-   "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "aring-gf-flint-big",
-   "target": "ringmap",
-   "kind": "include"
-  },
-  {
-   "source": "aring-gf-flint-big",
-   "target": "exceptions",
+   "target": "aring",
    "kind": "include"
   },
   {
@@ -3060,23 +3045,33 @@
   },
   {
    "source": "aring-gf-flint-big",
-   "target": "aring",
+   "target": "poly",
    "kind": "include"
   },
   {
    "source": "aring-gf-flint-big",
-   "target": "poly",
+   "target": "exceptions",
+   "kind": "include"
+  },
+  {
+   "source": "aring-gf-flint-big",
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "aring-gf-flint-big",
+   "target": "ringmap",
+   "kind": "include"
+  },
+  {
+   "source": "aring-gf-flint-big",
+   "target": "dir:interface",
    "kind": "include"
   },
   {
    "source": "aring-gf-flint-big",
    "target": "polyring",
    "kind": "decl"
-  },
-  {
-   "source": "aring-gf-flint",
-   "target": "dir:interface",
-   "kind": "include"
   },
   {
    "source": "aring-gf-flint",
@@ -3085,6 +3080,31 @@
   },
   {
    "source": "aring-gf-flint",
+   "target": "aring",
+   "kind": "include"
+  },
+  {
+   "source": "aring-gf-flint",
+   "target": "relem",
+   "kind": "include"
+  },
+  {
+   "source": "aring-gf-flint",
+   "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "aring-gf-flint",
+   "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "aring-gf-flint",
+   "target": "exceptions",
+   "kind": "include"
+  },
+  {
+   "source": "aring-gf-flint",
    "target": "ringelem",
    "kind": "include"
   },
@@ -3095,37 +3115,12 @@
   },
   {
    "source": "aring-gf-flint",
-   "target": "exceptions",
-   "kind": "include"
-  },
-  {
-   "source": "aring-gf-flint",
-   "target": "relem",
-   "kind": "include"
-  },
-  {
-   "source": "aring-gf-flint",
-   "target": "aring",
-   "kind": "include"
-  },
-  {
-   "source": "aring-gf-flint",
-   "target": "poly",
-   "kind": "include"
-  },
-  {
-   "source": "aring-gf-flint",
    "target": "polyring",
    "kind": "decl"
   },
   {
    "source": "aring-glue",
-   "target": "ring",
-   "kind": "include"
-  },
-  {
-   "source": "aring-glue",
-   "target": "mutablemat",
+   "target": "aring-qq",
    "kind": "include"
   },
   {
@@ -3135,17 +3130,42 @@
   },
   {
    "source": "aring-glue",
-   "target": "aring-qq",
+   "target": "aring",
    "kind": "include"
   },
   {
    "source": "aring-glue",
-   "target": "aring",
+   "target": "mutablemat",
+   "kind": "include"
+  },
+  {
+   "source": "aring-glue",
+   "target": "ring",
    "kind": "include"
   },
   {
    "source": "aring-m2-gf",
    "target": "monoid",
+   "kind": "include"
+  },
+  {
+   "source": "aring-m2-gf",
+   "target": "buffer",
+   "kind": "include"
+  },
+  {
+   "source": "aring-m2-gf",
+   "target": "interrupted",
+   "kind": "include"
+  },
+  {
+   "source": "aring-m2-gf",
+   "target": "aring",
+   "kind": "include"
+  },
+  {
+   "source": "aring-m2-gf",
+   "target": "relem",
    "kind": "include"
   },
   {
@@ -3160,17 +3180,7 @@
   },
   {
    "source": "aring-m2-gf",
-   "target": "buffer",
-   "kind": "include"
-  },
-  {
-   "source": "aring-m2-gf",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "aring-m2-gf",
-   "target": "interrupted",
+   "target": "exceptions",
    "kind": "include"
   },
   {
@@ -3180,17 +3190,7 @@
   },
   {
    "source": "aring-m2-gf",
-   "target": "exceptions",
-   "kind": "include"
-  },
-  {
-   "source": "aring-m2-gf",
-   "target": "relem",
-   "kind": "include"
-  },
-  {
-   "source": "aring-m2-gf",
-   "target": "aring",
+   "target": "ringelem",
    "kind": "include"
   },
   {
@@ -3200,7 +3200,22 @@
   },
   {
    "source": "aring-qq-flint",
+   "target": "buffer",
+   "kind": "include"
+  },
+  {
+   "source": "aring-qq-flint",
    "target": "ring",
+   "kind": "include"
+  },
+  {
+   "source": "aring-qq-flint",
+   "target": "aring",
+   "kind": "include"
+  },
+  {
+   "source": "aring-qq-flint",
+   "target": "exceptions",
    "kind": "include"
   },
   {
@@ -3219,23 +3234,13 @@
    "kind": "include"
   },
   {
-   "source": "aring-qq-flint",
-   "target": "exceptions",
-   "kind": "include"
-  },
-  {
-   "source": "aring-qq-flint",
+   "source": "aring-qq-gmp",
    "target": "buffer",
    "kind": "include"
   },
   {
-   "source": "aring-qq-flint",
-   "target": "aring",
-   "kind": "include"
-  },
-  {
    "source": "aring-qq-gmp",
-   "target": "ring",
+   "target": "aring",
    "kind": "include"
   },
   {
@@ -3245,7 +3250,12 @@
   },
   {
    "source": "aring-qq-gmp",
-   "target": "ringelem",
+   "target": "exceptions",
+   "kind": "include"
+  },
+  {
+   "source": "aring-qq-gmp",
+   "target": "ring",
    "kind": "include"
   },
   {
@@ -3255,22 +3265,7 @@
   },
   {
    "source": "aring-qq-gmp",
-   "target": "exceptions",
-   "kind": "include"
-  },
-  {
-   "source": "aring-qq-gmp",
-   "target": "buffer",
-   "kind": "include"
-  },
-  {
-   "source": "aring-qq-gmp",
-   "target": "aring",
-   "kind": "include"
-  },
-  {
-   "source": "aring-qq",
-   "target": "aring-qq-gmp",
+   "target": "ringelem",
    "kind": "include"
   },
   {
@@ -3279,13 +3274,18 @@
    "kind": "include"
   },
   {
-   "source": "aring-tower",
-   "target": "aring-zzp-ffpack",
+   "source": "aring-qq",
+   "target": "aring-qq-gmp",
    "kind": "include"
   },
   {
    "source": "aring-tower",
    "target": "ExponentVector",
+   "kind": "include"
+  },
+  {
+   "source": "aring-tower",
+   "target": "aring",
    "kind": "include"
   },
   {
@@ -3300,7 +3300,7 @@
   },
   {
    "source": "aring-tower",
-   "target": "aring",
+   "target": "aring-zzp-ffpack",
    "kind": "include"
   },
   {
@@ -3315,17 +3315,12 @@
   },
   {
    "source": "aring-translate",
-   "target": "aring-zzp-ffpack",
+   "target": "aring-gf-flint",
    "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-RRi",
-   "kind": "include"
-  },
-  {
-   "source": "aring-translate",
-   "target": "aring-zzp-flint",
+   "target": "aring-CCi",
    "kind": "include"
   },
   {
@@ -3335,12 +3330,22 @@
   },
   {
    "source": "aring-translate",
-   "target": "aring-gf-flint-big",
+   "target": "aring-RRi",
    "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-gf-flint",
+   "target": "aring-RRR",
+   "kind": "include"
+  },
+  {
+   "source": "aring-translate",
+   "target": "aring-zz-gmp",
+   "kind": "include"
+  },
+  {
+   "source": "aring-translate",
+   "target": "aring-gf-flint-big",
    "kind": "include"
   },
   {
@@ -3355,7 +3360,7 @@
   },
   {
    "source": "aring-translate",
-   "target": "aring-zzp",
+   "target": "aring-zzp-flint",
    "kind": "include"
   },
   {
@@ -3365,7 +3370,7 @@
   },
   {
    "source": "aring-translate",
-   "target": "aring-zz-gmp",
+   "target": "aring-zz-flint",
    "kind": "include"
   },
   {
@@ -3375,22 +3380,17 @@
   },
   {
    "source": "aring-translate",
-   "target": "aring-RRR",
-   "kind": "include"
-  },
-  {
-   "source": "aring-translate",
-   "target": "aring-CCi",
-   "kind": "include"
-  },
-  {
-   "source": "aring-translate",
    "target": "aring-CC",
    "kind": "include"
   },
   {
    "source": "aring-translate",
-   "target": "aring-zz-flint",
+   "target": "aring-zzp",
+   "kind": "include"
+  },
+  {
+   "source": "aring-translate",
+   "target": "aring-zzp-ffpack",
    "kind": "include"
   },
   {
@@ -3400,17 +3400,12 @@
   },
   {
    "source": "aring-zz-flint",
-   "target": "ringelem",
+   "target": "buffer",
    "kind": "include"
   },
   {
    "source": "aring-zz-flint",
-   "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "aring-zz-flint",
-   "target": "ringmap",
+   "target": "aring",
    "kind": "include"
   },
   {
@@ -3425,27 +3420,32 @@
   },
   {
    "source": "aring-zz-flint",
-   "target": "buffer",
+   "target": "dir:interface",
    "kind": "include"
   },
   {
    "source": "aring-zz-flint",
+   "target": "ringmap",
+   "kind": "include"
+  },
+  {
+   "source": "aring-zz-flint",
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "aring-zz-gmp",
+   "target": "buffer",
+   "kind": "include"
+  },
+  {
+   "source": "aring-zz-gmp",
    "target": "aring",
    "kind": "include"
   },
   {
    "source": "aring-zz-gmp",
    "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "aring-zz-gmp",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "aring-zz-gmp",
-   "target": "ringmap",
    "kind": "include"
   },
   {
@@ -3460,22 +3460,22 @@
   },
   {
    "source": "aring-zz-gmp",
-   "target": "buffer",
+   "target": "ringmap",
    "kind": "include"
   },
   {
    "source": "aring-zz-gmp",
-   "target": "aring",
-   "kind": "include"
-  },
-  {
-   "source": "aring-zzp-ffpack",
    "target": "ringelem",
    "kind": "include"
   },
   {
    "source": "aring-zzp-ffpack",
-   "target": "ringmap",
+   "target": "buffer",
+   "kind": "include"
+  },
+  {
+   "source": "aring-zzp-ffpack",
+   "target": "aring",
    "kind": "include"
   },
   {
@@ -3485,17 +3485,32 @@
   },
   {
    "source": "aring-zzp-ffpack",
-   "target": "buffer",
+   "target": "ringmap",
    "kind": "include"
   },
   {
    "source": "aring-zzp-ffpack",
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "aring-zzp-flint",
+   "target": "buffer",
+   "kind": "include"
+  },
+  {
+   "source": "aring-zzp-flint",
    "target": "aring",
    "kind": "include"
   },
   {
    "source": "aring-zzp-flint",
    "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "aring-zzp-flint",
+   "target": "exceptions",
    "kind": "include"
   },
   {
@@ -3514,17 +3529,12 @@
    "kind": "include"
   },
   {
-   "source": "aring-zzp-flint",
-   "target": "exceptions",
-   "kind": "include"
-  },
-  {
-   "source": "aring-zzp-flint",
+   "source": "aring-zzp",
    "target": "buffer",
    "kind": "include"
   },
   {
-   "source": "aring-zzp-flint",
+   "source": "aring-zzp",
    "target": "aring",
    "kind": "include"
   },
@@ -3535,27 +3545,17 @@
   },
   {
    "source": "aring-zzp",
+   "target": "exceptions",
+   "kind": "include"
+  },
+  {
+   "source": "aring-zzp",
    "target": "ringelem",
    "kind": "include"
   },
   {
    "source": "aring-zzp",
    "target": "ringmap",
-   "kind": "include"
-  },
-  {
-   "source": "aring-zzp",
-   "target": "exceptions",
-   "kind": "include"
-  },
-  {
-   "source": "aring-zzp",
-   "target": "buffer",
-   "kind": "include"
-  },
-  {
-   "source": "aring-zzp",
-   "target": "aring",
    "kind": "include"
   },
   {
@@ -3565,7 +3565,7 @@
   },
   {
    "source": "aring",
-   "target": "ringelem",
+   "target": "buffer",
    "kind": "include"
   },
   {
@@ -3575,7 +3575,7 @@
   },
   {
    "source": "aring",
-   "target": "buffer",
+   "target": "ringelem",
    "kind": "include"
   },
   {
@@ -3600,7 +3600,7 @@
   },
   {
    "source": "buffer",
-   "target": "ringelem",
+   "target": "engine-includes",
    "kind": "include"
   },
   {
@@ -3610,17 +3610,17 @@
   },
   {
    "source": "buffer",
-   "target": "engine-includes",
-   "kind": "include"
-  },
-  {
-   "source": "coeffrings",
    "target": "ringelem",
    "kind": "include"
   },
   {
    "source": "coeffrings",
    "target": "ZZ",
+   "kind": "include"
+  },
+  {
+   "source": "coeffrings",
+   "target": "ringelem",
    "kind": "include"
   },
   {
@@ -3640,7 +3640,12 @@
   },
   {
    "source": "comp-gb-declared",
-   "target": "comp-gb",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "comp-gb-declared",
+   "target": "reducedgb",
    "kind": "include"
   },
   {
@@ -3650,17 +3655,12 @@
   },
   {
    "source": "comp-gb-declared",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "comp-gb-declared",
    "target": "reducedgb-marked",
    "kind": "include"
   },
   {
    "source": "comp-gb-declared",
-   "target": "reducedgb",
+   "target": "comp-gb",
    "kind": "include"
   },
   {
@@ -3670,52 +3670,7 @@
   },
   {
    "source": "comp-gb",
-   "target": "gb-homog2",
-   "kind": "include"
-  },
-  {
-   "source": "comp-gb",
    "target": "gb-sugarless",
-   "kind": "include"
-  },
-  {
-   "source": "comp-gb",
-   "target": "gb-default",
-   "kind": "include"
-  },
-  {
-   "source": "comp-gb",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "comp-gb",
-   "target": "gb-toric",
-   "kind": "include"
-  },
-  {
-   "source": "comp-gb",
-   "target": "gauss",
-   "kind": "include"
-  },
-  {
-   "source": "comp-gb",
-   "target": "comp-gb-proxy",
-   "kind": "include"
-  },
-  {
-   "source": "comp-gb",
-   "target": "comp",
-   "kind": "include"
-  },
-  {
-   "source": "comp-gb",
-   "target": "util",
-   "kind": "include"
-  },
-  {
-   "source": "comp-gb",
-   "target": "hermite",
    "kind": "include"
   },
   {
@@ -3725,7 +3680,52 @@
   },
   {
    "source": "comp-gb",
+   "target": "util",
+   "kind": "include"
+  },
+  {
+   "source": "comp-gb",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "comp-gb",
+   "target": "comp",
+   "kind": "include"
+  },
+  {
+   "source": "comp-gb",
+   "target": "gb-toric",
+   "kind": "include"
+  },
+  {
+   "source": "comp-gb",
    "target": "finalize",
+   "kind": "include"
+  },
+  {
+   "source": "comp-gb",
+   "target": "gb-default",
+   "kind": "include"
+  },
+  {
+   "source": "comp-gb",
+   "target": "gauss",
+   "kind": "include"
+  },
+  {
+   "source": "comp-gb",
+   "target": "gb-homog2",
+   "kind": "include"
+  },
+  {
+   "source": "comp-gb",
+   "target": "comp-gb-proxy",
+   "kind": "include"
+  },
+  {
+   "source": "comp-gb",
+   "target": "hermite",
    "kind": "include"
   },
   {
@@ -3735,32 +3735,12 @@
   },
   {
    "source": "comp-res",
-   "target": "res-a1",
-   "kind": "include"
-  },
-  {
-   "source": "comp-res",
    "target": "text-io",
    "kind": "include"
   },
   {
    "source": "comp-res",
-   "target": "dir:NCResolutions",
-   "kind": "include"
-  },
-  {
-   "source": "comp-res",
-   "target": "res-a2",
-   "kind": "include"
-  },
-  {
-   "source": "comp-res",
    "target": "comp",
-   "kind": "include"
-  },
-  {
-   "source": "comp-res",
-   "target": "res-a0",
    "kind": "include"
   },
   {
@@ -3775,12 +3755,37 @@
   },
   {
    "source": "comp-res",
+   "target": "dir:NCResolutions",
+   "kind": "include"
+  },
+  {
+   "source": "comp-res",
+   "target": "res-a0",
+   "kind": "include"
+  },
+  {
+   "source": "comp-res",
+   "target": "res-a1",
+   "kind": "include"
+  },
+  {
+   "source": "comp-res",
+   "target": "res-a2",
+   "kind": "include"
+  },
+  {
+   "source": "comp-res",
    "target": "buffer",
    "kind": "decl"
   },
   {
    "source": "comp",
-   "target": "dir:interface",
+   "target": "buffer",
+   "kind": "include"
+  },
+  {
+   "source": "comp",
+   "target": "finalize",
    "kind": "include"
   },
   {
@@ -3795,18 +3800,8 @@
   },
   {
    "source": "comp",
-   "target": "buffer",
+   "target": "dir:interface",
    "kind": "include"
-  },
-  {
-   "source": "comp",
-   "target": "finalize",
-   "kind": "include"
-  },
-  {
-   "source": "comp",
-   "target": "comp-gb",
-   "kind": "decl"
   },
   {
    "source": "comp",
@@ -3814,13 +3809,13 @@
    "kind": "decl"
   },
   {
-   "source": "complex",
-   "target": "dir:interface",
-   "kind": "include"
+   "source": "comp",
+   "target": "comp-gb",
+   "kind": "decl"
   },
   {
-   "source": "cra",
-   "target": "ring",
+   "source": "complex",
+   "target": "dir:interface",
    "kind": "include"
   },
   {
@@ -3835,12 +3830,7 @@
   },
   {
    "source": "cra",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "cra",
-   "target": "matrix-con",
+   "target": "freemod",
    "kind": "include"
   },
   {
@@ -3850,12 +3840,7 @@
   },
   {
    "source": "cra",
-   "target": "style",
-   "kind": "include"
-  },
-  {
-   "source": "cra",
-   "target": "freemod",
+   "target": "matrix-con",
    "kind": "include"
   },
   {
@@ -3865,27 +3850,27 @@
   },
   {
    "source": "cra",
+   "target": "ring",
+   "kind": "include"
+  },
+  {
+   "source": "cra",
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "cra",
+   "target": "style",
+   "kind": "include"
+  },
+  {
+   "source": "cra",
    "target": "relem",
    "kind": "decl"
   },
   {
    "source": "debug",
-   "target": "res-a1-poly",
-   "kind": "include"
-  },
-  {
-   "source": "debug",
-   "target": "res-a0-poly",
-   "kind": "include"
-  },
-  {
-   "source": "debug",
-   "target": "mat",
-   "kind": "include"
-  },
-  {
-   "source": "debug",
-   "target": "text-io",
+   "target": "gbring",
    "kind": "include"
   },
   {
@@ -3895,17 +3880,7 @@
   },
   {
    "source": "debug",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "debug",
-   "target": "monideal",
-   "kind": "include"
-  },
-  {
-   "source": "debug",
-   "target": "gbring",
+   "target": "text-io",
    "kind": "include"
   },
   {
@@ -3915,7 +3890,32 @@
   },
   {
    "source": "debug",
+   "target": "monideal",
+   "kind": "include"
+  },
+  {
+   "source": "debug",
    "target": "relem",
+   "kind": "include"
+  },
+  {
+   "source": "debug",
+   "target": "res-a1-poly",
+   "kind": "include"
+  },
+  {
+   "source": "debug",
+   "target": "mat",
+   "kind": "include"
+  },
+  {
+   "source": "debug",
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "debug",
+   "target": "res-a0-poly",
    "kind": "include"
   },
   {
@@ -3930,17 +3930,17 @@
   },
   {
    "source": "det",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "det",
    "target": "matrix",
    "kind": "include"
   },
   {
    "source": "det",
-   "target": "comb",
+   "target": "interrupted",
+   "kind": "include"
+  },
+  {
+   "source": "det",
+   "target": "text-io",
    "kind": "include"
   },
   {
@@ -3950,7 +3950,7 @@
   },
   {
    "source": "det",
-   "target": "interrupted",
+   "target": "comb",
    "kind": "include"
   },
   {
@@ -3970,11 +3970,6 @@
   },
   {
    "source": "dmat-lu-inplace",
-   "target": "dmat",
-   "kind": "include"
-  },
-  {
-   "source": "dmat-lu-inplace",
    "target": "mat-elem-ops",
    "kind": "include"
   },
@@ -3984,13 +3979,13 @@
    "kind": "include"
   },
   {
-   "source": "dmat-lu-qq",
-   "target": "dmat-qq-interface-flint",
+   "source": "dmat-lu-inplace",
+   "target": "dmat",
    "kind": "include"
   },
   {
-   "source": "dmat-lu",
-   "target": "dmat",
+   "source": "dmat-lu-qq",
+   "target": "dmat-qq-interface-flint",
    "kind": "include"
   },
   {
@@ -4000,12 +3995,12 @@
   },
   {
    "source": "dmat-lu",
-   "target": "dmat-lu-zzp-ffpack",
+   "target": "dmat-lu-inplace",
    "kind": "include"
   },
   {
    "source": "dmat-lu",
-   "target": "dmat-lu-inplace",
+   "target": "dmat-lu-zzp-ffpack",
    "kind": "include"
   },
   {
@@ -4021,6 +4016,11 @@
   {
    "source": "dmat-lu",
    "target": "mat-util",
+   "kind": "include"
+  },
+  {
+   "source": "dmat-lu",
+   "target": "dmat",
    "kind": "include"
   },
   {
@@ -4060,27 +4060,7 @@
   },
   {
    "source": "dmat",
-   "target": "dmat-gf-flint",
-   "kind": "include"
-  },
-  {
-   "source": "dmat",
-   "target": "dmat-zz-flint",
-   "kind": "include"
-  },
-  {
-   "source": "dmat",
-   "target": "engine-includes",
-   "kind": "include"
-  },
-  {
-   "source": "dmat",
-   "target": "exceptions",
-   "kind": "include"
-  },
-  {
-   "source": "dmat",
-   "target": "dmat-zzp-flint",
+   "target": "mat-linalg",
    "kind": "include"
   },
   {
@@ -4090,17 +4070,7 @@
   },
   {
    "source": "dmat",
-   "target": "error",
-   "kind": "include"
-  },
-  {
-   "source": "dmat",
-   "target": "mat-linalg",
-   "kind": "include"
-  },
-  {
-   "source": "dmat",
-   "target": "mat-util",
+   "target": "engine-includes",
    "kind": "include"
   },
   {
@@ -4109,23 +4079,33 @@
    "kind": "include"
   },
   {
-   "source": "dpoly",
-   "target": "ZZ",
+   "source": "dmat",
+   "target": "error",
    "kind": "include"
   },
   {
-   "source": "dpoly",
-   "target": "dir:interface",
+   "source": "dmat",
+   "target": "dmat-zz-flint",
    "kind": "include"
   },
   {
-   "source": "dpoly",
-   "target": "ExponentVector",
+   "source": "dmat",
+   "target": "dmat-zzp-flint",
    "kind": "include"
   },
   {
-   "source": "dpoly",
-   "target": "ringelem",
+   "source": "dmat",
+   "target": "exceptions",
+   "kind": "include"
+  },
+  {
+   "source": "dmat",
+   "target": "dmat-gf-flint",
+   "kind": "include"
+  },
+  {
+   "source": "dmat",
+   "target": "mat-util",
    "kind": "include"
   },
   {
@@ -4135,12 +4115,32 @@
   },
   {
    "source": "dpoly",
+   "target": "ExponentVector",
+   "kind": "include"
+  },
+  {
+   "source": "dpoly",
+   "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "dpoly",
+   "target": "ZZ",
+   "kind": "include"
+  },
+  {
+   "source": "dpoly",
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "dpoly",
    "target": "tower",
    "kind": "decl"
   },
   {
    "source": "eigen",
-   "target": "dmat",
+   "target": "mpreal",
    "kind": "include"
   },
   {
@@ -4155,11 +4155,6 @@
   },
   {
    "source": "eigen",
-   "target": "mpreal",
-   "kind": "include"
-  },
-  {
-   "source": "eigen",
    "target": "aring-RR",
    "kind": "include"
   },
@@ -4169,43 +4164,13 @@
    "kind": "include"
   },
   {
+   "source": "eigen",
+   "target": "dmat",
+   "kind": "include"
+  },
+  {
    "source": "engine-includes",
    "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "engine",
-   "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "engine",
-   "target": "mem",
-   "kind": "include"
-  },
-  {
-   "source": "engine",
-   "target": "style",
-   "kind": "include"
-  },
-  {
-   "source": "engine",
-   "target": "hash",
-   "kind": "include"
-  },
-  {
-   "source": "engine",
-   "target": "error",
-   "kind": "include"
-  },
-  {
-   "source": "engine",
-   "target": "engine-includes",
-   "kind": "include"
-  },
-  {
-   "source": "engine",
-   "target": "poly",
    "kind": "include"
   },
   {
@@ -4215,7 +4180,52 @@
   },
   {
    "source": "engine",
+   "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "engine",
+   "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "engine",
+   "target": "mem",
+   "kind": "include"
+  },
+  {
+   "source": "engine",
+   "target": "error",
+   "kind": "include"
+  },
+  {
+   "source": "engine",
+   "target": "hash",
+   "kind": "include"
+  },
+  {
+   "source": "engine",
+   "target": "style",
+   "kind": "include"
+  },
+  {
+   "source": "engine",
+   "target": "engine-includes",
+   "kind": "include"
+  },
+  {
+   "source": "engine",
    "target": "matrix",
+   "kind": "decl"
+  },
+  {
+   "source": "engine",
+   "target": "mat",
+   "kind": "decl"
+  },
+  {
+   "source": "engine",
+   "target": "ringmap",
    "kind": "decl"
   },
   {
@@ -4234,16 +4244,6 @@
    "kind": "decl"
   },
   {
-   "source": "engine",
-   "target": "mat",
-   "kind": "decl"
-  },
-  {
-   "source": "engine",
-   "target": "ringmap",
-   "kind": "decl"
-  },
-  {
    "source": "exptable",
    "target": "dir:interface",
    "kind": "include"
@@ -4255,12 +4255,7 @@
   },
   {
    "source": "finalize",
-   "target": "comp-gb",
-   "kind": "include"
-  },
-  {
-   "source": "finalize",
-   "target": "mat",
+   "target": "engine-includes",
    "kind": "include"
   },
   {
@@ -4275,12 +4270,17 @@
   },
   {
    "source": "finalize",
-   "target": "comp-res",
+   "target": "mat",
    "kind": "include"
   },
   {
    "source": "finalize",
-   "target": "engine-includes",
+   "target": "comp-gb",
+   "kind": "include"
+  },
+  {
+   "source": "finalize",
+   "target": "comp-res",
    "kind": "include"
   },
   {
@@ -4300,37 +4300,7 @@
   },
   {
    "source": "frac",
-   "target": "ring",
-   "kind": "include"
-  },
-  {
-   "source": "frac",
    "target": "monoid",
-   "kind": "include"
-  },
-  {
-   "source": "frac",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "frac",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "frac",
-   "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "frac",
-   "target": "ringmap",
-   "kind": "include"
-  },
-  {
-   "source": "frac",
-   "target": "exceptions",
    "kind": "include"
   },
   {
@@ -4340,7 +4310,37 @@
   },
   {
    "source": "frac",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "frac",
    "target": "relem",
+   "kind": "include"
+  },
+  {
+   "source": "frac",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "frac",
+   "target": "exceptions",
+   "kind": "include"
+  },
+  {
+   "source": "frac",
+   "target": "ring",
+   "kind": "include"
+  },
+  {
+   "source": "frac",
+   "target": "ringmap",
+   "kind": "include"
+  },
+  {
+   "source": "frac",
+   "target": "dir:interface",
    "kind": "include"
   },
   {
@@ -4370,47 +4370,12 @@
   },
   {
    "source": "franzi-interface",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "franzi-interface",
    "target": "franzi-brp",
    "kind": "include"
   },
   {
-   "source": "freemod",
-   "target": "ring",
-   "kind": "include"
-  },
-  {
-   "source": "freemod",
-   "target": "Eschreyer",
-   "kind": "include"
-  },
-  {
-   "source": "freemod",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "freemod",
+   "source": "franzi-interface",
    "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "freemod",
-   "target": "schorder",
-   "kind": "include"
-  },
-  {
-   "source": "freemod",
-   "target": "comb",
-   "kind": "include"
-  },
-  {
-   "source": "freemod",
-   "target": "matrix-con",
    "kind": "include"
   },
   {
@@ -4424,13 +4389,43 @@
    "kind": "include"
   },
   {
-   "source": "gauss",
-   "target": "comp-gb",
+   "source": "freemod",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "freemod",
+   "target": "ring",
+   "kind": "include"
+  },
+  {
+   "source": "freemod",
+   "target": "schorder",
+   "kind": "include"
+  },
+  {
+   "source": "freemod",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "freemod",
+   "target": "matrix-con",
+   "kind": "include"
+  },
+  {
+   "source": "freemod",
+   "target": "comb",
+   "kind": "include"
+  },
+  {
+   "source": "freemod",
+   "target": "Eschreyer",
    "kind": "include"
   },
   {
    "source": "gauss",
-   "target": "polyring",
+   "target": "interrupted",
    "kind": "include"
   },
   {
@@ -4440,7 +4435,17 @@
   },
   {
    "source": "gauss",
+   "target": "newdelete",
+   "kind": "include"
+  },
+  {
+   "source": "gauss",
    "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "gauss",
+   "target": "relem",
    "kind": "include"
   },
   {
@@ -4450,22 +4455,47 @@
   },
   {
    "source": "gauss",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "gauss",
+   "target": "comp-gb",
+   "kind": "include"
+  },
+  {
+   "source": "gauss",
    "target": "style",
    "kind": "include"
   },
   {
-   "source": "gauss",
+   "source": "gb-default",
    "target": "interrupted",
    "kind": "include"
   },
   {
-   "source": "gauss",
+   "source": "gb-default",
+   "target": "montable",
+   "kind": "include"
+  },
+  {
+   "source": "gb-default",
    "target": "newdelete",
    "kind": "include"
   },
   {
-   "source": "gauss",
+   "source": "gb-default",
    "target": "relem",
+   "kind": "include"
+  },
+  {
+   "source": "gb-default",
+   "target": "matrix-con",
+   "kind": "include"
+  },
+  {
+   "source": "gb-default",
+   "target": "text-io",
    "kind": "include"
   },
   {
@@ -4475,12 +4505,27 @@
   },
   {
    "source": "gb-default",
-   "target": "matrix-con",
+   "target": "monsort",
    "kind": "include"
   },
   {
    "source": "gb-default",
-   "target": "interrupted",
+   "target": "comp-gb",
+   "kind": "include"
+  },
+  {
+   "source": "gb-default",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "gb-default",
+   "target": "reducedgb",
+   "kind": "include"
+  },
+  {
+   "source": "gb-default",
+   "target": "hilb",
    "kind": "include"
   },
   {
@@ -4495,52 +4540,42 @@
   },
   {
    "source": "gb-default",
-   "target": "relem",
-   "kind": "include"
-  },
-  {
-   "source": "gb-default",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "gb-default",
-   "target": "hilb",
-   "kind": "include"
-  },
-  {
-   "source": "gb-default",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "gb-default",
    "target": "gbweight",
    "kind": "include"
   },
   {
-   "source": "gb-default",
-   "target": "comp-gb",
+   "source": "gb-homog2",
+   "target": "gbweight",
    "kind": "include"
   },
   {
-   "source": "gb-default",
-   "target": "newdelete",
+   "source": "gb-homog2",
+   "target": "interrupted",
    "kind": "include"
   },
   {
-   "source": "gb-default",
-   "target": "montable",
+   "source": "gb-homog2",
+   "target": "text-io",
    "kind": "include"
   },
   {
-   "source": "gb-default",
-   "target": "reducedgb",
+   "source": "gb-homog2",
+   "target": "matrix",
    "kind": "include"
   },
   {
-   "source": "gb-default",
-   "target": "monsort",
+   "source": "gb-homog2",
+   "target": "relem",
+   "kind": "include"
+  },
+  {
+   "source": "gb-homog2",
+   "target": "matrix-con",
+   "kind": "include"
+  },
+  {
+   "source": "gb-homog2",
+   "target": "polyring",
    "kind": "include"
   },
   {
@@ -4555,27 +4590,7 @@
   },
   {
    "source": "gb-homog2",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "gb-homog2",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "gb-homog2",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "gb-homog2",
    "target": "hilb",
-   "kind": "include"
-  },
-  {
-   "source": "gb-homog2",
-   "target": "matrix-con",
    "kind": "include"
   },
   {
@@ -4584,18 +4599,43 @@
    "kind": "include"
   },
   {
-   "source": "gb-homog2",
+   "source": "gb-sugarless",
+   "target": "gbweight",
+   "kind": "include"
+  },
+  {
+   "source": "gb-sugarless",
    "target": "interrupted",
    "kind": "include"
   },
   {
-   "source": "gb-homog2",
+   "source": "gb-sugarless",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "gb-sugarless",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "gb-sugarless",
+   "target": "reducedgb",
+   "kind": "include"
+  },
+  {
+   "source": "gb-sugarless",
    "target": "relem",
    "kind": "include"
   },
   {
-   "source": "gb-homog2",
-   "target": "gbweight",
+   "source": "gb-sugarless",
+   "target": "matrix-con",
+   "kind": "include"
+  },
+  {
+   "source": "gb-sugarless",
+   "target": "polyring",
    "kind": "include"
   },
   {
@@ -4610,52 +4650,22 @@
   },
   {
    "source": "gb-sugarless",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "gb-sugarless",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "gb-sugarless",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "gb-sugarless",
-   "target": "matrix-con",
-   "kind": "include"
-  },
-  {
-   "source": "gb-sugarless",
    "target": "style",
-   "kind": "include"
-  },
-  {
-   "source": "gb-sugarless",
-   "target": "interrupted",
-   "kind": "include"
-  },
-  {
-   "source": "gb-sugarless",
-   "target": "relem",
-   "kind": "include"
-  },
-  {
-   "source": "gb-sugarless",
-   "target": "gbweight",
-   "kind": "include"
-  },
-  {
-   "source": "gb-sugarless",
-   "target": "reducedgb",
    "kind": "include"
   },
   {
    "source": "gb-toric",
-   "target": "comp-gb",
+   "target": "interrupted",
+   "kind": "include"
+  },
+  {
+   "source": "gb-toric",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "gb-toric",
+   "target": "matrix",
    "kind": "include"
   },
   {
@@ -4665,47 +4675,12 @@
   },
   {
    "source": "gb-toric",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "gb-toric",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "gb-toric",
    "target": "matrix-con",
    "kind": "include"
   },
   {
    "source": "gb-toric",
-   "target": "interrupted",
-   "kind": "include"
-  },
-  {
-   "source": "gb-walk",
    "target": "comp-gb",
-   "kind": "include"
-  },
-  {
-   "source": "gb-walk",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "gb-walk",
-   "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "gb-walk",
-   "target": "reducedgb-marked",
-   "kind": "include"
-  },
-  {
-   "source": "gb-walk",
-   "target": "engine-includes",
    "kind": "include"
   },
   {
@@ -4715,13 +4690,53 @@
   },
   {
    "source": "gb-walk",
-   "target": "error",
+   "target": "engine-includes",
    "kind": "include"
   },
   {
    "source": "gb-walk",
    "target": "comp-gb-declared",
    "kind": "include"
+  },
+  {
+   "source": "gb-walk",
+   "target": "error",
+   "kind": "include"
+  },
+  {
+   "source": "gb-walk",
+   "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "gb-walk",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "gb-walk",
+   "target": "reducedgb-marked",
+   "kind": "include"
+  },
+  {
+   "source": "gb-walk",
+   "target": "comp-gb",
+   "kind": "include"
+  },
+  {
+   "source": "gb-walk",
+   "target": "relem",
+   "kind": "decl"
+  },
+  {
+   "source": "gb-walk",
+   "target": "buffer",
+   "kind": "decl"
+  },
+  {
+   "source": "gb-walk",
+   "target": "matrix",
+   "kind": "decl"
   },
   {
    "source": "gb-walk",
@@ -4734,73 +4749,8 @@
    "kind": "decl"
   },
   {
-   "source": "gb-walk",
-   "target": "buffer",
-   "kind": "decl"
-  },
-  {
-   "source": "gb-walk",
-   "target": "relem",
-   "kind": "decl"
-  },
-  {
-   "source": "gb-walk",
-   "target": "matrix",
-   "kind": "decl"
-  },
-  {
-   "source": "gbring",
-   "target": "monoid",
-   "kind": "include"
-  },
-  {
-   "source": "gbring",
-   "target": "ExponentVector",
-   "kind": "include"
-  },
-  {
-   "source": "gbring",
-   "target": "mem",
-   "kind": "include"
-  },
-  {
-   "source": "gbring",
-   "target": "debug",
-   "kind": "include"
-  },
-  {
-   "source": "gbring",
-   "target": "style",
-   "kind": "include"
-  },
-  {
-   "source": "gbring",
-   "target": "ZZp",
-   "kind": "include"
-  },
-  {
-   "source": "gbring",
-   "target": "engine-includes",
-   "kind": "include"
-  },
-  {
    "source": "gbring",
    "target": "buffer",
-   "kind": "include"
-  },
-  {
-   "source": "gbring",
-   "target": "weylalg",
-   "kind": "include"
-  },
-  {
-   "source": "gbring",
-   "target": "skew",
-   "kind": "include"
-  },
-  {
-   "source": "gbring",
-   "target": "coeffrings",
    "kind": "include"
   },
   {
@@ -4810,7 +4760,12 @@
   },
   {
    "source": "gbring",
-   "target": "text-io",
+   "target": "newdelete",
+   "kind": "include"
+  },
+  {
+   "source": "gbring",
+   "target": "ExponentVector",
    "kind": "include"
   },
   {
@@ -4820,17 +4775,32 @@
   },
   {
    "source": "gbring",
-   "target": "schorder",
+   "target": "mem",
    "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "ringelem",
+   "target": "monoid",
    "kind": "include"
   },
   {
    "source": "gbring",
-   "target": "newdelete",
+   "target": "skew",
+   "kind": "include"
+  },
+  {
+   "source": "gbring",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "gbring",
+   "target": "freemod",
+   "kind": "include"
+  },
+  {
+   "source": "gbring",
+   "target": "debug",
    "kind": "include"
   },
   {
@@ -4840,7 +4810,37 @@
   },
   {
    "source": "gbring",
-   "target": "freemod",
+   "target": "schorder",
+   "kind": "include"
+  },
+  {
+   "source": "gbring",
+   "target": "coeffrings",
+   "kind": "include"
+  },
+  {
+   "source": "gbring",
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "gbring",
+   "target": "style",
+   "kind": "include"
+  },
+  {
+   "source": "gbring",
+   "target": "engine-includes",
+   "kind": "include"
+  },
+  {
+   "source": "gbring",
+   "target": "ZZp",
+   "kind": "include"
+  },
+  {
+   "source": "gbring",
+   "target": "weylalg",
    "kind": "include"
   },
   {
@@ -4855,7 +4855,22 @@
   },
   {
    "source": "gbweight",
-   "target": "polyring",
+   "target": "gbring",
+   "kind": "include"
+  },
+  {
+   "source": "gbweight",
+   "target": "engine-includes",
+   "kind": "include"
+  },
+  {
+   "source": "gbweight",
+   "target": "newdelete",
+   "kind": "include"
+  },
+  {
+   "source": "gbweight",
+   "target": "ExponentVector",
    "kind": "include"
   },
   {
@@ -4865,22 +4880,7 @@
   },
   {
    "source": "gbweight",
-   "target": "ExponentVector",
-   "kind": "include"
-  },
-  {
-   "source": "gbweight",
-   "target": "gbring",
-   "kind": "include"
-  },
-  {
-   "source": "gbweight",
-   "target": "newdelete",
-   "kind": "include"
-  },
-  {
-   "source": "gbweight",
-   "target": "engine-includes",
+   "target": "polyring",
    "kind": "include"
   },
   {
@@ -4890,12 +4890,7 @@
   },
   {
    "source": "hermite",
-   "target": "comp-gb",
-   "kind": "include"
-  },
-  {
-   "source": "hermite",
-   "target": "polyring",
+   "target": "matrix",
    "kind": "include"
   },
   {
@@ -4905,7 +4900,7 @@
   },
   {
    "source": "hermite",
-   "target": "matrix",
+   "target": "relem",
    "kind": "include"
   },
   {
@@ -4915,7 +4910,7 @@
   },
   {
    "source": "hermite",
-   "target": "style",
+   "target": "polyring",
    "kind": "include"
   },
   {
@@ -4925,42 +4920,12 @@
   },
   {
    "source": "hermite",
-   "target": "relem",
+   "target": "comp-gb",
    "kind": "include"
   },
   {
-   "source": "hilb",
-   "target": "monoid",
-   "kind": "include"
-  },
-  {
-   "source": "hilb",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "hilb",
-   "target": "ExponentVector",
-   "kind": "include"
-  },
-  {
-   "source": "hilb",
-   "target": "mem",
-   "kind": "include"
-  },
-  {
-   "source": "hilb",
-   "target": "interrupted",
-   "kind": "include"
-  },
-  {
-   "source": "hilb",
-   "target": "hash",
-   "kind": "include"
-  },
-  {
-   "source": "hilb",
-   "target": "error",
+   "source": "hermite",
+   "target": "style",
    "kind": "include"
   },
   {
@@ -4970,7 +4935,17 @@
   },
   {
    "source": "hilb",
-   "target": "int-bag",
+   "target": "interrupted",
+   "kind": "include"
+  },
+  {
+   "source": "hilb",
+   "target": "newdelete",
+   "kind": "include"
+  },
+  {
+   "source": "hilb",
+   "target": "ExponentVector",
    "kind": "include"
   },
   {
@@ -4980,7 +4955,22 @@
   },
   {
    "source": "hilb",
-   "target": "matrix",
+   "target": "ring",
+   "kind": "include"
+  },
+  {
+   "source": "hilb",
+   "target": "mem",
+   "kind": "include"
+  },
+  {
+   "source": "hilb",
+   "target": "monoid",
+   "kind": "include"
+  },
+  {
+   "source": "hilb",
+   "target": "freemod",
    "kind": "include"
   },
   {
@@ -4990,12 +4980,32 @@
   },
   {
    "source": "hilb",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "hilb",
+   "target": "int-bag",
+   "kind": "include"
+  },
+  {
+   "source": "hilb",
    "target": "dir:interface",
    "kind": "include"
   },
   {
    "source": "hilb",
-   "target": "ring",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "hilb",
+   "target": "error",
+   "kind": "include"
+  },
+  {
+   "source": "hilb",
+   "target": "hash",
    "kind": "include"
   },
   {
@@ -5009,13 +5019,8 @@
    "kind": "include"
   },
   {
-   "source": "hilb",
-   "target": "newdelete",
-   "kind": "include"
-  },
-  {
-   "source": "hilb",
-   "target": "freemod",
+   "source": "imonorder",
+   "target": "engine-includes",
    "kind": "include"
   },
   {
@@ -5034,18 +5039,8 @@
    "kind": "include"
   },
   {
-   "source": "imonorder",
-   "target": "engine-includes",
-   "kind": "include"
-  },
-  {
    "source": "int-bag",
    "target": "newdelete",
-   "kind": "include"
-  },
-  {
-   "source": "interreduce",
-   "target": "text-io",
    "kind": "include"
   },
   {
@@ -5059,28 +5054,8 @@
    "kind": "include"
   },
   {
-   "source": "lapack",
-   "target": "aring-CC",
-   "kind": "include"
-  },
-  {
-   "source": "lapack",
-   "target": "dmat",
-   "kind": "include"
-  },
-  {
-   "source": "lapack",
-   "target": "mat-arith",
-   "kind": "include"
-  },
-  {
-   "source": "lapack",
-   "target": "aring-CCC",
-   "kind": "include"
-  },
-  {
-   "source": "lapack",
-   "target": "aring-RR",
+   "source": "interreduce",
+   "target": "text-io",
    "kind": "include"
   },
   {
@@ -5090,67 +5065,37 @@
   },
   {
    "source": "lapack",
+   "target": "aring-CCC",
+   "kind": "include"
+  },
+  {
+   "source": "lapack",
    "target": "coeffrings",
    "kind": "include"
   },
   {
-   "source": "localring",
-   "target": "ring",
+   "source": "lapack",
+   "target": "aring-RR",
    "kind": "include"
   },
   {
-   "source": "localring",
-   "target": "comp-gb",
+   "source": "lapack",
+   "target": "aring-CC",
+   "kind": "include"
+  },
+  {
+   "source": "lapack",
+   "target": "mat-arith",
+   "kind": "include"
+  },
+  {
+   "source": "lapack",
+   "target": "dmat",
    "kind": "include"
   },
   {
    "source": "localring",
    "target": "monoid",
-   "kind": "include"
-  },
-  {
-   "source": "localring",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "localring",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "localring",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "localring",
-   "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "localring",
-   "target": "debug",
-   "kind": "include"
-  },
-  {
-   "source": "localring",
-   "target": "matrix-con",
-   "kind": "include"
-  },
-  {
-   "source": "localring",
-   "target": "mutablecomplex",
-   "kind": "include"
-  },
-  {
-   "source": "localring",
-   "target": "ringmap",
-   "kind": "include"
-  },
-  {
-   "source": "localring",
-   "target": "exceptions",
    "kind": "include"
   },
   {
@@ -5160,7 +5105,27 @@
   },
   {
    "source": "localring",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "localring",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "localring",
+   "target": "debug",
+   "kind": "include"
+  },
+  {
+   "source": "localring",
    "target": "relem",
+   "kind": "include"
+  },
+  {
+   "source": "localring",
+   "target": "matrix-con",
    "kind": "include"
   },
   {
@@ -5169,13 +5134,48 @@
    "kind": "include"
   },
   {
-   "source": "mat-arith",
-   "target": "dmat",
+   "source": "localring",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "localring",
+   "target": "exceptions",
+   "kind": "include"
+  },
+  {
+   "source": "localring",
+   "target": "ring",
+   "kind": "include"
+  },
+  {
+   "source": "localring",
+   "target": "ringmap",
+   "kind": "include"
+  },
+  {
+   "source": "localring",
+   "target": "mutablecomplex",
+   "kind": "include"
+  },
+  {
+   "source": "localring",
+   "target": "comp-gb",
+   "kind": "include"
+  },
+  {
+   "source": "localring",
+   "target": "dir:interface",
    "kind": "include"
   },
   {
    "source": "mat-arith",
    "target": "smat",
+   "kind": "include"
+  },
+  {
+   "source": "mat-arith",
+   "target": "dmat",
    "kind": "include"
   },
   {
@@ -5185,52 +5185,17 @@
   },
   {
    "source": "mat-elem-ops",
-   "target": "smat",
-   "kind": "decl"
-  },
-  {
-   "source": "mat-elem-ops",
    "target": "dmat-gf-flint-big",
    "kind": "decl"
   },
   {
-   "source": "mat-linalg",
-   "target": "aring-qq",
-   "kind": "include"
+   "source": "mat-elem-ops",
+   "target": "smat",
+   "kind": "decl"
   },
   {
    "source": "mat-linalg",
-   "target": "lapack",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
-   "target": "aring-zzp",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
-   "target": "aring-RR",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
-   "target": "eigen",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
-   "target": "dmat",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
-   "target": "aring-gf-flint",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
-   "target": "dmat-lu",
+   "target": "util",
    "kind": "include"
   },
   {
@@ -5240,42 +5205,7 @@
   },
   {
    "source": "mat-linalg",
-   "target": "aring-RRR",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
-   "target": "dmat-qq-interface-flint",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
-   "target": "mat-arith",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
-   "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
-   "target": "aring-m2-gf",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
-   "target": "aring-zzp-ffpack",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
    "target": "aring-zzp-flint",
-   "kind": "include"
-  },
-  {
-   "source": "mat-linalg",
-   "target": "aring-gf-flint-big",
    "kind": "include"
   },
   {
@@ -5285,7 +5215,32 @@
   },
   {
    "source": "mat-linalg",
-   "target": "aring-zz-gmp",
+   "target": "aring-CC",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "mat-arith",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "aring-zzp",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "aring-gf-flint",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "aring-RR",
    "kind": "include"
   },
   {
@@ -5295,12 +5250,57 @@
   },
   {
    "source": "mat-linalg",
-   "target": "util",
+   "target": "dmat",
    "kind": "include"
   },
   {
    "source": "mat-linalg",
-   "target": "aring-CC",
+   "target": "aring-RRR",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "aring-m2-gf",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "aring-qq",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "aring-zz-gmp",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "aring-gf-flint-big",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "eigen",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "dmat-lu",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "lapack",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "dmat-qq-interface-flint",
+   "kind": "include"
+  },
+  {
+   "source": "mat-linalg",
+   "target": "aring-zzp-ffpack",
    "kind": "include"
   },
   {
@@ -5315,7 +5315,22 @@
   },
   {
    "source": "mat",
-   "target": "aring-qq",
+   "target": "util",
+   "kind": "include"
+  },
+  {
+   "source": "mat",
+   "target": "aring-glue",
+   "kind": "include"
+  },
+  {
+   "source": "mat",
+   "target": "aring-CCC",
+   "kind": "include"
+  },
+  {
+   "source": "mat",
+   "target": "aring-zzp-flint",
    "kind": "include"
   },
   {
@@ -5325,12 +5340,17 @@
   },
   {
    "source": "mat",
-   "target": "lapack",
+   "target": "relem",
    "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-tower",
+   "target": "mutablemat",
+   "kind": "include"
+  },
+  {
+   "source": "mat",
+   "target": "exceptions",
    "kind": "include"
   },
   {
@@ -5345,17 +5365,7 @@
   },
   {
    "source": "mat",
-   "target": "hash",
-   "kind": "include"
-  },
-  {
-   "source": "mat",
-   "target": "ZZp",
-   "kind": "include"
-  },
-  {
-   "source": "mat",
-   "target": "relem",
+   "target": "aring-zz-flint",
    "kind": "include"
   },
   {
@@ -5365,17 +5375,12 @@
   },
   {
    "source": "mat",
-   "target": "mutablemat",
+   "target": "smat",
    "kind": "include"
   },
   {
    "source": "mat",
    "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "mat",
-   "target": "aring-CCC",
    "kind": "include"
   },
   {
@@ -5390,27 +5395,22 @@
   },
   {
    "source": "mat",
-   "target": "aring-glue",
-   "kind": "include"
-  },
-  {
-   "source": "mat",
    "target": "aring-m2-gf",
    "kind": "include"
   },
   {
    "source": "mat",
-   "target": "smat",
+   "target": "aring-tower",
    "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-zzp-ffpack",
+   "target": "hash",
    "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-zzp-flint",
+   "target": "aring-qq",
    "kind": "include"
   },
   {
@@ -5420,23 +5420,18 @@
   },
   {
    "source": "mat",
-   "target": "exceptions",
+   "target": "lapack",
    "kind": "include"
   },
   {
    "source": "mat",
-   "target": "aring-zz-flint",
+   "target": "ZZp",
    "kind": "include"
   },
   {
    "source": "mat",
-   "target": "util",
+   "target": "aring-zzp-ffpack",
    "kind": "include"
-  },
-  {
-   "source": "mat",
-   "target": "ring",
-   "kind": "decl"
   },
   {
    "source": "mat",
@@ -5445,18 +5440,18 @@
   },
   {
    "source": "mat",
-   "target": "mutablemat-defs",
-   "kind": "decl"
-  },
-  {
-   "source": "mat",
    "target": "mpreal",
    "kind": "decl"
   },
   {
-   "source": "matrix-con",
+   "source": "mat",
    "target": "ring",
-   "kind": "include"
+   "kind": "decl"
+  },
+  {
+   "source": "mat",
+   "target": "mutablemat-defs",
+   "kind": "decl"
   },
   {
    "source": "matrix-con",
@@ -5469,13 +5464,23 @@
    "kind": "include"
   },
   {
-   "source": "matrix-kbasis",
-   "target": "monoid",
+   "source": "matrix-con",
+   "target": "ring",
    "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "polyring",
+   "target": "util",
+   "kind": "include"
+  },
+  {
+   "source": "matrix-kbasis",
+   "target": "interrupted",
+   "kind": "include"
+  },
+  {
+   "source": "matrix-kbasis",
+   "target": "newdelete",
    "kind": "include"
   },
   {
@@ -5490,32 +5495,17 @@
   },
   {
    "source": "matrix-kbasis",
-   "target": "interrupted",
+   "target": "ring",
    "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "style",
+   "target": "monoid",
    "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "error",
-   "kind": "include"
-  },
-  {
-   "source": "matrix-kbasis",
-   "target": "engine-includes",
-   "kind": "include"
-  },
-  {
-   "source": "matrix-kbasis",
-   "target": "int-bag",
-   "kind": "include"
-  },
-  {
-   "source": "matrix-kbasis",
-   "target": "matrix",
+   "target": "freemod",
    "kind": "include"
   },
   {
@@ -5525,17 +5515,27 @@
   },
   {
    "source": "matrix-kbasis",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "matrix-kbasis",
+   "target": "int-bag",
+   "kind": "include"
+  },
+  {
+   "source": "matrix-kbasis",
    "target": "dir:interface",
    "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "util",
+   "target": "matrix",
    "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "ring",
+   "target": "error",
    "kind": "include"
   },
   {
@@ -5545,12 +5545,12 @@
   },
   {
    "source": "matrix-kbasis",
-   "target": "newdelete",
+   "target": "style",
    "kind": "include"
   },
   {
    "source": "matrix-kbasis",
-   "target": "freemod",
+   "target": "engine-includes",
    "kind": "include"
   },
   {
@@ -5560,12 +5560,12 @@
   },
   {
    "source": "matrix-ncbasis",
-   "target": "interrupted",
+   "target": "dir:NCAlgebras",
    "kind": "include"
   },
   {
    "source": "matrix-ncbasis",
-   "target": "dir:NCAlgebras",
+   "target": "interrupted",
    "kind": "include"
   },
   {
@@ -5605,47 +5605,7 @@
   },
   {
    "source": "matrix",
-   "target": "monomial-collection",
-   "kind": "include"
-  },
-  {
-   "source": "matrix",
-   "target": "monoid",
-   "kind": "include"
-  },
-  {
-   "source": "matrix",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "matrix",
-   "target": "ExponentVector",
-   "kind": "include"
-  },
-  {
-   "source": "matrix",
-   "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "matrix",
-   "target": "matrix-con",
-   "kind": "include"
-  },
-  {
-   "source": "matrix",
-   "target": "style",
-   "kind": "include"
-  },
-  {
-   "source": "matrix",
-   "target": "M2FreeAlgebra",
-   "kind": "include"
-  },
-  {
-   "source": "matrix",
-   "target": "relem",
+   "target": "util",
    "kind": "include"
   },
   {
@@ -5655,22 +5615,12 @@
   },
   {
    "source": "matrix",
-   "target": "monideal",
+   "target": "ExponentVector",
    "kind": "include"
   },
   {
    "source": "matrix",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "matrix",
-   "target": "ring",
-   "kind": "include"
-  },
-  {
-   "source": "matrix",
-   "target": "comb",
+   "target": "relem",
    "kind": "include"
   },
   {
@@ -5680,12 +5630,62 @@
   },
   {
    "source": "matrix",
-   "target": "util",
+   "target": "matrix-con",
+   "kind": "include"
+  },
+  {
+   "source": "matrix",
+   "target": "ring",
+   "kind": "include"
+  },
+  {
+   "source": "matrix",
+   "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "matrix",
+   "target": "monoid",
+   "kind": "include"
+  },
+  {
+   "source": "matrix",
+   "target": "text-io",
    "kind": "include"
   },
   {
    "source": "matrix",
    "target": "freemod",
+   "kind": "include"
+  },
+  {
+   "source": "matrix",
+   "target": "monideal",
+   "kind": "include"
+  },
+  {
+   "source": "matrix",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "matrix",
+   "target": "M2FreeAlgebra",
+   "kind": "include"
+  },
+  {
+   "source": "matrix",
+   "target": "monomial-collection",
+   "kind": "include"
+  },
+  {
+   "source": "matrix",
+   "target": "comb",
+   "kind": "include"
+  },
+  {
+   "source": "matrix",
+   "target": "style",
    "kind": "include"
   },
   {
@@ -5705,17 +5705,12 @@
   },
   {
    "source": "monideal-minprimes",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "monideal-minprimes",
    "target": "monideal",
    "kind": "include"
   },
   {
-   "source": "monideal",
-   "target": "ring",
+   "source": "monideal-minprimes",
+   "target": "text-io",
    "kind": "include"
   },
   {
@@ -5725,27 +5720,12 @@
   },
   {
    "source": "monideal",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "monideal",
-   "target": "ExponentVector",
-   "kind": "include"
-  },
-  {
-   "source": "monideal",
    "target": "text-io",
    "kind": "include"
   },
   {
    "source": "monideal",
-   "target": "mem",
-   "kind": "include"
-  },
-  {
-   "source": "monideal",
-   "target": "ExponentList",
+   "target": "ExponentVector",
    "kind": "include"
   },
   {
@@ -5755,32 +5735,27 @@
   },
   {
    "source": "monideal",
-   "target": "int-bag",
-   "kind": "include"
-  },
-  {
-   "source": "monoid",
    "target": "polyring",
    "kind": "include"
   },
   {
-   "source": "monoid",
-   "target": "ExponentVector",
+   "source": "monideal",
+   "target": "int-bag",
    "kind": "include"
   },
   {
-   "source": "monoid",
-   "target": "style",
+   "source": "monideal",
+   "target": "ring",
    "kind": "include"
   },
   {
-   "source": "monoid",
-   "target": "hash",
+   "source": "monideal",
+   "target": "mem",
    "kind": "include"
   },
   {
-   "source": "monoid",
-   "target": "error",
+   "source": "monideal",
+   "target": "ExponentList",
    "kind": "include"
   },
   {
@@ -5790,27 +5765,17 @@
   },
   {
    "source": "monoid",
-   "target": "imonorder",
-   "kind": "include"
-  },
-  {
-   "source": "monoid",
-   "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "monoid",
    "target": "util",
    "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "overflow",
+   "target": "newdelete",
    "kind": "include"
   },
   {
    "source": "monoid",
-   "target": "ExponentList",
+   "target": "ExponentVector",
    "kind": "include"
   },
   {
@@ -5820,17 +5785,52 @@
   },
   {
    "source": "monoid",
-   "target": "newdelete",
+   "target": "polyring",
    "kind": "include"
   },
   {
-   "source": "monomial-collection",
+   "source": "monoid",
+   "target": "error",
+   "kind": "include"
+  },
+  {
+   "source": "monoid",
+   "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "monoid",
+   "target": "overflow",
+   "kind": "include"
+  },
+  {
+   "source": "monoid",
+   "target": "hash",
+   "kind": "include"
+  },
+  {
+   "source": "monoid",
+   "target": "ExponentList",
+   "kind": "include"
+  },
+  {
+   "source": "monoid",
    "target": "style",
+   "kind": "include"
+  },
+  {
+   "source": "monoid",
+   "target": "imonorder",
    "kind": "include"
   },
   {
    "source": "monomial-collection",
    "target": "Polynomial",
+   "kind": "include"
+  },
+  {
+   "source": "monomial-collection",
+   "target": "style",
    "kind": "include"
   },
   {
@@ -5845,12 +5845,7 @@
   },
   {
    "source": "monomial",
-   "target": "ExponentList",
-   "kind": "include"
-  },
-  {
-   "source": "monomial",
-   "target": "hash",
+   "target": "engine-includes",
    "kind": "include"
   },
   {
@@ -5860,7 +5855,17 @@
   },
   {
    "source": "monomial",
-   "target": "engine-includes",
+   "target": "hash",
+   "kind": "include"
+  },
+  {
+   "source": "monomial",
+   "target": "ExponentList",
+   "kind": "include"
+  },
+  {
+   "source": "monsort",
+   "target": "newdelete",
    "kind": "include"
   },
   {
@@ -5870,17 +5875,22 @@
   },
   {
    "source": "monsort",
-   "target": "newdelete",
-   "kind": "include"
-  },
-  {
-   "source": "monsort",
    "target": "dir:interface",
    "kind": "include"
   },
   {
    "source": "montable",
+   "target": "newdelete",
+   "kind": "include"
+  },
+  {
+   "source": "montable",
    "target": "ExponentVector",
+   "kind": "include"
+  },
+  {
+   "source": "montable",
+   "target": "style",
    "kind": "include"
   },
   {
@@ -5889,12 +5899,12 @@
    "kind": "include"
   },
   {
-   "source": "montable",
-   "target": "style",
+   "source": "montableZZ",
+   "target": "buffer",
    "kind": "include"
   },
   {
-   "source": "montable",
+   "source": "montableZZ",
    "target": "newdelete",
    "kind": "include"
   },
@@ -5909,28 +5919,8 @@
    "kind": "include"
   },
   {
-   "source": "montableZZ",
-   "target": "newdelete",
-   "kind": "include"
-  },
-  {
-   "source": "montableZZ",
-   "target": "buffer",
-   "kind": "include"
-  },
-  {
    "source": "mutablecomplex",
-   "target": "ring",
-   "kind": "include"
-  },
-  {
-   "source": "mutablecomplex",
-   "target": "mat",
-   "kind": "include"
-  },
-  {
-   "source": "mutablecomplex",
-   "target": "polyring",
+   "target": "engine-includes",
    "kind": "include"
   },
   {
@@ -5945,7 +5935,12 @@
   },
   {
    "source": "mutablecomplex",
-   "target": "style",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "mutablecomplex",
+   "target": "ring",
    "kind": "include"
   },
   {
@@ -5955,7 +5950,12 @@
   },
   {
    "source": "mutablecomplex",
-   "target": "engine-includes",
+   "target": "mat",
+   "kind": "include"
+  },
+  {
+   "source": "mutablecomplex",
+   "target": "style",
    "kind": "include"
   },
   {
@@ -5965,17 +5965,12 @@
   },
   {
    "source": "mutablemat-defs",
-   "target": "dmat",
+   "target": "smat",
    "kind": "include"
   },
   {
    "source": "mutablemat-defs",
-   "target": "mat",
-   "kind": "include"
-  },
-  {
-   "source": "mutablemat-defs",
-   "target": "mat-arith",
+   "target": "mat-linalg",
    "kind": "include"
   },
   {
@@ -5990,28 +5985,18 @@
   },
   {
    "source": "mutablemat-defs",
-   "target": "smat",
+   "target": "mat",
    "kind": "include"
   },
   {
    "source": "mutablemat-defs",
-   "target": "mat-linalg",
+   "target": "mat-arith",
    "kind": "include"
   },
   {
    "source": "mutablemat-defs",
-   "target": "aring-CCC",
-   "kind": "decl"
-  },
-  {
-   "source": "mutablemat-defs",
-   "target": "aring-RRR",
-   "kind": "decl"
-  },
-  {
-   "source": "mutablemat-defs",
-   "target": "aring-RR",
-   "kind": "decl"
+   "target": "dmat",
+   "kind": "include"
   },
   {
    "source": "mutablemat-defs",
@@ -6029,13 +6014,28 @@
    "kind": "decl"
   },
   {
-   "source": "mutablemat",
-   "target": "SLP-imp",
-   "kind": "include"
+   "source": "mutablemat-defs",
+   "target": "aring-RR",
+   "kind": "decl"
+  },
+  {
+   "source": "mutablemat-defs",
+   "target": "aring-RRR",
+   "kind": "decl"
+  },
+  {
+   "source": "mutablemat-defs",
+   "target": "aring-CCC",
+   "kind": "decl"
   },
   {
    "source": "mutablemat",
    "target": "mutablemat-imp",
+   "kind": "include"
+  },
+  {
+   "source": "mutablemat",
+   "target": "SLP-defs",
    "kind": "include"
   },
   {
@@ -6045,7 +6045,7 @@
   },
   {
    "source": "mutablemat",
-   "target": "SLP-defs",
+   "target": "SLP-imp",
    "kind": "include"
   },
   {
@@ -6080,12 +6080,12 @@
   },
   {
    "source": "pfaff",
-   "target": "matrix",
+   "target": "interrupted",
    "kind": "include"
   },
   {
    "source": "pfaff",
-   "target": "comb",
+   "target": "matrix",
    "kind": "include"
   },
   {
@@ -6095,22 +6095,7 @@
   },
   {
    "source": "pfaff",
-   "target": "interrupted",
-   "kind": "include"
-  },
-  {
-   "source": "points",
-   "target": "dmat",
-   "kind": "include"
-  },
-  {
-   "source": "points",
-   "target": "mat",
-   "kind": "include"
-  },
-  {
-   "source": "points",
-   "target": "polyring",
+   "target": "comb",
    "kind": "include"
   },
   {
@@ -6120,7 +6105,27 @@
   },
   {
    "source": "points",
+   "target": "error",
+   "kind": "include"
+  },
+  {
+   "source": "points",
    "target": "matrix-con",
+   "kind": "include"
+  },
+  {
+   "source": "points",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "points",
+   "target": "mat",
+   "kind": "include"
+  },
+  {
+   "source": "points",
+   "target": "dmat",
    "kind": "include"
   },
   {
@@ -6130,22 +6135,12 @@
   },
   {
    "source": "points",
-   "target": "error",
-   "kind": "include"
-  },
-  {
-   "source": "points",
    "target": "matrix",
    "kind": "decl"
   },
   {
    "source": "poly",
-   "target": "monoid",
-   "kind": "include"
-  },
-  {
-   "source": "poly",
-   "target": "polyring",
+   "target": "aring-glue",
    "kind": "include"
   },
   {
@@ -6155,62 +6150,7 @@
   },
   {
    "source": "poly",
-   "target": "debug",
-   "kind": "include"
-  },
-  {
-   "source": "poly",
-   "target": "gbring",
-   "kind": "include"
-  },
-  {
-   "source": "poly",
-   "target": "monomial",
-   "kind": "include"
-  },
-  {
-   "source": "poly",
    "target": "relem",
-   "kind": "include"
-  },
-  {
-   "source": "poly",
-   "target": "frac",
-   "kind": "include"
-  },
-  {
-   "source": "poly",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "poly",
-   "target": "ringmap",
-   "kind": "include"
-  },
-  {
-   "source": "poly",
-   "target": "skew",
-   "kind": "include"
-  },
-  {
-   "source": "poly",
-   "target": "aring-glue",
-   "kind": "include"
-  },
-  {
-   "source": "poly",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "poly",
-   "target": "geovec",
-   "kind": "include"
-  },
-  {
-   "source": "poly",
-   "target": "geopoly",
    "kind": "include"
   },
   {
@@ -6220,12 +6160,72 @@
   },
   {
    "source": "poly",
-   "target": "ringelem",
+   "target": "monoid",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "skew",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "debug",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "polyring",
    "kind": "include"
   },
   {
    "source": "poly",
    "target": "ZZ",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "ringmap",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "monomial",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "frac",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "geovec",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "gbring",
+   "kind": "include"
+  },
+  {
+   "source": "poly",
+   "target": "geopoly",
    "kind": "include"
   },
   {
@@ -6240,52 +6240,17 @@
   },
   {
    "source": "polyquotient",
-   "target": "ring",
-   "kind": "include"
-  },
-  {
-   "source": "polyquotient",
-   "target": "comp-gb",
-   "kind": "include"
-  },
-  {
-   "source": "polyquotient",
    "target": "monoid",
    "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "polyring",
+   "target": "buffer",
    "kind": "include"
   },
   {
    "source": "polyquotient",
    "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "polyquotient",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "polyquotient",
-   "target": "relem",
-   "kind": "include"
-  },
-  {
-   "source": "polyquotient",
-   "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "polyquotient",
-   "target": "matrix-con",
-   "kind": "include"
-  },
-  {
-   "source": "polyquotient",
-   "target": "qring",
    "kind": "include"
   },
   {
@@ -6295,12 +6260,27 @@
   },
   {
    "source": "polyquotient",
+   "target": "qring",
+   "kind": "include"
+  },
+  {
+   "source": "polyquotient",
    "target": "error",
    "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "buffer",
+   "target": "matrix-con",
+   "kind": "include"
+  },
+  {
+   "source": "polyquotient",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "polyquotient",
+   "target": "relem",
    "kind": "include"
   },
   {
@@ -6310,12 +6290,27 @@
   },
   {
    "source": "polyquotient",
-   "target": "gbring",
-   "kind": "decl"
+   "target": "ring",
+   "kind": "include"
   },
   {
    "source": "polyquotient",
-   "target": "freemod",
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "polyquotient",
+   "target": "comp-gb",
+   "kind": "include"
+  },
+  {
+   "source": "polyquotient",
+   "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "polyquotient",
+   "target": "gbring",
    "kind": "decl"
   },
   {
@@ -6324,43 +6319,13 @@
    "kind": "decl"
   },
   {
-   "source": "polyring",
-   "target": "ring",
-   "kind": "include"
-  },
-  {
-   "source": "polyring",
-   "target": "polyquotient",
-   "kind": "include"
+   "source": "polyquotient",
+   "target": "freemod",
+   "kind": "decl"
   },
   {
    "source": "polyring",
    "target": "monoid",
-   "kind": "include"
-  },
-  {
-   "source": "polyring",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "polyring",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "polyring",
-   "target": "matrix-con",
-   "kind": "include"
-  },
-  {
-   "source": "polyring",
-   "target": "qring",
-   "kind": "include"
-  },
-  {
-   "source": "polyring",
-   "target": "skew",
    "kind": "include"
   },
   {
@@ -6370,7 +6335,12 @@
   },
   {
    "source": "polyring",
-   "target": "dir:interface",
+   "target": "polyquotient",
+   "kind": "include"
+  },
+  {
+   "source": "polyring",
+   "target": "matrix",
    "kind": "include"
   },
   {
@@ -6380,7 +6350,47 @@
   },
   {
    "source": "polyring",
-   "target": "gbring",
+   "target": "skew",
+   "kind": "include"
+  },
+  {
+   "source": "polyring",
+   "target": "matrix-con",
+   "kind": "include"
+  },
+  {
+   "source": "polyring",
+   "target": "ring",
+   "kind": "include"
+  },
+  {
+   "source": "polyring",
+   "target": "dir:interface",
+   "kind": "include"
+  },
+  {
+   "source": "polyring",
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "polyring",
+   "target": "qring",
+   "kind": "include"
+  },
+  {
+   "source": "polyring",
+   "target": "buffer",
+   "kind": "decl"
+  },
+  {
+   "source": "polyring",
+   "target": "poly",
+   "kind": "decl"
+  },
+  {
+   "source": "polyring",
+   "target": "montableZZ",
    "kind": "decl"
   },
   {
@@ -6390,53 +6400,18 @@
   },
   {
    "source": "polyring",
+   "target": "gbring",
+   "kind": "decl"
+  },
+  {
+   "source": "polyring",
    "target": "monideal",
-   "kind": "decl"
-  },
-  {
-   "source": "polyring",
-   "target": "montableZZ",
-   "kind": "decl"
-  },
-  {
-   "source": "polyring",
-   "target": "buffer",
    "kind": "decl"
   },
   {
    "source": "polyring",
    "target": "montable",
    "kind": "decl"
-  },
-  {
-   "source": "polyring",
-   "target": "poly",
-   "kind": "decl"
-  },
-  {
-   "source": "qring",
-   "target": "aring-glue",
-   "kind": "include"
-  },
-  {
-   "source": "qring",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "qring",
-   "target": "monideal",
-   "kind": "include"
-  },
-  {
-   "source": "qring",
-   "target": "style",
-   "kind": "include"
-  },
-  {
-   "source": "qring",
-   "target": "montableZZ",
-   "kind": "include"
   },
   {
    "source": "qring",
@@ -6450,7 +6425,32 @@
   },
   {
    "source": "qring",
+   "target": "aring-glue",
+   "kind": "include"
+  },
+  {
+   "source": "qring",
+   "target": "monideal",
+   "kind": "include"
+  },
+  {
+   "source": "qring",
    "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "qring",
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "qring",
+   "target": "montableZZ",
+   "kind": "include"
+  },
+  {
+   "source": "qring",
+   "target": "style",
    "kind": "include"
   },
   {
@@ -6470,32 +6470,17 @@
   },
   {
    "source": "reducedgb-ZZ",
-   "target": "monideal",
-   "kind": "include"
-  },
-  {
-   "source": "reducedgb-ZZ",
    "target": "reducedgb",
    "kind": "include"
   },
   {
-   "source": "reducedgb-field-local",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "reducedgb-field-local",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "reducedgb-field-local",
-   "target": "reducedgb-field",
-   "kind": "include"
-  },
-  {
-   "source": "reducedgb-field-local",
+   "source": "reducedgb-ZZ",
    "target": "monideal",
+   "kind": "include"
+  },
+  {
+   "source": "reducedgb-field-local",
+   "target": "gbweight",
    "kind": "include"
   },
   {
@@ -6505,7 +6490,27 @@
   },
   {
    "source": "reducedgb-field-local",
-   "target": "gbweight",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "reducedgb-field-local",
+   "target": "monideal",
+   "kind": "include"
+  },
+  {
+   "source": "reducedgb-field-local",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "reducedgb-field-local",
+   "target": "reducedgb-field",
+   "kind": "include"
+  },
+  {
+   "source": "reducedgb-field",
+   "target": "reducedgb",
    "kind": "include"
   },
   {
@@ -6514,7 +6519,7 @@
    "kind": "include"
   },
   {
-   "source": "reducedgb-field",
+   "source": "reducedgb-marked",
    "target": "reducedgb",
    "kind": "include"
   },
@@ -6529,18 +6534,13 @@
    "kind": "include"
   },
   {
-   "source": "reducedgb-marked",
-   "target": "reducedgb",
+   "source": "reducedgb",
+   "target": "gbring",
    "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "comp-gb",
-   "kind": "include"
-  },
-  {
-   "source": "reducedgb",
-   "target": "polyring",
+   "target": "gbweight",
    "kind": "include"
   },
   {
@@ -6550,7 +6550,12 @@
   },
   {
    "source": "reducedgb",
-   "target": "reducedgb-field",
+   "target": "montable",
+   "kind": "include"
+  },
+  {
+   "source": "reducedgb",
+   "target": "reducedgb-ZZ",
    "kind": "include"
   },
   {
@@ -6565,27 +6570,52 @@
   },
   {
    "source": "reducedgb",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "reducedgb",
+   "target": "reducedgb-field",
+   "kind": "include"
+  },
+  {
+   "source": "reducedgb",
    "target": "montableZZ",
    "kind": "include"
   },
   {
    "source": "reducedgb",
-   "target": "gbring",
+   "target": "comp-gb",
    "kind": "include"
   },
   {
-   "source": "reducedgb",
-   "target": "reducedgb-ZZ",
+   "source": "relem",
+   "target": "monoid",
    "kind": "include"
   },
   {
-   "source": "reducedgb",
-   "target": "montable",
+   "source": "relem",
+   "target": "monomial",
    "kind": "include"
   },
   {
-   "source": "reducedgb",
-   "target": "gbweight",
+   "source": "relem",
+   "target": "M2FreeAlgebra",
+   "kind": "include"
+  },
+  {
+   "source": "relem",
+   "target": "aring-glue",
+   "kind": "include"
+  },
+  {
+   "source": "relem",
+   "target": "localring",
+   "kind": "include"
+  },
+  {
+   "source": "relem",
+   "target": "polyring",
    "kind": "include"
   },
   {
@@ -6599,36 +6629,6 @@
    "kind": "include"
   },
   {
-   "source": "relem",
-   "target": "aring-glue",
-   "kind": "include"
-  },
-  {
-   "source": "relem",
-   "target": "monoid",
-   "kind": "include"
-  },
-  {
-   "source": "relem",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "relem",
-   "target": "localring",
-   "kind": "include"
-  },
-  {
-   "source": "relem",
-   "target": "M2FreeAlgebra",
-   "kind": "include"
-  },
-  {
-   "source": "relem",
-   "target": "monomial",
-   "kind": "include"
-  },
-  {
    "source": "res-a0-pair",
    "target": "monideal",
    "kind": "include"
@@ -6645,17 +6645,22 @@
   },
   {
    "source": "res-a0-poly",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0-poly",
    "target": "text-io",
    "kind": "include"
   },
   {
    "source": "res-a0-poly",
+   "target": "freemod",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0-poly",
    "target": "monideal",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0-poly",
+   "target": "polyring",
    "kind": "include"
   },
   {
@@ -6666,66 +6671,6 @@
   {
    "source": "res-a0-poly",
    "target": "geovec",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0-poly",
-   "target": "freemod",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0",
-   "target": "geobucket",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0",
-   "target": "res-a0-poly",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0",
-   "target": "ExponentVector",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0",
-   "target": "betti",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0",
-   "target": "monideal",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0",
-   "target": "matrix-con",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0",
-   "target": "interrupted",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0",
-   "target": "style",
-   "kind": "include"
-  },
-  {
-   "source": "res-a0",
-   "target": "comp-res",
    "kind": "include"
   },
   {
@@ -6735,7 +6680,62 @@
   },
   {
    "source": "res-a0",
+   "target": "interrupted",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0",
+   "target": "ExponentVector",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0",
+   "target": "geobucket",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0",
+   "target": "monideal",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0",
+   "target": "matrix-con",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0",
    "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0",
+   "target": "betti",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0",
+   "target": "style",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0",
+   "target": "comp-res",
+   "kind": "include"
+  },
+  {
+   "source": "res-a0",
+   "target": "res-a0-poly",
    "kind": "include"
   },
   {
@@ -6745,12 +6745,12 @@
   },
   {
    "source": "res-a1-poly",
-   "target": "polyring",
+   "target": "text-io",
    "kind": "include"
   },
   {
    "source": "res-a1-poly",
-   "target": "text-io",
+   "target": "freemod",
    "kind": "include"
   },
   {
@@ -6760,27 +6760,27 @@
   },
   {
    "source": "res-a1-poly",
-   "target": "geovec",
+   "target": "polyring",
    "kind": "include"
   },
   {
    "source": "res-a1-poly",
-   "target": "freemod",
+   "target": "geovec",
    "kind": "include"
   },
   {
    "source": "res-a1",
-   "target": "res-a1-poly",
-   "kind": "include"
-  },
-  {
-   "source": "res-a1",
-   "target": "polyring",
+   "target": "interrupted",
    "kind": "include"
   },
   {
    "source": "res-a1",
    "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "res-a1",
+   "target": "matrix",
    "kind": "include"
   },
   {
@@ -6790,11 +6790,6 @@
   },
   {
    "source": "res-a1",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "res-a1",
    "target": "monideal",
    "kind": "include"
   },
@@ -6805,7 +6800,12 @@
   },
   {
    "source": "res-a1",
-   "target": "interrupted",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "res-a1",
+   "target": "res-a1-poly",
    "kind": "include"
   },
   {
@@ -6820,7 +6820,12 @@
   },
   {
    "source": "res-a2-gb",
-   "target": "comp-gb",
+   "target": "style",
+   "kind": "include"
+  },
+  {
+   "source": "res-a2-gb",
+   "target": "interrupted",
    "kind": "include"
   },
   {
@@ -6830,7 +6835,7 @@
   },
   {
    "source": "res-a2-gb",
-   "target": "hilb",
+   "target": "matrix-con",
    "kind": "include"
   },
   {
@@ -6840,22 +6845,37 @@
   },
   {
    "source": "res-a2-gb",
-   "target": "matrix-con",
+   "target": "hilb",
    "kind": "include"
   },
   {
    "source": "res-a2-gb",
-   "target": "style",
+   "target": "comp-gb",
    "kind": "include"
   },
   {
-   "source": "res-a2-gb",
+   "source": "res-a2",
    "target": "interrupted",
    "kind": "include"
   },
   {
    "source": "res-a2",
-   "target": "spair",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "res-a2",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "res-a2",
+   "target": "relem",
+   "kind": "include"
+  },
+  {
+   "source": "res-a2",
+   "target": "matrix-con",
    "kind": "include"
   },
   {
@@ -6865,12 +6885,7 @@
   },
   {
    "source": "res-a2",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "res-a2",
-   "target": "matrix",
+   "target": "spair",
    "kind": "include"
   },
   {
@@ -6880,32 +6895,7 @@
   },
   {
    "source": "res-a2",
-   "target": "matrix-con",
-   "kind": "include"
-  },
-  {
-   "source": "res-a2",
-   "target": "interrupted",
-   "kind": "include"
-  },
-  {
-   "source": "res-a2",
    "target": "comp-res",
-   "kind": "include"
-  },
-  {
-   "source": "res-a2",
-   "target": "relem",
-   "kind": "include"
-  },
-  {
-   "source": "ring-vecs",
-   "target": "ring",
-   "kind": "include"
-  },
-  {
-   "source": "ring-vecs",
-   "target": "text-io",
    "kind": "include"
   },
   {
@@ -6915,7 +6905,7 @@
   },
   {
    "source": "ring-vecs",
-   "target": "geovec",
+   "target": "text-io",
    "kind": "include"
   },
   {
@@ -6929,48 +6919,23 @@
    "kind": "include"
   },
   {
+   "source": "ring-vecs",
+   "target": "ring",
+   "kind": "include"
+  },
+  {
+   "source": "ring-vecs",
+   "target": "geovec",
+   "kind": "include"
+  },
+  {
    "source": "ring",
    "target": "monoid",
    "kind": "include"
   },
   {
    "source": "ring",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "ring",
-   "target": "ringelem",
-   "kind": "include"
-  },
-  {
-   "source": "ring",
    "target": "newdelete",
-   "kind": "include"
-  },
-  {
-   "source": "ring",
-   "target": "exceptions",
-   "kind": "include"
-  },
-  {
-   "source": "ring",
-   "target": "aring",
-   "kind": "include"
-  },
-  {
-   "source": "ring",
-   "target": "hash",
-   "kind": "include"
-  },
-  {
-   "source": "ring",
-   "target": "error",
-   "kind": "include"
-  },
-  {
-   "source": "ring",
-   "target": "ZZ",
    "kind": "include"
   },
   {
@@ -6985,22 +6950,47 @@
   },
   {
    "source": "ring",
+   "target": "aring",
+   "kind": "include"
+  },
+  {
+   "source": "ring",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "ring",
    "target": "poly",
    "kind": "include"
   },
   {
    "source": "ring",
-   "target": "solvable",
-   "kind": "decl"
+   "target": "error",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "weylalg",
-   "kind": "decl"
+   "target": "ZZ",
+   "kind": "include"
   },
   {
    "source": "ring",
-   "target": "tower",
+   "target": "exceptions",
+   "kind": "include"
+  },
+  {
+   "source": "ring",
+   "target": "hash",
+   "kind": "include"
+  },
+  {
+   "source": "ring",
+   "target": "ringelem",
+   "kind": "include"
+  },
+  {
+   "source": "ring",
+   "target": "mat",
    "kind": "decl"
   },
   {
@@ -7010,27 +7000,12 @@
   },
   {
    "source": "ring",
-   "target": "relem",
-   "kind": "decl"
-  },
-  {
-   "source": "ring",
-   "target": "mat",
-   "kind": "decl"
-  },
-  {
-   "source": "ring",
-   "target": "schur",
-   "kind": "decl"
-  },
-  {
-   "source": "ring",
-   "target": "schurSn",
-   "kind": "decl"
-  },
-  {
-   "source": "ring",
    "target": "skewpoly",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "localring",
    "kind": "decl"
   },
   {
@@ -7040,7 +7015,52 @@
   },
   {
    "source": "ring",
+   "target": "ZZp",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
    "target": "schur2",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "tower",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "schurSn",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "M2FreeAlgebra",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "relem",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "ringmap",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "weylalg",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "solvable",
+   "kind": "decl"
+  },
+  {
+   "source": "ring",
+   "target": "schur",
    "kind": "decl"
   },
   {
@@ -7055,32 +7075,12 @@
   },
   {
    "source": "ring",
-   "target": "localring",
-   "kind": "decl"
-  },
-  {
-   "source": "ring",
-   "target": "M2FreeAlgebra",
-   "kind": "decl"
-  },
-  {
-   "source": "ring",
    "target": "frac",
    "kind": "decl"
   },
   {
    "source": "ring",
    "target": "GF",
-   "kind": "decl"
-  },
-  {
-   "source": "ring",
-   "target": "ZZp",
-   "kind": "decl"
-  },
-  {
-   "source": "ring",
-   "target": "ringmap",
    "kind": "decl"
   },
   {
@@ -7095,27 +7095,22 @@
   },
   {
    "source": "ringelem",
-   "target": "schur2",
-   "kind": "decl"
-  },
-  {
-   "source": "ringelem",
    "target": "localring",
    "kind": "decl"
   },
   {
-   "source": "ringmap",
-   "target": "ring",
-   "kind": "include"
-  },
-  {
-   "source": "ringmap",
-   "target": "polyring",
-   "kind": "include"
+   "source": "ringelem",
+   "target": "schur2",
+   "kind": "decl"
   },
   {
    "source": "ringmap",
    "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "ringmap",
+   "target": "relem",
    "kind": "include"
   },
   {
@@ -7125,12 +7120,12 @@
   },
   {
    "source": "ringmap",
-   "target": "relem",
+   "target": "polyring",
    "kind": "include"
   },
   {
-   "source": "sagbi",
-   "target": "comp-gb",
+   "source": "ringmap",
+   "target": "ring",
    "kind": "include"
   },
   {
@@ -7149,28 +7144,13 @@
    "kind": "include"
   },
   {
-   "source": "schorder",
-   "target": "Eschreyer",
+   "source": "sagbi",
+   "target": "comp-gb",
    "kind": "include"
   },
   {
    "source": "schorder",
    "target": "monoid",
-   "kind": "include"
-  },
-  {
-   "source": "schorder",
-   "target": "polyring",
-   "kind": "include"
-  },
-  {
-   "source": "schorder",
-   "target": "matrix",
-   "kind": "include"
-  },
-  {
-   "source": "schorder",
-   "target": "comb",
    "kind": "include"
   },
   {
@@ -7180,7 +7160,27 @@
   },
   {
    "source": "schorder",
+   "target": "matrix",
+   "kind": "include"
+  },
+  {
+   "source": "schorder",
    "target": "finalize",
+   "kind": "include"
+  },
+  {
+   "source": "schorder",
+   "target": "polyring",
+   "kind": "include"
+  },
+  {
+   "source": "schorder",
+   "target": "comb",
+   "kind": "include"
+  },
+  {
+   "source": "schorder",
+   "target": "Eschreyer",
    "kind": "include"
   },
   {
@@ -7191,11 +7191,6 @@
   {
    "source": "schur",
    "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "schur",
-   "target": "ZZ",
    "kind": "include"
   },
   {
@@ -7204,23 +7199,8 @@
    "kind": "include"
   },
   {
-   "source": "schur2",
-   "target": "monoid",
-   "kind": "include"
-  },
-  {
-   "source": "schur2",
-   "target": "schur-poly-heap",
-   "kind": "include"
-  },
-  {
-   "source": "schur2",
-   "target": "text-io",
-   "kind": "include"
-  },
-  {
-   "source": "schur2",
-   "target": "ringmap",
+   "source": "schur",
+   "target": "ZZ",
    "kind": "include"
   },
   {
@@ -7230,7 +7210,12 @@
   },
   {
    "source": "schur2",
-   "target": "ZZ",
+   "target": "monoid",
+   "kind": "include"
+  },
+  {
+   "source": "schur2",
+   "target": "text-io",
    "kind": "include"
   },
   {
@@ -7241,6 +7226,21 @@
   {
    "source": "schur2",
    "target": "poly",
+   "kind": "include"
+  },
+  {
+   "source": "schur2",
+   "target": "ZZ",
+   "kind": "include"
+  },
+  {
+   "source": "schur2",
+   "target": "schur-poly-heap",
+   "kind": "include"
+  },
+  {
+   "source": "schur2",
+   "target": "ringmap",
    "kind": "include"
   },
   {
@@ -7255,11 +7255,6 @@
   },
   {
    "source": "skewpoly",
-   "target": "poly",
-   "kind": "include"
-  },
-  {
-   "source": "skewpoly",
    "target": "gbring",
    "kind": "include"
   },
@@ -7269,18 +7264,23 @@
    "kind": "include"
   },
   {
+   "source": "skewpoly",
+   "target": "poly",
+   "kind": "include"
+  },
+  {
    "source": "smat",
    "target": "ZZp",
    "kind": "include"
   },
   {
    "source": "smat",
-   "target": "mat-elem-ops",
+   "target": "mat",
    "kind": "decl"
   },
   {
    "source": "smat",
-   "target": "mat",
+   "target": "mat-elem-ops",
    "kind": "decl"
   },
   {
@@ -7291,11 +7291,6 @@
   {
    "source": "solvable",
    "target": "poly",
-   "kind": "include"
-  },
-  {
-   "source": "spair",
-   "target": "polyring",
    "kind": "include"
   },
   {
@@ -7306,6 +7301,11 @@
   {
    "source": "spair",
    "target": "freemod",
+   "kind": "include"
+  },
+  {
+   "source": "spair",
+   "target": "polyring",
    "kind": "include"
   },
   {
@@ -7330,6 +7330,11 @@
   },
   {
    "source": "text-io",
+   "target": "buffer",
+   "kind": "include"
+  },
+  {
+   "source": "text-io",
    "target": "engine-includes",
    "kind": "include"
   },
@@ -7339,13 +7344,8 @@
    "kind": "include"
   },
   {
-   "source": "text-io",
-   "target": "buffer",
-   "kind": "include"
-  },
-  {
    "source": "tower",
-   "target": "ring",
+   "target": "dpoly",
    "kind": "include"
   },
   {
@@ -7355,12 +7355,17 @@
   },
   {
    "source": "tower",
+   "target": "relem",
+   "kind": "include"
+  },
+  {
+   "source": "tower",
    "target": "polyring",
    "kind": "include"
   },
   {
    "source": "tower",
-   "target": "ExponentList",
+   "target": "ring",
    "kind": "include"
   },
   {
@@ -7370,27 +7375,12 @@
   },
   {
    "source": "tower",
-   "target": "dpoly",
-   "kind": "include"
-  },
-  {
-   "source": "tower",
-   "target": "relem",
+   "target": "ExponentList",
    "kind": "include"
   },
   {
    "source": "util",
    "target": "dir:interface",
-   "kind": "include"
-  },
-  {
-   "source": "weylalg",
-   "target": "ExponentVector",
-   "kind": "include"
-  },
-  {
-   "source": "weylalg",
-   "target": "text-io",
    "kind": "include"
   },
   {
@@ -7405,8 +7395,3072 @@
   },
   {
    "source": "weylalg",
+   "target": "text-io",
+   "kind": "include"
+  },
+  {
+   "source": "weylalg",
+   "target": "ExponentVector",
+   "kind": "include"
+  },
+  {
+   "source": "weylalg",
    "target": "poly",
    "kind": "include"
   }
- ]
+ ],
+ "dUses": [
+  {
+   "file": "M2.d",
+   "path": "M2/Macaulay2/d/M2.d",
+   "engineNodes": [
+    "dir:interface"
+   ],
+   "matches": [
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <interface/m2-types.h>"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "M2lib.c",
+   "path": "M2/Macaulay2/d/M2lib.c",
+   "engineNodes": [
+    "dir:interface"
+   ],
+   "matches": [
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <interface/m2-mem.h>"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "M2mem.c",
+   "path": "M2/Macaulay2/d/M2mem.c",
+   "engineNodes": [
+    "dir:interface"
+   ],
+   "matches": [
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <interface/m2-mem.h>"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "M2mem.h",
+   "path": "M2/Macaulay2/d/M2mem.h",
+   "engineNodes": [
+    "dir:interface"
+   ],
+   "matches": [
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <interface/m2-mem.h>"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "actors.d",
+   "path": "M2/Macaulay2/d/actors.d",
+   "engineNodes": [
+    "mat",
+    "matrix",
+    "monideal",
+    "monomial",
+    "relem"
+   ],
+   "matches": [
+    {
+     "node": "mat",
+     "via": [
+      "RawMutableMatrix",
+      "RawMutableMatrixCell"
+     ]
+    },
+    {
+     "node": "matrix",
+     "via": [
+      "RawMatrix",
+      "RawMatrixCell"
+     ]
+    },
+    {
+     "node": "monideal",
+     "via": [
+      "RawMonomialIdeal",
+      "RawMonomialIdealCell"
+     ]
+    },
+    {
+     "node": "monomial",
+     "via": [
+      "RawMonomial",
+      "RawMonomialCell"
+     ]
+    },
+    {
+     "node": "relem",
+     "via": [
+      "RawRingElement",
+      "RawRingElementCell"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "actors4.d",
+   "path": "M2/Macaulay2/d/actors4.d",
+   "engineNodes": [
+    "NAG",
+    "SLP-defs",
+    "comp",
+    "dir:interface",
+    "engine",
+    "freemod",
+    "mat",
+    "matrix",
+    "monideal",
+    "monoid",
+    "monomial",
+    "monordering",
+    "mutablecomplex",
+    "relem",
+    "ring",
+    "ringelem",
+    "ringmap"
+   ],
+   "matches": [
+    {
+     "node": "NAG",
+     "via": [
+      "#include <interface/NAG.h>",
+      "RawPathTrackerCell",
+      "RawPointArrayCell",
+      "RawStraightLineProgramCell"
+     ]
+    },
+    {
+     "node": "SLP-defs",
+     "via": [
+      "RawHomotopyCell",
+      "RawSLEvaluatorCell",
+      "RawSLProgramCell"
+     ]
+    },
+    {
+     "node": "comp",
+     "via": [
+      "RawComputationCell"
+     ]
+    },
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <interface/NAG.h>",
+      "#include <interface/freemodule.h>",
+      "#include <interface/matrix.h>",
+      "#include <interface/monoid.h>",
+      "#include <interface/monomial-ordering.h>",
+      "#include <interface/mutable-matrix.h>",
+      "#include <interface/random.h>",
+      "#include <interface/ring.h>",
+      "#include <interface/ringelement.h>",
+      "#include <interface/ringmap.h>",
+      "RawMonomialOrderingCell"
+     ]
+    },
+    {
+     "node": "engine",
+     "via": [
+      "#include <engine.h>"
+     ]
+    },
+    {
+     "node": "freemod",
+     "via": [
+      "#include <interface/freemodule.h>",
+      "RawFreeModuleCell"
+     ]
+    },
+    {
+     "node": "mat",
+     "via": [
+      "#include <interface/mutable-matrix.h>",
+      "RawMutableMatrixCell"
+     ]
+    },
+    {
+     "node": "matrix",
+     "via": [
+      "#include <interface/matrix.h>",
+      "RawMatrixCell"
+     ]
+    },
+    {
+     "node": "monideal",
+     "via": [
+      "RawMonomialIdealCell"
+     ]
+    },
+    {
+     "node": "monoid",
+     "via": [
+      "#include <interface/monoid.h>",
+      "RawMonoidCell"
+     ]
+    },
+    {
+     "node": "monomial",
+     "via": [
+      "RawMonomialCell"
+     ]
+    },
+    {
+     "node": "monordering",
+     "via": [
+      "#include <interface/monomial-ordering.h>"
+     ]
+    },
+    {
+     "node": "mutablecomplex",
+     "via": [
+      "RawMutableComplexCell"
+     ]
+    },
+    {
+     "node": "relem",
+     "via": [
+      "RawRingElementCell"
+     ]
+    },
+    {
+     "node": "ring",
+     "via": [
+      "#include <interface/ring.h>",
+      "RawRingCell"
+     ]
+    },
+    {
+     "node": "ringelem",
+     "via": [
+      "#include <interface/ringelement.h>"
+     ]
+    },
+    {
+     "node": "ringmap",
+     "via": [
+      "#include <interface/ringmap.h>",
+      "RawRingMapCell"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "actors5.d",
+   "path": "M2/Macaulay2/d/actors5.d",
+   "engineNodes": [
+    "dir:interface"
+   ],
+   "matches": [
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <interface/random.h>"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "basic.d",
+   "path": "M2/Macaulay2/d/basic.d",
+   "engineNodes": [
+    "NAG",
+    "SLP-defs",
+    "comp",
+    "dir:interface",
+    "engine",
+    "freemod",
+    "mat",
+    "matrix",
+    "monideal",
+    "monoid",
+    "monomial",
+    "mutablecomplex",
+    "relem",
+    "ring",
+    "ringmap"
+   ],
+   "matches": [
+    {
+     "node": "NAG",
+     "via": [
+      "RawPathTrackerCell",
+      "RawPointArrayCell",
+      "RawStraightLineProgramCell"
+     ]
+    },
+    {
+     "node": "SLP-defs",
+     "via": [
+      "RawHomotopyCell",
+      "RawSLEvaluatorCell",
+      "RawSLProgramCell"
+     ]
+    },
+    {
+     "node": "comp",
+     "via": [
+      "RawComputationCell"
+     ]
+    },
+    {
+     "node": "dir:interface",
+     "via": [
+      "RawMonomialOrderingCell"
+     ]
+    },
+    {
+     "node": "engine",
+     "via": [
+      "#include <engine.h>"
+     ]
+    },
+    {
+     "node": "freemod",
+     "via": [
+      "RawFreeModuleCell"
+     ]
+    },
+    {
+     "node": "mat",
+     "via": [
+      "RawMutableMatrixCell"
+     ]
+    },
+    {
+     "node": "matrix",
+     "via": [
+      "RawMatrixCell"
+     ]
+    },
+    {
+     "node": "monideal",
+     "via": [
+      "RawMonomialIdealCell"
+     ]
+    },
+    {
+     "node": "monoid",
+     "via": [
+      "RawMonoidCell"
+     ]
+    },
+    {
+     "node": "monomial",
+     "via": [
+      "RawMonomialCell"
+     ]
+    },
+    {
+     "node": "mutablecomplex",
+     "via": [
+      "RawMutableComplexCell"
+     ]
+    },
+    {
+     "node": "relem",
+     "via": [
+      "RawRingElementCell"
+     ]
+    },
+    {
+     "node": "ring",
+     "via": [
+      "RawRingCell"
+     ]
+    },
+    {
+     "node": "ringmap",
+     "via": [
+      "RawRingMapCell"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "classes.dd",
+   "path": "M2/Macaulay2/d/classes.dd",
+   "engineNodes": [
+    "NAG",
+    "SLP-defs",
+    "comp",
+    "dir:interface",
+    "freemod",
+    "mat",
+    "matrix",
+    "monideal",
+    "monoid",
+    "monomial",
+    "mutablecomplex",
+    "relem",
+    "ring",
+    "ringmap"
+   ],
+   "matches": [
+    {
+     "node": "NAG",
+     "via": [
+      "RawPathTracker",
+      "RawPathTrackerCell",
+      "RawPointArray",
+      "RawPointArrayCell",
+      "RawStraightLineProgram",
+      "RawStraightLineProgramCell"
+     ]
+    },
+    {
+     "node": "SLP-defs",
+     "via": [
+      "RawHomotopy",
+      "RawHomotopyCell",
+      "RawSLEvaluator",
+      "RawSLEvaluatorCell",
+      "RawSLProgram",
+      "RawSLProgramCell"
+     ]
+    },
+    {
+     "node": "comp",
+     "via": [
+      "RawComputation",
+      "RawComputationCell"
+     ]
+    },
+    {
+     "node": "dir:interface",
+     "via": [
+      "RawMonomialOrdering",
+      "RawMonomialOrderingCell"
+     ]
+    },
+    {
+     "node": "freemod",
+     "via": [
+      "RawFreeModule",
+      "RawFreeModuleCell"
+     ]
+    },
+    {
+     "node": "mat",
+     "via": [
+      "RawMutableMatrix",
+      "RawMutableMatrixCell"
+     ]
+    },
+    {
+     "node": "matrix",
+     "via": [
+      "RawMatrix",
+      "RawMatrixCell"
+     ]
+    },
+    {
+     "node": "monideal",
+     "via": [
+      "RawMonomialIdeal",
+      "RawMonomialIdealCell"
+     ]
+    },
+    {
+     "node": "monoid",
+     "via": [
+      "RawMonoid",
+      "RawMonoidCell"
+     ]
+    },
+    {
+     "node": "monomial",
+     "via": [
+      "RawMonomial",
+      "RawMonomialCell"
+     ]
+    },
+    {
+     "node": "mutablecomplex",
+     "via": [
+      "RawMutableComplex",
+      "RawMutableComplexCell"
+     ]
+    },
+    {
+     "node": "relem",
+     "via": [
+      "RawRingElement",
+      "RawRingElementCell"
+     ]
+    },
+    {
+     "node": "ring",
+     "via": [
+      "RawRing",
+      "RawRingCell"
+     ]
+    },
+    {
+     "node": "ringmap",
+     "via": [
+      "RawRingMap",
+      "RawRingMapCell"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "engine.dd",
+   "path": "M2/Macaulay2/d/engine.dd",
+   "engineNodes": [
+    "NAG",
+    "SLP-defs",
+    "comp",
+    "dir:interface",
+    "error",
+    "exceptions",
+    "freemod",
+    "hash",
+    "mat",
+    "matrix",
+    "monideal",
+    "monoid",
+    "monomial",
+    "mutablecomplex",
+    "newdelete",
+    "relem",
+    "ring",
+    "ringmap"
+   ],
+   "matches": [
+    {
+     "node": "NAG",
+     "via": [
+      "RawPathTracker",
+      "RawPathTrackerCell",
+      "RawPathTrackerOrNull",
+      "RawPointArray",
+      "RawPointArrayCell",
+      "RawPointArrayOrNull",
+      "RawStraightLineProgram",
+      "RawStraightLineProgramCell",
+      "RawStraightLineProgramOrNull"
+     ]
+    },
+    {
+     "node": "SLP-defs",
+     "via": [
+      "RawHomotopy",
+      "RawHomotopyCell",
+      "RawHomotopyOrNull",
+      "RawSLEvaluator",
+      "RawSLEvaluatorCell",
+      "RawSLEvaluatorOrNull",
+      "RawSLProgram",
+      "RawSLProgramCell",
+      "RawSLProgramOrNull"
+     ]
+    },
+    {
+     "node": "comp",
+     "via": [
+      "RawComputation",
+      "RawComputationCell",
+      "RawComputationOrNull"
+     ]
+    },
+    {
+     "node": "dir:interface",
+     "via": [
+      "RawMonomialOrdering",
+      "RawMonomialOrderingArray",
+      "RawMonomialOrderingCell",
+      "RawMonomialOrderingOrNull"
+     ]
+    },
+    {
+     "node": "error",
+     "via": [
+      "#include <error.h>"
+     ]
+    },
+    {
+     "node": "exceptions",
+     "via": [
+      "#include <exceptions.hpp>"
+     ]
+    },
+    {
+     "node": "freemod",
+     "via": [
+      "RawFreeModule",
+      "RawFreeModuleCell",
+      "RawFreeModuleOrNull"
+     ]
+    },
+    {
+     "node": "hash",
+     "via": [
+      "#include <hash.hpp>"
+     ]
+    },
+    {
+     "node": "mat",
+     "via": [
+      "#include <mat.hpp>",
+      "RawMutableMatrix",
+      "RawMutableMatrixArray",
+      "RawMutableMatrixArrayOrNull",
+      "RawMutableMatrixCell",
+      "RawMutableMatrixOrNull"
+     ]
+    },
+    {
+     "node": "matrix",
+     "via": [
+      "#include <matrix.hpp>",
+      "RawMatrix",
+      "RawMatrixAndInt",
+      "RawMatrixArray",
+      "RawMatrixArrayOrNull",
+      "RawMatrixCell",
+      "RawMatrixOrNull",
+      "RawMatrixPair",
+      "RawMatrixPairOrNull"
+     ]
+    },
+    {
+     "node": "monideal",
+     "via": [
+      "RawMonomialIdeal",
+      "RawMonomialIdealCell",
+      "RawMonomialIdealOrNull"
+     ]
+    },
+    {
+     "node": "monoid",
+     "via": [
+      "RawMonoid",
+      "RawMonoidCell",
+      "RawMonoidOrNull"
+     ]
+    },
+    {
+     "node": "monomial",
+     "via": [
+      "#include <monomial.hpp>",
+      "RawMonomial",
+      "RawMonomialArray",
+      "RawMonomialCell",
+      "RawMonomialOrNull",
+      "RawMonomialPair",
+      "RawMonomialPairOrNull"
+     ]
+    },
+    {
+     "node": "mutablecomplex",
+     "via": [
+      "RawMutableComplex",
+      "RawMutableComplexCell",
+      "RawMutableComplexOrNull"
+     ]
+    },
+    {
+     "node": "newdelete",
+     "via": [
+      "#include <newdelete.hpp>"
+     ]
+    },
+    {
+     "node": "relem",
+     "via": [
+      "#include <relem.hpp>",
+      "RawRingElement",
+      "RawRingElementArray",
+      "RawRingElementArrayArray",
+      "RawRingElementArrayArrayOrNull",
+      "RawRingElementArrayOrNull",
+      "RawRingElementCell",
+      "RawRingElementOrNull",
+      "RawRingElementPair",
+      "RawRingElementPairOrNull"
+     ]
+    },
+    {
+     "node": "ring",
+     "via": [
+      "RawRing",
+      "RawRingCell",
+      "RawRingOrNull"
+     ]
+    },
+    {
+     "node": "ringmap",
+     "via": [
+      "RawRingMap",
+      "RawRingMapCell"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "equality.dd",
+   "path": "M2/Macaulay2/d/equality.dd",
+   "engineNodes": [
+    "NAG",
+    "SLP-defs",
+    "comp",
+    "dir:interface",
+    "freemod",
+    "mat",
+    "matrix",
+    "monideal",
+    "monoid",
+    "monomial",
+    "mutablecomplex",
+    "relem",
+    "ring",
+    "ringelem",
+    "ringmap"
+   ],
+   "matches": [
+    {
+     "node": "NAG",
+     "via": [
+      "RawPathTrackerCell",
+      "RawPointArrayCell",
+      "RawStraightLineProgramCell"
+     ]
+    },
+    {
+     "node": "SLP-defs",
+     "via": [
+      "RawHomotopyCell",
+      "RawSLEvaluatorCell",
+      "RawSLProgramCell"
+     ]
+    },
+    {
+     "node": "comp",
+     "via": [
+      "RawComputationCell"
+     ]
+    },
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <interface/freemodule.h>",
+      "#include <interface/matrix.h>",
+      "#include <interface/monomial-ideal.h>",
+      "#include <interface/ringelement.h>",
+      "#include <interface/ringmap.h>",
+      "RawMonomialOrderingCell"
+     ]
+    },
+    {
+     "node": "freemod",
+     "via": [
+      "#include <interface/freemodule.h>",
+      "RawFreeModuleCell"
+     ]
+    },
+    {
+     "node": "mat",
+     "via": [
+      "RawMutableMatrixCell"
+     ]
+    },
+    {
+     "node": "matrix",
+     "via": [
+      "#include <interface/matrix.h>",
+      "RawMatrixCell"
+     ]
+    },
+    {
+     "node": "monideal",
+     "via": [
+      "#include <interface/monomial-ideal.h>",
+      "RawMonomialIdealCell"
+     ]
+    },
+    {
+     "node": "monoid",
+     "via": [
+      "RawMonoidCell"
+     ]
+    },
+    {
+     "node": "monomial",
+     "via": [
+      "#include <monomial.hpp>",
+      "RawMonomialCell"
+     ]
+    },
+    {
+     "node": "mutablecomplex",
+     "via": [
+      "RawMutableComplexCell"
+     ]
+    },
+    {
+     "node": "relem",
+     "via": [
+      "RawRingElementCell"
+     ]
+    },
+    {
+     "node": "ring",
+     "via": [
+      "RawRingCell"
+     ]
+    },
+    {
+     "node": "ringelem",
+     "via": [
+      "#include <interface/ringelement.h>"
+     ]
+    },
+    {
+     "node": "ringmap",
+     "via": [
+      "#include <interface/ringmap.h>",
+      "RawRingMapCell"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "expr.d",
+   "path": "M2/Macaulay2/d/expr.d",
+   "engineNodes": [
+    "NAG",
+    "SLP-defs",
+    "comp",
+    "dir:interface",
+    "freemod",
+    "mat",
+    "matrix",
+    "monideal",
+    "monoid",
+    "monomial",
+    "mutablecomplex",
+    "relem",
+    "ring",
+    "ringmap"
+   ],
+   "matches": [
+    {
+     "node": "NAG",
+     "via": [
+      "RawPathTracker",
+      "RawPointArray",
+      "RawStraightLineProgram"
+     ]
+    },
+    {
+     "node": "SLP-defs",
+     "via": [
+      "RawHomotopy",
+      "RawSLEvaluator",
+      "RawSLProgram"
+     ]
+    },
+    {
+     "node": "comp",
+     "via": [
+      "RawComputation"
+     ]
+    },
+    {
+     "node": "dir:interface",
+     "via": [
+      "RawMonomialOrdering"
+     ]
+    },
+    {
+     "node": "freemod",
+     "via": [
+      "RawFreeModule"
+     ]
+    },
+    {
+     "node": "mat",
+     "via": [
+      "RawMutableMatrix"
+     ]
+    },
+    {
+     "node": "matrix",
+     "via": [
+      "RawMatrix"
+     ]
+    },
+    {
+     "node": "monideal",
+     "via": [
+      "RawMonomialIdeal"
+     ]
+    },
+    {
+     "node": "monoid",
+     "via": [
+      "RawMonoid"
+     ]
+    },
+    {
+     "node": "monomial",
+     "via": [
+      "RawMonomial"
+     ]
+    },
+    {
+     "node": "mutablecomplex",
+     "via": [
+      "RawMutableComplex"
+     ]
+    },
+    {
+     "node": "relem",
+     "via": [
+      "RawRingElement"
+     ]
+    },
+    {
+     "node": "ring",
+     "via": [
+      "RawRing"
+     ]
+    },
+    {
+     "node": "ringmap",
+     "via": [
+      "RawRingMap"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "gmp.d",
+   "path": "M2/Macaulay2/d/gmp.d",
+   "engineNodes": [
+    "complex"
+   ],
+   "matches": [
+    {
+     "node": "complex",
+     "via": [
+      "#include <complex.h>"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "interface.dd",
+   "path": "M2/Macaulay2/d/interface.dd",
+   "engineNodes": [
+    "ZZp",
+    "aring",
+    "comp",
+    "dir:interface",
+    "engine",
+    "error",
+    "exceptions",
+    "freemod",
+    "mat",
+    "matrix",
+    "memory-status",
+    "monideal",
+    "monoid",
+    "monomial",
+    "mutablecomplex",
+    "relem",
+    "ring",
+    "ringelem",
+    "ringmap"
+   ],
+   "matches": [
+    {
+     "node": "ZZp",
+     "via": [
+      "#include <ZZp.hpp>"
+     ]
+    },
+    {
+     "node": "aring",
+     "via": [
+      "#include <interface/aring.h>"
+     ]
+    },
+    {
+     "node": "comp",
+     "via": [
+      "RawComputationCell",
+      "RawComputationOrNull"
+     ]
+    },
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <interface/aring.h>",
+      "#include <interface/cone.h>",
+      "#include <interface/cra.h>",
+      "#include <interface/factory.h>",
+      "#include <interface/flint.h>",
+      "#include <interface/freemodule.h>",
+      "#include <interface/groebner.h>",
+      "#include <interface/matrix.h>",
+      "#include <interface/monomial-ideal.h>",
+      "#include <interface/mutable-matrix.h>",
+      "#include <interface/random.h>",
+      "#include <interface/ring.h>",
+      "#include <interface/ringelement.h>",
+      "#include <interface/ringmap.h>"
+     ]
+    },
+    {
+     "node": "engine",
+     "via": [
+      "#include <engine.h>"
+     ]
+    },
+    {
+     "node": "error",
+     "via": [
+      "#include <error.h>"
+     ]
+    },
+    {
+     "node": "exceptions",
+     "via": [
+      "#include <exceptions.hpp>"
+     ]
+    },
+    {
+     "node": "freemod",
+     "via": [
+      "#include <interface/freemodule.h>",
+      "RawFreeModule",
+      "RawFreeModuleCell",
+      "RawFreeModuleOrNull"
+     ]
+    },
+    {
+     "node": "mat",
+     "via": [
+      "#include <interface/mutable-matrix.h>",
+      "RawMutableMatrix",
+      "RawMutableMatrixArrayOrNull",
+      "RawMutableMatrixCell",
+      "RawMutableMatrixOrNull"
+     ]
+    },
+    {
+     "node": "matrix",
+     "via": [
+      "#include <interface/matrix.h>",
+      "RawMatrix",
+      "RawMatrixAndInt",
+      "RawMatrixArrayOrNull",
+      "RawMatrixCell",
+      "RawMatrixOrNull",
+      "RawMatrixPairOrNull"
+     ]
+    },
+    {
+     "node": "memory-status",
+     "via": [
+      "#include <memory-status.hpp>"
+     ]
+    },
+    {
+     "node": "monideal",
+     "via": [
+      "#include <interface/monomial-ideal.h>",
+      "RawMonomialIdealCell",
+      "RawMonomialIdealOrNull"
+     ]
+    },
+    {
+     "node": "monoid",
+     "via": [
+      "RawMonoid",
+      "RawMonoidCell"
+     ]
+    },
+    {
+     "node": "monomial",
+     "via": [
+      "#include <monomial.hpp>",
+      "RawMonomial",
+      "RawMonomialCell",
+      "RawMonomialOrNull",
+      "RawMonomialPairOrNull"
+     ]
+    },
+    {
+     "node": "mutablecomplex",
+     "via": [
+      "RawMutableComplexCell",
+      "RawMutableComplexOrNull"
+     ]
+    },
+    {
+     "node": "relem",
+     "via": [
+      "#include <relem.hpp>",
+      "RawRingElement",
+      "RawRingElementArray",
+      "RawRingElementArrayArray",
+      "RawRingElementArrayArrayOrNull",
+      "RawRingElementArrayOrNull",
+      "RawRingElementCell",
+      "RawRingElementOrNull",
+      "RawRingElementPairOrNull"
+     ]
+    },
+    {
+     "node": "ring",
+     "via": [
+      "#include <interface/ring.h>",
+      "RawRing",
+      "RawRingCell",
+      "RawRingOrNull"
+     ]
+    },
+    {
+     "node": "ringelem",
+     "via": [
+      "#include <interface/ringelement.h>"
+     ]
+    },
+    {
+     "node": "ringmap",
+     "via": [
+      "#include <interface/ringmap.h>",
+      "RawRingMap",
+      "RawRingMapCell"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "interface2.d",
+   "path": "M2/Macaulay2/d/interface2.d",
+   "engineNodes": [
+    "NAG",
+    "SLP-defs",
+    "engine",
+    "mat",
+    "matrix"
+   ],
+   "matches": [
+    {
+     "node": "NAG",
+     "via": [
+      "RawPathTrackerCell",
+      "RawPathTrackerOrNull",
+      "RawPointArray",
+      "RawPointArrayCell",
+      "RawPointArrayOrNull",
+      "RawStraightLineProgramCell",
+      "RawStraightLineProgramOrNull"
+     ]
+    },
+    {
+     "node": "SLP-defs",
+     "via": [
+      "RawHomotopyCell",
+      "RawHomotopyOrNull",
+      "RawSLEvaluatorCell",
+      "RawSLEvaluatorOrNull",
+      "RawSLProgramCell",
+      "RawSLProgramOrNull"
+     ]
+    },
+    {
+     "node": "engine",
+     "via": [
+      "#include <engine.h>"
+     ]
+    },
+    {
+     "node": "mat",
+     "via": [
+      "RawMutableMatrixCell"
+     ]
+    },
+    {
+     "node": "matrix",
+     "via": [
+      "RawMatrixCell",
+      "RawMatrixOrNull"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "main.cpp",
+   "path": "M2/Macaulay2/d/main.cpp",
+   "engineNodes": [
+    "dir:interface",
+    "engine"
+   ],
+   "matches": [
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <flint/flint.h>",
+      "#include <interface/m2-types.h>"
+     ]
+    },
+    {
+     "node": "engine",
+     "via": [
+      "#include <engine.h>"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "monoid.dd",
+   "path": "M2/Macaulay2/d/monoid.dd",
+   "engineNodes": [
+    "dir:interface",
+    "monoid",
+    "ring"
+   ],
+   "matches": [
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <interface/monoid.h>",
+      "RawMonomialOrdering",
+      "RawMonomialOrderingCell"
+     ]
+    },
+    {
+     "node": "monoid",
+     "via": [
+      "#include <interface/monoid.h>",
+      "RawMonoid",
+      "RawMonoidCell",
+      "RawMonoidOrNull"
+     ]
+    },
+    {
+     "node": "ring",
+     "via": [
+      "RawRing",
+      "RawRingCell"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "monomial_ordering.dd",
+   "path": "M2/Macaulay2/d/monomial_ordering.dd",
+   "engineNodes": [
+    "dir:interface",
+    "monordering"
+   ],
+   "matches": [
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <interface/monomial-ordering.h>",
+      "RawMonomialOrdering",
+      "RawMonomialOrderingArray",
+      "RawMonomialOrderingCell",
+      "RawMonomialOrderingOrNull"
+     ]
+    },
+    {
+     "node": "monordering",
+     "via": [
+      "#include <interface/monomial-ordering.h>"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "parse.d",
+   "path": "M2/Macaulay2/d/parse.d",
+   "engineNodes": [
+    "NAG",
+    "SLP-defs",
+    "comp",
+    "dir:interface",
+    "freemod",
+    "mat",
+    "matrix",
+    "monideal",
+    "monoid",
+    "monomial",
+    "mutablecomplex",
+    "relem",
+    "ring",
+    "ringmap"
+   ],
+   "matches": [
+    {
+     "node": "NAG",
+     "via": [
+      "RawPathTrackerCell",
+      "RawPointArrayCell",
+      "RawStraightLineProgramCell"
+     ]
+    },
+    {
+     "node": "SLP-defs",
+     "via": [
+      "RawHomotopyCell",
+      "RawSLEvaluatorCell",
+      "RawSLProgramCell"
+     ]
+    },
+    {
+     "node": "comp",
+     "via": [
+      "RawComputationCell"
+     ]
+    },
+    {
+     "node": "dir:interface",
+     "via": [
+      "RawMonomialOrderingCell"
+     ]
+    },
+    {
+     "node": "freemod",
+     "via": [
+      "RawFreeModuleCell"
+     ]
+    },
+    {
+     "node": "mat",
+     "via": [
+      "RawMutableMatrixCell"
+     ]
+    },
+    {
+     "node": "matrix",
+     "via": [
+      "RawMatrixCell"
+     ]
+    },
+    {
+     "node": "monideal",
+     "via": [
+      "RawMonomialIdealCell"
+     ]
+    },
+    {
+     "node": "monoid",
+     "via": [
+      "RawMonoidCell"
+     ]
+    },
+    {
+     "node": "monomial",
+     "via": [
+      "RawMonomialCell"
+     ]
+    },
+    {
+     "node": "mutablecomplex",
+     "via": [
+      "RawMutableComplexCell"
+     ]
+    },
+    {
+     "node": "relem",
+     "via": [
+      "RawRingElementCell"
+     ]
+    },
+    {
+     "node": "ring",
+     "via": [
+      "RawRingCell"
+     ]
+    },
+    {
+     "node": "ringmap",
+     "via": [
+      "RawRingMapCell"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "scclib.c",
+   "path": "M2/Macaulay2/d/scclib.c",
+   "engineNodes": [
+    "dir:interface"
+   ],
+   "matches": [
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <interface/m2-mem.h>"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "util.d",
+   "path": "M2/Macaulay2/d/util.d",
+   "engineNodes": [
+    "NAG",
+    "SLP-defs",
+    "comp",
+    "dir:interface",
+    "freemod",
+    "mat",
+    "matrix",
+    "monideal",
+    "monoid",
+    "monomial",
+    "mutablecomplex",
+    "relem",
+    "ring",
+    "ringmap"
+   ],
+   "matches": [
+    {
+     "node": "NAG",
+     "via": [
+      "RawPathTracker",
+      "RawPathTrackerCell",
+      "RawPathTrackerOrNull",
+      "RawPointArray",
+      "RawPointArrayCell",
+      "RawPointArrayOrNull",
+      "RawStraightLineProgram",
+      "RawStraightLineProgramCell",
+      "RawStraightLineProgramOrNull"
+     ]
+    },
+    {
+     "node": "SLP-defs",
+     "via": [
+      "RawHomotopy",
+      "RawHomotopyCell",
+      "RawHomotopyOrNull",
+      "RawSLEvaluator",
+      "RawSLEvaluatorCell",
+      "RawSLEvaluatorOrNull",
+      "RawSLProgram",
+      "RawSLProgramCell",
+      "RawSLProgramOrNull"
+     ]
+    },
+    {
+     "node": "comp",
+     "via": [
+      "RawComputation",
+      "RawComputationCell",
+      "RawComputationOrNull"
+     ]
+    },
+    {
+     "node": "dir:interface",
+     "via": [
+      "RawMonomialOrdering",
+      "RawMonomialOrderingArray",
+      "RawMonomialOrderingCell"
+     ]
+    },
+    {
+     "node": "freemod",
+     "via": [
+      "RawFreeModule",
+      "RawFreeModuleCell",
+      "RawFreeModuleOrNull"
+     ]
+    },
+    {
+     "node": "mat",
+     "via": [
+      "RawMutableMatrix",
+      "RawMutableMatrixArray",
+      "RawMutableMatrixArrayOrNull",
+      "RawMutableMatrixCell",
+      "RawMutableMatrixOrNull"
+     ]
+    },
+    {
+     "node": "matrix",
+     "via": [
+      "RawMatrix",
+      "RawMatrixAndInt",
+      "RawMatrixArray",
+      "RawMatrixArrayOrNull",
+      "RawMatrixCell",
+      "RawMatrixOrNull",
+      "RawMatrixPair",
+      "RawMatrixPairOrNull"
+     ]
+    },
+    {
+     "node": "monideal",
+     "via": [
+      "RawMonomialIdeal",
+      "RawMonomialIdealCell",
+      "RawMonomialIdealOrNull"
+     ]
+    },
+    {
+     "node": "monoid",
+     "via": [
+      "RawMonoid",
+      "RawMonoidCell",
+      "RawMonoidOrNull"
+     ]
+    },
+    {
+     "node": "monomial",
+     "via": [
+      "RawMonomial",
+      "RawMonomialCell",
+      "RawMonomialOrNull",
+      "RawMonomialPair",
+      "RawMonomialPairOrNull"
+     ]
+    },
+    {
+     "node": "mutablecomplex",
+     "via": [
+      "RawMutableComplex",
+      "RawMutableComplexCell",
+      "RawMutableComplexOrNull"
+     ]
+    },
+    {
+     "node": "relem",
+     "via": [
+      "RawRingElement",
+      "RawRingElementArray",
+      "RawRingElementArrayOrNull",
+      "RawRingElementCell",
+      "RawRingElementOrNull",
+      "RawRingElementPair",
+      "RawRingElementPairOrNull"
+     ]
+    },
+    {
+     "node": "ring",
+     "via": [
+      "RawRing",
+      "RawRingCell",
+      "RawRingOrNull"
+     ]
+    },
+    {
+     "node": "ringmap",
+     "via": [
+      "RawRingMap",
+      "RawRingMapCell"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "version.dd",
+   "path": "M2/Macaulay2/d/version.dd",
+   "engineNodes": [
+    "dir:interface"
+   ],
+   "matches": [
+    {
+     "node": "dir:interface",
+     "via": [
+      "#include <flint/flint.h>"
+     ]
+    }
+   ]
+  }
+ ],
+ "dUsesByEngine": {
+  "NAG": [
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "#include <interface/NAG.h>",
+     "RawPathTrackerCell",
+     "RawPointArrayCell",
+     "RawStraightLineProgramCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawPathTrackerCell",
+     "RawPointArrayCell",
+     "RawStraightLineProgramCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawPathTracker",
+     "RawPathTrackerCell",
+     "RawPointArray",
+     "RawPointArrayCell",
+     "RawStraightLineProgram",
+     "RawStraightLineProgramCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "RawPathTracker",
+     "RawPathTrackerCell",
+     "RawPathTrackerOrNull",
+     "RawPointArray",
+     "RawPointArrayCell",
+     "RawPointArrayOrNull",
+     "RawStraightLineProgram",
+     "RawStraightLineProgramCell",
+     "RawStraightLineProgramOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "RawPathTrackerCell",
+     "RawPointArrayCell",
+     "RawStraightLineProgramCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawPathTracker",
+     "RawPointArray",
+     "RawStraightLineProgram"
+    ]
+   },
+   {
+    "file": "interface2.d",
+    "path": "M2/Macaulay2/d/interface2.d",
+    "via": [
+     "RawPathTrackerCell",
+     "RawPathTrackerOrNull",
+     "RawPointArray",
+     "RawPointArrayCell",
+     "RawPointArrayOrNull",
+     "RawStraightLineProgramCell",
+     "RawStraightLineProgramOrNull"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawPathTrackerCell",
+     "RawPointArrayCell",
+     "RawStraightLineProgramCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawPathTracker",
+     "RawPathTrackerCell",
+     "RawPathTrackerOrNull",
+     "RawPointArray",
+     "RawPointArrayCell",
+     "RawPointArrayOrNull",
+     "RawStraightLineProgram",
+     "RawStraightLineProgramCell",
+     "RawStraightLineProgramOrNull"
+    ]
+   }
+  ],
+  "SLP-defs": [
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "RawHomotopyCell",
+     "RawSLEvaluatorCell",
+     "RawSLProgramCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawHomotopyCell",
+     "RawSLEvaluatorCell",
+     "RawSLProgramCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawHomotopy",
+     "RawHomotopyCell",
+     "RawSLEvaluator",
+     "RawSLEvaluatorCell",
+     "RawSLProgram",
+     "RawSLProgramCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "RawHomotopy",
+     "RawHomotopyCell",
+     "RawHomotopyOrNull",
+     "RawSLEvaluator",
+     "RawSLEvaluatorCell",
+     "RawSLEvaluatorOrNull",
+     "RawSLProgram",
+     "RawSLProgramCell",
+     "RawSLProgramOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "RawHomotopyCell",
+     "RawSLEvaluatorCell",
+     "RawSLProgramCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawHomotopy",
+     "RawSLEvaluator",
+     "RawSLProgram"
+    ]
+   },
+   {
+    "file": "interface2.d",
+    "path": "M2/Macaulay2/d/interface2.d",
+    "via": [
+     "RawHomotopyCell",
+     "RawHomotopyOrNull",
+     "RawSLEvaluatorCell",
+     "RawSLEvaluatorOrNull",
+     "RawSLProgramCell",
+     "RawSLProgramOrNull"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawHomotopyCell",
+     "RawSLEvaluatorCell",
+     "RawSLProgramCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawHomotopy",
+     "RawHomotopyCell",
+     "RawHomotopyOrNull",
+     "RawSLEvaluator",
+     "RawSLEvaluatorCell",
+     "RawSLEvaluatorOrNull",
+     "RawSLProgram",
+     "RawSLProgramCell",
+     "RawSLProgramOrNull"
+    ]
+   }
+  ],
+  "ZZp": [
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <ZZp.hpp>"
+    ]
+   }
+  ],
+  "aring": [
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <interface/aring.h>"
+    ]
+   }
+  ],
+  "comp": [
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "RawComputationCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawComputationCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawComputation",
+     "RawComputationCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "RawComputation",
+     "RawComputationCell",
+     "RawComputationOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "RawComputationCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawComputation"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "RawComputationCell",
+     "RawComputationOrNull"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawComputationCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawComputation",
+     "RawComputationCell",
+     "RawComputationOrNull"
+    ]
+   }
+  ],
+  "complex": [
+   {
+    "file": "gmp.d",
+    "path": "M2/Macaulay2/d/gmp.d",
+    "via": [
+     "#include <complex.h>"
+    ]
+   }
+  ],
+  "dir:interface": [
+   {
+    "file": "M2.d",
+    "path": "M2/Macaulay2/d/M2.d",
+    "via": [
+     "#include <interface/m2-types.h>"
+    ]
+   },
+   {
+    "file": "M2lib.c",
+    "path": "M2/Macaulay2/d/M2lib.c",
+    "via": [
+     "#include <interface/m2-mem.h>"
+    ]
+   },
+   {
+    "file": "M2mem.c",
+    "path": "M2/Macaulay2/d/M2mem.c",
+    "via": [
+     "#include <interface/m2-mem.h>"
+    ]
+   },
+   {
+    "file": "M2mem.h",
+    "path": "M2/Macaulay2/d/M2mem.h",
+    "via": [
+     "#include <interface/m2-mem.h>"
+    ]
+   },
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "#include <interface/NAG.h>",
+     "#include <interface/freemodule.h>",
+     "#include <interface/matrix.h>",
+     "#include <interface/monoid.h>",
+     "#include <interface/monomial-ordering.h>",
+     "#include <interface/mutable-matrix.h>",
+     "#include <interface/random.h>",
+     "#include <interface/ring.h>",
+     "#include <interface/ringelement.h>",
+     "#include <interface/ringmap.h>",
+     "RawMonomialOrderingCell"
+    ]
+   },
+   {
+    "file": "actors5.d",
+    "path": "M2/Macaulay2/d/actors5.d",
+    "via": [
+     "#include <interface/random.h>"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawMonomialOrderingCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawMonomialOrdering",
+     "RawMonomialOrderingCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "RawMonomialOrdering",
+     "RawMonomialOrderingArray",
+     "RawMonomialOrderingCell",
+     "RawMonomialOrderingOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "#include <interface/freemodule.h>",
+     "#include <interface/matrix.h>",
+     "#include <interface/monomial-ideal.h>",
+     "#include <interface/ringelement.h>",
+     "#include <interface/ringmap.h>",
+     "RawMonomialOrderingCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawMonomialOrdering"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <interface/aring.h>",
+     "#include <interface/cone.h>",
+     "#include <interface/cra.h>",
+     "#include <interface/factory.h>",
+     "#include <interface/flint.h>",
+     "#include <interface/freemodule.h>",
+     "#include <interface/groebner.h>",
+     "#include <interface/matrix.h>",
+     "#include <interface/monomial-ideal.h>",
+     "#include <interface/mutable-matrix.h>",
+     "#include <interface/random.h>",
+     "#include <interface/ring.h>",
+     "#include <interface/ringelement.h>",
+     "#include <interface/ringmap.h>"
+    ]
+   },
+   {
+    "file": "main.cpp",
+    "path": "M2/Macaulay2/d/main.cpp",
+    "via": [
+     "#include <flint/flint.h>",
+     "#include <interface/m2-types.h>"
+    ]
+   },
+   {
+    "file": "monoid.dd",
+    "path": "M2/Macaulay2/d/monoid.dd",
+    "via": [
+     "#include <interface/monoid.h>",
+     "RawMonomialOrdering",
+     "RawMonomialOrderingCell"
+    ]
+   },
+   {
+    "file": "monomial_ordering.dd",
+    "path": "M2/Macaulay2/d/monomial_ordering.dd",
+    "via": [
+     "#include <interface/monomial-ordering.h>",
+     "RawMonomialOrdering",
+     "RawMonomialOrderingArray",
+     "RawMonomialOrderingCell",
+     "RawMonomialOrderingOrNull"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawMonomialOrderingCell"
+    ]
+   },
+   {
+    "file": "scclib.c",
+    "path": "M2/Macaulay2/d/scclib.c",
+    "via": [
+     "#include <interface/m2-mem.h>"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawMonomialOrdering",
+     "RawMonomialOrderingArray",
+     "RawMonomialOrderingCell"
+    ]
+   },
+   {
+    "file": "version.dd",
+    "path": "M2/Macaulay2/d/version.dd",
+    "via": [
+     "#include <flint/flint.h>"
+    ]
+   }
+  ],
+  "engine": [
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "#include <engine.h>"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "#include <engine.h>"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <engine.h>"
+    ]
+   },
+   {
+    "file": "interface2.d",
+    "path": "M2/Macaulay2/d/interface2.d",
+    "via": [
+     "#include <engine.h>"
+    ]
+   },
+   {
+    "file": "main.cpp",
+    "path": "M2/Macaulay2/d/main.cpp",
+    "via": [
+     "#include <engine.h>"
+    ]
+   }
+  ],
+  "error": [
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "#include <error.h>"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <error.h>"
+    ]
+   }
+  ],
+  "exceptions": [
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "#include <exceptions.hpp>"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <exceptions.hpp>"
+    ]
+   }
+  ],
+  "freemod": [
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "#include <interface/freemodule.h>",
+     "RawFreeModuleCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawFreeModuleCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawFreeModule",
+     "RawFreeModuleCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "RawFreeModule",
+     "RawFreeModuleCell",
+     "RawFreeModuleOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "#include <interface/freemodule.h>",
+     "RawFreeModuleCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawFreeModule"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <interface/freemodule.h>",
+     "RawFreeModule",
+     "RawFreeModuleCell",
+     "RawFreeModuleOrNull"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawFreeModuleCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawFreeModule",
+     "RawFreeModuleCell",
+     "RawFreeModuleOrNull"
+    ]
+   }
+  ],
+  "hash": [
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "#include <hash.hpp>"
+    ]
+   }
+  ],
+  "mat": [
+   {
+    "file": "actors.d",
+    "path": "M2/Macaulay2/d/actors.d",
+    "via": [
+     "RawMutableMatrix",
+     "RawMutableMatrixCell"
+    ]
+   },
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "#include <interface/mutable-matrix.h>",
+     "RawMutableMatrixCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawMutableMatrixCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawMutableMatrix",
+     "RawMutableMatrixCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "#include <mat.hpp>",
+     "RawMutableMatrix",
+     "RawMutableMatrixArray",
+     "RawMutableMatrixArrayOrNull",
+     "RawMutableMatrixCell",
+     "RawMutableMatrixOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "RawMutableMatrixCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawMutableMatrix"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <interface/mutable-matrix.h>",
+     "RawMutableMatrix",
+     "RawMutableMatrixArrayOrNull",
+     "RawMutableMatrixCell",
+     "RawMutableMatrixOrNull"
+    ]
+   },
+   {
+    "file": "interface2.d",
+    "path": "M2/Macaulay2/d/interface2.d",
+    "via": [
+     "RawMutableMatrixCell"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawMutableMatrixCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawMutableMatrix",
+     "RawMutableMatrixArray",
+     "RawMutableMatrixArrayOrNull",
+     "RawMutableMatrixCell",
+     "RawMutableMatrixOrNull"
+    ]
+   }
+  ],
+  "matrix": [
+   {
+    "file": "actors.d",
+    "path": "M2/Macaulay2/d/actors.d",
+    "via": [
+     "RawMatrix",
+     "RawMatrixCell"
+    ]
+   },
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "#include <interface/matrix.h>",
+     "RawMatrixCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawMatrixCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawMatrix",
+     "RawMatrixCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "#include <matrix.hpp>",
+     "RawMatrix",
+     "RawMatrixAndInt",
+     "RawMatrixArray",
+     "RawMatrixArrayOrNull",
+     "RawMatrixCell",
+     "RawMatrixOrNull",
+     "RawMatrixPair",
+     "RawMatrixPairOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "#include <interface/matrix.h>",
+     "RawMatrixCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawMatrix"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <interface/matrix.h>",
+     "RawMatrix",
+     "RawMatrixAndInt",
+     "RawMatrixArrayOrNull",
+     "RawMatrixCell",
+     "RawMatrixOrNull",
+     "RawMatrixPairOrNull"
+    ]
+   },
+   {
+    "file": "interface2.d",
+    "path": "M2/Macaulay2/d/interface2.d",
+    "via": [
+     "RawMatrixCell",
+     "RawMatrixOrNull"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawMatrixCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawMatrix",
+     "RawMatrixAndInt",
+     "RawMatrixArray",
+     "RawMatrixArrayOrNull",
+     "RawMatrixCell",
+     "RawMatrixOrNull",
+     "RawMatrixPair",
+     "RawMatrixPairOrNull"
+    ]
+   }
+  ],
+  "memory-status": [
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <memory-status.hpp>"
+    ]
+   }
+  ],
+  "monideal": [
+   {
+    "file": "actors.d",
+    "path": "M2/Macaulay2/d/actors.d",
+    "via": [
+     "RawMonomialIdeal",
+     "RawMonomialIdealCell"
+    ]
+   },
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "RawMonomialIdealCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawMonomialIdealCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawMonomialIdeal",
+     "RawMonomialIdealCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "RawMonomialIdeal",
+     "RawMonomialIdealCell",
+     "RawMonomialIdealOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "#include <interface/monomial-ideal.h>",
+     "RawMonomialIdealCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawMonomialIdeal"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <interface/monomial-ideal.h>",
+     "RawMonomialIdealCell",
+     "RawMonomialIdealOrNull"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawMonomialIdealCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawMonomialIdeal",
+     "RawMonomialIdealCell",
+     "RawMonomialIdealOrNull"
+    ]
+   }
+  ],
+  "monoid": [
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "#include <interface/monoid.h>",
+     "RawMonoidCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawMonoidCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawMonoid",
+     "RawMonoidCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "RawMonoid",
+     "RawMonoidCell",
+     "RawMonoidOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "RawMonoidCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawMonoid"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "RawMonoid",
+     "RawMonoidCell"
+    ]
+   },
+   {
+    "file": "monoid.dd",
+    "path": "M2/Macaulay2/d/monoid.dd",
+    "via": [
+     "#include <interface/monoid.h>",
+     "RawMonoid",
+     "RawMonoidCell",
+     "RawMonoidOrNull"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawMonoidCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawMonoid",
+     "RawMonoidCell",
+     "RawMonoidOrNull"
+    ]
+   }
+  ],
+  "monomial": [
+   {
+    "file": "actors.d",
+    "path": "M2/Macaulay2/d/actors.d",
+    "via": [
+     "RawMonomial",
+     "RawMonomialCell"
+    ]
+   },
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "RawMonomialCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawMonomialCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawMonomial",
+     "RawMonomialCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "#include <monomial.hpp>",
+     "RawMonomial",
+     "RawMonomialArray",
+     "RawMonomialCell",
+     "RawMonomialOrNull",
+     "RawMonomialPair",
+     "RawMonomialPairOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "#include <monomial.hpp>",
+     "RawMonomialCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawMonomial"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <monomial.hpp>",
+     "RawMonomial",
+     "RawMonomialCell",
+     "RawMonomialOrNull",
+     "RawMonomialPairOrNull"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawMonomialCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawMonomial",
+     "RawMonomialCell",
+     "RawMonomialOrNull",
+     "RawMonomialPair",
+     "RawMonomialPairOrNull"
+    ]
+   }
+  ],
+  "monordering": [
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "#include <interface/monomial-ordering.h>"
+    ]
+   },
+   {
+    "file": "monomial_ordering.dd",
+    "path": "M2/Macaulay2/d/monomial_ordering.dd",
+    "via": [
+     "#include <interface/monomial-ordering.h>"
+    ]
+   }
+  ],
+  "mutablecomplex": [
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "RawMutableComplexCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawMutableComplexCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawMutableComplex",
+     "RawMutableComplexCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "RawMutableComplex",
+     "RawMutableComplexCell",
+     "RawMutableComplexOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "RawMutableComplexCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawMutableComplex"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "RawMutableComplexCell",
+     "RawMutableComplexOrNull"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawMutableComplexCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawMutableComplex",
+     "RawMutableComplexCell",
+     "RawMutableComplexOrNull"
+    ]
+   }
+  ],
+  "newdelete": [
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "#include <newdelete.hpp>"
+    ]
+   }
+  ],
+  "relem": [
+   {
+    "file": "actors.d",
+    "path": "M2/Macaulay2/d/actors.d",
+    "via": [
+     "RawRingElement",
+     "RawRingElementCell"
+    ]
+   },
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "RawRingElementCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawRingElementCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawRingElement",
+     "RawRingElementCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "#include <relem.hpp>",
+     "RawRingElement",
+     "RawRingElementArray",
+     "RawRingElementArrayArray",
+     "RawRingElementArrayArrayOrNull",
+     "RawRingElementArrayOrNull",
+     "RawRingElementCell",
+     "RawRingElementOrNull",
+     "RawRingElementPair",
+     "RawRingElementPairOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "RawRingElementCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawRingElement"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <relem.hpp>",
+     "RawRingElement",
+     "RawRingElementArray",
+     "RawRingElementArrayArray",
+     "RawRingElementArrayArrayOrNull",
+     "RawRingElementArrayOrNull",
+     "RawRingElementCell",
+     "RawRingElementOrNull",
+     "RawRingElementPairOrNull"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawRingElementCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawRingElement",
+     "RawRingElementArray",
+     "RawRingElementArrayOrNull",
+     "RawRingElementCell",
+     "RawRingElementOrNull",
+     "RawRingElementPair",
+     "RawRingElementPairOrNull"
+    ]
+   }
+  ],
+  "ring": [
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "#include <interface/ring.h>",
+     "RawRingCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawRingCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawRing",
+     "RawRingCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "RawRing",
+     "RawRingCell",
+     "RawRingOrNull"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "RawRingCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawRing"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <interface/ring.h>",
+     "RawRing",
+     "RawRingCell",
+     "RawRingOrNull"
+    ]
+   },
+   {
+    "file": "monoid.dd",
+    "path": "M2/Macaulay2/d/monoid.dd",
+    "via": [
+     "RawRing",
+     "RawRingCell"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawRingCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawRing",
+     "RawRingCell",
+     "RawRingOrNull"
+    ]
+   }
+  ],
+  "ringelem": [
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "#include <interface/ringelement.h>"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "#include <interface/ringelement.h>"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <interface/ringelement.h>"
+    ]
+   }
+  ],
+  "ringmap": [
+   {
+    "file": "actors4.d",
+    "path": "M2/Macaulay2/d/actors4.d",
+    "via": [
+     "#include <interface/ringmap.h>",
+     "RawRingMapCell"
+    ]
+   },
+   {
+    "file": "basic.d",
+    "path": "M2/Macaulay2/d/basic.d",
+    "via": [
+     "RawRingMapCell"
+    ]
+   },
+   {
+    "file": "classes.dd",
+    "path": "M2/Macaulay2/d/classes.dd",
+    "via": [
+     "RawRingMap",
+     "RawRingMapCell"
+    ]
+   },
+   {
+    "file": "engine.dd",
+    "path": "M2/Macaulay2/d/engine.dd",
+    "via": [
+     "RawRingMap",
+     "RawRingMapCell"
+    ]
+   },
+   {
+    "file": "equality.dd",
+    "path": "M2/Macaulay2/d/equality.dd",
+    "via": [
+     "#include <interface/ringmap.h>",
+     "RawRingMapCell"
+    ]
+   },
+   {
+    "file": "expr.d",
+    "path": "M2/Macaulay2/d/expr.d",
+    "via": [
+     "RawRingMap"
+    ]
+   },
+   {
+    "file": "interface.dd",
+    "path": "M2/Macaulay2/d/interface.dd",
+    "via": [
+     "#include <interface/ringmap.h>",
+     "RawRingMap",
+     "RawRingMapCell"
+    ]
+   },
+   {
+    "file": "parse.d",
+    "path": "M2/Macaulay2/d/parse.d",
+    "via": [
+     "RawRingMapCell"
+    ]
+   },
+   {
+    "file": "util.d",
+    "path": "M2/Macaulay2/d/util.d",
+    "via": [
+     "RawRingMap",
+     "RawRingMapCell"
+    ]
+   }
+  ]
+ }
 }

@@ -1,24 +1,27 @@
 #!/usr/bin/env python3
 """Build nodes/edges JSON for the engine layout visualizer.
 
-Walks /home/ubuntu/M2-web/M2/Macaulay2/e (top level only) and packages
+Walks M2/Macaulay2/e (top level only) and packages
 each source unit (a .cpp/.hpp/.h/.c family with the same stem) into a
 single node. Pulls a short description from the corresponding
 file-<stem>.md when available, and parses #include directives to
 determine dependencies between top-level units. Subdirectories
 (NCAlgebras/, f4/, gb-f4/, etc.) become single collapsed nodes so the
-top level stays the focus."""
+top level stays the focus. Also indexes M2/Macaulay2/d sources that
+touch engine files through headers or Raw* bridge types."""
 
 import json
-import os
 import re
 from pathlib import Path
 
-E_DIR = Path("/home/ubuntu/M2-web/M2/Macaulay2/e")
-OUT = Path("/home/ubuntu/M2-web/engine/data.json")
-OUT_JS = Path("/home/ubuntu/M2-web/engine/data.js")
+ROOT = Path(__file__).resolve().parents[1]
+E_DIR = ROOT / "M2" / "Macaulay2" / "e"
+D_DIR = ROOT / "M2" / "Macaulay2" / "d"
+OUT = ROOT / "engine" / "data.json"
+OUT_JS = ROOT / "engine" / "data.js"
 
 SRC_EXTS = {".cpp", ".hpp", ".h", ".c", ".cc"}
+D_SRC_EXTS = {".d", ".dd", ".c", ".h", ".cpp"}
 # external/symlinked submodules — list as a single node each, but don't try to parse them
 SUBMODULE_DIRS = {"mathic", "mathicgb", "memtailor"}
 # real subdirs we want to surface as collapsed nodes
@@ -27,7 +30,37 @@ SUBDIRS = {
     "interface", "schreyer-resolution", "unit-tests", "doxygen-settings",
 }
 
-INCLUDE_RE = re.compile(r'^\s*#\s*include\s*[<"]([^">]+)[">]')
+INCLUDE_RE = re.compile(r'#\s*include\s*[<"]([^">]+)[">]')
+RAW_POINTER_RE = re.compile(
+    r'\bexport\s+(?P<raw>Raw[A-Za-z0-9_]+)\s*:=\s*Pointer\s+"'
+    r'(?:const\s+)?(?:struct|class)\s+(?P<class>[A-Za-z_]\w*)\s*\*"'
+)
+RAW_TOKEN_RE = re.compile(r'\bRaw[A-Za-z0-9_]+\b')
+RAW_DERIVED_SUFFIXES = (
+    "ArrayArrayOrNull",
+    "ArrayArray",
+    "ArrayOrNull",
+    "Array",
+    "PairOrNull",
+    "Pair",
+    "OrNull",
+    "Cell",
+    "AndInt",
+)
+
+INTERFACE_HEADER_ALIASES = {
+    "aring": "aring",
+    "freemodule": "freemod",
+    "matrix": "matrix",
+    "monoid": "monoid",
+    "monomial-ideal": "monideal",
+    "monomial-ordering": "monordering",
+    "mutable-matrix": "mat",
+    "NAG": "NAG",
+    "ring": "ring",
+    "ringelement": "ringelem",
+    "ringmap": "ringmap",
+}
 
 # After comment-stripping, find each "class NAME" or "struct NAME" occurrence
 # along with whether it's preceded by "friend" and what punctuation comes
@@ -124,18 +157,20 @@ def extract_summary(md_path):
 
 
 def parse_includes(paths):
-    """Return set of include targets (just the basename, no dir)."""
+    """Return set of include targets."""
     out = set()
     for p in paths:
         try:
             with open(p, "r", encoding="utf-8", errors="replace") as f:
                 for ln in f:
-                    m = INCLUDE_RE.match(ln)
-                    if not m:
+                    include_start = ln.find("#")
+                    if include_start == -1:
                         continue
-                    out.add(m.group(1))
-                    if ln.strip().startswith("//") or ln.strip().startswith("/*"):
+                    before = ln[:include_start].lstrip()
+                    if before.startswith("//") or before.startswith("/*") or before.startswith("*"):
                         continue
+                    for m in INCLUDE_RE.finditer(ln):
+                        out.add(m.group(1))
         except OSError:
             continue
     return out
@@ -214,6 +249,143 @@ def parse_forward_decls(paths):
     return decls
 
 
+def list_d_sources():
+    if not D_DIR.exists():
+        return []
+    return [
+        p for p in sorted(D_DIR.iterdir())
+        if p.is_file() and p.suffix in D_SRC_EXTS
+    ]
+
+
+def source_paths_for_node(node):
+    if node["kind"] == "unit":
+        return [E_DIR / f for f in node["files"]]
+    if node["kind"] == "subdir" and node["subdir"]:
+        sub_path = E_DIR / node["subdir"]
+        if not sub_path.exists():
+            return []
+        try:
+            return [
+                p for p in sorted(sub_path.rglob("*"))
+                if p.is_file() and p.suffix in SRC_EXTS
+            ]
+        except OSError:
+            return []
+    return []
+
+
+def build_class_to_node_for_d_uses(nodes, class_to_node):
+    out = dict(class_to_node)
+    for node in nodes:
+        if node["kind"] != "subdir":
+            continue
+        for cls in parse_class_defs(source_paths_for_node(node)):
+            out.setdefault(cls, node["id"])
+    return out
+
+
+def build_raw_type_to_node(class_to_node):
+    raw_to_node = {}
+    engine_dd = D_DIR / "engine.dd"
+    try:
+        text = engine_dd.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return raw_to_node
+    for m in RAW_POINTER_RE.finditer(text):
+        node_id = class_to_node.get(m.group("class"))
+        if node_id:
+            raw_to_node[m.group("raw")] = node_id
+    return raw_to_node
+
+
+def resolve_include_nodes(inc, basename_to_node, node_ids):
+    targets = set()
+    if inc in basename_to_node:
+        targets.add(basename_to_node[inc])
+    base = Path(inc).name
+    if base in basename_to_node:
+        targets.add(basename_to_node[base])
+    if inc.startswith("interface/"):
+        stem = Path(inc).stem
+        alias = INTERFACE_HEADER_ALIASES.get(stem)
+        if alias in node_ids:
+            targets.add(alias)
+        if "dir:interface" in node_ids:
+            targets.add("dir:interface")
+    return {target for target in targets if target in node_ids}
+
+
+def raw_token_node(token, raw_to_node, raw_roots):
+    if token in raw_to_node:
+        return raw_to_node[token]
+    for raw in raw_roots:
+        if not token.startswith(raw):
+            continue
+        suffix = token[len(raw):]
+        if suffix in RAW_DERIVED_SUFFIXES:
+            return raw_to_node[raw]
+    return None
+
+
+def add_d_match(matches, node_id, reason):
+    matches.setdefault(node_id, set()).add(reason)
+
+
+def build_d_uses(nodes, basename_to_node, class_to_node):
+    node_ids = {node["id"] for node in nodes}
+    class_to_d_node = build_class_to_node_for_d_uses(nodes, class_to_node)
+    raw_to_node = build_raw_type_to_node(class_to_d_node)
+    raw_roots = sorted(raw_to_node, key=len, reverse=True)
+
+    d_uses = []
+    d_uses_by_engine = {node_id: [] for node_id in node_ids}
+    for path in list_d_sources():
+        try:
+            text = path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+
+        matches = {}
+        for inc in parse_includes([path]):
+            for node_id in resolve_include_nodes(inc, basename_to_node, node_ids):
+                add_d_match(matches, node_id, f"#include <{inc}>")
+
+        for token in sorted(set(RAW_TOKEN_RE.findall(text))):
+            node_id = raw_token_node(token, raw_to_node, raw_roots)
+            if node_id:
+                add_d_match(matches, node_id, token)
+
+        if not matches:
+            continue
+
+        rel_path = path.relative_to(ROOT).as_posix()
+        entry = {
+            "file": path.name,
+            "path": rel_path,
+            "engineNodes": sorted(matches),
+            "matches": [
+                {"node": node_id, "via": sorted(via)}
+                for node_id, via in sorted(matches.items())
+            ],
+        }
+        d_uses.append(entry)
+        for node_id, via in matches.items():
+            d_uses_by_engine[node_id].append({
+                "file": path.name,
+                "path": rel_path,
+                "via": sorted(via),
+            })
+
+    d_uses.sort(key=lambda item: item["file"])
+    d_uses_by_engine = {
+        node_id: sorted(entries, key=lambda item: item["file"])
+        for node_id, entries in sorted(d_uses_by_engine.items())
+        if entries
+    }
+    return d_uses, d_uses_by_engine
+
+
 def main():
     units = list_top_level_units()  # stem -> [filenames]
 
@@ -280,7 +452,7 @@ def main():
     for node in nodes:
         if node["kind"] != "unit":
             continue
-        paths = [E_DIR / f for f in node["files"]]
+        paths = source_paths_for_node(node)
         unit_paths_for_node[node["id"]] = paths
         for cls in parse_class_defs(paths):
             # First definer wins; if a class appears in multiple places
@@ -333,10 +505,15 @@ def main():
             seen_edges.add(key)
             edges.append({"source": node["id"], "target": target, "kind": "decl"})
 
-    payload = {"nodes": nodes, "edges": edges}
+    d_uses, d_uses_by_engine = build_d_uses(nodes, basename_to_node, class_to_node)
+
+    payload = {"nodes": nodes, "edges": edges, "dUses": d_uses, "dUsesByEngine": d_uses_by_engine}
     OUT.write_text(json.dumps(payload, indent=1))
     OUT_JS.write_text("window.ENGINE_DATA = " + json.dumps(payload) + ";\n")
-    print(f"wrote {len(nodes)} nodes / {len(edges)} edges to {OUT} and {OUT_JS}")
+    print(
+        f"wrote {len(nodes)} nodes / {len(edges)} edges / "
+        f"{len(d_uses)} d-layer users to {OUT} and {OUT_JS}"
+    )
 
 
 if __name__ == "__main__":

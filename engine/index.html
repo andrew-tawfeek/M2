@@ -94,6 +94,8 @@
   #detail .deps ul { list-style: none; padding: 0; margin: 0; max-height: 156px; overflow-y: auto; display: flex; flex-wrap: wrap; gap: 5px; }
   #detail .deps li { padding: 4px 7px; font-family: var(--mono); color: var(--ink); cursor: pointer; border: 1px solid var(--border); background: var(--panel-2); border-radius: 999px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
   #detail .deps li:hover { color: var(--accent); border-color: var(--accent); }
+  #detail .deps li.d-use { cursor: default; border-radius: 7px; background: rgba(47,94,153,0.07); }
+  #detail .deps li.d-use:hover { color: var(--ink); border-color: var(--border-strong); }
   #detail .deps li.empty-li { color: var(--muted); font-style: italic; cursor: default; border-style: dashed; background: transparent; }
 
   #canvas-wrap { position: relative; overflow: hidden; background:
@@ -293,7 +295,7 @@
   </div>
 </div>
 
-<script src="data.js"></script>
+<script src="data.js?v=d-uses"></script>
 <script>
 "use strict";
 
@@ -305,6 +307,7 @@ const NODE_H_DEFAULT = 56;
 const state = {
   nodes: new Map(),     // id -> { id, label, summary, kind, files, x, y, w, h, el }
   edges: [],            // [{ source, target, el }]
+  dUsesByEngine: {},    // node id -> [{ file, path, via }]
   groups: [],           // [{ id, label, x, y, w, h, el }]
   aggregateEdges: [],
   autoGroupLabels: {},
@@ -494,6 +497,7 @@ function initialLayout() {
 // ---------- build DOM ----------
 function buildNodes() {
   const data = window.ENGINE_DATA;
+  state.dUsesByEngine = data.dUsesByEngine || {};
   for (const n of data.nodes) {
     state.nodes.set(n.id, {
       ...n,
@@ -1226,12 +1230,65 @@ function renderAggregateEdges() {
   }
 }
 
+function dUsageForNodes(nodeIds) {
+  const byFile = new Map();
+  for (const nodeId of nodeIds) {
+    const entries = state.dUsesByEngine[nodeId] || [];
+    for (const entry of entries) {
+      const key = entry.path || entry.file;
+      if (!byFile.has(key)) {
+        byFile.set(key, {
+          file: entry.file || key,
+          path: key,
+          nodes: new Set(),
+          via: new Set(),
+        });
+      }
+      const item = byFile.get(key);
+      item.nodes.add(nodeId);
+      for (const signal of entry.via || []) item.via.add(signal);
+    }
+  }
+  return [...byFile.values()].map((item) => ({
+    file: item.file,
+    path: item.path,
+    nodes: [...item.nodes].sort(),
+    via: [...item.via].sort(),
+  })).sort((a, b) => a.file.localeCompare(b.file));
+}
+
+function fillDUseList(container, nodeIds) {
+  const uses = dUsageForNodes(nodeIds);
+  if (!uses.length) {
+    container.innerHTML = `<li class="empty-li">none found</li>`;
+    return;
+  }
+  for (const use of uses) {
+    const li = document.createElement("li");
+    li.className = "d-use";
+    const displayPath = use.path.startsWith("M2/Macaulay2/")
+      ? use.path.replace("M2/Macaulay2/", "")
+      : use.file;
+    li.textContent = `${displayPath}${use.nodes.length > 1 ? ` (${use.nodes.length})` : ""}`;
+    const labels = use.nodes
+      .map((id) => {
+        const node = state.nodes.get(id);
+        return node ? node.label : id;
+      })
+      .join(", ");
+    const signals = use.via.slice(0, 10).join(", ");
+    li.title = `${use.path}\nUses: ${labels}${signals ? `\nSignals: ${signals}` : ""}`;
+    container.appendChild(li);
+  }
+}
+
 function showDetail(node) {
   if (!node) return;
   const out = (node.outDeps || []).slice().sort();
   const inn = (node.inDeps || []).slice().sort();
   const outDecls = (node.outDecls || []).slice().sort();
   const inDecls = (node.inDecls || []).slice().sort();
+  const dUses = dUsageForNodes([node.id]);
   const filesStr = node.files && node.files.length ? node.files.join("  ") : (node.kind === "subdir" ? "(subdirectory)" : "");
   detailEl.innerHTML = `
     <div class="kicker"></div>
@@ -1243,8 +1300,13 @@ function showDetail(node) {
       <div class="metric"><strong>${inn.length}</strong><span>included by</span></div>
       <div class="metric"><strong>${outDecls.length}</strong><span>declares</span></div>
       <div class="metric"><strong>${inDecls.length}</strong><span>declared by</span></div>
+      <div class="metric"><strong>${dUses.length}</strong><span>D users</span></div>
     </div>
     <div class="deps">
+      <section>
+        <h3>D-layer users</h3>
+        <ul class="d-uses"></ul>
+      </section>
       <section>
         <h3>Includes</h3>
         <ul class="out"></ul>
@@ -1292,6 +1354,7 @@ function showDetail(node) {
   fillList(".outd", outDecls);
   fillList(".in", inn);
   fillList(".ind", inDecls);
+  fillDUseList(detailEl.querySelector(".d-uses"), [node.id]);
 }
 
 function fillNodeList(container, ids) {
@@ -1362,6 +1425,7 @@ function showSelectionDetail(ids, groupIds = []) {
   const inn = [...depSets.inn].sort();
   const outDecls = [...depSets.outDecls].sort();
   const inDecls = [...depSets.inDecls].sort();
+  const dUses = dUsageForNodes(selectedNodes);
   const itemCount = ids.length + groupIds.length;
   const heading = groupIds.length && ids.length
     ? `${itemCount} selected items`
@@ -1377,10 +1441,12 @@ function showSelectionDetail(ids, groupIds = []) {
       <div class="metric"><strong>${selectedNodes.length}</strong><span>source units</span></div>
       <div class="metric"><strong>${out.length}</strong><span>includes</span></div>
       <div class="metric"><strong>${inn.length}</strong><span>included by</span></div>
+      <div class="metric"><strong>${dUses.length}</strong><span>D users</span></div>
     </div>
     <div class="deps">
       <section><h3>Selected groups</h3><ul class="selected-groups"></ul></section>
       <section><h3>Selected boxes</h3><ul class="selected-list"></ul></section>
+      <section><h3>D-layer users</h3><ul class="d-uses"></ul></section>
       <section><h3>Includes</h3><ul class="out"></ul></section>
       <section><h3>Included by</h3><ul class="in"></ul></section>
       <section><h3>Forward-declares</h3><ul class="outd"></ul></section>
@@ -1389,6 +1455,7 @@ function showSelectionDetail(ids, groupIds = []) {
   `;
   fillGroupList(detailEl.querySelector(".selected-groups"), groupIds);
   fillNodeList(detailEl.querySelector(".selected-list"), selectedNodes);
+  fillDUseList(detailEl.querySelector(".d-uses"), selectedNodes);
   fillNodeList(detailEl.querySelector(".out"), out);
   fillNodeList(detailEl.querySelector(".in"), inn);
   fillNodeList(detailEl.querySelector(".outd"), outDecls);
@@ -1397,6 +1464,7 @@ function showSelectionDetail(ids, groupIds = []) {
 
 function showGroupDetail(group) {
   const summary = groupDependencySummary(group);
+  const dUses = dUsageForNodes(summary.members);
   detailEl.innerHTML = `
     <div class="kicker">${group.source === "auto" ? "Suggested group" : "Group"}</div>
     <h2></h2>
@@ -1407,8 +1475,10 @@ function showGroupDetail(group) {
       <div class="metric"><strong>${summary.outgoing.length}</strong><span>depends on</span></div>
       <div class="metric"><strong>${summary.incoming.length}</strong><span>used by</span></div>
       <div class="metric"><strong>${summary.internal}</strong><span>internal links</span></div>
+      <div class="metric"><strong>${dUses.length}</strong><span>D users</span></div>
     </div>
     <div class="deps">
+      <section><h3>D-layer users</h3><ul class="d-uses"></ul></section>
       <section><h3>Depends on</h3><ul class="out"></ul></section>
       <section><h3>Used by</h3><ul class="in"></ul></section>
       <section><h3>Members</h3><ul class="members"></ul></section>
@@ -1425,6 +1495,7 @@ function showGroupDetail(group) {
   detailEl.querySelector(".summary").textContent = group.source === "auto"
     ? `Suggested directory name for the ${clusterLabel(group.cluster)} cluster.`
     : "Manual planning group based on the boxes currently inside its boundary.";
+  fillDUseList(detailEl.querySelector(".d-uses"), summary.members);
   fillEndpointList(detailEl.querySelector(".out"), summary.outgoing);
   fillEndpointList(detailEl.querySelector(".in"), summary.incoming);
   fillNodeList(detailEl.querySelector(".members"), summary.members);
