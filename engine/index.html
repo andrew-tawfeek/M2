@@ -261,8 +261,8 @@
             <button id="btn-add-group" title="Create a named planning group">Add group</button>
             <button id="btn-focus-selected" title="Center the selected node" disabled>Center</button>
             <button id="btn-save" title="Save this layout in the browser">Save</button>
-            <button id="btn-export" title="Export this layout as JSON">Export</button>
-            <button id="btn-import" title="Import a layout JSON exported by this page">Import</button>
+            <button id="btn-export" title="Export standardized group membership JSON">Export</button>
+            <button id="btn-import" title="Import a membership JSON exported by this page">Import</button>
             <button id="btn-cluster" title="Re-run the inferred cluster layout">Auto-cluster</button>
             <button id="btn-mike-cluster" title="Apply Mike's proposed ring-oriented groups">Mike-Cluster</button>
             <button id="btn-reset" title="Reset saved node and group positions">Reset</button>
@@ -1931,8 +1931,8 @@ function placeNodeBlock(nodes, layout) {
   layout.rowHeight = Math.max(layout.rowHeight, blockH);
 }
 
-function applyMikeNodeLayout() {
-  const layout = {
+function defaultBlockLayout() {
+  return {
     startX: 72,
     x: 72,
     y: 82,
@@ -1943,13 +1943,20 @@ function applyMikeNodeLayout() {
     gapY: 118,
     targetW: 2400,
   };
+}
+
+function applyGroupedNodeLayout(groupDefs) {
+  const layout = defaultBlockLayout();
   const groupedIds = new Set();
-  const groupDefs = [];
-  for (const mikeGroup of MIKE_GROUPS) {
-    const ids = mikeGroupNodeIds(mikeGroup);
+  const normalizedDefs = [];
+  for (const def of groupDefs) {
+    const ids = [...new Set(def.ids || [])]
+      .filter((id) => state.nodes.has(id))
+      .sort((a, b) => a.localeCompare(b));
+    if (!ids.length) continue;
     for (const id of ids) groupedIds.add(id);
     placeNodeBlock(ids.map((id) => state.nodes.get(id)).filter(Boolean), layout);
-    groupDefs.push({ label: mikeGroup.label, ids });
+    normalizedDefs.push({ ...def, ids });
   }
 
   const ungroupedByCluster = new Map();
@@ -1961,7 +1968,16 @@ function applyMikeNodeLayout() {
   for (const cluster of [...ungroupedByCluster.keys()].sort((a, b) => clusterLabel(a).localeCompare(clusterLabel(b)))) {
     placeNodeBlock(ungroupedByCluster.get(cluster), layout);
   }
-  return groupDefs;
+  return normalizedDefs;
+}
+
+function applyMikeNodeLayout() {
+  const groupDefs = [];
+  for (const mikeGroup of MIKE_GROUPS) {
+    const ids = mikeGroupNodeIds(mikeGroup);
+    groupDefs.push({ label: mikeGroup.label, ids });
+  }
+  return applyGroupedNodeLayout(groupDefs);
 }
 
 function mikeCluster() {
@@ -2035,6 +2051,19 @@ function namedValue(value) {
   return typeof value === "string" && value.trim() ? value.trim() : "";
 }
 
+function sortedNodes() {
+  return [...state.nodes.values()].sort((a, b) => a.id.localeCompare(b.id));
+}
+
+function slugifyId(value, fallback = "group") {
+  const slug = String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return slug || fallback;
+}
+
 function nodePayload(node) {
   const originalName = node.originalLabel || node.id;
   const name = node.label || originalName;
@@ -2098,6 +2127,69 @@ function createLayoutPayload(opts = {}) {
   return payload;
 }
 
+function createMembershipExportPayload(opts = {}) {
+  const groupIndex = new Map();
+  const seenGroupIds = new Set();
+  const groups = [];
+  for (const group of state.groups) {
+    const members = nodesInGroup(group);
+    if (!members.length) continue;
+    const base = slugifyId(group.label, `group-${groups.length + 1}`);
+    let id = base;
+    let suffix = 2;
+    while (seenGroupIds.has(id)) id = `${base}-${suffix++}`;
+    seenGroupIds.add(id);
+    const exported = {
+      id,
+      name: group.label,
+      source: group.source || "manual",
+      members: [],
+      files: [],
+    };
+    groupIndex.set(String(group.id), exported);
+    groups.push(exported);
+  }
+
+  const boxes = [];
+  for (const node of sortedNodes()) {
+    const originalName = node.originalLabel || node.id;
+    const name = node.label || originalName;
+    const group = groupForNode(node.id);
+    const exportedGroup = group ? groupIndex.get(String(group.id)) : null;
+    const files = [...(node.files || [])].sort();
+    boxes.push({
+      id: node.id,
+      name,
+      label: name,
+      originalName,
+      originalLabel: originalName,
+      renamed: name !== originalName,
+      files,
+      group: exportedGroup ? exportedGroup.id : "ungrouped",
+      groupName: exportedGroup ? exportedGroup.name : null,
+    });
+    if (exportedGroup) {
+      exportedGroup.members.push(node.id);
+      exportedGroup.files.push(...files);
+    }
+  }
+
+  for (const group of groups) {
+    group.members = [...new Set(group.members)].sort((a, b) => a.localeCompare(b));
+    group.files = [...new Set(group.files)].sort((a, b) => a.localeCompare(b));
+  }
+
+  const payload = {
+    format: "m2-engine-groups",
+    version: 1,
+    root: "M2/Macaulay2/e",
+    groups,
+    boxes,
+  };
+  if (opts.exportedAt) payload.exportedAt = new Date().toISOString();
+  return payload;
+}
+
 function saveLayout(payload = createLayoutPayload()) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(payload)); } catch (_) {}
 }
@@ -2156,6 +2248,108 @@ function importedGroupPayload(gd) {
     h: Math.max(30, finiteNumber(gd.h, 90)),
     el: null,
   };
+}
+
+function isMembershipPayload(payload) {
+  return payload && (payload.format === "m2-engine-groups" || Array.isArray(payload.boxes));
+}
+
+function memberIdValue(member) {
+  if (typeof member === "string") return namedValue(member);
+  if (member && typeof member === "object") return namedValue(member.id);
+  return "";
+}
+
+function membershipBoxes(payload) {
+  if (Array.isArray(payload.boxes)) return payload.boxes;
+  if (payload.nodes && typeof payload.nodes === "object" && !Array.isArray(payload.nodes)) {
+    return Object.entries(payload.nodes).map(([id, value]) => ({ id, ...(value || {}) }));
+  }
+  return [];
+}
+
+function membershipGroupKey(value) {
+  const raw = namedValue(value);
+  if (!raw || raw.toLowerCase() === "ungrouped") return null;
+  return raw;
+}
+
+function membershipGroupDefs(payload, boxes) {
+  const groupsByKey = new Map();
+  const boxesDeclareGroups = boxes.some((box) => (
+    membershipGroupKey(box.groupId) || membershipGroupKey(box.group) || membershipGroupKey(box.groupName)
+  ));
+  const ensureGroup = (key, label = key) => {
+    if (!key) return null;
+    if (!groupsByKey.has(key)) groupsByKey.set(key, { key, label: label || key, ids: new Set() });
+    return groupsByKey.get(key);
+  };
+
+  for (const gd of payload.groups || []) {
+    const key = namedValue(gd.id) || slugifyId(namedValue(gd.name) || namedValue(gd.label), `group-${groupsByKey.size + 1}`);
+    const label = namedValue(gd.name) || namedValue(gd.label) || key;
+    const group = ensureGroup(key, label);
+    if (boxesDeclareGroups) continue;
+    for (const member of gd.members || []) {
+      const id = memberIdValue(member);
+      if (state.nodes.has(id)) group.ids.add(id);
+    }
+  }
+
+  for (const box of boxes) {
+    const id = namedValue(box.id) || nodeIdForFileName((box.files || [])[0] || "");
+    if (!id || !state.nodes.has(id)) continue;
+    const key = membershipGroupKey(box.groupId) || membershipGroupKey(box.group) || membershipGroupKey(box.groupName);
+    if (!key) continue;
+    const label = namedValue(box.groupName) || key;
+    ensureGroup(key, label).ids.add(id);
+  }
+
+  return [...groupsByKey.values()].map((group) => ({
+    label: group.label,
+    ids: [...group.ids],
+  }));
+}
+
+function applyMembershipPayload(payload, opts = {}) {
+  if (state.pendingGroup) cancelAddGroup();
+  state.selectedIds.clear();
+  clearGroupDom();
+  state.scale = 1;
+  state.panX = 0;
+  state.panY = 0;
+  state.autoGroupLabels = {};
+  state.hiddenAutoClusters = new Set();
+  state.autoGroupsEnabled = false;
+
+  const boxes = membershipBoxes(payload);
+  for (const node of state.nodes.values()) node.label = node.originalLabel || node.id;
+  for (const box of boxes) {
+    const id = namedValue(box.id) || nodeIdForFileName((box.files || [])[0] || "");
+    const node = state.nodes.get(id);
+    if (!node) continue;
+    const savedName = namedValue(box.name) || namedValue(box.label);
+    node.label = savedName || node.originalLabel || node.id;
+  }
+
+  const groupDefs = applyGroupedNodeLayout(membershipGroupDefs(payload, boxes));
+  updateNodeDom();
+  for (const def of groupDefs) {
+    const bounds = boundsForNodeIds(def.ids);
+    if (!bounds) continue;
+    const group = {
+      id: state.groupNextId++,
+      label: def.label,
+      source: "manual",
+      cluster: null,
+      ...bounds,
+      el: null,
+    };
+    state.groups.push(group);
+    makeGroup(group);
+  }
+  if (opts.persist !== false) saveLayout();
+  finishLayoutChange({ fit: opts.fit !== false });
 }
 
 function applyLayoutPayload(payload, opts = {}) {
@@ -2280,22 +2474,27 @@ searchEl.addEventListener("input", (e) => {
 
 // ---------- export ----------
 function exportLayout() {
-  const payload = createLayoutPayload({
-    includeAutoGroups: true,
-    includeGroupMembers: true,
-    exportedAt: true,
-  });
+  const payload = createMembershipExportPayload({ exportedAt: true });
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url; a.download = "engine-layout.json"; a.click();
+  a.href = url; a.download = "engine-groups.json"; a.click();
   URL.revokeObjectURL(url);
-  statusEl.textContent = `exported ${payload.groups.length} groups`;
+  statusEl.textContent = `exported ${payload.groups.length} groups / ${payload.boxes.length} boxes`;
 }
 
 function validateImportedLayout(payload) {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
     throw new Error("Import JSON must be an object.");
+  }
+  if (isMembershipPayload(payload)) {
+    if (!Array.isArray(payload.boxes) && (!payload.nodes || typeof payload.nodes !== "object" || Array.isArray(payload.nodes))) {
+      throw new Error("Membership JSON needs a boxes array or nodes map.");
+    }
+    if (payload.groups !== undefined && !Array.isArray(payload.groups)) {
+      throw new Error("Import JSON has an invalid groups list.");
+    }
+    return payload;
   }
   if (!payload.nodes || typeof payload.nodes !== "object" || Array.isArray(payload.nodes)) {
     throw new Error("Import JSON is missing its nodes map.");
@@ -2313,9 +2512,14 @@ function importLayoutFile(file) {
     try {
       const payload = validateImportedLayout(JSON.parse(reader.result));
       const snapshot = createLayoutPayload({ includeAutoGroups: true, includeGroupMembers: true });
-      const hasSavedView = Number.isFinite(payload.scale) && Number.isFinite(payload.panX) && Number.isFinite(payload.panY);
-      applyLayoutPayload(payload, { persist: true, fit: !hasSavedView });
-      statusEl.textContent = `imported ${(payload.groups || []).length} groups`;
+      if (isMembershipPayload(payload)) {
+        applyMembershipPayload(payload, { persist: true, fit: true });
+        statusEl.textContent = `imported ${(payload.groups || []).length} groups / ${membershipBoxes(payload).length} boxes`;
+      } else {
+        const hasSavedView = Number.isFinite(payload.scale) && Number.isFinite(payload.panX) && Number.isFinite(payload.panY);
+        applyLayoutPayload(payload, { persist: true, fit: !hasSavedView });
+        statusEl.textContent = `imported ${(payload.groups || []).length} groups`;
+      }
       showUndoNotice("Imported layout", () => restoreUndoSnapshot(snapshot));
     } catch (err) {
       statusEl.textContent = "import failed";
