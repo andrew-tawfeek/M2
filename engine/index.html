@@ -264,6 +264,7 @@
             <button id="btn-export" title="Export this layout as JSON">Export</button>
             <button id="btn-import" title="Import a layout JSON exported by this page">Import</button>
             <button id="btn-cluster" title="Re-run the inferred cluster layout">Auto-cluster</button>
+            <button id="btn-mike-cluster" title="Apply Mike's proposed ring-oriented groups">Mike-Cluster</button>
             <button id="btn-reset" title="Reset saved node and group positions">Reset</button>
           </div>
           <input type="file" id="import-file" accept="application/json,.json">
@@ -400,6 +401,42 @@ const CLUSTER_DIR_NAMES = {
   "schur": "schur/",
   "ZZ_subdir": "existing-subdirs/",
 };
+
+const MIKE_GROUPS = [
+  {
+    label: "CoefficientRings",
+    files: [
+      "aring-glue.hpp", "aring-translate.hpp", "aring-wrap.cpp", "aring-wrap.hpp",
+      "aring-CC.cpp", "aring-CC.hpp", "aring-CCC.cpp", "aring-CCC.hpp",
+      "aring-CCi.cpp", "aring-CCi.hpp", "aring-gf-flint-big.cpp", "aring-gf-flint-big.hpp",
+      "aring-gf-flint.cpp", "aring-gf-flint.hpp", "aring-m2-gf.cpp", "aring-m2-gf.hpp",
+      "aring-qq-flint.cpp", "aring-qq-flint.hpp", "aring-qq-gmp.cpp", "aring-qq-gmp.hpp",
+      "aring-qq.hpp", "aring-RR.cpp", "aring-RR.hpp", "aring-RRi.cpp", "aring-RRi.hpp",
+      "aring-RRR.cpp", "aring-RRR.hpp", "aring-tower.cpp", "aring-tower.hpp",
+      "aring-zz-flint.cpp", "aring-zz-flint.hpp", "aring-zz-gmp.cpp", "aring-zz-gmp.hpp",
+      "aring-zzp-ffpack.cpp", "aring-zzp-ffpack.hpp", "aring-zzp-flint.cpp",
+      "aring-zzp-flint.hpp", "aring-zzp.cpp", "aring-zzp.hpp", "aring.cpp", "aring.hpp",
+    ],
+  },
+  {
+    label: "Rings",
+    files: [
+      "frac.cpp", "frac.hpp", "GF.cpp", "GF.hpp", "localring.cpp", "localring.hpp",
+      "poly.cpp", "poly.hpp", "polyquotient.cpp", "polyquotient.hpp", "polyring.cpp",
+      "polyring.hpp", "qring.cpp", "qring.hpp", "ring-vecs.cpp", "ring.cpp",
+      "ring.hpp", "ringelem.cpp", "ringelem.hpp", "skew.cpp", "skew.hpp", "skewpoly.cpp",
+      "skewpoly.hpp", "solvable.cpp", "solvable.hpp", "tower.cpp", "tower.hpp",
+      "weylalg.cpp", "weylalg.hpp", "ZZ.cpp", "ZZ.hpp", "ZZp.cpp", "ZZp.hpp",
+    ],
+  },
+  {
+    label: "Schur Rings",
+    files: [
+      "schur-poly-heap.hpp", "schur.cpp", "schur.hpp", "schur2.cpp", "schur2.hpp",
+      "schurSn.cpp", "schurSn.hpp",
+    ],
+  },
+];
 
 // --- arrow marker definitions ---
 svg.innerHTML = `
@@ -1771,24 +1808,30 @@ function applyGroupPosition(g, el = g.el) {
   el.style.height = g.h + "px";
 }
 
-function clusterBounds(cluster) {
-  const nodes = [...state.nodes.values()].filter((node) => node.cluster === cluster);
-  if (!nodes.length) return null;
+function boundsForNodeIds(nodeIds, padX = 24, padY = 30) {
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-  for (const node of nodes) {
+  for (const id of nodeIds) {
+    const node = state.nodes.get(id);
+    if (!node) continue;
     minX = Math.min(minX, node.x);
     minY = Math.min(minY, node.y);
     maxX = Math.max(maxX, node.x + node.w);
     maxY = Math.max(maxY, node.y + node.h);
   }
-  const padX = 24;
-  const padY = 30;
+  if (!Number.isFinite(minX)) return null;
   return {
     x: minX - padX,
     y: minY - padY,
     w: maxX - minX + padX * 2,
     h: maxY - minY + padY * 2,
   };
+}
+
+function clusterBounds(cluster) {
+  const ids = [...state.nodes.values()]
+    .filter((node) => node.cluster === cluster)
+    .map((node) => node.id);
+  return boundsForNodeIds(ids);
 }
 
 function syncAutoGroups(opts = {}) {
@@ -1828,6 +1871,109 @@ function positionAutoGroups(opts = {}) {
     applyGroupPosition(group);
   }
   renderAggregateEdges();
+}
+
+function nodeIdForFileName(fileName) {
+  const stem = fileName.replace(/\.[^.]+$/, "");
+  if (state.nodes.has(stem)) return stem;
+  for (const node of state.nodes.values()) {
+    if ((node.files || []).includes(fileName)) return node.id;
+  }
+  return null;
+}
+
+function mikeGroupNodeIds(group) {
+  const ids = new Set();
+  for (const fileName of group.files) {
+    const id = nodeIdForFileName(fileName);
+    if (id) ids.add(id);
+  }
+  return [...ids].sort((a, b) => a.localeCompare(b));
+}
+
+function placeNodeBlock(nodes, layout) {
+  const arr = nodes.slice().sort((a, b) => a.id.localeCompare(b.id));
+  if (!arr.length) return;
+  const cols = Math.max(1, Math.min(6, Math.ceil(Math.sqrt(arr.length * 1.45))));
+  const rows = Math.ceil(arr.length / cols);
+  const blockW = cols * layout.colW;
+  const blockH = rows * layout.rowH;
+  if (layout.x > layout.startX && layout.x + blockW > layout.targetW) {
+    layout.x = layout.startX;
+    layout.y += layout.rowHeight + layout.gapY;
+    layout.rowHeight = 0;
+  }
+  for (let i = 0; i < arr.length; i++) {
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+    arr[i].x = layout.x + col * layout.colW;
+    arr[i].y = layout.y + row * layout.rowH;
+  }
+  layout.x += blockW + layout.gapX;
+  layout.rowHeight = Math.max(layout.rowHeight, blockH);
+}
+
+function applyMikeNodeLayout() {
+  const layout = {
+    startX: 72,
+    x: 72,
+    y: 82,
+    rowHeight: 0,
+    colW: NODE_W + 34,
+    rowH: NODE_H_DEFAULT + 48,
+    gapX: 120,
+    gapY: 118,
+    targetW: 2400,
+  };
+  const groupedIds = new Set();
+  const groupDefs = [];
+  for (const mikeGroup of MIKE_GROUPS) {
+    const ids = mikeGroupNodeIds(mikeGroup);
+    for (const id of ids) groupedIds.add(id);
+    placeNodeBlock(ids.map((id) => state.nodes.get(id)).filter(Boolean), layout);
+    groupDefs.push({ label: mikeGroup.label, ids });
+  }
+
+  const ungroupedByCluster = new Map();
+  for (const node of state.nodes.values()) {
+    if (groupedIds.has(node.id)) continue;
+    if (!ungroupedByCluster.has(node.cluster)) ungroupedByCluster.set(node.cluster, []);
+    ungroupedByCluster.get(node.cluster).push(node);
+  }
+  for (const cluster of [...ungroupedByCluster.keys()].sort((a, b) => clusterLabel(a).localeCompare(clusterLabel(b)))) {
+    placeNodeBlock(ungroupedByCluster.get(cluster), layout);
+  }
+  return groupDefs;
+}
+
+function mikeCluster() {
+  const snapshot = createLayoutPayload();
+  if (state.pendingGroup) cancelAddGroup();
+  state.selectedIds.clear();
+  clearGroupDom();
+  state.autoGroupLabels = {};
+  state.hiddenAutoClusters = new Set();
+  state.autoGroupsEnabled = false;
+  const groupDefs = applyMikeNodeLayout();
+  updateNodeDom();
+  for (const def of groupDefs) {
+    const bounds = boundsForNodeIds(def.ids);
+    if (!bounds) continue;
+    const group = {
+      id: state.groupNextId++,
+      label: def.label,
+      source: "manual",
+      cluster: null,
+      ...bounds,
+      el: null,
+    };
+    state.groups.push(group);
+    makeGroup(group);
+  }
+  finishLayoutChange({ fit: true });
+  saveLayout();
+  statusEl.textContent = `Mike-cluster applied (${state.groups.length} groups)`;
+  showUndoNotice("Mike-cluster applied", () => restoreUndoSnapshot(snapshot));
 }
 
 function startAddGroup() {
@@ -2207,6 +2353,7 @@ document.getElementById("btn-import").addEventListener("click", () => {
 });
 importFileEl.addEventListener("change", () => importLayoutFile(importFileEl.files[0]));
 document.getElementById("btn-cluster").addEventListener("click", autoCluster);
+document.getElementById("btn-mike-cluster").addEventListener("click", mikeCluster);
 undoActionEl.addEventListener("click", performUndo);
 undoDismissEl.addEventListener("click", clearUndoNotice);
 focusSelectedBtn.addEventListener("click", () => {
