@@ -190,6 +190,29 @@
   #group-add-bar.show { display: block; }
   #group-add-bar button { margin-left: 8px; background: transparent; color: var(--ink-dim); border: 1px solid var(--border); border-radius: 6px; padding: 2px 7px; font: inherit; cursor: pointer; }
 
+  #undo-toast {
+    position: absolute; right: 16px; bottom: 16px; z-index: 8;
+    display: grid; grid-template-columns: minmax(0, 1fr) 30px; gap: 8px; align-items: center;
+    min-width: 260px; max-width: min(360px, calc(100vw - 32px));
+    background: rgba(255,252,244,0.98); border: 1px solid var(--border-strong); border-radius: 8px;
+    box-shadow: var(--shadow); padding: 9px;
+  }
+  #undo-toast[hidden] { display: none; }
+  #undo-action {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center;
+    min-height: 38px; padding: 6px 8px; text-align: left; background: transparent; border: 0; border-radius: 6px; cursor: pointer;
+  }
+  #undo-action:hover { background: rgba(23,108,101,0.08); }
+  #undo-message { display: block; color: var(--ink); font-weight: 760; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #undo-meta { color: var(--accent); font-weight: 800; white-space: nowrap; }
+  #undo-dismiss {
+    width: 30px; height: 30px; padding: 0; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--panel-2); color: var(--ink-dim); cursor: pointer; font-size: 17px; line-height: 1;
+  }
+  #undo-dismiss:hover { color: var(--ink); border-color: var(--border-strong); }
+  .undo-progress { grid-column: 1 / -1; height: 3px; background: rgba(23,108,101,0.13); border-radius: 999px; overflow: hidden; }
+  #undo-progress-bar { display: block; width: 100%; height: 100%; background: var(--accent); transform-origin: left center; }
+
   @media (max-width: 760px) {
     #app { grid-template-columns: 1fr; grid-template-rows: minmax(320px, 44vh) 1fr; }
     #sidebar { grid-row: 2; border-right: 0; border-top: 1px solid var(--border); }
@@ -256,6 +279,14 @@
     <div id="status">—</div>
     <div id="hint">Click on canvas to place group, or press Esc to cancel.</div>
     <div id="group-add-bar">Place a group with two canvas clicks. <button id="cancel-group">cancel</button></div>
+    <div id="undo-toast" hidden>
+      <button id="undo-action" type="button" title="Undo last change">
+        <span id="undo-message">Layout changed</span>
+        <span id="undo-meta">Undo · <span id="undo-timer">30s</span></span>
+      </button>
+      <button id="undo-dismiss" type="button" aria-label="Dismiss undo">×</button>
+      <div class="undo-progress"><span id="undo-progress-bar"></span></div>
+    </div>
   </div>
 </div>
 
@@ -264,6 +295,7 @@
 "use strict";
 
 const STORAGE_KEY = "m2-engine-layout-v4";
+const UNDO_WINDOW_MS = 30000;
 const NODE_W = 180;
 const NODE_H_DEFAULT = 56;
 
@@ -300,6 +332,12 @@ const clusterListEl = document.getElementById("cluster-list");
 const statsEl = document.getElementById("dataset-stats");
 const focusSelectedBtn = document.getElementById("btn-focus-selected");
 const toggleDeclsEl = document.getElementById("toggle-decls");
+const undoToastEl = document.getElementById("undo-toast");
+const undoActionEl = document.getElementById("undo-action");
+const undoMessageEl = document.getElementById("undo-message");
+const undoTimerEl = document.getElementById("undo-timer");
+const undoProgressEl = document.getElementById("undo-progress-bar");
+const undoDismissEl = document.getElementById("undo-dismiss");
 
 const CLUSTER_LABELS = {
   "_misc": "Misc",
@@ -875,15 +913,56 @@ function renameGroup(group, value) {
   refreshSelection();
 }
 
+let undoNotice = null;
+
+function clearUndoNotice() {
+  if (undoNotice) {
+    clearTimeout(undoNotice.timeoutId);
+    clearInterval(undoNotice.intervalId);
+  }
+  undoNotice = null;
+  undoToastEl.hidden = true;
+}
+
+function updateUndoNotice() {
+  if (!undoNotice) return;
+  const remainingMs = Math.max(0, undoNotice.expiresAt - Date.now());
+  const remainingSeconds = Math.ceil(remainingMs / 1000);
+  undoTimerEl.textContent = `${remainingSeconds}s`;
+  undoProgressEl.style.transform = `scaleX(${remainingMs / UNDO_WINDOW_MS})`;
+  if (remainingMs <= 0) clearUndoNotice();
+}
+
+function showUndoNotice(message, undoFn) {
+  clearUndoNotice();
+  undoNotice = {
+    undoFn,
+    expiresAt: Date.now() + UNDO_WINDOW_MS,
+    timeoutId: setTimeout(clearUndoNotice, UNDO_WINDOW_MS),
+    intervalId: setInterval(updateUndoNotice, 250),
+  };
+  undoMessageEl.textContent = message;
+  undoToastEl.hidden = false;
+  updateUndoNotice();
+}
+
+function performUndo() {
+  if (!undoNotice) return;
+  const undoFn = undoNotice.undoFn;
+  clearUndoNotice();
+  undoFn();
+  statusEl.textContent = "undone";
+}
+
+function restoreUndoSnapshot(snapshot) {
+  applyLayoutPayload(snapshot, { persist: true });
+}
+
 function removeGroups(groupIds, opts = {}) {
   const ids = new Set(groupIds.map((id) => String(id)));
   const groups = state.groups.filter((group) => ids.has(String(group.id)));
   if (!groups.length) return false;
-
-  if (opts.confirm) {
-    const label = groups.length === 1 ? `"${groups[0].label}"` : `${groups.length} groups`;
-    if (!confirm(`Delete group ${label}?`)) return false;
-  }
+  const snapshot = opts.snapshot || createLayoutPayload();
 
   state.groups = state.groups.filter((group) => {
     const removing = ids.has(String(group.id));
@@ -896,7 +975,9 @@ function removeGroups(groupIds, opts = {}) {
 
   saveLayout();
   refreshSelection();
+  const message = groups.length === 1 ? `Removed ${groups[0].label}` : `Removed ${groups.length} groups`;
   statusEl.textContent = groups.length === 1 ? "group removed" : `${groups.length} groups removed`;
+  showUndoNotice(message, () => restoreUndoSnapshot(snapshot));
   return true;
 }
 
@@ -1565,7 +1646,7 @@ function makeGroup(g) {
   // delete
   el.querySelector(".handle.del").addEventListener("click", (e) => {
     e.stopPropagation();
-    removeGroups([g.id], { confirm: true });
+    removeGroups([g.id]);
   });
 
   return el;
@@ -1669,7 +1750,7 @@ function handleGroupClick(e) {
 }
 
 // ---------- persistence ----------
-function saveLayout() {
+function createLayoutPayload() {
   const payload = {
     scale: state.scale, panX: state.panX, panY: state.panY,
     nodes: {}, groups: [], autoGroupLabels: {},
@@ -1684,8 +1765,119 @@ function saveLayout() {
     }
     payload.groups.push({ label: g.label, source: g.source || "manual", x: g.x, y: g.y, w: g.w, h: g.h });
   }
+  return payload;
+}
+
+function saveLayout(payload = createLayoutPayload()) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(payload)); } catch (_) {}
 }
+
+function clearGroupDom() {
+  clearAggregateEdges();
+  for (const group of state.groups) {
+    if (group.el) group.el.remove();
+  }
+  state.groups = [];
+  state.groupNextId = 1;
+  state.selectedGroupIds.clear();
+}
+
+function updateNodeDom() {
+  for (const node of state.nodes.values()) {
+    updateNodeLabel(node);
+    if (!node.el) continue;
+    node.el.style.left = node.x + "px";
+    node.el.style.top = node.y + "px";
+  }
+}
+
+function finishLayoutChange(opts = {}) {
+  applyTransform();
+  requestAnimationFrame(() => {
+    for (const node of state.nodes.values()) {
+      node.h = node.el.offsetHeight;
+    }
+    positionAutoGroups();
+    renderEdges();
+    updateFilterVisibility();
+    refreshSelection();
+    if (opts.fit) fitView();
+  });
+}
+
+function applyLayoutPayload(payload, opts = {}) {
+  if (state.pendingGroup) cancelAddGroup();
+  state.selectedIds.clear();
+  clearGroupDom();
+  state.scale = Number.isFinite(payload.scale) ? payload.scale : 1;
+  state.panX = Number.isFinite(payload.panX) ? payload.panX : 0;
+  state.panY = Number.isFinite(payload.panY) ? payload.panY : 0;
+  state.autoGroupLabels = payload.autoGroupLabels || {};
+  state.hiddenAutoClusters = new Set(Array.isArray(payload.hiddenAutoClusters) ? payload.hiddenAutoClusters : []);
+  state.autoGroupsEnabled = payload.autoGroupsEnabled === true;
+
+  for (const node of state.nodes.values()) {
+    const saved = payload.nodes ? payload.nodes[node.id] : null;
+    if (!saved) continue;
+    node.x = Number.isFinite(saved.x) ? saved.x : node.x;
+    node.y = Number.isFinite(saved.y) ? saved.y : node.y;
+    node.label = typeof saved.label === "string" && saved.label.trim()
+      ? saved.label.trim()
+      : node.originalLabel || node.id;
+  }
+  updateNodeDom();
+
+  if (payload.groups) {
+    for (const gd of payload.groups) {
+      const g = {
+        id: state.groupNextId++,
+        label: gd.label,
+        source: gd.source || "manual",
+        cluster: gd.cluster || null,
+        x: gd.x, y: gd.y, w: gd.w, h: gd.h,
+        el: null,
+      };
+      state.groups.push(g);
+      if (g.source === "auto") state.autoGroupsEnabled = true;
+      makeGroup(g);
+    }
+  }
+  if (state.autoGroupsEnabled) syncAutoGroups();
+  if (opts.persist !== false) saveLayout();
+  finishLayoutChange({ fit: Boolean(opts.fit) });
+}
+
+function resetUiControls() {
+  state.activeCluster = "all";
+  state.searchQuery = "";
+  state.edgeMode = "selection";
+  state.showDecls = true;
+  searchEl.value = "";
+  toggleDeclsEl.checked = true;
+  renderClusterFilters();
+  updateEdgeButtons();
+}
+
+function applyDefaultLayout() {
+  if (state.pendingGroup) cancelAddGroup();
+  state.selectedIds.clear();
+  clearGroupDom();
+  state.autoGroupLabels = {};
+  state.hiddenAutoClusters = new Set();
+  state.autoGroupsEnabled = false;
+  state.scale = 1;
+  state.panX = 0;
+  state.panY = 0;
+  for (const node of state.nodes.values()) {
+    node.label = node.originalLabel || node.id;
+  }
+  initialLayout();
+  updateNodeDom();
+  resetUiControls();
+  localStorage.removeItem(STORAGE_KEY);
+  finishLayoutChange({ fit: true });
+}
+
 function loadLayout() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -1718,9 +1910,10 @@ function loadLayout() {
 }
 
 function resetLayout() {
-  if (!confirm("Reset layout to default? This clears your groups and node positions.")) return;
-  localStorage.removeItem(STORAGE_KEY);
-  location.reload();
+  const snapshot = createLayoutPayload();
+  applyDefaultLayout();
+  statusEl.textContent = "layout reset";
+  showUndoNotice("Reset layout", () => restoreUndoSnapshot(snapshot));
 }
 
 // ---------- search ----------
@@ -1745,7 +1938,7 @@ function exportLayout() {
 
 // ---------- auto-cluster (re-run initial layout) ----------
 function autoCluster() {
-  if (!confirm("Re-layout nodes by inferred topic cluster? This moves all nodes and refreshes suggested groups.")) return;
+  const snapshot = createLayoutPayload();
   initialLayout();
   state.autoGroupsEnabled = true;
   state.hiddenAutoClusters.clear();
@@ -1759,6 +1952,7 @@ function autoCluster() {
   updateFilterVisibility();
   fitActiveView();
   saveLayout();
+  showUndoNotice("Auto-cluster applied", () => restoreUndoSnapshot(snapshot));
 }
 
 // ---------- boot ----------
@@ -1778,6 +1972,8 @@ document.getElementById("btn-save").addEventListener("click", () => { saveLayout
 document.getElementById("btn-reset").addEventListener("click", resetLayout);
 document.getElementById("btn-export").addEventListener("click", exportLayout);
 document.getElementById("btn-cluster").addEventListener("click", autoCluster);
+undoActionEl.addEventListener("click", performUndo);
+undoDismissEl.addEventListener("click", clearUndoNotice);
 focusSelectedBtn.addEventListener("click", () => {
   if (state.selectedGroupIds.size === 1 && state.selectedIds.size === 0) {
     const group = getGroup([...state.selectedGroupIds][0]);
