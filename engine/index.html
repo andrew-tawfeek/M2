@@ -326,6 +326,7 @@ const state = {
   groupNextId: 1,
   pendingGroup: null,   // null | { stage: 0|1, x0, y0 }
   suppressNextCanvasClick: false,
+  suppressClickTimer: null,
 };
 
 const world = document.getElementById("world");
@@ -584,8 +585,7 @@ function renderNodes() {
     el.addEventListener("click", (e) => {
       e.stopPropagation();
       if (el.dataset.suppressClick === "1") {
-        el.dataset.suppressClick = "";
-        state.suppressNextCanvasClick = false;
+        clearCanvasClickSuppression(el);
         return;
       }
       selectNode(node.id, { additive: e.shiftKey });
@@ -664,9 +664,20 @@ function updateEdgesForNode(nodeId) {
   }
 }
 
+function clearCanvasClickSuppression(el = null) {
+  state.suppressNextCanvasClick = false;
+  if (state.suppressClickTimer) {
+    clearTimeout(state.suppressClickTimer);
+    state.suppressClickTimer = null;
+  }
+  if (el) el.dataset.suppressClick = "";
+}
+
 function suppressCanvasClickOnce(el = null) {
+  clearCanvasClickSuppression(el);
   state.suppressNextCanvasClick = true;
   if (el) el.dataset.suppressClick = "1";
+  state.suppressClickTimer = setTimeout(() => clearCanvasClickSuppression(el), 250);
 }
 
 // ---------- dragging nodes ----------
@@ -1550,7 +1561,7 @@ function applyTransform() {
   world.style.transform = `translate(${state.panX}px, ${state.panY}px) scale(${state.scale})`;
 }
 
-let isPanning = false, panStartX, panStartY, panOrigX, panOrigY, panBySpace = false;
+let isPanning = false, panStartX, panStartY, panOrigX, panOrigY, panBySpace = false, panMoved = false, panButton = 0;
 
 canvasWrap.addEventListener("mousedown", collapseToolPanel, true);
 canvasWrap.addEventListener("touchstart", collapseToolPanel, true);
@@ -1568,6 +1579,8 @@ canvasWrap.addEventListener("mousedown", (e) => {
   if (state.pendingGroup) return;
   if (e.button === 1 || (e.button === 0 && (e.target === canvasWrap || e.target === world || e.target.id === "canvas")) || (e.button === 0 && panBySpace)) {
     isPanning = true;
+    panMoved = false;
+    panButton = e.button;
     panStartX = e.clientX; panStartY = e.clientY;
     panOrigX = state.panX; panOrigY = state.panY;
     e.preventDefault();
@@ -1575,11 +1588,17 @@ canvasWrap.addEventListener("mousedown", (e) => {
 });
 window.addEventListener("mousemove", (e) => {
   if (!isPanning) return;
-  state.panX = panOrigX + (e.clientX - panStartX);
-  state.panY = panOrigY + (e.clientY - panStartY);
+  const dx = e.clientX - panStartX;
+  const dy = e.clientY - panStartY;
+  if (Math.abs(dx) + Math.abs(dy) > 2) panMoved = true;
+  state.panX = panOrigX + dx;
+  state.panY = panOrigY + dy;
   applyTransform();
 });
-window.addEventListener("mouseup", () => { isPanning = false; });
+window.addEventListener("mouseup", () => {
+  if (isPanning && panMoved && panButton === 0) suppressCanvasClickOnce();
+  isPanning = false;
+});
 
 canvasWrap.addEventListener("wheel", (e) => {
   e.preventDefault();
@@ -1621,7 +1640,7 @@ window.addEventListener("keyup", (e) => {
 canvasWrap.addEventListener("click", (e) => {
   if (state.pendingGroup) return;
   if (state.suppressNextCanvasClick) {
-    state.suppressNextCanvasClick = false;
+    clearCanvasClickSuppression();
     e.stopPropagation();
     return;
   }
@@ -1706,8 +1725,7 @@ function makeGroup(g) {
     if (e.target.classList.contains("handle")) return;
     e.stopPropagation();
     if (el.dataset.suppressClick === "1") {
-      el.dataset.suppressClick = "";
-      state.suppressNextCanvasClick = false;
+      clearCanvasClickSuppression(el);
       return;
     }
     selectGroup(g.id, { additive: e.shiftKey });
