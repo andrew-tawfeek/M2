@@ -53,6 +53,7 @@
   .field-label { display: block; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
   #sidebar .controls input[type=search] { width: 100%; padding: 9px 10px; border: 1px solid var(--border); background: var(--panel-2); color: var(--ink); border-radius: 7px; font: inherit; outline: none; box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); }
   #sidebar .controls input[type=search]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  #import-file { display: none; }
   .search-meta { color: var(--muted); font-size: 11px; min-height: 16px; margin-top: 5px; }
   button { font: inherit; color: var(--ink); }
   #sidebar .controls button,
@@ -256,9 +257,11 @@
         <button id="btn-focus-selected" title="Center the selected node" disabled>Center</button>
         <button id="btn-save" title="Save this layout in the browser">Save</button>
         <button id="btn-export" title="Export this layout as JSON">Export</button>
+        <button id="btn-import" title="Import a layout JSON exported by this page">Import</button>
         <button id="btn-cluster" title="Re-run the inferred cluster layout">Auto-cluster</button>
         <button id="btn-reset" title="Reset saved node and group positions">Reset</button>
       </div>
+      <input type="file" id="import-file" accept="application/json,.json">
     </div>
     <div class="cluster-panel">
       <div class="section-label">Clusters</div>
@@ -332,6 +335,7 @@ const clusterListEl = document.getElementById("cluster-list");
 const statsEl = document.getElementById("dataset-stats");
 const focusSelectedBtn = document.getElementById("btn-focus-selected");
 const toggleDeclsEl = document.getElementById("toggle-decls");
+const importFileEl = document.getElementById("import-file");
 const undoToastEl = document.getElementById("undo-toast");
 const undoActionEl = document.getElementById("undo-action");
 const undoMessageEl = document.getElementById("undo-message");
@@ -1680,8 +1684,9 @@ function clusterBounds(cluster) {
   };
 }
 
-function syncAutoGroups() {
+function syncAutoGroups(opts = {}) {
   const clusters = new Set([...state.nodes.values()].map((node) => node.cluster));
+  const createdGroupIds = [];
   for (const cluster of clusters) {
     if (state.hiddenAutoClusters.has(cluster)) continue;
     const id = `auto:${cluster}`;
@@ -1697,14 +1702,19 @@ function syncAutoGroups() {
       };
       state.groups.push(group);
       makeGroup(group);
+      createdGroupIds.push(String(group.id));
     }
   }
-  positionAutoGroups();
+  positionAutoGroups({ force: Boolean(opts.reframe), groupIds: opts.reframe ? null : createdGroupIds });
 }
 
-function positionAutoGroups() {
+function positionAutoGroups(opts = {}) {
+  const groupIds = opts.groupIds ? new Set(opts.groupIds.map((id) => String(id))) : null;
   for (const group of state.groups) {
     if (group.source !== "auto") continue;
+    if (groupIds && !groupIds.has(String(group.id))) continue;
+    // Suggested groups should not chase boxes after users start curating them.
+    if (!opts.force && group.w > 0 && group.h > 0) continue;
     const bounds = clusterBounds(group.cluster);
     if (!bounds) continue;
     Object.assign(group, bounds);
@@ -1750,20 +1760,69 @@ function handleGroupClick(e) {
 }
 
 // ---------- persistence ----------
-function createLayoutPayload() {
+function namedValue(value) {
+  return typeof value === "string" && value.trim() ? value.trim() : "";
+}
+
+function nodePayload(node) {
+  const originalName = node.originalLabel || node.id;
+  const name = node.label || originalName;
+  return {
+    id: node.id,
+    name,
+    label: name,
+    originalName,
+    originalLabel: originalName,
+    renamed: name !== originalName,
+    x: node.x,
+    y: node.y,
+  };
+}
+
+function groupPayload(group, opts = {}) {
+  const name = group.label;
   const payload = {
+    id: String(group.id),
+    name,
+    label: name,
+    source: group.source || "manual",
+    cluster: group.cluster || null,
+    x: group.x,
+    y: group.y,
+    w: group.w,
+    h: group.h,
+  };
+  if (opts.includeMembers) {
+    const members = nodesInGroup(group);
+    payload.members = members;
+    payload.memberNames = members.map((id) => {
+      const node = state.nodes.get(id);
+      return node
+        ? { id, name: node.label, originalName: node.originalLabel || id, renamed: node.label !== (node.originalLabel || id) }
+        : { id, name: id, originalName: id, renamed: false };
+    });
+  }
+  return payload;
+}
+
+function createLayoutPayload(opts = {}) {
+  const includeAutoGroups = opts.includeAutoGroups !== false;
+  const payload = {
+    format: "m2-engine-layout",
+    version: 3,
     scale: state.scale, panX: state.panX, panY: state.panY,
     nodes: {}, groups: [], autoGroupLabels: {},
     hiddenAutoClusters: [...state.hiddenAutoClusters],
     autoGroupsEnabled: state.autoGroupsEnabled,
   };
-  for (const n of state.nodes.values()) payload.nodes[n.id] = { x: n.x, y: n.y, label: n.label };
+  if (opts.exportedAt) payload.exportedAt = new Date().toISOString();
+  for (const n of state.nodes.values()) payload.nodes[n.id] = nodePayload(n);
   for (const g of state.groups) {
     if (g.source === "auto") {
       if (g.cluster) payload.autoGroupLabels[g.cluster] = g.label;
-      continue;
+      if (!includeAutoGroups) continue;
     }
-    payload.groups.push({ label: g.label, source: g.source || "manual", x: g.x, y: g.y, w: g.w, h: g.h });
+    payload.groups.push(groupPayload(g, { includeMembers: opts.includeGroupMembers }));
   }
   return payload;
 }
@@ -1805,6 +1864,29 @@ function finishLayoutChange(opts = {}) {
   });
 }
 
+function finiteNumber(value, fallback) {
+  return Number.isFinite(value) ? value : fallback;
+}
+
+function importedGroupPayload(gd) {
+  const cluster = typeof gd.cluster === "string" && gd.cluster ? gd.cluster : null;
+  const source = gd.source === "auto" && cluster ? "auto" : "manual";
+  const name = namedValue(gd.name) || namedValue(gd.label);
+  return {
+    id: source === "auto" ? `auto:${cluster}` : state.groupNextId++,
+    label: name
+      ? name
+      : source === "auto" ? suggestedGroupName(cluster) : `group ${state.groupNextId - 1}`,
+    source,
+    cluster,
+    x: finiteNumber(gd.x, 80),
+    y: finiteNumber(gd.y, 80),
+    w: Math.max(50, finiteNumber(gd.w, 180)),
+    h: Math.max(30, finiteNumber(gd.h, 90)),
+    el: null,
+  };
+}
+
 function applyLayoutPayload(payload, opts = {}) {
   if (state.pendingGroup) cancelAddGroup();
   state.selectedIds.clear();
@@ -1821,24 +1903,22 @@ function applyLayoutPayload(payload, opts = {}) {
     if (!saved) continue;
     node.x = Number.isFinite(saved.x) ? saved.x : node.x;
     node.y = Number.isFinite(saved.y) ? saved.y : node.y;
-    node.label = typeof saved.label === "string" && saved.label.trim()
-      ? saved.label.trim()
+    const savedName = namedValue(saved.name) || namedValue(saved.label);
+    node.label = savedName
+      ? savedName
       : node.originalLabel || node.id;
   }
   updateNodeDom();
 
   if (payload.groups) {
     for (const gd of payload.groups) {
-      const g = {
-        id: state.groupNextId++,
-        label: gd.label,
-        source: gd.source || "manual",
-        cluster: gd.cluster || null,
-        x: gd.x, y: gd.y, w: gd.w, h: gd.h,
-        el: null,
-      };
+      const g = importedGroupPayload(gd);
+      if (g.source === "auto" && getGroup(g.id)) continue;
       state.groups.push(g);
-      if (g.source === "auto") state.autoGroupsEnabled = true;
+      if (g.source === "auto") {
+        state.autoGroupsEnabled = true;
+        state.autoGroupLabels[g.cluster] = g.label;
+      }
       makeGroup(g);
     }
   }
@@ -1891,7 +1971,8 @@ function loadLayout() {
         if (n) {
           n.x = pos.x;
           n.y = pos.y;
-          if (typeof pos.label === "string" && pos.label.trim()) n.label = pos.label.trim();
+          const savedName = namedValue(pos.name) || namedValue(pos.label);
+          if (savedName) n.label = savedName;
         }
       }
     }
@@ -1900,9 +1981,13 @@ function loadLayout() {
     state.autoGroupsEnabled = p.autoGroupsEnabled === true;
     if (p.groups) {
       for (const gd of p.groups) {
-        const g = { id: state.groupNextId++, label: gd.label, source: gd.source || "manual", cluster: gd.cluster || null, x: gd.x, y: gd.y, w: gd.w, h: gd.h, el: null };
+        const g = importedGroupPayload(gd);
+        if (g.source === "auto" && getGroup(g.id)) continue;
         state.groups.push(g);
-        if (g.source === "auto") state.autoGroupsEnabled = true;
+        if (g.source === "auto") {
+          state.autoGroupsEnabled = true;
+          state.autoGroupLabels[g.cluster] = g.label;
+        }
       }
     }
     return true;
@@ -1924,16 +2009,55 @@ searchEl.addEventListener("input", (e) => {
 
 // ---------- export ----------
 function exportLayout() {
-  const payload = {
-    nodes: {}, groups: [],
-  };
-  for (const n of state.nodes.values()) payload.nodes[n.id] = { x: n.x, y: n.y, label: n.label };
-  for (const g of state.groups) payload.groups.push({ label: g.label, source: g.source || "manual", cluster: g.cluster || null, x: g.x, y: g.y, w: g.w, h: g.h });
+  const payload = createLayoutPayload({
+    includeAutoGroups: true,
+    includeGroupMembers: true,
+    exportedAt: true,
+  });
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url; a.download = "engine-layout.json"; a.click();
   URL.revokeObjectURL(url);
+  statusEl.textContent = `exported ${payload.groups.length} groups`;
+}
+
+function validateImportedLayout(payload) {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    throw new Error("Import JSON must be an object.");
+  }
+  if (!payload.nodes || typeof payload.nodes !== "object" || Array.isArray(payload.nodes)) {
+    throw new Error("Import JSON is missing its nodes map.");
+  }
+  if (payload.groups !== undefined && !Array.isArray(payload.groups)) {
+    throw new Error("Import JSON has an invalid groups list.");
+  }
+  return payload;
+}
+
+function importLayoutFile(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const payload = validateImportedLayout(JSON.parse(reader.result));
+      const snapshot = createLayoutPayload({ includeAutoGroups: true, includeGroupMembers: true });
+      const hasSavedView = Number.isFinite(payload.scale) && Number.isFinite(payload.panX) && Number.isFinite(payload.panY);
+      applyLayoutPayload(payload, { persist: true, fit: !hasSavedView });
+      statusEl.textContent = `imported ${(payload.groups || []).length} groups`;
+      showUndoNotice("Imported layout", () => restoreUndoSnapshot(snapshot));
+    } catch (err) {
+      statusEl.textContent = "import failed";
+      console.warn(err);
+    } finally {
+      importFileEl.value = "";
+    }
+  };
+  reader.onerror = () => {
+    statusEl.textContent = "import failed";
+    importFileEl.value = "";
+  };
+  reader.readAsText(file);
 }
 
 // ---------- auto-cluster (re-run initial layout) ----------
@@ -1946,8 +2070,7 @@ function autoCluster() {
     n.el.style.left = n.x + "px";
     n.el.style.top = n.y + "px";
   }
-  syncAutoGroups();
-  positionAutoGroups();
+  syncAutoGroups({ reframe: true });
   renderEdges();
   updateFilterVisibility();
   fitActiveView();
@@ -1971,6 +2094,11 @@ document.getElementById("btn-clear").addEventListener("click", () => {
 document.getElementById("btn-save").addEventListener("click", () => { saveLayout(); statusEl.textContent = "saved"; setTimeout(() => statusEl.textContent = `zoom ${(state.scale*100).toFixed(0)}%`, 800); });
 document.getElementById("btn-reset").addEventListener("click", resetLayout);
 document.getElementById("btn-export").addEventListener("click", exportLayout);
+document.getElementById("btn-import").addEventListener("click", () => {
+  importFileEl.value = "";
+  importFileEl.click();
+});
+importFileEl.addEventListener("change", () => importLayoutFile(importFileEl.files[0]));
 document.getElementById("btn-cluster").addEventListener("click", autoCluster);
 undoActionEl.addEventListener("click", performUndo);
 undoDismissEl.addEventListener("click", clearUndoNotice);
