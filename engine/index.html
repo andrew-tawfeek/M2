@@ -72,13 +72,6 @@
   .check-row { display: flex; align-items: center; gap: 8px; color: var(--ink-dim); font-size: 12px; }
   .check-row input { accent-color: var(--accent); }
 
-  .cluster-panel { padding: 13px 18px 14px; border-bottom: 1px solid var(--border); }
-  .cluster-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; max-height: 112px; overflow: auto; padding-right: 2px; }
-  .cluster-chip { border: 1px solid var(--border); background: var(--panel-2); color: var(--ink-dim); border-radius: 999px; padding: 4px 8px; font-size: 11px; cursor: pointer; }
-  .cluster-chip strong { color: var(--ink); font-weight: 700; }
-  .cluster-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .cluster-chip.active strong { color: #fff; }
-
   #detail { flex: 1; overflow: auto; padding: 16px 18px 20px; font-size: 12px; line-height: 1.5; background: linear-gradient(180deg, rgba(255,255,255,0.34), transparent 90px); }
   #detail .empty { color: var(--ink-dim); background: var(--panel-2); border: 1px dashed var(--border); border-radius: 8px; padding: 13px; }
   #detail h2 { margin: 3px 0 5px; font-size: 17px; font-weight: 760; color: var(--ink); word-break: break-word; line-height: 1.2; }
@@ -264,10 +257,6 @@
         <button id="btn-reset" title="Reset saved node and group positions">Reset</button>
       </div>
       <input type="file" id="import-file" accept="application/json,.json">
-    </div>
-    <div class="cluster-panel">
-      <div class="section-label">Clusters</div>
-      <div id="cluster-list" class="cluster-list"></div>
     </div>
     <div id="detail"><div class="empty">Click a node to see its description and dependencies.</div></div>
   </aside>
@@ -1019,6 +1008,7 @@ function renderStats() {
 }
 
 function renderClusterFilters() {
+  if (!clusterListEl) return;
   const counts = new Map();
   for (const node of state.nodes.values()) {
     counts.set(node.cluster, (counts.get(node.cluster) || 0) + 1);
