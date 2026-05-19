@@ -158,11 +158,23 @@ def extract_summary(md_path):
 
 def parse_includes(paths):
     """Return set of include targets."""
-    out = set()
+    return {ref["include"] for ref in parse_include_refs(paths)}
+
+
+def rel_source_path(path):
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def parse_include_refs(paths):
+    """Return include directives with source locations."""
+    refs = []
     for p in paths:
         try:
             with open(p, "r", encoding="utf-8", errors="replace") as f:
-                for ln in f:
+                for line_no, ln in enumerate(f, 1):
                     include_start = ln.find("#")
                     if include_start == -1:
                         continue
@@ -170,10 +182,17 @@ def parse_includes(paths):
                     if before.startswith("//") or before.startswith("/*") or before.startswith("*"):
                         continue
                     for m in INCLUDE_RE.finditer(ln):
-                        out.add(m.group(1))
+                        inc = m.group(1)
+                        refs.append({
+                            "include": inc,
+                            "sourceFile": p.name,
+                            "sourcePath": rel_source_path(p),
+                            "line": line_no,
+                            "text": ln.strip(),
+                        })
         except OSError:
             continue
-    return out
+    return refs
 
 
 def _strip_comments_and_strings(text):
@@ -183,6 +202,18 @@ def _strip_comments_and_strings(text):
     text = BLOCK_COMMENT_RE.sub("", text)
     text = LINE_COMMENT_RE.sub("", text)
     text = STRING_RE.sub('""', text)
+    return text
+
+
+def _blank_preserving_newlines(match):
+    return "".join("\n" if ch == "\n" else " " for ch in match.group(0))
+
+
+def _strip_comments_and_strings_preserve_lines(text):
+    """Blank comments and strings while preserving line numbers."""
+    text = BLOCK_COMMENT_RE.sub(_blank_preserving_newlines, text)
+    text = LINE_COMMENT_RE.sub(_blank_preserving_newlines, text)
+    text = STRING_RE.sub(_blank_preserving_newlines, text)
     return text
 
 
@@ -239,6 +270,41 @@ def parse_class_defs_and_decls(paths):
     return defs, decls
 
 
+def parse_class_refs(paths):
+    """Return (defs, decls) lists with source locations for class heads."""
+    defs = []
+    decls = []
+    for p in paths:
+        try:
+            raw = p.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        text = _strip_comments_and_strings_preserve_lines(raw)
+        raw_lines = raw.splitlines()
+        for m in CLASS_HEAD_RE.finditer(text):
+            is_friend = bool(m.group("friend"))
+            if is_friend:
+                continue
+            name = m.group("name")
+            ch, _ = _next_significant_char(text, m.end())
+            if ch not in {";", "{"}:
+                continue
+            line_no = text.count("\n", 0, m.start()) + 1
+            source_line = raw_lines[line_no - 1].strip() if line_no - 1 < len(raw_lines) else name
+            ref = {
+                "symbol": name,
+                "sourceFile": p.name,
+                "sourcePath": rel_source_path(p),
+                "line": line_no,
+                "text": source_line,
+            }
+            if ch == ";":
+                decls.append(ref)
+            else:
+                defs.append(ref)
+    return defs, decls
+
+
 def parse_class_defs(paths):
     defs, _ = parse_class_defs_and_decls(paths)
     return defs
@@ -246,6 +312,11 @@ def parse_class_defs(paths):
 
 def parse_forward_decls(paths):
     _, decls = parse_class_defs_and_decls(paths)
+    return decls
+
+
+def parse_forward_decl_refs(paths):
+    _, decls = parse_class_refs(paths)
     return decls
 
 
@@ -314,6 +385,15 @@ def resolve_include_nodes(inc, basename_to_node, node_ids):
         if "dir:interface" in node_ids:
             targets.add("dir:interface")
     return {target for target in targets if target in node_ids}
+
+
+def resolve_engine_include_target(inc, basename_to_node):
+    if inc in basename_to_node:
+        return basename_to_node[inc]
+    base = Path(inc).name
+    if base in basename_to_node:
+        return basename_to_node[base]
+    return None
 
 
 def raw_token_node(token, raw_to_node, raw_roots):
@@ -467,31 +547,31 @@ def main():
     #              we did NOT already include that node (otherwise the
     #              forward decl is redundant noise alongside the include)
     edges = []
-    seen_edges = set()
+    edge_by_key = {}
+
+    def add_edge(source, target, kind, ref):
+        key = (source, target, kind)
+        if key not in edge_by_key:
+            edge = {"source": source, "target": target, "kind": kind, "refs": []}
+            edge_by_key[key] = edge
+            edges.append(edge)
+        edge_by_key[key]["refs"].append(ref)
+
     for node in nodes:
         if node["kind"] != "unit":
             continue
         paths = unit_paths_for_node[node["id"]]
-        includes = parse_includes(paths)
         include_targets = set()
-        for inc in includes:
-            target = None
-            if inc in basename_to_node:
-                target = basename_to_node[inc]
-            else:
-                base = Path(inc).name
-                if base in basename_to_node:
-                    target = basename_to_node[base]
+        for ref in parse_include_refs(paths):
+            inc = ref["include"]
+            target = resolve_engine_include_target(inc, basename_to_node)
             if not target or target == node["id"]:
                 continue
             include_targets.add(target)
-            key = (node["id"], target, "include")
-            if key in seen_edges:
-                continue
-            seen_edges.add(key)
-            edges.append({"source": node["id"], "target": target, "kind": "include"})
+            add_edge(node["id"], target, "include", ref)
         # Forward declarations
-        for cls in parse_forward_decls(paths):
+        for ref in parse_forward_decl_refs(paths):
+            cls = ref["symbol"]
             target = class_to_node.get(cls)
             if not target or target == node["id"]:
                 continue
@@ -499,11 +579,7 @@ def main():
                 # Already a direct include — the fwd decl is just internal
                 # tidiness, not a separate dependency.
                 continue
-            key = (node["id"], target, "decl")
-            if key in seen_edges:
-                continue
-            seen_edges.add(key)
-            edges.append({"source": node["id"], "target": target, "kind": "decl"})
+            add_edge(node["id"], target, "decl", ref)
 
     d_uses, d_uses_by_engine = build_d_uses(nodes, basename_to_node, class_to_node)
 

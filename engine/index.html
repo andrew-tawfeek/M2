@@ -110,12 +110,20 @@
   #world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
 
   /* Edges layer covers the whole world; we draw lines in world coords. */
-  svg#edges { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
-  svg#edges path { fill: none; stroke: var(--edge); stroke-width: 1.2; transition: none; }
-  svg#edges path.decl { stroke-dasharray: 5 5; stroke: rgba(166,80,29,0.42); }
-  svg#edges path.hi { stroke: var(--edge-hi); stroke-width: 2; }
-  svg#edges path.in { stroke: var(--accent-3); stroke-width: 1.8; opacity: 0.92; }
-  svg#edges path.out { stroke: var(--accent); stroke-width: 1.8; opacity: 0.92; }
+  svg#edges { position: absolute; left: 0; top: 0; z-index: 2; overflow: visible; pointer-events: visiblePainted; }
+  svg#edges path { fill: none; transition: none; }
+  svg#edges path.edge-line { stroke: var(--edge); stroke-width: 1.2; pointer-events: none; }
+  svg#edges path.edge-line.decl { stroke-dasharray: 5 5; stroke: rgba(166,80,29,0.42); }
+  svg#edges path.edge-line.hi { stroke: var(--edge-hi); stroke-width: 2; }
+  svg#edges path.edge-line.in { stroke: var(--accent-3); stroke-width: 1.8; opacity: 0.92; }
+  svg#edges path.edge-line.out { stroke: var(--accent); stroke-width: 1.8; opacity: 0.92; }
+  svg#edges path.edge-line.edge-armed,
+  svg#edges path.edge-line.edge-pinned { stroke: var(--edge-hi); stroke-width: 3; opacity: 1; filter: drop-shadow(0 0 5px rgba(183,91,37,0.35)); }
+  svg#edges path.edge-line.edge-armed.decl,
+  svg#edges path.edge-line.edge-pinned.decl { stroke-dasharray: 8 4; }
+  svg#edges path.edge-hit { stroke: rgba(0,0,0,0.001); stroke-width: 14; pointer-events: stroke; cursor: default; }
+  svg#edges path.edge-hit.edge-armed,
+  svg#edges path.edge-hit.edge-pinned { cursor: pointer; }
   svg#edges path.hidden-edge { opacity: 0; visibility: hidden; pointer-events: none; }
   svg#edges path.aggregate-edge { stroke-width: 2.4; opacity: 0.94; }
   svg#edges path.aggregate-edge.decl { stroke-dasharray: 7 5; }
@@ -216,10 +224,34 @@
   .undo-progress { grid-column: 1 / -1; height: 3px; background: rgba(23,108,101,0.13); border-radius: 999px; overflow: hidden; }
   #undo-progress-bar { display: block; width: 100%; height: 100%; background: var(--accent); transform-origin: left center; }
 
+  #edge-popover {
+    position: absolute; right: 16px; top: 58px; z-index: 9;
+    width: min(470px, calc(100vw - 392px));
+    max-height: min(70vh, 720px); overflow: hidden;
+    background: rgba(255,252,244,0.99); border: 1px solid var(--border-strong); border-radius: 9px;
+    box-shadow: 0 18px 48px rgba(55,43,24,0.22); padding: 14px;
+  }
+  #edge-popover[hidden] { display: none; }
+  #edge-popover-close {
+    position: absolute; right: 10px; top: 10px; width: 28px; height: 28px; padding: 0;
+    border-radius: 999px; border: 1px solid var(--border); background: var(--panel-2);
+    color: var(--ink-dim); cursor: pointer; font-size: 17px; line-height: 1;
+  }
+  #edge-popover-close:hover { color: var(--ink); border-color: var(--border-strong); }
+  .edge-popover-kicker { padding-right: 34px; color: var(--accent-2); font-size: 10px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+  #edge-popover-title { margin: 5px 34px 5px 0; font-size: 16px; line-height: 1.22; font-weight: 760; color: var(--ink); }
+  #edge-popover-meta { color: var(--ink-dim); font-size: 11px; margin-bottom: 10px; }
+  #edge-popover-list { display: flex; flex-direction: column; gap: 8px; max-height: calc(min(70vh, 720px) - 116px); overflow: auto; padding-right: 2px; }
+  .edge-ref-row { border: 1px solid var(--border); background: var(--panel-2); border-radius: 7px; padding: 8px; }
+  .edge-ref-path { font-family: var(--mono); color: var(--accent); font-size: 11px; overflow-wrap: anywhere; }
+  .edge-ref-note { color: var(--ink-dim); font-size: 11px; margin-top: 4px; }
+  .edge-ref-code { margin: 6px 0 0; padding: 7px; border-radius: 6px; background: rgba(37,39,35,0.055); color: var(--ink); font: 11px/1.45 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+
   @media (max-width: 760px) {
     #app { grid-template-columns: 1fr; grid-template-rows: minmax(320px, 44vh) 1fr; }
     #sidebar { grid-row: 2; border-right: 0; border-top: 1px solid var(--border); }
     #canvas-wrap { grid-row: 1; }
+    #edge-popover { left: 12px; right: 12px; top: 52px; width: auto; max-height: 52vh; }
   }
 </style>
 </head>
@@ -284,6 +316,13 @@
       </div>
     </div>
     <div id="status">—</div>
+    <div id="edge-popover" hidden role="dialog" aria-label="Edge references">
+      <button id="edge-popover-close" type="button" aria-label="Close edge references">×</button>
+      <div class="edge-popover-kicker" id="edge-popover-kicker"></div>
+      <h2 id="edge-popover-title"></h2>
+      <div id="edge-popover-meta"></div>
+      <div id="edge-popover-list"></div>
+    </div>
     <div id="hint">Click on canvas to place group, or press Esc to cancel.</div>
     <div id="group-add-bar">Place a group with two canvas clicks. <button id="cancel-group">cancel</button></div>
     <div id="undo-toast" hidden>
@@ -297,12 +336,13 @@
   </div>
 </div>
 
-<script src="data.js?v=d-uses"></script>
+<script src="data.js?v=edge-refs"></script>
 <script>
 "use strict";
 
 const STORAGE_KEY = "m2-engine-layout-v4";
 const UNDO_WINDOW_MS = 30000;
+const EDGE_HOVER_DELAY_MS = 900;
 const NODE_W = 180;
 const NODE_H_DEFAULT = 56;
 
@@ -327,6 +367,7 @@ const state = {
   pendingGroup: null,   // null | { stage: 0|1, x0, y0 }
   suppressNextCanvasClick: false,
   suppressClickTimer: null,
+  edgeInspector: { timer: null, armed: null, pinned: null },
 };
 
 const world = document.getElementById("world");
@@ -350,6 +391,12 @@ const undoMessageEl = document.getElementById("undo-message");
 const undoTimerEl = document.getElementById("undo-timer");
 const undoProgressEl = document.getElementById("undo-progress-bar");
 const undoDismissEl = document.getElementById("undo-dismiss");
+const edgePopoverEl = document.getElementById("edge-popover");
+const edgePopoverCloseEl = document.getElementById("edge-popover-close");
+const edgePopoverKickerEl = document.getElementById("edge-popover-kicker");
+const edgePopoverTitleEl = document.getElementById("edge-popover-title");
+const edgePopoverMetaEl = document.getElementById("edge-popover-meta");
+const edgePopoverListEl = document.getElementById("edge-popover-list");
 
 const CLUSTER_LABELS = {
   "_misc": "Misc",
@@ -550,7 +597,7 @@ function buildNodes() {
   for (const e of data.edges) {
     if (!state.nodes.has(e.source) || !state.nodes.has(e.target)) continue;
     const kind = e.kind || "include";
-    state.edges.push({ source: e.source, target: e.target, kind, el: null });
+    state.edges.push({ source: e.source, target: e.target, kind, refs: e.refs || [], el: null, hitEl: null });
     if (kind === "include") {
       state.nodes.get(e.source).outDeps.push(e.target);
       state.nodes.get(e.target).inDeps.push(e.source);
@@ -606,16 +653,24 @@ function renderEdges() {
   // remove existing
   for (const e of state.edges) {
     if (e.el) e.el.remove();
+    if (e.hitEl) e.hitEl.remove();
   }
   for (const e of state.edges) {
     const a = state.nodes.get(e.source);
     const b = state.nodes.get(e.target);
     if (!a || !b) continue;
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.classList.add("edge-line");
     path.setAttribute("marker-end", "url(#arrow)");
     if (e.kind === "decl") path.classList.add("decl");
     svg.appendChild(path);
+    const hitPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    hitPath.classList.add("edge-hit");
+    if (e.kind === "decl") hitPath.classList.add("decl");
+    attachEdgeInspector(e, hitPath);
+    svg.appendChild(hitPath);
     e.el = path;
+    e.hitEl = hitPath;
     updateEdgePath(e);
   }
   updateEdgeDisplay();
@@ -655,13 +710,165 @@ function updateEdgePath(e) {
   // small curve via midpoint offset perpendicular for legibility when many edges overlap
   const mx = (p0.x + p1.x) / 2;
   const my = (p0.y + p1.y) / 2;
-  e.el.setAttribute("d", `M ${p0.x} ${p0.y} Q ${mx} ${my} ${p1.x} ${p1.y}`);
+  const d = `M ${p0.x} ${p0.y} Q ${mx} ${my} ${p1.x} ${p1.y}`;
+  e.el.setAttribute("d", d);
+  if (e.hitEl) e.hitEl.setAttribute("d", d);
 }
 
 function updateEdgesForNode(nodeId) {
   for (const e of state.edges) {
     if (e.source === nodeId || e.target === nodeId) updateEdgePath(e);
   }
+}
+
+function clearEdgeHoverTimer() {
+  if (state.edgeInspector.timer) {
+    clearTimeout(state.edgeInspector.timer);
+    state.edgeInspector.timer = null;
+  }
+}
+
+function edgeNodeLabel(id) {
+  const node = state.nodes.get(id);
+  return node ? node.label : id;
+}
+
+function edgeModelRefs(edge) {
+  return (edge.refs || []).slice().sort((a, b) => {
+    const aPath = `${a.sourcePath || a.sourceFile || ""}:${a.line || 0}`;
+    const bPath = `${b.sourcePath || b.sourceFile || ""}:${b.line || 0}`;
+    return aPath.localeCompare(bPath);
+  });
+}
+
+function isEdgeVisible(edge) {
+  return Boolean(edge && edge.hitEl && !edge.hitEl.classList.contains("hidden-edge"));
+}
+
+function markEdge(edge, className, active) {
+  if (!edge) return;
+  if (edge.el) edge.el.classList.toggle(className, active);
+  if (edge.hitEl) edge.hitEl.classList.toggle(className, active);
+}
+
+function edgeDefaultMarker(edge) {
+  if (!edge || !edge.el) return "url(#arrow)";
+  if (edge.el.classList.contains("out")) return "url(#arrow-out)";
+  if (edge.el.classList.contains("in")) return "url(#arrow-in)";
+  return "url(#arrow)";
+}
+
+function allInspectableEdges() {
+  return [...state.edges, ...state.aggregateEdges];
+}
+
+function syncEdgeInspectorClasses() {
+  const armed = state.edgeInspector.armed;
+  const pinned = state.edgeInspector.pinned;
+  for (const edge of allInspectableEdges()) {
+    const isArmed = edge === armed && edge !== pinned;
+    const isPinned = edge === pinned;
+    markEdge(edge, "edge-armed", isArmed);
+    markEdge(edge, "edge-pinned", isPinned);
+    if (edge.el) edge.el.setAttribute("marker-end", isArmed || isPinned ? "url(#arrow-hi)" : edgeDefaultMarker(edge));
+  }
+}
+
+function clearArmedEdge(edge = null) {
+  if (edge && state.edgeInspector.armed !== edge) return;
+  if (state.edgeInspector.pinned && state.edgeInspector.armed === state.edgeInspector.pinned) return;
+  state.edgeInspector.armed = null;
+  syncEdgeInspectorClasses();
+}
+
+function armEdge(edge) {
+  if (!isEdgeVisible(edge)) return;
+  state.edgeInspector.armed = edge;
+  syncEdgeInspectorClasses();
+  statusEl.textContent = "click highlighted edge for references";
+}
+
+function closeEdgePopover() {
+  clearEdgeHoverTimer();
+  edgePopoverEl.hidden = true;
+  state.edgeInspector.pinned = null;
+  state.edgeInspector.armed = null;
+  syncEdgeInspectorClasses();
+}
+
+function edgeKindText(edge) {
+  if (edge.aggregate) return "Grouped dependency";
+  return edge.kind === "decl" ? "Forward declaration" : "Include dependency";
+}
+
+function edgeRefNote(ref, edge) {
+  const source = ref.edgeSource ? edgeNodeLabel(ref.edgeSource) : edgeNodeLabel(edge.source);
+  const target = ref.edgeTarget ? edgeNodeLabel(ref.edgeTarget) : edgeNodeLabel(edge.target);
+  const signal = ref.include ? `includes ${ref.include}` : ref.symbol ? `forward-declares ${ref.symbol}` : edgeKindText(edge).toLowerCase();
+  return `${source} -> ${target} · ${signal}`;
+}
+
+function showEdgePopover(edge) {
+  if (!isEdgeVisible(edge)) return;
+  clearEdgeHoverTimer();
+  state.edgeInspector.armed = edge;
+  state.edgeInspector.pinned = edge;
+  syncEdgeInspectorClasses();
+
+  const refs = edgeModelRefs(edge);
+  const source = edge.sourceLabel || edgeNodeLabel(edge.source);
+  const target = edge.targetLabel || edgeNodeLabel(edge.target);
+  edgePopoverKickerEl.textContent = edgeKindText(edge);
+  edgePopoverTitleEl.textContent = `${source} -> ${target}`;
+  edgePopoverMetaEl.textContent = `${refs.length} reference${refs.length === 1 ? "" : "s"} in source files`;
+  edgePopoverListEl.innerHTML = "";
+  if (!refs.length) {
+    const empty = document.createElement("div");
+    empty.className = "edge-ref-row";
+    empty.textContent = "No reference locations were recorded for this edge.";
+    edgePopoverListEl.appendChild(empty);
+  }
+  for (const ref of refs) {
+    const row = document.createElement("div");
+    row.className = "edge-ref-row";
+    const path = document.createElement("div");
+    path.className = "edge-ref-path";
+    path.textContent = `${ref.sourcePath || ref.sourceFile || "source"}${ref.line ? `:${ref.line}` : ""}`;
+    const note = document.createElement("div");
+    note.className = "edge-ref-note";
+    note.textContent = edgeRefNote(ref, edge);
+    const code = document.createElement("pre");
+    code.className = "edge-ref-code";
+    code.textContent = ref.text || "(source line unavailable)";
+    row.append(path, note, code);
+    edgePopoverListEl.appendChild(row);
+  }
+  edgePopoverEl.hidden = false;
+}
+
+function startEdgeHover(edge) {
+  if (state.edgeInspector.armed === edge || state.edgeInspector.pinned === edge || state.edgeInspector.timer) return;
+  state.edgeInspector.timer = setTimeout(() => armEdge(edge), EDGE_HOVER_DELAY_MS);
+}
+
+function endEdgeHover(edge) {
+  clearEdgeHoverTimer();
+  if (state.edgeInspector.pinned !== edge) clearArmedEdge(edge);
+}
+
+function attachEdgeInspector(edge, hitEl) {
+  hitEl.addEventListener("mouseenter", () => startEdgeHover(edge));
+  hitEl.addEventListener("mousemove", () => startEdgeHover(edge));
+  hitEl.addEventListener("pointerenter", () => startEdgeHover(edge));
+  hitEl.addEventListener("pointermove", () => startEdgeHover(edge));
+  hitEl.addEventListener("mouseleave", () => endEdgeHover(edge));
+  hitEl.addEventListener("pointerleave", () => endEdgeHover(edge));
+  hitEl.addEventListener("click", (event) => {
+    if (!isEdgeVisible(edge)) return;
+    event.stopPropagation();
+    if (state.edgeInspector.armed !== edge && state.edgeInspector.pinned !== edge) armEdge(edge);
+    showEdgePopover(edge);
+  });
 }
 
 function clearCanvasClickSuppression(el = null) {
@@ -1151,8 +1358,10 @@ function updateEdgeDisplay() {
     if (state.edgeMode === "none") visible = false;
     if (state.edgeMode === "selection") visible = visible && connected && !groupSelected;
 
-    e.el.classList.remove("hi", "in", "out");
+    e.el.classList.remove("hi", "in", "out", "edge-armed", "edge-pinned");
+    if (e.hitEl) e.hitEl.classList.remove("edge-armed", "edge-pinned");
     e.el.classList.toggle("hidden-edge", !visible);
+    if (e.hitEl) e.hitEl.classList.toggle("hidden-edge", !visible);
     e.el.style.opacity = "";
     e.el.setAttribute("marker-end", "url(#arrow)");
     if (!visible) continue;
@@ -1168,6 +1377,13 @@ function updateEdgeDisplay() {
     }
   }
   renderAggregateEdges();
+  if (state.edgeInspector.pinned && !isEdgeVisible(state.edgeInspector.pinned)) {
+    closeEdgePopover();
+  } else if (state.edgeInspector.armed && !isEdgeVisible(state.edgeInspector.armed)) {
+    clearArmedEdge();
+  } else {
+    syncEdgeInspectorClasses();
+  }
 }
 
 function endpointForNode(nodeId, excludeGroupId = null) {
@@ -1200,11 +1416,12 @@ function groupDependencySummary(group) {
   const addEndpoint = (map, endpoint, edge) => {
     if (!endpoint) return;
     if (!map.has(endpoint.key)) {
-      map.set(endpoint.key, { ...endpoint, include: 0, decl: 0, nodes: new Set() });
+      map.set(endpoint.key, { ...endpoint, include: 0, decl: 0, nodes: new Set(), edges: [] });
     }
     const item = map.get(endpoint.key);
     if (edge.kind === "decl") item.decl++;
     else item.include++;
+    item.edges.push(edge);
   };
 
   for (const edge of state.edges) {
@@ -1233,8 +1450,15 @@ function groupDependencySummary(group) {
 }
 
 function clearAggregateEdges() {
-  for (const path of state.aggregateEdges) path.remove();
+  const pinnedWasAggregate = state.edgeInspector.pinned && state.edgeInspector.pinned.aggregate;
+  const armedWasAggregate = state.edgeInspector.armed && state.edgeInspector.armed.aggregate;
+  for (const edge of state.aggregateEdges) {
+    if (edge.el) edge.el.remove();
+    if (edge.hitEl) edge.hitEl.remove();
+  }
   state.aggregateEdges = [];
+  if (pinnedWasAggregate) closeEdgePopover();
+  else if (armedWasAggregate) clearArmedEdge();
 }
 
 function aggregatePath(fromRect, toRect) {
@@ -1257,14 +1481,40 @@ function renderAggregateEdges() {
   clearAggregateEdges();
   if (state.edgeMode === "none" || state.selectedGroupIds.size === 0) return;
 
-  const draw = (from, to, direction, onlyDecls = false) => {
+  const aggregateRefs = (edges) => {
+    const refs = [];
+    for (const edge of edges || []) {
+      for (const ref of edge.refs || []) {
+        refs.push({ ...ref, edgeSource: edge.source, edgeTarget: edge.target, edgeKind: edge.kind });
+      }
+    }
+    return refs;
+  };
+
+  const draw = (from, to, direction, dep, labels) => {
+    const onlyDecls = dep.include === 0 && dep.decl > 0;
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.classList.add("aggregate-edge", direction);
+    path.classList.add("edge-line", "aggregate-edge", direction);
     if (onlyDecls) path.classList.add("decl");
     path.setAttribute("marker-end", direction === "out" ? "url(#arrow-out)" : "url(#arrow-in)");
     path.setAttribute("d", aggregatePath(from, to));
     svg.appendChild(path);
-    state.aggregateEdges.push(path);
+    const hitPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    hitPath.classList.add("edge-hit", "aggregate-edge");
+    if (onlyDecls) hitPath.classList.add("decl");
+    hitPath.setAttribute("d", path.getAttribute("d"));
+    const edge = {
+      aggregate: true,
+      kind: onlyDecls ? "decl" : "include",
+      sourceLabel: labels.source,
+      targetLabel: labels.target,
+      refs: aggregateRefs(dep.edges),
+      el: path,
+      hitEl: hitPath,
+    };
+    attachEdgeInspector(edge, hitPath);
+    svg.appendChild(hitPath);
+    state.aggregateEdges.push(edge);
   };
 
   for (const groupId of state.selectedGroupIds) {
@@ -1273,12 +1523,13 @@ function renderAggregateEdges() {
     const summary = groupDependencySummary(group);
     const sourceRect = groupRect(group);
     for (const dep of summary.outgoing) {
-      draw(sourceRect, dep.rect, "out", dep.include === 0 && dep.decl > 0);
+      draw(sourceRect, dep.rect, "out", dep, { source: group.label, target: dep.label });
     }
     for (const dep of summary.incoming) {
-      draw(dep.rect, sourceRect, "in", dep.include === 0 && dep.decl > 0);
+      draw(dep.rect, sourceRect, "in", dep, { source: dep.label, target: group.label });
     }
   }
+  syncEdgeInspectorClasses();
 }
 
 function dUsageForNodes(nodeIds) {
@@ -1577,7 +1828,7 @@ canvasWrap.addEventListener("mousedown", (e) => {
 
 canvasWrap.addEventListener("mousedown", (e) => {
   if (state.pendingGroup) return;
-  if (e.button === 1 || (e.button === 0 && (e.target === canvasWrap || e.target === world || e.target.id === "canvas")) || (e.button === 0 && panBySpace)) {
+  if (e.button === 1 || (e.button === 0 && (e.target === canvasWrap || e.target === world || e.target === svg || e.target.id === "canvas")) || (e.button === 0 && panBySpace)) {
     isPanning = true;
     panMoved = false;
     panButton = e.button;
@@ -1626,7 +1877,8 @@ window.addEventListener("keydown", (e) => {
     removeGroups([...state.selectedGroupIds]);
   }
   if (e.key === "Escape") {
-    if (state.pendingGroup) cancelAddGroup();
+    if (!edgePopoverEl.hidden) closeEdgePopover();
+    else if (state.pendingGroup) cancelAddGroup();
     else clearSelection();
   }
 });
@@ -1644,7 +1896,7 @@ canvasWrap.addEventListener("click", (e) => {
     e.stopPropagation();
     return;
   }
-  if (e.target === canvasWrap || e.target === world || e.target.id === "canvas") {
+  if (e.target === canvasWrap || e.target === world || e.target === svg || e.target.id === "canvas") {
     clearSelection();
   }
 });
@@ -2578,6 +2830,7 @@ document.getElementById("btn-cluster").addEventListener("click", autoCluster);
 document.getElementById("btn-mike-cluster").addEventListener("click", mikeCluster);
 undoActionEl.addEventListener("click", performUndo);
 undoDismissEl.addEventListener("click", clearUndoNotice);
+edgePopoverCloseEl.addEventListener("click", closeEdgePopover);
 focusSelectedBtn.addEventListener("click", () => {
   if (state.selectedGroupIds.size === 1 && state.selectedIds.size === 0) {
     const group = getGroup([...state.selectedGroupIds][0]);
