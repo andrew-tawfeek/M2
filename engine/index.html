@@ -66,6 +66,13 @@
   #canvas-wrap button:disabled { opacity: 0.45; cursor: default; transform: none; }
   .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
   .action-grid button { min-height: 34px; padding: 7px 8px; }
+  .tool-panel { border: 1px solid var(--border); background: rgba(255,255,255,0.38); border-radius: 8px; overflow: hidden; }
+  .tool-panel summary { min-height: 34px; padding: 8px 10px; cursor: pointer; list-style: none; color: var(--ink-dim); font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .tool-panel summary::-webkit-details-marker { display: none; }
+  .tool-panel summary::after { content: "hide"; color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+  .tool-panel:not([open]) summary::after { content: "show"; }
+  .tool-panel summary:hover { background: rgba(23,108,101,0.07); color: var(--ink); }
+  .tool-panel-body { border-top: 1px solid var(--border); padding: 10px; display: flex; flex-direction: column; gap: 10px; }
   .segmented { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; background: var(--panel-3); border: 1px solid var(--border); border-radius: 8px; }
   .segmented button { border: 0; background: transparent; min-height: 30px; padding: 6px 7px; color: var(--ink-dim); border-radius: 6px; }
   .segmented button.active { background: var(--paper); color: var(--accent); box-shadow: 0 1px 4px rgba(60,45,20,0.14); }
@@ -235,28 +242,33 @@
         <input type="search" id="search" placeholder="File, class, topic, summary">
         <div id="search-meta" class="search-meta">195 files ready</div>
       </div>
-      <div>
-        <div class="section-label">Edges</div>
-        <div class="segmented" id="edge-mode" role="group" aria-label="Edge visibility">
-          <button type="button" class="active" data-edge-mode="selection">Context</button>
-          <button type="button" data-edge-mode="all">All</button>
-          <button type="button" data-edge-mode="none">None</button>
+      <details id="tool-panel" class="tool-panel" open>
+        <summary>Controls</summary>
+        <div class="tool-panel-body">
+          <div>
+            <div class="section-label">Edges</div>
+            <div class="segmented" id="edge-mode" role="group" aria-label="Edge visibility">
+              <button type="button" class="active" data-edge-mode="selection">Context</button>
+              <button type="button" data-edge-mode="all">All</button>
+              <button type="button" data-edge-mode="none">None</button>
+            </div>
+          </div>
+          <label class="check-row">
+            <input type="checkbox" id="toggle-decls" checked>
+            Forward declarations
+          </label>
+          <div class="action-grid">
+            <button id="btn-add-group" title="Create a named planning group">Add group</button>
+            <button id="btn-focus-selected" title="Center the selected node" disabled>Center</button>
+            <button id="btn-save" title="Save this layout in the browser">Save</button>
+            <button id="btn-export" title="Export this layout as JSON">Export</button>
+            <button id="btn-import" title="Import a layout JSON exported by this page">Import</button>
+            <button id="btn-cluster" title="Re-run the inferred cluster layout">Auto-cluster</button>
+            <button id="btn-reset" title="Reset saved node and group positions">Reset</button>
+          </div>
+          <input type="file" id="import-file" accept="application/json,.json">
         </div>
-      </div>
-      <label class="check-row">
-        <input type="checkbox" id="toggle-decls" checked>
-        Forward declarations
-      </label>
-      <div class="action-grid">
-        <button id="btn-add-group" title="Create a named planning group">Add group</button>
-        <button id="btn-focus-selected" title="Center the selected node" disabled>Center</button>
-        <button id="btn-save" title="Save this layout in the browser">Save</button>
-        <button id="btn-export" title="Export this layout as JSON">Export</button>
-        <button id="btn-import" title="Import a layout JSON exported by this page">Import</button>
-        <button id="btn-cluster" title="Re-run the inferred cluster layout">Auto-cluster</button>
-        <button id="btn-reset" title="Reset saved node and group positions">Reset</button>
-      </div>
-      <input type="file" id="import-file" accept="application/json,.json">
+      </details>
     </div>
     <div id="detail"><div class="empty">Click a node to see its description and dependencies.</div></div>
   </aside>
@@ -321,6 +333,7 @@ const canvasWrap = document.getElementById("canvas-wrap");
 const detailEl = document.getElementById("detail");
 const statusEl = document.getElementById("status");
 const hintEl = document.getElementById("hint");
+const toolPanelEl = document.getElementById("tool-panel");
 const groupBar = document.getElementById("group-add-bar");
 const searchEl = document.getElementById("search");
 const searchMetaEl = document.getElementById("search-meta");
@@ -1491,12 +1504,20 @@ function showGroupDetail(group) {
   fillNodeList(detailEl.querySelector(".members"), summary.members);
 }
 
+function collapseToolPanel() {
+  if (toolPanelEl && toolPanelEl.open) toolPanelEl.open = false;
+}
+
 // ---------- pan & zoom ----------
 function applyTransform() {
   world.style.transform = `translate(${state.panX}px, ${state.panY}px) scale(${state.scale})`;
 }
 
 let isPanning = false, panStartX, panStartY, panOrigX, panOrigY, panBySpace = false;
+
+canvasWrap.addEventListener("mousedown", collapseToolPanel, true);
+canvasWrap.addEventListener("touchstart", collapseToolPanel, true);
+canvasWrap.addEventListener("wheel", collapseToolPanel, { capture: true, passive: true });
 
 canvasWrap.addEventListener("mousedown", (e) => {
   if (!state.pendingGroup || e.button !== 0) return;
