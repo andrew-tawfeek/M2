@@ -107,16 +107,16 @@
     background-size: 36px 36px, 36px 36px, auto, auto, auto;
   }
   #canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
-  #world { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+  #world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
 
   /* Edges layer covers the whole world; we draw lines in world coords. */
   svg#edges { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
-  svg#edges path { fill: none; stroke: var(--edge); stroke-width: 1.2; transition: stroke 0.1s, stroke-width 0.1s, opacity 0.12s; }
+  svg#edges path { fill: none; stroke: var(--edge); stroke-width: 1.2; transition: none; }
   svg#edges path.decl { stroke-dasharray: 5 5; stroke: rgba(166,80,29,0.42); }
   svg#edges path.hi { stroke: var(--edge-hi); stroke-width: 2; }
   svg#edges path.in { stroke: var(--accent-3); stroke-width: 1.8; opacity: 0.92; }
   svg#edges path.out { stroke: var(--accent); stroke-width: 1.8; opacity: 0.92; }
-  svg#edges path.hidden-edge { opacity: 0; pointer-events: none; }
+  svg#edges path.hidden-edge { opacity: 0; visibility: hidden; pointer-events: none; }
   svg#edges path.aggregate-edge { stroke-width: 2.4; opacity: 0.94; }
   svg#edges path.aggregate-edge.decl { stroke-dasharray: 7 5; }
 
@@ -132,13 +132,13 @@
     user-select: none;
     color: var(--ink);
     box-shadow: 0 2px 8px rgba(70,55,28,0.12);
-    transition: border-color 0.1s, background 0.1s, box-shadow 0.1s, opacity 0.12s, filter 0.12s, transform 0.12s;
+    transition: border-color 0.1s, background 0.1s, box-shadow 0.1s;
   }
   .node.dragging { cursor: grabbing; z-index: 1000; box-shadow: 0 14px 32px rgba(70,55,28,0.32); }
-  .node:hover { background: var(--node-hover); border-color: var(--border-strong); transform: translateY(-1px); }
+  .node:hover { background: var(--node-hover); border-color: var(--border-strong); }
   .node.selected { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow); z-index: 4; }
-  .node.context-dim { opacity: 0.18; filter: grayscale(0.7); }
-  .node.filter-dim { opacity: 0.12; filter: grayscale(1); }
+  .node.context-dim { opacity: 0.18; }
+  .node.filter-dim { opacity: 0.12; }
   .node.subdir { background: #f3efe5; border-style: dashed; }
   .node.subdir .title { color: var(--accent-2); }
   .node .title { font-weight: 730; font-size: 12px; word-break: break-word; line-height: 1.25; }
@@ -172,7 +172,7 @@
   .group.auto .handle { display: none; }
   .group.selected { border-color: var(--accent); background: rgba(23,108,101,0.14); box-shadow: 0 0 0 3px var(--accent-soft); }
   .group.related { border-color: rgba(47,94,153,0.6); background: rgba(47,94,153,0.07); }
-  .group.context-dim { opacity: 0.22; filter: grayscale(0.8); }
+  .group.context-dim { opacity: 0.22; }
   .editable-text { cursor: text; border-radius: 4px; outline: 0; }
   .group .label.editable-text { cursor: text; }
   .editable-text:hover { background: rgba(23,108,101,0.08); box-shadow: 0 0 0 2px rgba(23,108,101,0.08); }
