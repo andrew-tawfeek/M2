@@ -320,6 +320,7 @@ const state = {
   showDecls: true,
   groupNextId: 1,
   pendingGroup: null,   // null | { stage: 0|1, x0, y0 }
+  suppressNextCanvasClick: false,
 };
 
 const world = document.getElementById("world");
@@ -538,8 +539,12 @@ function renderNodes() {
     attachNodeDrag(node, el);
     // click selects (suppressed by drag handler if there was movement)
     el.addEventListener("click", (e) => {
-      if (el.dataset.suppressClick === "1") { el.dataset.suppressClick = ""; return; }
       e.stopPropagation();
+      if (el.dataset.suppressClick === "1") {
+        el.dataset.suppressClick = "";
+        state.suppressNextCanvasClick = false;
+        return;
+      }
       selectNode(node.id, { additive: e.shiftKey });
     });
   }
@@ -616,6 +621,11 @@ function updateEdgesForNode(nodeId) {
   }
 }
 
+function suppressCanvasClickOnce(el = null) {
+  state.suppressNextCanvasClick = true;
+  if (el) el.dataset.suppressClick = "1";
+}
+
 // ---------- dragging nodes ----------
 function attachNodeDrag(node, el) {
   let startX, startY, origLeft, origTop, moved = false;
@@ -648,7 +658,7 @@ function attachNodeDrag(node, el) {
       positionAutoGroups();
       refreshSelection();
       saveLayout();
-      el.dataset.suppressClick = "1";
+      suppressCanvasClickOnce(el);
     }
   }
   el.addEventListener("mousedown", onDown);
@@ -1491,6 +1501,11 @@ window.addEventListener("keyup", (e) => {
 
 canvasWrap.addEventListener("click", (e) => {
   if (state.pendingGroup) return;
+  if (state.suppressNextCanvasClick) {
+    state.suppressNextCanvasClick = false;
+    e.stopPropagation();
+    return;
+  }
   if (e.target === canvasWrap || e.target === world || e.target.id === "canvas") {
     clearSelection();
   }
@@ -1571,6 +1586,11 @@ function makeGroup(g) {
   el.addEventListener("click", (e) => {
     if (e.target.classList.contains("handle")) return;
     e.stopPropagation();
+    if (el.dataset.suppressClick === "1") {
+      el.dataset.suppressClick = "";
+      state.suppressNextCanvasClick = false;
+      return;
+    }
     selectGroup(g.id, { additive: e.shiftKey });
   });
 
@@ -1587,7 +1607,7 @@ function makeGroup(g) {
       const node = state.nodes.get(id);
       return [id, { x: node.x, y: node.y }];
     }));
-    moveStart = { x: e.clientX, y: e.clientY, ox: g.x, oy: g.y, memberPositions };
+    moveStart = { x: e.clientX, y: e.clientY, ox: g.x, oy: g.y, memberPositions, moved: false };
     el.classList.add("dragging");
     window.addEventListener("mousemove", moveMove);
     window.addEventListener("mouseup", moveUp);
@@ -1595,6 +1615,7 @@ function makeGroup(g) {
   function moveMove(e) {
     const dx = (e.clientX - moveStart.x) / state.scale;
     const dy = (e.clientY - moveStart.y) / state.scale;
+    if (Math.abs(dx) + Math.abs(dy) > 2) moveStart.moved = true;
     g.x = moveStart.ox + dx; g.y = moveStart.oy + dy;
     applyGroupPosition(g);
     for (const [id, pos] of moveStart.memberPositions) {
@@ -1614,6 +1635,7 @@ function makeGroup(g) {
     window.removeEventListener("mousemove", moveMove);
     window.removeEventListener("mouseup", moveUp);
     if (moveStart) {
+      if (moveStart.moved) suppressCanvasClickOnce(el);
       refreshSelection();
       moveStart = null;
     }
@@ -1628,13 +1650,14 @@ function makeGroup(g) {
   function rDown(e) {
     if (e.button !== 0) return;
     e.stopPropagation();
-    rStart = { x: e.clientX, y: e.clientY, ow: g.w, oh: g.h };
+    rStart = { x: e.clientX, y: e.clientY, ow: g.w, oh: g.h, moved: false };
     window.addEventListener("mousemove", rMove);
     window.addEventListener("mouseup", rUp);
   }
   function rMove(e) {
     const dw = (e.clientX - rStart.x) / state.scale;
     const dh = (e.clientY - rStart.y) / state.scale;
+    if (Math.abs(dw) + Math.abs(dh) > 2) rStart.moved = true;
     g.w = Math.max(80, rStart.ow + dw);
     g.h = Math.max(40, rStart.oh + dh);
     applyGroupPosition(g);
@@ -1643,6 +1666,8 @@ function makeGroup(g) {
   function rUp() {
     window.removeEventListener("mousemove", rMove);
     window.removeEventListener("mouseup", rUp);
+    if (rStart && rStart.moved) suppressCanvasClickOnce(el);
+    rStart = null;
     saveLayout();
   }
   resizeHandle.addEventListener("mousedown", rDown);
