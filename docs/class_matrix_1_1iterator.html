@@ -136,9 +136,9 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Reseatable iterator over the non-zero entries of one column of the matrix. </p>
 <dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
-<p>Constructed in a "no column" state (<span class="tt">col == -1</span>, <span class="tt">v == nullptr</span>) and then <span class="tt">set(col)</span> aims it at a specific column; <span class="tt">next()</span> advances through that column's sparse <span class="tt">vec</span> list. Read-only by design &mdash; the matrix itself is immutable. </p>
+<p>Constructed in a "no column" state (<span class="tt">col == -1</span>, <span class="tt">v == nullptr</span>) and then <span class="tt">set(col)</span> aims it at a specific column; <span class="tt">next()</span> advances through that column's sparse <span class="tt">vec</span> list (decreasing row order; zero entries are not present). Read-only by design &mdash; the matrix itself is immutable. </p>
 
-<p class="definition">Definition at line <a class="el" href="matrix_8hpp_source.html#l00301">301</a> of file <a class="el" href="matrix_8hpp_source.html">matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="matrix_8hpp_source.html#l00302">302</a> of file <a class="el" href="matrix_8hpp_source.html">matrix.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>Macaulay2/e/<a class="el" href="matrix_8hpp_source.html">matrix.hpp</a></li>
 </ul>
