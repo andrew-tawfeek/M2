@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['trivial_0',['Trivial',['../_n_c_reduction_8hpp_a3323bceff3e6a898901853c6a56f223a.html#a3323bceff3e6a898901853c6a56f223aa6d2adfdfd6f2a24cc46e5fdbb5679135',1,'NCReduction.hpp']]]
+  ['weights_0',['Weights',['../res-monomial-types_8hpp_a63153a009acee44d67d789ad5d367bff.html#a63153a009acee44d67d789ad5d367bffa8831731b52fdc6cb7f162f9767d66e4d',1,'res-monomial-types.hpp']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logdomaininternal_0',['LogDomainInternal',['../namespace_log_domain_internal.html',1,'']]]
+  ['newf4_0',['newf4',['../namespacenewf4.html',1,'']]]
 ];

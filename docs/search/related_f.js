@@ -11,11 +11,9 @@ var searchData=
   ['sinh_8',['sinh',['../classmpfr_1_1mpreal_af8c03e413fe9a3521a609ab8e08aab3d.html#af8c03e413fe9a3521a609ab8e08aab3d',1,'mpfr::mpreal']]],
   ['sinh_5fcosh_9',['sinh_cosh',['../classmpfr_1_1mpreal_a33426970717df0c0182aec3e3347c79c.html#a33426970717df0c0182aec3e3347c79c',1,'mpfr::mpreal']]],
   ['skewpolynomialring_10',['SkewPolynomialRing',['../class_g_b_ring_a7598ca67f74908828f80c518e6b8ee53.html#a7598ca67f74908828f80c518e6b8ee53',1,'GBRing']]],
-  ['sparsematrix_11',['SparseMatrix',['../class_sparse_matrix_1_1_const_row_iterator_a240abf68603784c3dcc4761f8bc41ad6.html#a240abf68603784c3dcc4761f8bc41ad6',1,'SparseMatrix::ConstRowIterator::SparseMatrix()'],['../class_sparse_matrix_1_1_row_iterator_a240abf68603784c3dcc4761f8bc41ad6.html#a240abf68603784c3dcc4761f8bc41ad6',1,'SparseMatrix::RowIterator::SparseMatrix()']]],
-  ['sqr_12',['sqr',['../classmpfr_1_1mpreal_a0f3bba3c1d9fb49736abeb3cc503a39c.html#a0f3bba3c1d9fb49736abeb3cc503a39c',1,'mpfr::mpreal']]],
-  ['sqrt_13',['sqrt',['../classmpfr_1_1mpreal_a4ee053819c7f4725006ec54684aba126.html#a4ee053819c7f4725006ec54684aba126',1,'mpfr::mpreal::sqrt(const mpreal &amp;v, mp_rnd_t rnd_mode=mpreal::get_default_rnd())'],['../classmpfr_1_1mpreal_a1c0dd1c617cc5d6028fa9d6ea3dd1096.html#a1c0dd1c617cc5d6028fa9d6ea3dd1096',1,'mpfr::mpreal::sqrt(const unsigned long int v, mp_rnd_t rnd_mode)']]],
-  ['stash_14',['stash',['../classslab_ad723474e964b05e454faddf2b2dd3753.html#ad723474e964b05e454faddf2b2dd3753',1,'slab']]],
-  ['storedratiocmp_15',['StoredRatioCmp',['../class_sig_poly_basis_af458d9ad838f94653dc1f543236249db.html#af458d9ad838f94653dc1f543236249db',1,'SigPolyBasis']]],
-  ['sum_16',['sum',['../classmpfr_1_1mpreal_a0985c0504f64476622e91de6755a78ae.html#a0985c0504f64476622e91de6755a78ae',1,'mpfr::mpreal']]],
-  ['swap_17',['swap',['../classmpfr_1_1mpreal_a9f63d7ab57c1097b088e4410a7007b86.html#a9f63d7ab57c1097b088e4410a7007b86',1,'mpfr::mpreal']]]
+  ['sqr_11',['sqr',['../classmpfr_1_1mpreal_a0f3bba3c1d9fb49736abeb3cc503a39c.html#a0f3bba3c1d9fb49736abeb3cc503a39c',1,'mpfr::mpreal']]],
+  ['sqrt_12',['sqrt',['../classmpfr_1_1mpreal_a4ee053819c7f4725006ec54684aba126.html#a4ee053819c7f4725006ec54684aba126',1,'mpfr::mpreal::sqrt(const mpreal &amp;v, mp_rnd_t rnd_mode=mpreal::get_default_rnd())'],['../classmpfr_1_1mpreal_a1c0dd1c617cc5d6028fa9d6ea3dd1096.html#a1c0dd1c617cc5d6028fa9d6ea3dd1096',1,'mpfr::mpreal::sqrt(const unsigned long int v, mp_rnd_t rnd_mode)']]],
+  ['stash_13',['stash',['../classslab_ad723474e964b05e454faddf2b2dd3753.html#ad723474e964b05e454faddf2b2dd3753',1,'slab']]],
+  ['sum_14',['sum',['../classmpfr_1_1mpreal_a0985c0504f64476622e91de6755a78ae.html#a0985c0504f64476622e91de6755a78ae',1,'mpfr::mpreal']]],
+  ['swap_15',['swap',['../classmpfr_1_1mpreal_a9f63d7ab57c1097b088e4410a7007b86.html#a9f63d7ab57c1097b088e4410a7007b86',1,'mpfr::mpreal']]]
 ];

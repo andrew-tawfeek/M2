@@ -1,8 +1,23 @@
 var searchData=
 [
-  ['overflow_2dtest_2ecpp_0',['overflow-test.cpp',['../overflow-test_8cpp.html',1,'']]],
-  ['overflow_2ecpp_1',['overflow.cpp',['../overflow_8cpp.html',1,'']]],
-  ['overflow_2ehpp_2',['overflow.hpp',['../overflow_8hpp.html',1,'']]],
-  ['overlaptable_2ecpp_3',['OverlapTable.cpp',['../_overlap_table_8cpp.html',1,'']]],
-  ['overlaptable_2ehpp_4',['OverlapTable.hpp',['../_overlap_table_8hpp.html',1,'']]]
+  ['pcomparator_2ehpp_0',['pcomparator.hpp',['../pcomparator_8hpp.html',1,'']]],
+  ['pfaff_2ecpp_1',['pfaff.cpp',['../pfaff_8cpp.html',1,'']]],
+  ['pfaff_2ehpp_2',['pfaff.hpp',['../pfaff_8hpp.html',1,'']]],
+  ['pointarray_2ecpp_3',['PointArray.cpp',['../_point_array_8cpp.html',1,'']]],
+  ['points_2ecpp_4',['points.cpp',['../points_8cpp.html',1,'']]],
+  ['points_2ehpp_5',['points.hpp',['../points_8hpp.html',1,'']]],
+  ['poly_2ecpp_6',['poly.cpp',['../poly_8cpp.html',1,'']]],
+  ['poly_2ehpp_7',['poly.hpp',['../poly_8hpp.html',1,'']]],
+  ['polynom_2ehpp_8',['polynom.hpp',['../polynom_8hpp.html',1,'']]],
+  ['polynomial_2ecpp_9',['Polynomial.cpp',['../_polynomial_8cpp.html',1,'']]],
+  ['polynomial_2ehpp_10',['Polynomial.hpp',['../_polynomial_8hpp.html',1,'']]],
+  ['polynomiallist_2ecpp_11',['PolynomialList.cpp',['../_polynomial_list_8cpp.html',1,'']]],
+  ['polynomiallist_2ehpp_12',['PolynomialList.hpp',['../_polynomial_list_8hpp.html',1,'']]],
+  ['polynomialstream_2ehpp_13',['PolynomialStream.hpp',['../_polynomial_stream_8hpp.html',1,'']]],
+  ['polyquotient_2ecpp_14',['polyquotient.cpp',['../polyquotient_8cpp.html',1,'']]],
+  ['polyquotient_2ehpp_15',['polyquotient.hpp',['../polyquotient_8hpp.html',1,'']]],
+  ['polyring_2ecpp_16',['polyring.cpp',['../polyring_8cpp.html',1,'']]],
+  ['polyring_2ehpp_17',['polyring.hpp',['../polyring_8hpp.html',1,'']]],
+  ['polyringtest_2ecpp_18',['PolyRingTest.cpp',['../_poly_ring_test_8cpp.html',1,'']]],
+  ['polyroots_2ecpp_19',['polyroots.cpp',['../polyroots_8cpp.html',1,'']]]
 ];

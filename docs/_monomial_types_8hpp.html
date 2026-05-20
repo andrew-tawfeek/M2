@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/gb-f4/MonomialTypes.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/gb-f4/MonomialTypes.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -113,6 +113,7 @@ Typedefs</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Typed integer vocabulary for <span class="tt">namespace <a class="el" href="namespacenewf4.html">newf4</a></span> (indices, monomial words, hashes, masks). </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Declares the strongly-named integer aliases the rest of <span class="tt">gb-f4/</span> uses in place of bare <span class="tt"><a class="el" href="classint.html">int</a></span>: <span class="tt">Index</span> numbers GB basis elements; <span class="tt">MonomialIndex</span> keys into the <span class="tt"><a class="el" href="class_monomial_hash_table.html">MonomialHashTable</a></span> with <span class="tt">0</span> reserved as the "undefined" sentinel; <span class="tt">MonomialInt</span> is one word of the encoded monomial stream and also the type used for cached degrees; <span class="tt"><a class="el" href="res-schreyer-frame_8hpp_a46aff60fe9e7b02cb075b491f6e3af7b.html#a46aff60fe9e7b02cb075b491f6e3af7b">ComponentIndex</a></span> numbers free-module components; <span class="tt">HashInt</span> is the 64-bit hash returned by <span class="tt">MonomialHashFunction</span>; and <span class="tt">MonomialMask</span> is the 64-bit bitset <span class="tt"><a class="el" href="f4-types_8hpp_a26f8bf3ae452faf485404829038ffe26.html#a26f8bf3ae452faf485404829038ffe26">MonomialLookupTable</a></span> uses for cheap divisibility pre-tests.</p>
 <p>All six aliases compile to <span class="tt">int32_t</span> or <span class="tt">uint64_t</span>, but the distinct C++ names let the compiler reject calls that mix a <span class="tt">MonomialIndex</span> with an <span class="tt">Index</span> &mdash; bugs that would silently misbehave with raw ints. Every other header in <span class="tt">gb-f4/</span> ultimately includes this one.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="_monomial_hash_table_8hpp.html" title="newf4::MonomialHashFunction and the new-F4 monomial-to-index hash table.">MonomialHashTable.hpp</a> </dd>

@@ -111,33 +111,33 @@ $(function(){initNavTree('class_b_i_basis_1_1_monom_lex_a17e1118376b1213c2f78e3a
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="monom_lex_8hpp_source.html#l00321">321</a> of file <a class="el" href="monom_lex_8hpp_source.html">monomLex.hpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  322</span>    {</div>
-<div class="line"><span class="lineno">  323</span>        <a class="code hl_struct" href="struct_b_i_basis_1_1_monom_1_1_vars_list_node.html">VarsListNode</a> **iterator = &amp;<a class="code hl_variable" href="class_b_i_basis_1_1_monom_ace5c7e7f9d408c26588328d3d9b772e4.html#ace5c7e7f9d408c26588328d3d9b772e4">ListHead</a>,</div>
-<div class="line"><span class="lineno">  324</span>                     *anotherIterator = anotherMonom.ListHead;</div>
-<div class="line"><span class="lineno">  325</span> </div>
-<div class="line"><span class="lineno">  326</span>        <span class="keywordflow">while</span> (*iterator &amp;&amp; anotherIterator)</div>
-<div class="line"><span class="lineno">  327</span>        {</div>
-<div class="line"><span class="lineno">  328</span>            <span class="keywordflow">if</span> ((*iterator)-&gt;Value == anotherIterator-&gt;Value)</div>
-<div class="line"><span class="lineno">  329</span>            {</div>
-<div class="line"><span class="lineno">  330</span>                <a class="code hl_struct" href="struct_b_i_basis_1_1_monom_1_1_vars_list_node.html">VarsListNode</a>* nodeToDelete = *iterator;</div>
-<div class="line"><span class="lineno">  331</span>                *iterator = (*iterator)-&gt;<a class="code hl_variable" href="struct_b_i_basis_1_1_monom_1_1_vars_list_node_ad94cd89a5774ddecb9cd01102e148e02.html#ad94cd89a5774ddecb9cd01102e148e02">Next</a>;</div>
-<div class="line"><span class="lineno">  332</span>                <span class="keyword">delete</span> nodeToDelete;</div>
-<div class="line"><span class="lineno">  333</span>                --<a class="code hl_variable" href="class_b_i_basis_1_1_monom_aa0046595752d9d293c84b9146bc701e0.html#aa0046595752d9d293c84b9146bc701e0">TotalDegree</a>;</div>
-<div class="line"><span class="lineno">  334</span>                anotherIterator = anotherIterator-&gt;Next;</div>
-<div class="line"><span class="lineno">  335</span>            }</div>
-<div class="line"><span class="lineno">  336</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((*iterator)-&gt;Value &lt; anotherIterator-&gt;Value)</div>
-<div class="line"><span class="lineno">  337</span>            {</div>
-<div class="line"><span class="lineno">  338</span>                iterator = &amp;((*iterator)-&gt;Next);</div>
+<p class="definition">Definition at line <a class="el" href="monom_lex_8hpp_source.html#l00325">325</a> of file <a class="el" href="monom_lex_8hpp_source.html">monomLex.hpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  326</span>    {</div>
+<div class="line"><span class="lineno">  327</span>        <a class="code hl_struct" href="struct_b_i_basis_1_1_monom_1_1_vars_list_node.html">VarsListNode</a> **iterator = &amp;<a class="code hl_variable" href="class_b_i_basis_1_1_monom_ace5c7e7f9d408c26588328d3d9b772e4.html#ace5c7e7f9d408c26588328d3d9b772e4">ListHead</a>,</div>
+<div class="line"><span class="lineno">  328</span>                     *anotherIterator = anotherMonom.ListHead;</div>
+<div class="line"><span class="lineno">  329</span> </div>
+<div class="line"><span class="lineno">  330</span>        <span class="keywordflow">while</span> (*iterator &amp;&amp; anotherIterator)</div>
+<div class="line"><span class="lineno">  331</span>        {</div>
+<div class="line"><span class="lineno">  332</span>            <span class="keywordflow">if</span> ((*iterator)-&gt;Value == anotherIterator-&gt;Value)</div>
+<div class="line"><span class="lineno">  333</span>            {</div>
+<div class="line"><span class="lineno">  334</span>                <a class="code hl_struct" href="struct_b_i_basis_1_1_monom_1_1_vars_list_node.html">VarsListNode</a>* nodeToDelete = *iterator;</div>
+<div class="line"><span class="lineno">  335</span>                *iterator = (*iterator)-&gt;<a class="code hl_variable" href="struct_b_i_basis_1_1_monom_1_1_vars_list_node_ad94cd89a5774ddecb9cd01102e148e02.html#ad94cd89a5774ddecb9cd01102e148e02">Next</a>;</div>
+<div class="line"><span class="lineno">  336</span>                <span class="keyword">delete</span> nodeToDelete;</div>
+<div class="line"><span class="lineno">  337</span>                --<a class="code hl_variable" href="class_b_i_basis_1_1_monom_aa0046595752d9d293c84b9146bc701e0.html#aa0046595752d9d293c84b9146bc701e0">TotalDegree</a>;</div>
+<div class="line"><span class="lineno">  338</span>                anotherIterator = anotherIterator-&gt;Next;</div>
 <div class="line"><span class="lineno">  339</span>            }</div>
-<div class="line"><span class="lineno">  340</span>        }</div>
-<div class="line"><span class="lineno">  341</span> </div>
-<div class="line"><span class="lineno">  342</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  343</span>    }</div>
-<div class="ttc" id="aclass_b_i_basis_1_1_monom_aa0046595752d9d293c84b9146bc701e0_html_aa0046595752d9d293c84b9146bc701e0"><div class="ttname"><a href="class_b_i_basis_1_1_monom_aa0046595752d9d293c84b9146bc701e0.html#aa0046595752d9d293c84b9146bc701e0">BIBasis::Monom::TotalDegree</a></div><div class="ttdeci">Integer TotalDegree</div><div class="ttdef"><b>Definition</b> <a href="monom_8hpp_source.html#l00100">monom.hpp:100</a></div></div>
-<div class="ttc" id="aclass_b_i_basis_1_1_monom_ace5c7e7f9d408c26588328d3d9b772e4_html_ace5c7e7f9d408c26588328d3d9b772e4"><div class="ttname"><a href="class_b_i_basis_1_1_monom_ace5c7e7f9d408c26588328d3d9b772e4.html#ace5c7e7f9d408c26588328d3d9b772e4">BIBasis::Monom::ListHead</a></div><div class="ttdeci">VarsListNode * ListHead</div><div class="ttdef"><b>Definition</b> <a href="monom_8hpp_source.html#l00099">monom.hpp:99</a></div></div>
-<div class="ttc" id="astruct_b_i_basis_1_1_monom_1_1_vars_list_node_ad94cd89a5774ddecb9cd01102e148e02_html_ad94cd89a5774ddecb9cd01102e148e02"><div class="ttname"><a href="struct_b_i_basis_1_1_monom_1_1_vars_list_node_ad94cd89a5774ddecb9cd01102e148e02.html#ad94cd89a5774ddecb9cd01102e148e02">BIBasis::Monom::VarsListNode::Next</a></div><div class="ttdeci">VarsListNode * Next</div><div class="ttdef"><b>Definition</b> <a href="monom_8hpp_source.html#l00090">monom.hpp:90</a></div></div>
-<div class="ttc" id="astruct_b_i_basis_1_1_monom_1_1_vars_list_node_html"><div class="ttname"><a href="struct_b_i_basis_1_1_monom_1_1_vars_list_node.html">BIBasis::Monom::VarsListNode</a></div><div class="ttdoc">Singly linked-list node of a Monom&#39;s variable list, with a per-class slab allocator.</div><div class="ttdef"><b>Definition</b> <a href="monom_8hpp_source.html#l00087">monom.hpp:88</a></div></div>
+<div class="line"><span class="lineno">  340</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((*iterator)-&gt;Value &lt; anotherIterator-&gt;Value)</div>
+<div class="line"><span class="lineno">  341</span>            {</div>
+<div class="line"><span class="lineno">  342</span>                iterator = &amp;((*iterator)-&gt;Next);</div>
+<div class="line"><span class="lineno">  343</span>            }</div>
+<div class="line"><span class="lineno">  344</span>        }</div>
+<div class="line"><span class="lineno">  345</span> </div>
+<div class="line"><span class="lineno">  346</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  347</span>    }</div>
+<div class="ttc" id="aclass_b_i_basis_1_1_monom_aa0046595752d9d293c84b9146bc701e0_html_aa0046595752d9d293c84b9146bc701e0"><div class="ttname"><a href="class_b_i_basis_1_1_monom_aa0046595752d9d293c84b9146bc701e0.html#aa0046595752d9d293c84b9146bc701e0">BIBasis::Monom::TotalDegree</a></div><div class="ttdeci">Integer TotalDegree</div><div class="ttdef"><b>Definition</b> <a href="monom_8hpp_source.html#l00106">monom.hpp:106</a></div></div>
+<div class="ttc" id="aclass_b_i_basis_1_1_monom_ace5c7e7f9d408c26588328d3d9b772e4_html_ace5c7e7f9d408c26588328d3d9b772e4"><div class="ttname"><a href="class_b_i_basis_1_1_monom_ace5c7e7f9d408c26588328d3d9b772e4.html#ace5c7e7f9d408c26588328d3d9b772e4">BIBasis::Monom::ListHead</a></div><div class="ttdeci">VarsListNode * ListHead</div><div class="ttdef"><b>Definition</b> <a href="monom_8hpp_source.html#l00105">monom.hpp:105</a></div></div>
+<div class="ttc" id="astruct_b_i_basis_1_1_monom_1_1_vars_list_node_ad94cd89a5774ddecb9cd01102e148e02_html_ad94cd89a5774ddecb9cd01102e148e02"><div class="ttname"><a href="struct_b_i_basis_1_1_monom_1_1_vars_list_node_ad94cd89a5774ddecb9cd01102e148e02.html#ad94cd89a5774ddecb9cd01102e148e02">BIBasis::Monom::VarsListNode::Next</a></div><div class="ttdeci">VarsListNode * Next</div><div class="ttdef"><b>Definition</b> <a href="monom_8hpp_source.html#l00096">monom.hpp:96</a></div></div>
+<div class="ttc" id="astruct_b_i_basis_1_1_monom_1_1_vars_list_node_html"><div class="ttname"><a href="struct_b_i_basis_1_1_monom_1_1_vars_list_node.html">BIBasis::Monom::VarsListNode</a></div><div class="ttdoc">Singly linked-list node of a Monom&#39;s variable list, with a per-class slab allocator.</div><div class="ttdef"><b>Definition</b> <a href="monom_8hpp_source.html#l00093">monom.hpp:94</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="class_b_i_basis_1_1_monom_ace5c7e7f9d408c26588328d3d9b772e4.html#ace5c7e7f9d408c26588328d3d9b772e4">BIBasis::Monom::ListHead</a>, <a class="el" href="class_b_i_basis_1_1_monom_lex_ae6a7b4dcac573426fb3241991225f3e8.html#ae6a7b4dcac573426fb3241991225f3e8">MonomLex()</a>, <a class="el" href="struct_b_i_basis_1_1_monom_1_1_vars_list_node_ad94cd89a5774ddecb9cd01102e148e02.html#ad94cd89a5774ddecb9cd01102e148e02">BIBasis::Monom::VarsListNode::Next</a>, <a class="el" href="#a17e1118376b1213c2f78e3aeddad0978">operator/=()</a>, and <a class="el" href="class_b_i_basis_1_1_monom_aa0046595752d9d293c84b9146bc701e0.html#aa0046595752d9d293c84b9146bc701e0">BIBasis::Monom::TotalDegree</a>.</p>
 

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/unit-tests/M2-cpp-replacement.cpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/unit-tests/M2-cpp-replacement.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -103,9 +103,10 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Single-symbol stub for <span class="tt"><a class="el" href="_m2-cpp-replacement_8cpp_a5035d07c37876dc3b866e1d4457ff390.html#a5035d07c37876dc3b866e1d4457ff390">system_interrupted()</a></span> so the gtest binary links without the <a class="el" href="namespace_m2.html">M2</a> interpreter. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Hosts one line: <span class="tt"><a class="el" href="classbool.html">bool</a> <a class="el" href="_m2-cpp-replacement_8cpp_a5035d07c37876dc3b866e1d4457ff390.html#a5035d07c37876dc3b866e1d4457ff390">system_interrupted()</a> { <a class="el" href="m2-mem_8cpp_acc4ce1649a2cfffb5cbc82ee8231a249.html#acc4ce1649a2cfffb5cbc82ee8231a249">return</a> false; }</span>. The engine calls this hook from inner loops to honour Ctrl+C arriving through the interpreter's <span class="tt">interrupts.d</span>; the <span class="tt">M2-unit-tests</span> binary does not link the interpreter, so the symbol would otherwise be undefined. The stub always reports "not interrupted," which is the correct answer for an automated test run: tests should never time out from a fake Ctrl+C.</p>
-<p>The fact that a single one-line replacement is enough to build the engine for testing demonstrates how cleanly the engine / interpreter boundary is drawn &mdash; everything else the test binary needs is satisfied by the regular engine libraries. Companion to <span class="tt">testMain.cpp</span>, <span class="tt"><a class="el" href="from_stream_8cpp.html" title="Per-ring fromStream specialisations shared across the legacy Ring*Test.cpp suite.">fromStream.cpp</a></span>, and <span class="tt">util-polyring-creation.{cpp,hpp}</span> in the <span class="tt">file-test-harness</span> family.</p>
-<dl class="section see"><dt>See also</dt><dd>testMain.cpp </dd>
+<p>The fact that a single one-line replacement is enough to build the engine for testing demonstrates how cleanly the engine / interpreter boundary is drawn &mdash; everything else the test binary needs is satisfied by the regular engine libraries. Companion to <span class="tt"><a class="el" href="test_main_8cpp.html" title="main() of the M2-unit-tests binary — boots the engine, then runs gtest.">testMain.cpp</a></span>, <span class="tt"><a class="el" href="from_stream_8cpp.html" title="Per-ring fromStream specialisations shared across the legacy Ring*Test.cpp suite.">fromStream.cpp</a></span>, and <span class="tt">util-polyring-creation.{cpp,hpp}</span> in the <span class="tt">file-test-harness</span> family.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="test_main_8cpp.html" title="main() of the M2-unit-tests binary — boots the engine, then runs gtest.">testMain.cpp</a> </dd>
 <dd>
 <a class="el" href="from_stream_8cpp.html" title="Per-ring fromStream specialisations shared across the legacy Ring*Test.cpp suite.">fromStream.cpp</a> </dd>
 <dd>

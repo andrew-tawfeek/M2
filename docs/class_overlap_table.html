@@ -123,9 +123,10 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Per-degree FIFO queue of pending overlaps for the NC Groebner basis driver to process. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p><span class="tt"><a class="el" href="_overlap_table_8hpp_a6137b15715e0fc6d08b1936ca1f48e85.html#a6137b15715e0fc6d08b1936ca1f48e85">Overlap</a> = (firstIndex, position, secondIndex, computedFlag)</span> encodes one prefix/suffix overlap of two <span class="tt"><a class="el" href="class_overlap_table_a7f1ff015855fbe347cf63b2b88a8fb0c.html#a7f1ff015855fbe347cf63b2b88a8fb0c">mPolyList</a></span> entries; the table groups entries by <span class="tt">(degree, isGenerator)</span> in a <span class="tt">std::map</span> so the driver can pull all overlaps of the current degree in one shot via <span class="tt"><a class="el" href="class_overlap_table_acf2aa58eeb01f80a33db809091f9376c.html#acf2aa58eeb01f80a33db809091f9376c">nextDegreeOverlaps</a></span>. <span class="tt"><a class="el" href="class_overlap_table_a2752843e8d338897f2e21987ac79dc3d.html#a2752843e8d338897f2e21987ac79dc3d">insert</a></span> appends (creating the bucket on demand) and <span class="tt"><a class="el" href="class_overlap_table_a2b5eb27f920422f83529b9a6fc566c9a.html#a2b5eb27f920422f83529b9a6fc566c9a">isFinished</a></span> / <span class="tt">isFinished(topDegree)</span> ask whether any pending work remains at or below a degree cap. </p>
 
-<p class="definition">Definition at line <a class="el" href="_overlap_table_8hpp_source.html#l00071">71</a> of file <a class="el" href="_overlap_table_8hpp_source.html">OverlapTable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_overlap_table_8hpp_source.html#l00075">75</a> of file <a class="el" href="_overlap_table_8hpp_source.html">OverlapTable.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>Macaulay2/e/NCAlgebras/<a class="el" href="_overlap_table_8hpp_source.html">OverlapTable.hpp</a></li>
 <li>Macaulay2/e/NCAlgebras/<a class="el" href="_overlap_table_8cpp_source.html">OverlapTable.cpp</a></li>

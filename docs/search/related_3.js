@@ -5,6 +5,5 @@ var searchData=
   ['dim_2',['dim',['../classmpfr_1_1mpreal_a04c6cbe7deabccaf14db288da03116df.html#a04c6cbe7deabccaf14db288da03116df',1,'mpfr::mpreal']]],
   ['div_5f2si_3',['div_2si',['../classmpfr_1_1mpreal_a1cea8554b75673dca80884019c9d894d.html#a1cea8554b75673dca80884019c9d894d',1,'mpfr::mpreal']]],
   ['div_5f2ui_4',['div_2ui',['../classmpfr_1_1mpreal_ae9c47d6061072266166dfea65e6f9e9b.html#ae9c47d6061072266166dfea65e6f9e9b',1,'mpfr::mpreal']]],
-  ['divlist_3c_20c_20_3e_5',['DivList&lt; C &gt;',['../classmathic_1_1_div_list_1_1iterator_ad5c8e60061e723c541a323422b888f9b.html#ad5c8e60061e723c541a323422b888f9b',1,'mathic::DivList::iterator::DivList&lt; C &gt;()'],['../classmathic_1_1_div_list_1_1const__iterator_ad5c8e60061e723c541a323422b888f9b.html#ad5c8e60061e723c541a323422b888f9b',1,'mathic::DivList::const_iterator::DivList&lt; C &gt;()']]],
-  ['dpolytraverser_6',['DPolyTraverser',['../class_d_poly_a903bec832a636ccd2c95308f98c7e36d.html#a903bec832a636ccd2c95308f98c7e36d',1,'DPoly']]]
+  ['dpolytraverser_5',['DPolyTraverser',['../class_d_poly_a903bec832a636ccd2c95308f98c7e36d.html#a903bec832a636ccd2c95308f98c7e36d',1,'DPoly']]]
 ];

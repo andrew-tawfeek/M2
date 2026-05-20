@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/unit-tests/DMatTest.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/unit-tests/DMatTest.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -99,6 +99,7 @@ $(function(){initNavTree('_d_mat_test_8hpp.html','',''); });
 <p><a href="_d_mat_test_8hpp_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Convention placeholder header that pulls in <span class="tt"><a class="el" href="dmat_8hpp.html" title="DMat&lt;ACoeffRing&gt; — dense-matrix template plus the umbrella that wires in every per-ring specialisatio...">dmat.hpp</a></span> for the dense-matrix test suite. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Two-line header that exists as a stable include point for the dense-matrix tests: every <span class="tt">DMat*Test.cpp</span> (currently <span class="tt"><a class="el" href="_d_mat_z_zp_test_8cpp.html" title="gtest coverage for DMat&lt;M2::ARingZZp&gt; — dense matrices over Z/p.">DMatZZpTest.cpp</a></span>, with more planned) reaches the engine's <span class="tt"><a class="el" href="dmat_8hpp.html" title="DMat&lt;ACoeffRing&gt; — dense-matrix template plus the umbrella that wires in every per-ring specialisatio...">dmat.hpp</a></span> through this file rather than including it directly, so future shared fixtures, helper templates, or <span class="tt"><a class="el" href="_a_ring_c_c_c_test_8cpp_a4a618fdf0bcf2a59c823b89bd89e0ab8.html#a4a618fdf0bcf2a59c823b89bd89e0ab8">almostEqual</a></span>-style epsilon checks can land here without touching every test file. The pattern parallels <span class="tt"><a class="el" href="_a_ring_test_8hpp.html" title="Shared gtest harness for the ARing*Test.cpp suite.">ARingTest.hpp</a></span> and <span class="tt"><a class="el" href="_ring_test_8hpp.html" title="Shared gtest fixture for the legacy Ring-based Ring*Test.cpp suite.">RingTest.hpp</a></span> for the coefficient-ring suites.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="dmat_8hpp.html" title="DMat&lt;ACoeffRing&gt; — dense-matrix template plus the umbrella that wires in every per-ring specialisatio...">dmat.hpp</a> </dd>
 <dd>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/NCAlgebras/FreeMonoid.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/NCAlgebras/FreeMonoid.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -96,7 +96,7 @@ $(function(){initNavTree('_free_monoid_8hpp.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="_polynomial_8hpp_source.html">Polynomial.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="newdelete_8hpp_source.html">newdelete.hpp</a>&quot;</code><br />
-<code>#include &quot;polyring.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="polyring_8hpp_source.html">polyring.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="style_8hpp_source.html">style.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_word_8hpp_source.html">NCAlgebras/Word.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_memory_block_8hpp_source.html">MemoryBlock.hpp</a>&quot;</code><br />
@@ -125,6 +125,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_free_monoid.html" title="The free non-commutative monoid on a set of named variables, with monomial ordering and degree / weig...">FreeMonoid</a></span> &mdash; monoid of length-prefixed non-commutative words with weight-vector prefix. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Declares the word-side counterpart of the commutative <span class="tt"><a class="el" href="class_monoid.html" title="Engine-side commutative monomial monoid: variable names, ordering, multidegree machinery,...">Monoid</a></span>: a non-commutative monomial is a sequence of variable indices <span class="tt">[v_1, v_2, ..., v_s]</span>, and <span class="tt"><a class="el" href="class_free_monoid.html" title="The free non-commutative monoid on a set of named variables, with monomial ordering and degree / weig...">FreeMonoid</a></span> stores it in the packed form <span class="tt">[total length] wt_0 ... wt_{r-1}
 w_0 ... w_s</span> &mdash; a leading length so the word can be <span class="tt">memcpy</span>ed, <span class="tt">r</span> weight values used to short-circuit comparison, and the indices themselves. Multiplication is plain concatenation: no reordering, no normalisation, since the algebra is free. The intended comparison is weight-first then lexicographic, matching the "leading word" convention of the non-commutative Gröbner literature; the in-file TODOs track wiring the weight values through the front end so compare can use them consistently.</p>
 <p>The companion <span class="tt"><a class="el" href="class_free_monoid_logger.html" title="Static counter for non-commutative monomial comparisons.">FreeMonoidLogger</a></span> at the top of the header is a debug helper that counts monomial compares for profiling. <span class="tt"><a class="el" href="_n_c_groebner_8cpp.html">NCGroebner.cpp</a></span> resets the counter and prints it after each reduction, but the <span class="tt">logCompare()</span> call inside <span class="tt"><a class="el" href="_free_monoid_8cpp.html">FreeMonoid.cpp</a></span> is currently commented out, so the counter only ticks if a developer re-enables it.</p>

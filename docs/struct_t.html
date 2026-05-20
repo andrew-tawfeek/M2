@@ -111,9 +111,10 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Classic separate-chaining hash table used by the engine's low-level C code paths. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p><span class="tt"><a class="el" href="struct_t_a26e23de58526d847534987d9531aef51.html#a26e23de58526d847534987d9531aef51">size</a></span> is the bucket count and <span class="tt"><a class="el" href="struct_t_ac165cb2e47175ce65b25465d5bd8556d.html#ac165cb2e47175ce65b25465d5bd8556d">length</a></span> the live entry count; <span class="tt"><a class="el" href="struct_t_ad0c05772826e7539be987c395607788e.html#ad0c05772826e7539be987c395607788e">cmp</a></span> / <span class="tt"><a class="el" href="struct_t_ac312863f3d6a86d9b3b7390129c76334.html#ac312863f3d6a86d9b3b7390129c76334">hash</a></span> are the key comparison and hashing function pointers; <span class="tt"><a class="el" href="struct_t_a435a16de233b71e17a5186f56adea071.html#a435a16de233b71e17a5186f56adea071">timestamp</a></span> is bumped on every mutation so iterators can detect concurrent changes. <span class="tt">buckets</span> is an array of <span class="tt">binding*</span> heads, each chain holding the <span class="tt">(key, value)</span> pairs that hash to that slot. </p>
 
-<p class="definition">Definition at line <a class="el" href="table_8c_source.html#l00026">26</a> of file <a class="el" href="table_8c_source.html">table.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="table_8c_source.html#l00028">28</a> of file <a class="el" href="table_8c_source.html">table.c</a>.</p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>Macaulay2/e/<a class="el" href="table_8c_source.html">table.c</a></li>
 </ul>

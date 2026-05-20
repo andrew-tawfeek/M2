@@ -1,6 +1,5 @@
 var namespaces_dup =
 [
-    [ "AtomicInternal", "namespace_atomic_internal.html", "namespace_atomic_internal" ],
     [ "BIBasis", "namespace_b_i_basis.html", "namespace_b_i_basis" ],
     [ "EigenM2", "namespace_eigen_m2.html", [
       [ "eigenvalues", "namespace_eigen_m2_a1e64abe33906f8f1a0749abb7a17bca1.html#a1e64abe33906f8f1a0749abb7a17bca1", null ],
@@ -47,17 +46,7 @@ var namespaces_dup =
       [ "solveLinear", "namespaceffpack_interface_a22695c5915f0cde5783eb4e5a2cbdf06.html#a22695c5915f0cde5783eb4e5a2cbdf06", null ],
       [ "solveLinear", "namespaceffpack_interface_ad333746b169c31c4670e6d32c78377a7.html#ad333746b169c31c4670e6d32c78377a7", null ]
     ] ],
-    [ "FlattenNamespace", "namespace_flatten_namespace.html", "namespace_flatten_namespace" ],
-    [ "GroebnerConfiguration", null, [
-      [ "Pimpl", "struct_groebner_configuration_1_1_pimpl.html", "struct_groebner_configuration_1_1_pimpl" ]
-    ] ],
-    [ "GroebnerInputIdealStream", null, [
-      [ "Pimpl", "struct_groebner_input_ideal_stream_1_1_pimpl.html", "struct_groebner_input_ideal_stream_1_1_pimpl" ]
-    ] ],
-    [ "LogDomainInternal", "namespace_log_domain_internal.html", "namespace_log_domain_internal" ],
     [ "M2", "namespace_m2.html", "namespace_m2" ],
-    [ "mathic", "namespacemathic.html", "namespacemathic" ],
-    [ "MATHICGB_NAMESPACE_BEGIN", "namespace_m_a_t_h_i_c_g_b___n_a_m_e_s_p_a_c_e___b_e_g_i_n.html", "namespace_m_a_t_h_i_c_g_b___n_a_m_e_s_p_a_c_e___b_e_g_i_n" ],
     [ "MatrixOps", "namespace_matrix_ops.html", [
       [ "addInPlace", "namespace_matrix_ops_aa0b591bedc09f2645c7561c0cb7fc079.html#aa0b591bedc09f2645c7561c0cb7fc079", null ],
       [ "addInPlace", "namespace_matrix_ops_af42f2e3244906cee8cdae89f79f9e94c.html#af42f2e3244906cee8cdae89f79f9e94c", null ],
@@ -201,18 +190,8 @@ var namespaces_dup =
       [ "triangularSolve", "namespace_matrix_ops_a04305f4bd7a871e3cc62ef99450de411.html#a04305f4bd7a871e3cc62ef99450de411", null ],
       [ "triangularSolve", "namespace_matrix_ops_af9cd7f1cd7cd78d3d9c91e56a4f06fc7.html#af9cd7f1cd7cd78d3d9c91e56a4f06fc7", null ]
     ] ],
-    [ "memt", "namespacememt.html", "namespacememt" ],
-    [ "mgb", "namespacemgb.html", "namespacemgb" ],
-    [ "mgbF4", "namespacemgb_f4.html", "namespacemgb_f4" ],
-    [ "mgbi", "namespacemgbi.html", "namespacemgbi" ],
-    [ "mic", "namespacemic.html", null ],
-    [ "ModelHelper", "namespace_model_helper.html", "namespace_model_helper" ],
-    [ "MonoMonoidInternal", "namespace_mono_monoid_internal.html", "namespace_mono_monoid_internal" ],
     [ "mpfr", "namespacempfr.html", "namespacempfr" ],
-    [ "mtbb", "namespacemtbb.html", "namespacemtbb" ],
     [ "newf4", "namespacenewf4.html", "namespacenewf4" ],
-    [ "PrimeFieldInternal", "namespace_prime_field_internal.html", "namespace_prime_field_internal" ],
-    [ "ReducerHelper", "namespace_reducer_helper.html", "namespace_reducer_helper" ],
     [ "safe", "namespacesafe.html", [
       [ "add", "namespacesafe_a9bc0f400d9284da1cf4a66355924eb63.html#a9bc0f400d9284da1cf4a66355924eb63", null ],
       [ "add", "namespacesafe_a33c6936227918d3d2d0706c2b33e67e6.html#a33c6936227918d3d2d0706c2b33e67e6", null ],
@@ -252,6 +231,5 @@ var namespaces_dup =
       [ "sub_pos", "namespacesafe_ac74cdc0abe5f4c77f8e576037840a8b6.html#ac74cdc0abe5f4c77f8e576037840a8b6", null ]
     ] ],
     [ "SchreyerFrameTypes", "namespace_schreyer_frame_types.html", "namespace_schreyer_frame_types" ],
-    [ "std", "namespacestd.html", "namespacestd" ],
-    [ "UncharInternal", "namespace_unchar_internal.html", "namespace_unchar_internal" ]
+    [ "std", "namespacestd.html", "namespacestd" ]
 ];

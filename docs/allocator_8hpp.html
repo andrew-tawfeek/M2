@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/bibasis/allocator.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/bibasis/allocator.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -108,6 +108,7 @@ Namespaces</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_b_i_basis_1_1_fast_allocator.html" title="Slab allocator handing out fixed-size blocks for one BIBasis type per instance.">BIBasis::FastAllocator</a></span> &mdash; per-size-class slab allocator for <a class="el" href="namespace_b_i_basis.html">BIBasis</a>'s small objects. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Declares the slab pool that supplies storage for the millions of tiny <span class="tt"><a class="el" href="struct_monom.html" title="Non-owning view onto a [length, degree, v1, v2, ..., vn] packed monomial in some externally managed b...">Monom</a></span>, <span class="tt">Polynom</span>, and <span class="tt">Triple</span> records the involutive- basis algorithm churns through. Each <span class="tt">FastAllocator</span> instance is bound to a single fixed <span class="tt">blockSize</span> at construction and maintains a free-list of that-sized chunks carved out of large memory pages; <span class="tt">Allocate()</span> pops the head of the free-list (and calls <span class="tt">ExpandMemory()</span> to slab in a new page if the list is empty), <span class="tt">Free()</span> pushes back, both inlined for the inner loop.</p>
 <p>Memory is never returned to the OS &mdash; the slabs persist for the life of the allocator and are reclaimed only on process exit. The subsystem deliberately bypasses <a class="el" href="namespace_m2.html">M2</a>'s Boehm GC and the engine's <span class="tt"><a class="el" href="structour__new__delete.html">our_new_delete</a></span> pattern; <a class="el" href="namespace_b_i_basis.html">BIBasis</a> classes opt in by overloading <span class="tt">operator new</span> / <span class="tt">operator delete</span> to route through a static <span class="tt">FastAllocator</span> for their size class.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="bibasis_8cpp.html" title="rawBIBasis — C entry point bridging M2 to BIBasis&#39;s involutive-basis engine.">bibasis.cpp</a> </dd>

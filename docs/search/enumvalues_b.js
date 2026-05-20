@@ -1,10 +1,8 @@
 var searchData=
 [
-  ['oldtype_0',['OldType',['../class_f4_reducer_a6826ec63bf9eacd18078507b9df5c4ac.html#a6826ec63bf9eacd18078507b9df5c4aca0b1a64f4d97602cb0c9b10daa6f651e3',1,'F4Reducer']]],
-  ['origin_5ffailed_1',['ORIGIN_FAILED',['../_s_l_p-imp_8hpp_a801be40a606301461ff812058569ee3b.html#a801be40a606301461ff812058569ee3ba72bd415dfee195dc4ab80b84d6b341d7',1,'SLP-imp.hpp']]],
-  ['over_2',['OVER',['../class_monoid_a3a2ab9c93b1af74df2f42514bf5839e8.html#a3a2ab9c93b1af74df2f42514bf5839e8ac3195691c75b4ca5f819d83dd11652d3',1,'Monoid']]],
-  ['over1_3',['OVER1',['../class_monoid_a3a2ab9c93b1af74df2f42514bf5839e8.html#a3a2ab9c93b1af74df2f42514bf5839e8ac48078d4712e86eb111d1844727ee262',1,'Monoid']]],
-  ['over2_4',['OVER2',['../class_monoid_a3a2ab9c93b1af74df2f42514bf5839e8.html#a3a2ab9c93b1af74df2f42514bf5839e8a68269e75331b3cf4fb3f3cc49d5e20c9',1,'Monoid']]],
-  ['over4_5',['OVER4',['../class_monoid_a3a2ab9c93b1af74df2f42514bf5839e8.html#a3a2ab9c93b1af74df2f42514bf5839e8aad66b79b9c3867ed3bd8ee6433cc2eec',1,'Monoid']]],
-  ['overlapprerow_6',['OverlapPreRow',['../class_n_c_f4_a51df58acce453ffcd976d4bdfb5e8d40.html#a51df58acce453ffcd976d4bdfb5e8d40a8c937e82dbbfc9c9651ff09f66ec7667',1,'NCF4']]]
+  ['previousreducerprerow_0',['PreviousReducerPreRow',['../class_n_c_f4_a51df58acce453ffcd976d4bdfb5e8d40.html#a51df58acce453ffcd976d4bdfb5e8d40ac2b6fa0097faaa61d3f3ee3cad49e150',1,'NCF4']]],
+  ['print_5fspair_5ftracking_1',['PRINT_SPAIR_TRACKING',['../computation_8h_ab04d15a450e22a6b1998085954f290cc.html#ab04d15a450e22a6b1998085954f290cca1483ff17ba34b6d23b7aee39163e174b',1,'computation.h']]],
+  ['priorityqueue_2',['PriorityQueue',['../_n_c_reduction_8hpp_a3323bceff3e6a898901853c6a56f223a.html#a3323bceff3e6a898901853c6a56f223aa2fecf37c0f01df26349740533a6624fb',1,'NCReduction.hpp']]],
+  ['processing_3',['PROCESSING',['../_s_l_p-imp_8hpp_a801be40a606301461ff812058569ee3b.html#a801be40a606301461ff812058569ee3ba5ca0e553fcdd1c2b214d73f36b486087',1,'SLP-imp.hpp']]],
+  ['product_4',['Product',['../class_s_l_program_a5dcea512aaff0e8dff7653964b1a12e8.html#a5dcea512aaff0e8dff7653964b1a12e8a1b1de9ecd5596c0ff079d48cad14a012',1,'SLProgram']]]
 ];

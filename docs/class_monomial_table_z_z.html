@@ -160,10 +160,11 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_monomial_table.html" title="Indexed table of monomials with fast &quot;find a divisor&quot; lookup, keyed by a free integer val per entry.">MonomialTable</a></span> analogue for monomials carrying a <span class="tt"><a class="el" href="ringelem_8hpp_afea72c39052b53d15e7acad8d36847c1.html#afea72c39052b53d15e7acad8d36847c1">ZZ</a></span> coefficient. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Used by the integer-coefficient GB code path to track lead-term divisibility together with the leading integer coefficient: when the table is consulted to reduce <span class="tt">coeff * exp</span> against an entry <span class="tt">c * lead</span>, both the exponent-divisibility test and the <span class="tt">c |
 coeff</span> integer-divisibility test are honoured. Otherwise the data structure matches <span class="tt"><a class="el" href="class_monomial_table.html" title="Indexed table of monomials with fast &quot;find a divisor&quot; lookup, keyed by a free integer val per entry.">MonomialTable</a></span>: per-component doubly-linked lists of <span class="tt"><a class="el" href="struct_monomial_table_z_z_1_1mon__term.html" title="MonomialTable::mon_term plus an _coeff slot pointing at the entry&#39;s leading ZZ coefficient (or nullpt...">mon_term</a></span>s in lex order with a <span class="tt">_mask</span>-filtered divisor lookup. </p>
 
-<p class="definition">Definition at line <a class="el" href="montable_z_z_8hpp_source.html#l00073">73</a> of file <a class="el" href="montable_z_z_8hpp_source.html">montableZZ.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="montable_z_z_8hpp_source.html#l00077">77</a> of file <a class="el" href="montable_z_z_8hpp_source.html">montableZZ.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>Macaulay2/e/<a class="el" href="montable_z_z_8hpp_source.html">montableZZ.hpp</a></li>
 <li>Macaulay2/e/<a class="el" href="montable_z_z_8cpp_source.html">montableZZ.cpp</a></li>

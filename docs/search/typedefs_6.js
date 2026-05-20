@@ -26,6 +26,5 @@ var searchData=
   ['gmp_5fzzmutable_23',['gmp_ZZmutable',['../m2-types_8h_a16347d108ece17e674afcc6e819d336e.html#a16347d108ece17e674afcc6e819d336e',1,'m2-types.h']]],
   ['gmp_5fzzornull_24',['gmp_ZZorNull',['../m2-types_8h_a8e7cdf3f706931e30b3e1c072a426101.html#a8e7cdf3f706931e30b3e1c072a426101',1,'m2-types.h']]],
   ['gmp_5fzzpair_25',['gmp_ZZpair',['../m2-types_8h_a9c32987a493553afcbe0686d9cf25118.html#a9c32987a493553afcbe0686d9cf25118',1,'m2-types.h']]],
-  ['gmp_5fzzpairornull_26',['gmp_ZZpairOrNull',['../m2-types_8h_a7e77085b2e3087bc635f612a1d39149f.html#a7e77085b2e3087bc635f612a1d39149f',1,'m2-types.h']]],
-  ['gradings_27',['Gradings',['../class_mathic_i_o_a7311082c97a83f0f826e1f451ee4f81e.html#a7311082c97a83f0f826e1f451ee4f81e',1,'MathicIO::Gradings'],['../class_mono_monoid_internal_1_1_base_a0157d1ee4d5520243fd1766139be3cb3.html#a0157d1ee4d5520243fd1766139be3cb3',1,'MonoMonoidInternal::Base::Gradings'],['../class_mono_monoid_a1405d46a96d30d77ef3495d779f46bf7.html#a1405d46a96d30d77ef3495d779f46bf7',1,'MonoMonoid::Gradings'],['../class_mono_order_a550d431214d2ea534268cea2b43bd395.html#a550d431214d2ea534268cea2b43bd395',1,'MonoOrder::Gradings']]]
+  ['gmp_5fzzpairornull_26',['gmp_ZZpairOrNull',['../m2-types_8h_a7e77085b2e3087bc635f612a1d39149f.html#a7e77085b2e3087bc635f612a1d39149f',1,'m2-types.h']]]
 ];

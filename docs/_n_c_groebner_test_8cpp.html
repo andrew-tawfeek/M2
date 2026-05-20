@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/unit-tests/NCGroebnerTest.cpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/unit-tests/NCGroebnerTest.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -99,7 +99,7 @@ $(function(){initNavTree('_n_c_groebner_test_8cpp.html','',''); });
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="_memory_block_8hpp_source.html">MemoryBlock.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ring_8h_source.html">interface/ring.h</a>&quot;</code><br />
-<code>#include &quot;poly.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="poly_8hpp_source.html">poly.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="aring-glue_8hpp_source.html">aring-glue.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_free_algebra_8hpp_source.html">NCAlgebras/FreeAlgebra.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_free_algebra_quotient_8hpp_source.html">NCAlgebras/FreeAlgebraQuotient.hpp</a>&quot;</code><br />
@@ -149,6 +149,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>gtest smoke tests covering the non-commutative GB pipeline end-to-end. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Exercises every layer of <span class="tt">NCAlgebras/</span> together: builds <span class="tt"><a class="el" href="class_free_algebra.html" title="Free associative algebra over a coefficient ring: the non-commutative analogue of PolynomialRing.">FreeAlgebra</a></span> and <span class="tt"><a class="el" href="class_free_algebra_quotient.html" title="Quotient of a FreeAlgebra by a Groebner basis up to a fixed degree bound.">FreeAlgebraQuotient</a></span> rings via <span class="tt">util-polyring-creation</span>, walks <span class="tt"><a class="el" href="class_word_table.html" title="Index of Words (non-commutative monomials) with subword, prefix/suffix, and overlap lookup used by th...">WordTable</a></span> and <span class="tt"><a class="el" href="class_suffix_tree.html" title="Generalised suffix tree alternative to WordTable for indexing non-commutative monomials.">SuffixTree</a></span> insert / <span class="tt">subwords</span> / <span class="tt">prefix_suffix</span> queries against hand-rolled word inputs, runs <span class="tt">NCReduction</span>'s <span class="tt"><a class="el" href="class_polynomial_heap.html" title="Abstract interface for accumulating a polynomial as a sum of (coeff, left * poly * right) contributio...">PolynomialHeap</a></span> variants (<span class="tt">Trivial</span>, <span class="tt">Naive</span>, <span class="tt">NaiveDedup</span>), and exercises <span class="tt"><a class="el" href="class_overlap_table.html" title="Per-degree FIFO queue of pending overlaps for the NC Groebner basis driver to process.">OverlapTable</a></span> insertion plus <span class="tt"><a class="el" href="class_n_c_groebner.html" title="One-overlap-at-a-time Groebner basis driver for the free associative algebra (the &quot;Naive&quot; companion t...">NCGroebner</a></span> sorting under various inputs (including the <span class="tt">skylanin</span> stress case). Also covers <span class="tt"><a class="el" href="class_memory_block.html" title="Thin RAII wrapper around memtailor::Arena providing bump-pointer array allocation with optional mutex...">MemoryBlock</a></span> directly via the <span class="tt">MemoryBlock.tryit</span> allocation loop that catches arena bugs before they reach the GB tests.</p>
 <p>The <span class="tt"><a class="el" href="class_word_table.html" title="Index of Words (non-commutative monomials) with subword, prefix/suffix, and overlap lookup used by th...">WordTable</a></span> and <span class="tt"><a class="el" href="class_suffix_tree.html" title="Generalised suffix tree alternative to WordTable for indexing non-commutative monomials.">SuffixTree</a></span> coverage is load-bearing: missed overlaps would silently truncate a GB, so the test file emphasises construction and factor-search assertions. These tests form the regression net the <span class="tt">AssociativeAlgebras</span> package depends on.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="_n_c_groebner_8hpp.html" title="NCGroebner — Buchberger-style two-sided Gröbner basis driver over a FreeAlgebra.">NCAlgebras/NCGroebner.hpp</a> </dd>

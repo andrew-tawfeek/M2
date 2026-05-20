@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['factorycoeffmode_0',['factoryCoeffMode',['../factory_8cpp_a649497fca3f9878c78da338fb004681e.html#a649497fca3f9878c78da338fb004681e',1,'factory.cpp']]]
+  ['heaptype_0',['HeapType',['../_n_c_reduction_8hpp_a3323bceff3e6a898901853c6a56f223a.html#a3323bceff3e6a898901853c6a56f223a',1,'NCReduction.hpp']]]
 ];

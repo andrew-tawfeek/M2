@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/mutablemat-imp.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/mutablemat-imp.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -98,6 +98,7 @@ $(function(){initNavTree('mutablemat-imp_8hpp.html','',''); });
 <p><a href="mutablemat-imp_8hpp_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Template implementations of <span class="tt"><a class="el" href="class_mutable_mat.html">MutableMat</a>&lt;Mat&gt;</span> &mdash; linear-algebra methods plus the SLP-evaluator bridge. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Carries the inline template bodies for <span class="tt"><a class="el" href="class_mutable_mat.html">MutableMat</a>&lt;Mat&gt;</span> declared in <span class="tt"><a class="el" href="mutablemat-defs_8hpp.html" title="MutableMat&lt;Mat&gt; — the templated bridge from DMat / SMat to the abstract MutableMatrix.">mutablemat-defs.hpp</a></span>. The linear-algebra surface &mdash; <span class="tt">rank</span>, <span class="tt">determinant</span>, <span class="tt">invert</span>, <span class="tt">rowReducedEchelonForm</span>, <span class="tt">solveLinear</span>, <span class="tt">solveInvertible</span>, <span class="tt">nullSpace</span>, <span class="tt">mult</span> &mdash; forwards into <span class="tt"><a class="el" href="namespace_matrix_ops.html">MatrixOps</a>::*</span>, which the <span class="tt"><a class="el" href="mat-linalg_8hpp.html" title="Templated DMat&lt;R&gt; linear algebra: LU, rank, determinant, solve, inverse, nullSpace.">mat-linalg.hpp</a></span> family specialises per ring. Two SLP- bridge methods stand apart: <span class="tt">createSLEvaluator(P, constsPos,
 varsPos)</span> wraps an <span class="tt"><a class="el" href="class_s_l_evaluator_concrete.html">SLEvaluatorConcrete</a>&lt;CoeffRing&gt;</span> around a one-row mutable matrix of constants (the <span class="tt">n_rows() != 1 || n_cols() != constsPos-&gt;len</span> check errors out otherwise), and <span class="tt">createCompiledSLEvaluator(libName,
 nInputs, nOutputs)</span> reaches the JIT-compiled-SLP path instead.</p>

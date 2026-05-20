@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/schur2.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/schur2.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,7 +95,7 @@ $(function(){initNavTree('schur2_8hpp.html','',''); });
 <p><span class="tt"><a class="el" href="class_schur_ring2.html" title="Refactored Schur (symmetric-function) ring whose elements are schur_poly sums of partitions over a co...">SchurRing2</a></span> &mdash; refactored Schur ring with length-prefixed partitions and an explicit <span class="tt"><a class="el" href="class_ring.html" title="xxx xxx xxx">Ring</a></span> base.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;vector&gt;</code><br />
-<code>#include &quot;<a class="el" href="_macaulay2_2e_2poly_8hpp_source.html">poly.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="poly_8hpp_source.html">poly.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="schur-poly-heap_8hpp_source.html">schur-poly-heap.hpp</a>&quot;</code><br />
 </div>
 <p><a href="schur2_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -121,13 +121,14 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_schur_ring2.html" title="Refactored Schur (symmetric-function) ring whose elements are schur_poly sums of partitions over a co...">SchurRing2</a></span> &mdash; refactored Schur ring with length-prefixed partitions and an explicit <span class="tt"><a class="el" href="class_ring.html" title="xxx xxx xxx">Ring</a></span> base. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Declares <span class="tt"><a class="el" href="class_schur_ring2.html" title="Refactored Schur (symmetric-function) ring whose elements are schur_poly sums of partitions over a co...">SchurRing2</a></span>, the second-generation Schur-function ring. Unlike <span class="tt"><a class="el" href="schur_8hpp.html" title="SchurRing — symmetric-function ring with Schur-basis multiplication via Littlewood-Richardson.">schur.hpp</a></span>'s <span class="tt"><a class="el" href="class_schur_ring.html" title="PolyRing subclass implementing the Schur (symmetric-function) ring whose monomials are partitions and...">SchurRing</a></span> (which inherits from <span class="tt"><a class="el" href="class_poly_ring.html" title="Concrete PolyRingFlat subclass implementing ordinary commutative polynomial rings K[x_1,...">PolyRing</a></span>), <span class="tt"><a class="el" href="class_schur_ring2.html" title="Refactored Schur (symmetric-function) ring whose elements are schur_poly sums of partitions over a co...">SchurRing2</a></span> derives directly from <span class="tt"><a class="el" href="class_ring.html" title="xxx xxx xxx">Ring</a></span>. Partitions are stored in the <span class="tt"><a class="el" href="schur2_8hpp_a66f928e09ecd7530d68046cba201cba0.html#a66f928e09ecd7530d68046cba201cba0">schur_partition</a></span> layout <span class="tt">[n + 1, a_1, ..., a_n]</span> &mdash; a length prefix followed by the non-increasing parts <span class="tt">a_1 &gt;= a_2 &gt;= ... &gt;= a_n</span> (an in-source note flags that parts may be negative). Elements are <span class="tt"><a class="el" href="classschur__poly.html">schur_poly</a></span> objects carrying parallel <span class="tt">coeffs</span> and <span class="tt">monoms</span> vectors, where <span class="tt">monoms</span> is a flat concatenation of <span class="tt"><a class="el" href="schur2_8hpp_a66f928e09ecd7530d68046cba201cba0.html#a66f928e09ecd7530d68046cba201cba0">schur_partition</a></span>s walked by the length prefix. Multiplication uses Littlewood-Richardson enumeration through the private <span class="tt">skew_schur</span> / <span class="tt">SM</span> recursion with reusable <span class="tt">SMtab</span> / <span class="tt">SMfilled</span> <span class="tt"><a class="el" href="classtableau2.html">tableau2</a></span> scratch tableaux, and accumulates into the <span class="tt"><a class="el" href="classschur__poly__heap.html">schur_poly_heap</a> *SMheap</span> defined in <span class="tt"><a class="el" href="schur-poly-heap_8hpp.html" title="schur_poly_heap — geometric-bucket accumulator specialised for SchurRing2 polynomials.">schur-poly-heap.hpp</a></span>.</p>
 <p>The class is allowed to have a free coefficient ring (<span class="tt">coefficientRing</span>) and an optional variable-count cap <span class="tt">nvars</span> (<span class="tt">-1</span> means "infinite-rank" virtual partitions, served by <span class="tt">createInfinite</span>). <span class="tt">dimension(f)</span> evaluates the Schur polynomial at the all-ones specialisation; <span class="tt">invert</span>, <span class="tt">divide</span>, and <span class="tt">syzygy</span> are explicitly no-ops because they have no meaning in this ring.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="schur_8hpp.html" title="SchurRing — symmetric-function ring with Schur-basis multiplication via Littlewood-Richardson.">schur.hpp</a> </dd>
 <dd>
 <a class="el" href="schur-poly-heap_8hpp.html" title="schur_poly_heap — geometric-bucket accumulator specialised for SchurRing2 polynomials.">schur-poly-heap.hpp</a> </dd>
 <dd>
-poly.hpp </dd></dl>
+<a class="el" href="poly_8hpp.html" title="Concrete commutative PolyRing — standard polynomial ring inheriting from PolyRingFlat.">poly.hpp</a> </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="schur2_8hpp_source.html">schur2.hpp</a>.</p>
 </div></div><!-- contents -->

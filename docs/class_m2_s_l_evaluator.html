@@ -139,9 +139,10 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_mutable_engine_object.html" title="Base class for engine objects that may mutate, so their hash must be identity-based rather than conte...">MutableEngineObject</a></span> wrapper holding a raw <span class="tt">SLEvaluator*</span>. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Stores a raw pointer rather than <span class="tt">unique_ptr</span> &mdash; per the inline comment, this is a deliberate leak that avoids a heap-corruption bug triggered when ownership is transferred. <span class="tt"><a class="el" href="class_m2_s_l_evaluator_a948a2db6aa407dfb5555d616387e7e15.html#a948a2db6aa407dfb5555d616387e7e15">value()</a></span> returns the underlying abstract evaluator for engine code that needs to call <span class="tt">evaluate</span> / <span class="tt">specialize</span> directly. </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_l_p-defs_8hpp_source.html#l00225">225</a> of file <a class="el" href="_s_l_p-defs_8hpp_source.html">SLP-defs.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_l_p-defs_8hpp_source.html#l00247">247</a> of file <a class="el" href="_s_l_p-defs_8hpp_source.html">SLP-defs.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>Macaulay2/e/<a class="el" href="_s_l_p-defs_8hpp_source.html">SLP-defs.hpp</a></li>
 </ul>

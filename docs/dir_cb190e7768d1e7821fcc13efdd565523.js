@@ -32,7 +32,7 @@ var dir_cb190e7768d1e7821fcc13efdd565523 =
     [ "RingZZpTest.cpp", "_ring_z_zp_test_8cpp.html", "_ring_z_zp_test_8cpp" ],
     [ "RingZZTest.cpp", "_ring_z_z_test_8cpp.html", "_ring_z_z_test_8cpp" ],
     [ "SubsetTest.cpp", "_subset_test_8cpp.html", "_subset_test_8cpp" ],
-    [ "testMain.cpp", "_macaulay2_2e_2unit-tests_2test_main_8cpp.html", "_macaulay2_2e_2unit-tests_2test_main_8cpp" ],
+    [ "testMain.cpp", "test_main_8cpp.html", "test_main_8cpp" ],
     [ "util-polyring-creation.cpp", "util-polyring-creation_8cpp.html", "util-polyring-creation_8cpp" ],
     [ "util-polyring-creation.hpp", "util-polyring-creation_8hpp.html", "util-polyring-creation_8hpp" ]
 ];

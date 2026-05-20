@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/unit-tests/PointArray.cpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/unit-tests/PointArray.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -112,6 +112,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>gtest coverage for <span class="tt"><a class="el" href="class_point_array.html" title="Container of numerical points equipped with an -tolerance and a random weight vector used to bucket a...">PointArray</a></span> &mdash; NAG's epsilon-bucketed numerical-point clustering structure. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Hosts the <span class="tt">TEST(PointArray, *)</span> battery that builds <span class="tt"><a class="el" href="class_point_array.html" title="Container of numerical points equipped with an -tolerance and a random weight vector used to bucket a...">PointArray</a></span> instances at fixed epsilons (<span class="tt">0.0001</span> and <span class="tt">0.001</span> in the smoke tests), confirms <span class="tt">lookup</span> returns <span class="tt">-1</span> on misses, <span class="tt">lookup_or_append</span> adds new clusters and returns their indices, and re-querying a near-duplicate within epsilon resolves back to the same bucket. The structure underpins Numerical Algebraic Geometry's witness-set and monodromy paths, where the same numerical point can be encountered repeatedly under floating-point perturbation and must be identified across orderings of arrival.</p>
 <p>Companion files in the <span class="tt">file-misc-tests</span> family (<span class="tt"><a class="el" href="_subset_test_8cpp.html" title="gtest coverage for Subsets — the bijection between integers and k-subsets of {0..n-1}...">SubsetTest.cpp</a></span> for subset combinatorics, <span class="tt"><a class="el" href="basics-test_8cpp.html" title="Trivial harness-liveness test plus buffer / M2_arrayint round-trip coverage.">basics-test.cpp</a></span> for the harness-itself liveness check) get their own <span class="tt">@file</span> blocks on separate firings.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="_n_a_g_8hpp.html" title="Numerical Algebraic Geometry: homotopy continuation PathTracker and supporting numeric types.">NAG.hpp</a> </dd>

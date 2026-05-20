@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/unit-tests/basics-test.cpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/unit-tests/basics-test.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -120,6 +120,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Trivial harness-liveness test plus <span class="tt"><a class="el" href="classbuffer.html">buffer</a></span> / <span class="tt"><a class="el" href="class_m2__arrayint.html">M2_arrayint</a></span> round-trip coverage. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p><span class="tt"><a class="el" href="basics-test_8cpp_a9bc4c08f4cd8335172305718a85fb5e1.html#a9bc4c08f4cd8335172305718a85fb5e1">TEST(Nothing, ideal)</a></span> exists to prove the test binary itself is working: if a linker glitch, ABI mismatch, or missing gtest library breaks the build, this test fails first and tells CI "engine test infrastructure broken" instead of burying that message under thousands of unrelated failures downstream. The remaining <span class="tt">TEST(Buffer, *)</span> and <span class="tt">TEST(Util,
 *)</span> cases pin down the engine's stream-style <span class="tt"><a class="el" href="classbuffer.html">buffer</a></span> accumulator and the <span class="tt"><a class="el" href="util_8hpp_a30cf035ffee78e13404b2ee33a431597.html#a30cf035ffee78e13404b2ee33a431597">stdvector_to_M2_arrayint</a></span> / <span class="tt"><a class="el" href="util_8hpp_ad4254b15708c2e16d71f736a7dc3d1e7.html#ad4254b15708c2e16d71f736a7dc3d1e7">M2_arrayint_to_stdvector</a>&lt;<a class="el" href="struct_t.html" title="Classic separate-chaining hash table used by the engine&#39;s low-level C code paths.">T</a>&gt;</span> round-trip helpers &mdash; the primitives every other test (and most of the engine) uses to cross the C / C++ boundary with int lists.</p>
 <p>Alphabetical ordering makes <span class="tt">basics-test</span> the first gtest to execute in a default run, which is the practical reason it functions as the canary. Companion to <span class="tt"><a class="el" href="_subset_test_8cpp.html" title="gtest coverage for Subsets — the bijection between integers and k-subsets of {0..n-1}...">SubsetTest.cpp</a></span> and <span class="tt"><a class="el" href="_point_array_8cpp.html" title="gtest coverage for PointArray — NAG&#39;s epsilon-bucketed numerical-point clustering structure.">PointArray.cpp</a></span> under the same <span class="tt">file-misc-tests</span> markdown.</p>

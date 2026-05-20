@@ -118,9 +118,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interreduces a list of <span class="tt">gbvector*</span>s in place so that no element's leading term divides any other element's terms. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Owns a <span class="tt">GBRing*</span> and a target <span class="tt">FreeModule*</span> plus the working set <span class="tt"><a class="el" href="res-tasking-example_8cpp_acc0eea0b8cd2df09e6f3c2bade95a903.html#acc0eea0b8cd2df09e6f3c2bade95a903">G</a></span> (a vector of <span class="tt">gbvector*</span>). <span class="tt">cancelLT(f, g)</span> reduces the leading term of <span class="tt">f</span> by <span class="tt">g</span> until they no longer divide; <span class="tt">reduceTail(f, g)</span> does the same to tail terms; the public driver iterates these calls across the whole list. Used as the cleanup pass after a GB computation finishes, before the result is handed back to the front end. </p>
 
-<p class="definition">Definition at line <a class="el" href="interreduce_8hpp_source.html#l00050">50</a> of file <a class="el" href="interreduce_8hpp_source.html">interreduce.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="interreduce_8hpp_source.html#l00054">54</a> of file <a class="el" href="interreduce_8hpp_source.html">interreduce.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>Macaulay2/e/<a class="el" href="interreduce_8hpp_source.html">interreduce.hpp</a></li>
 <li>Macaulay2/e/<a class="el" href="interreduce_8cpp_source.html">interreduce.cpp</a></li>

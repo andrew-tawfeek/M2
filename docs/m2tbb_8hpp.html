@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/m2tbb.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/m2tbb.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,7 +95,7 @@ $(function(){initNavTree('m2tbb_8hpp.html','',''); });
 <p>Engine TBB shim &mdash; single point of inclusion for every parallel primitive.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;M2/config.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="mtbb_8hpp_source.html">mathicgb/mtbb.hpp</a>&quot;</code><br />
+<code>#include &quot;mathicgb/mtbb.hpp&quot;</code><br />
 </div>
 <p><a href="m2tbb_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -105,7 +105,8 @@ Macros</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Engine TBB shim &mdash; single point of inclusion for every parallel primitive. </p>
-<p>Brings in <span class="tt"><a class="el" href="mtbb_8hpp.html">mathicgb/mtbb.hpp</a></span> after consulting <span class="tt">M2/config.h</span> for the configure-time <span class="tt"><a class="el" href="mtbb_8hpp_a781665ad4e25185f593a1689aed1e704.html#a781665ad4e25185f593a1689aed1e704">WITH_TBB</a></span> flag. When TBB is not available the header defines <span class="tt"><a class="el" href="m2tbb_8hpp_ab836e47429fb1a5d9e5a02faf06d596d.html#ab836e47429fb1a5d9e5a02faf06d596d">MATHICGB_NO_TBB</a></span>, which routes mathicgb's abstractions (<span class="tt">parallel_for</span>, <span class="tt">parallel_for_each</span>, atomic counters, mutexes, ...) to the serial fallback versions in the second half of <span class="tt"><a class="el" href="mtbb_8hpp.html">mtbb.hpp</a></span>. Engine code that wants parallelism must include this header rather than <span class="tt">&lt;tbb/...&gt;</span> directly so that flipping <span class="tt"><a class="el" href="mtbb_8hpp_a781665ad4e25185f593a1689aed1e704.html#a781665ad4e25185f593a1689aed1e704">WITH_TBB</a></span> at configure time is the only change required.</p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
+<p>Brings in <span class="tt">mathicgb/mtbb.hpp</span> after consulting <span class="tt">M2/config.h</span> for the configure-time <span class="tt">WITH_TBB</span> flag. When TBB is not available the header defines <span class="tt"><a class="el" href="m2tbb_8hpp_ab836e47429fb1a5d9e5a02faf06d596d.html#ab836e47429fb1a5d9e5a02faf06d596d">MATHICGB_NO_TBB</a></span>, which routes mathicgb's abstractions (<span class="tt">parallel_for</span>, <span class="tt">parallel_for_each</span>, atomic counters, mutexes, ...) to the serial fallback versions in the second half of <span class="tt">mtbb.hpp</span>. Engine code that wants parallelism must include this header rather than <span class="tt">&lt;tbb/...&gt;</span> directly so that flipping <span class="tt">WITH_TBB</span> at configure time is the only change required.</p>
 <p>Consumers include <span class="tt"><a class="el" href="f4_8hpp.html" title="F4GB — the inner-loop Faugère F4 Groebner-basis algorithm.">f4/f4.hpp</a></span>, <span class="tt"><a class="el" href="_vector_arithmetic_8hpp.html" title="Coefficient-ring-erased arithmetic dispatcher used by F4, GB, and resolution code.">VectorArithmetic.hpp</a></span>, <span class="tt"><a class="el" href="_n_c_f4_8hpp.html" title="NCF4 — non-commutative F4 Gröbner-basis driver building a per-degree Macaulay matrix.">NCAlgebras/NCF4.hpp</a></span> (parallel row reduction), and the <span class="tt">schreyer-resolution/</span> files that drive the Schreyer-frame scheduler and the dep-graph.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="res-schreyer-frame_8hpp.html" title="SchreyerFrame — in-progress representation of a free resolution organised by (level,...">schreyer-resolution/res-schreyer-frame.hpp</a> </dd>
 <dd>

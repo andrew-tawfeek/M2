@@ -139,9 +139,10 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Visitor base class that walks every term of a <span class="tt">TowerPolynomial</span>, calling <span class="tt">viewTerm(coeff, exponents)</span> once per leaf. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Subclasses override <span class="tt"><a class="el" href="class_d_poly_traverser_abbf39a17cbb1d00c6dfb26b567571985.html#abbf39a17cbb1d00c6dfb26b567571985">viewTerm</a></span> to consume terms (e.g. to convert a tower polynomial to engine <span class="tt"><a class="el" href="struct_nterm.html" title="Singly linked-list node carrying one term of a polynomial-ring element.">Nterm</a></span>s for display or for matrix construction). <span class="tt">traverse(f)</span> does the depth-first descent and stops as soon as <span class="tt"><a class="el" href="class_d_poly_traverser_abbf39a17cbb1d00c6dfb26b567571985.html#abbf39a17cbb1d00c6dfb26b567571985">viewTerm</a></span> returns false. Holds a <span class="tt">const DPoly*</span> so the same traverser can be used against several polynomials in the same ring without rebuilding. </p>
 
-<p class="definition">Definition at line <a class="el" href="dpoly_8hpp_source.html#l00452">452</a> of file <a class="el" href="dpoly_8hpp_source.html">dpoly.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dpoly_8hpp_source.html#l00462">462</a> of file <a class="el" href="dpoly_8hpp_source.html">dpoly.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>Macaulay2/e/<a class="el" href="dpoly_8hpp_source.html">dpoly.hpp</a></li>
 <li>Macaulay2/e/<a class="el" href="dpoly_8cpp_source.html">dpoly.cpp</a></li>

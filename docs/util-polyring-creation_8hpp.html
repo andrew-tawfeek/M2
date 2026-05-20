@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/unit-tests/util-polyring-creation.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/unit-tests/util-polyring-creation.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -103,8 +103,8 @@ $(function(){initNavTree('util-polyring-creation_8hpp.html','',''); });
 <code>#include &quot;<a class="el" href="ring_8h_source.html">interface/ring.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="aring_8h_source.html">interface/aring.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="monoid_8hpp_source.html">monoid.hpp</a>&quot;</code><br />
-<code>#include &quot;poly.hpp&quot;</code><br />
-<code>#include &quot;polyring.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="poly_8hpp_source.html">poly.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="polyring_8hpp_source.html">polyring.hpp</a>&quot;</code><br />
 </div>
 <p><a href="util-polyring-creation_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -118,10 +118,11 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>One-line helpers for building degree monoids and polynomial rings inside gtest cases. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Declares <span class="tt">degreeMonoid(names)</span> and the two overloads of <span class="tt">degreeRing(...)</span> (variable-name list or fixed <span class="tt">ndegrees</span>) that wrap the engine-side boilerplate of constructing a degree monoid; plus <span class="tt">simplePolynomialRing(kk, names,
 monorder)</span> and its variant <span class="tt">simplePolynomialRing(p, names)</span> which builds a <span class="tt">Z/p</span> GRevLex polynomial ring with all degree-1 variables. Tests pull these in to replace ~10 lines of monomial-order / monoid / ring plumbing per fixture.</p>
 <p>Heavily used by <span class="tt"><a class="el" href="_new_f4_test_8cpp.html" title="gtest coverage for the refactored F4 engine&#39;s hash table, lookup table, and PolynomialList.">NewF4Test.cpp</a></span>, <span class="tt"><a class="el" href="_n_c_groebner_test_8cpp.html" title="gtest smoke tests covering the non-commutative GB pipeline end-to-end.">NCGroebnerTest.cpp</a></span>, <span class="tt"><a class="el" href="_matrix_i_o_test_8cpp.html" title="gtest coverage for BasicPoly / BasicPolyList round-trips and msolve-format benchmark ingestion.">MatrixIOTest.cpp</a></span>, and <span class="tt"><a class="el" href="_poly_ring_test_8cpp.html" title="gtest coverage for MonomialOrdering, Monoid, and PolynomialRing construction.">PolyRingTest.cpp</a></span>. Companion to the <span class="tt">.cpp</span> implementation file under the same <span class="tt">file-test-harness</span> markdown family.</p>
-<dl class="section see"><dt>See also</dt><dd>polyring.hpp </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="polyring_8hpp.html" title="PolynomialRing — abstract polynomial-ring base, the engine&#39;s most-reused class.">polyring.hpp</a> </dd>
 <dd>
 <a class="el" href="monoid_8hpp.html" title="Monoid — variable count, naming, grading, and monomial order of a polynomial ring.">monoid.hpp</a> </dd>
 <dd>

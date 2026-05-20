@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/mpreal.h File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/mpreal.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -462,6 +462,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Vendored Holoborodko <span class="tt"><a class="el" href="classmpfr_1_1mpreal.html">mpfr::mpreal</a></span> C++ wrapper over MPFR. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Single-header library (GPL/LGPL) bundled in-tree because most Linux distributions do not package it. Provides <span class="tt"><a class="el" href="classmpfr_1_1mpreal.html">mpfr::mpreal</a></span>, an <span class="tt">mpfr_t</span>-backed arbitrary-precision real type with full C++ operator overloads, the standard transcendental functions (<span class="tt">sin</span>, <span class="tt">cos</span>, <span class="tt">exp</span>, <span class="tt">log</span>, ...), IEEE-754 specials (<span class="tt">nan()</span>, <span class="tt">inf()</span>), and stream I/O. Most <a class="el" href="namespace_m2.html">M2</a> engine code calls MPFR's C API directly through <span class="tt">ARingRRR</span>; this header is consulted in the few places where operator overloads make code dramatically more readable, including <span class="tt">boost::multiprecision::mpfr_float</span>-backed paths.</p>
 <p>The upstream license block above must be preserved verbatim when updating from a newer release. Track the project at <span class="tt"><a href="http://www.holoborodko.com/pavel/mpfr">http://www.holoborodko.com/pavel/mpfr</a></span>; bump only when there is an MPFR API change the engine needs.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="aring-_r_r_r_8hpp.html" title="M2::ARingRRR — arbitrary-precision real numbers backed by MPFR.">aring-RRR.hpp</a> </dd></dl>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/unit-tests/MonoidTest.cpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/unit-tests/MonoidTest.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -109,6 +109,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>gtest coverage for the <span class="tt"><a class="el" href="class_exponent_vector.html">ExponentVector</a></span> exponent-array primitives. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Hosts the <span class="tt"><a class="el" href="_monoid_test_8cpp_a5daa3fcba18a37c51a93a35146bb619c.html#a5daa3fcba18a37c51a93a35146bb619c">TEST(ExponentVector, All)</a></span> battery that exercises the raw <span class="tt"><a class="el" href="_exponent_vector_8hpp_aec09fab2f897ff3d8346961f38331d12.html#aec09fab2f897ff3d8346961f38331d12">exponents_t</a></span> (<span class="tt">int*</span>) primitives every polynomial multiplication in the engine sits on top of: <span class="tt">copy</span>, <span class="tt">equal</span>, <span class="tt">simple_degree</span>, <span class="tt">one</span> / <span class="tt">is_one</span>, <span class="tt">mult</span>, <span class="tt">power</span>, <span class="tt">multpower</span>, <span class="tt">divides</span>, <span class="tt">divide</span>, <span class="tt">quotient</span>, <span class="tt">gcd</span>, <span class="tt">lcm</span>, <span class="tt">lex_compare</span>, <span class="tt">weight</span>, <span class="tt">mask</span>, and the <span class="tt">syz</span> syzygy split. The <span class="tt"><a class="el" href="class_monoid.html" title="Engine-side commutative monomial monoid: variable names, ordering, multidegree machinery,...">Monoid</a> tests</span> comment block is a placeholder for future coverage; today the file only exercises the underlying exponent-array layer.</p>
 <p>Subtle bugs in these primitives surface several layers up as "F4 returns the wrong GB" or "Hilbert function is off by
 one"; catching them here keeps the failure local. Exponents are stored as raw <span class="tt">int*</span> rather than <span class="tt">std::vector&lt;<a class="el" href="classint.html">int</a>&gt;</span> so the F4 inner loop can read entries with a single load &mdash; the tests use pre-allocated <span class="tt"><a class="el" href="classint.html">int</a>[3]</span> stack arrays passed through <span class="tt">static_cast&lt;<a class="el" href="_exponent_vector_8hpp_aec09fab2f897ff3d8346961f38331d12.html#aec09fab2f897ff3d8346961f38331d12">exponents_t</a>&gt;</span> to match that representation.</p>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['atomicinternal_0',['AtomicInternal',['../namespace_atomic_internal.html',1,'']]]
+  ['bibasis_0',['BIBasis',['../namespace_b_i_basis.html',1,'']]]
 ];

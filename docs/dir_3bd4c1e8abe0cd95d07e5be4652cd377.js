@@ -14,7 +14,7 @@ var dir_3bd4c1e8abe0cd95d07e5be4652cd377 =
     [ "NCReduction.hpp", "_n_c_reduction_8hpp.html", "_n_c_reduction_8hpp" ],
     [ "OverlapTable.cpp", "_overlap_table_8cpp.html", "_overlap_table_8cpp" ],
     [ "OverlapTable.hpp", "_overlap_table_8hpp.html", "_overlap_table_8hpp" ],
-    [ "Range.hpp", "_macaulay2_2e_2_n_c_algebras_2_range_8hpp.html", "_macaulay2_2e_2_n_c_algebras_2_range_8hpp" ],
+    [ "Range.hpp", "_range_8hpp.html", "_range_8hpp" ],
     [ "SuffixTree.cpp", "_suffix_tree_8cpp.html", "_suffix_tree_8cpp" ],
     [ "SuffixTree.hpp", "_suffix_tree_8hpp.html", "_suffix_tree_8hpp" ],
     [ "Word.cpp", "_word_8cpp.html", "_word_8cpp" ],

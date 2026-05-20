@@ -461,9 +461,10 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_poly_ring_flat.html" title="PolynomialRing subclass whose elements are represented as a single flat Nterm* linked list (no fracti...">PolyRingFlat</a></span> subclass for quotients <span class="tt">R / I</span> of a polynomial ring by an ideal. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Owns the defining ideal data through the inherited <span class="tt"><a class="el" href="class_polynomial_ring_a383cd8766ad4406a58be585965ae307f.html#a383cd8766ad4406a58be585965ae307f">qinfo_</a></span> (<span class="tt">QRingInfo*</span>, see <span class="tt"><a class="el" href="qring_8hpp.html" title="QRingInfo family — bookkeeping plus normal-form machinery attached to a PolyRingQuotient for R / I re...">qring.hpp</a></span>) and adds <span class="tt"><a class="el" href="class_poly_ring_quotient_ad792a456bf2fc8b10996cb40bc966a2e.html#ad792a456bf2fc8b10996cb40bc966a2e">normal_form</a></span> as the thin forwarder onto it: every arithmetic result is reduced modulo the quotient ideal before being returned. The factory (<span class="tt"><a class="el" href="class_poly_ring_quotient_a8507e3d8142c5e828360cd44754f7d49.html#a8507e3d8142c5e828360cd44754f7d49">make_gb</a></span> plus the front-end-side <span class="tt">PolynomialRing::create</span> paths) builds the GB of <span class="tt">I</span> once and reuses it for every subsequent reduction. </p>
 
-<p class="definition">Definition at line <a class="el" href="polyquotient_8hpp_source.html#l00065">65</a> of file <a class="el" href="polyquotient_8hpp_source.html">polyquotient.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="polyquotient_8hpp_source.html#l00069">69</a> of file <a class="el" href="polyquotient_8hpp_source.html">polyquotient.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>Macaulay2/e/<a class="el" href="polyquotient_8hpp_source.html">polyquotient.hpp</a></li>
 <li>Macaulay2/e/<a class="el" href="polyquotient_8cpp_source.html">polyquotient.cpp</a></li>

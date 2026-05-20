@@ -134,9 +134,10 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Generic <span class="tt"><a class="el" href="class_sum_collector.html" title="Abstract incremental accumulator that builds a ring_elem from many add(f) calls.">SumCollector</a></span> that accumulates into a single <span class="tt"><a class="el" href="unionring__elem.html">ring_elem</a></span> via repeated <span class="tt"><a class="el" href="class_ring_acf98d2d1f7fd61fd52af3c0a17d9d225.html#acf98d2d1f7fd61fd52af3c0a17d9d225">Ring::add_to</a></span>. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Used as the fallback when a <span class="tt"><a class="el" href="class_ring.html" title="xxx xxx xxx">Ring</a></span> does not override <span class="tt">make_SumCollector()</span> to install a faster (geobucket / heap) implementation. <span class="tt"><a class="el" href="class_sum_collector_default_af93d829f5a2bfc99497621ec73e987e0.html#af93d829f5a2bfc99497621ec73e987e0">getValue()</a></span> returns the running total and resets <span class="tt"><a class="el" href="class_sum_collector_default_a23778841f5043139f8806443621a76c8.html#a23778841f5043139f8806443621a76c8">result</a></span> to zero so the collector can be reused. </p>
 
-<p class="definition">Definition at line <a class="el" href="ring_8cpp_source.html#l00467">467</a> of file <a class="el" href="ring_8cpp_source.html">ring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ring_8cpp_source.html#l00469">469</a> of file <a class="el" href="ring_8cpp_source.html">ring.cpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>Macaulay2/e/<a class="el" href="ring_8cpp_source.html">ring.cpp</a></li>
 </ul>

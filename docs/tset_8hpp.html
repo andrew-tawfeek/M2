@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/bibasis/tset.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/bibasis/tset.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -110,6 +110,7 @@ Namespaces</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_b_i_basis_1_1_t_set.html">BIBasis::TSet</a>&lt;MonomType&gt;</span> &mdash; the running intermediate involutive basis (T-set). </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Declares and defines the container that holds the "intermediate basis" the involutive driver builds incrementally before producing its final answer. Internally a <span class="tt">std::list</span> of <span class="tt">Triple&lt;MonomType&gt;*</span> paired with a <span class="tt">JanetTree</span> over the same triples: the list preserves insertion order so the algorithm can walk it deterministically, and the tree gives <span class="tt">O(degree)</span> Janet-divisor lookup via <span class="tt">Find(monom)</span>. <span class="tt">PushBack</span> keeps both structures in sync, <span class="tt">Erase</span> removes from both, and <span class="tt">Clear</span> destroys every triple it owns.</p>
 <p>The key operation <span class="tt">CollectNonMultiProlongations</span> consults the Janet tree to harvest every non-multiplicative prolongation a newly inserted triple generates, then hands them to the <span class="tt">QSet</span> for scheduling. Templated on <span class="tt">MonomType</span> so the underlying tree and triple types stay specialised per ordering.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="janettree_8hpp.html" title="BIBasis::JanetTree&lt;MonomType&gt; — the involutive-division index for boolean Gröbner bases.">janettree.hpp</a> </dd>

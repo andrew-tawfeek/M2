@@ -120,25 +120,25 @@ $(function(){initNavTree('namespacempfr_ab3b7a323b554fa71e65ed0cddd7c4838.html',
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpreal_8h_source.html#l02655">2655</a> of file <a class="el" href="mpreal_8h_source.html">mpreal.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 2656</span>{</div>
-<div class="line"><span class="lineno"> 2657</span>    <a class="code hl_class" href="classmpfr_1_1mpreal.html">mpreal</a> a;</div>
-<div class="line"><span class="lineno"> 2658</span>    mp_prec_t yp, xp;</div>
-<div class="line"><span class="lineno"> 2659</span> </div>
-<div class="line"><span class="lineno"> 2660</span>    yp = y.<a class="code hl_function" href="classmpfr_1_1mpreal_a3a7ea3586a91489fa7509562becd304d.html#a3a7ea3586a91489fa7509562becd304d">get_prec</a>();</div>
-<div class="line"><span class="lineno"> 2661</span>    xp = <a class="code hl_variable" href="overflow-test_8cpp_aa07f992d22249e2bef61db62f71671b2.html#aa07f992d22249e2bef61db62f71671b2">x</a>.get_prec();</div>
-<div class="line"><span class="lineno"> 2662</span> </div>
-<div class="line"><span class="lineno"> 2663</span>    a.<a class="code hl_function" href="classmpfr_1_1mpreal_a7e096c82de9a582878e55834733788bc.html#a7e096c82de9a582878e55834733788bc">set_prec</a>(yp&gt;xp?yp:xp);</div>
+<p class="definition">Definition at line <a class="el" href="mpreal_8h_source.html#l02657">2657</a> of file <a class="el" href="mpreal_8h_source.html">mpreal.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2658</span>{</div>
+<div class="line"><span class="lineno"> 2659</span>    <a class="code hl_class" href="classmpfr_1_1mpreal.html">mpreal</a> a;</div>
+<div class="line"><span class="lineno"> 2660</span>    mp_prec_t yp, xp;</div>
+<div class="line"><span class="lineno"> 2661</span> </div>
+<div class="line"><span class="lineno"> 2662</span>    yp = y.<a class="code hl_function" href="classmpfr_1_1mpreal_a3a7ea3586a91489fa7509562becd304d.html#a3a7ea3586a91489fa7509562becd304d">get_prec</a>();</div>
+<div class="line"><span class="lineno"> 2663</span>    xp = <a class="code hl_variable" href="overflow-test_8cpp_aa07f992d22249e2bef61db62f71671b2.html#aa07f992d22249e2bef61db62f71671b2">x</a>.get_prec();</div>
 <div class="line"><span class="lineno"> 2664</span> </div>
-<div class="line"><span class="lineno"> 2665</span>    mpfr_fmod(a.<a class="code hl_variable" href="classmpfr_1_1mpreal_ae4f2e74bdf6be3e7df116b2ad9883d7d.html#ae4f2e74bdf6be3e7df116b2ad9883d7d">mp</a>, <a class="code hl_variable" href="overflow-test_8cpp_aa07f992d22249e2bef61db62f71671b2.html#aa07f992d22249e2bef61db62f71671b2">x</a>.mp, y.<a class="code hl_variable" href="classmpfr_1_1mpreal_ae4f2e74bdf6be3e7df116b2ad9883d7d.html#ae4f2e74bdf6be3e7df116b2ad9883d7d">mp</a>, rnd_mode);</div>
+<div class="line"><span class="lineno"> 2665</span>    a.<a class="code hl_function" href="classmpfr_1_1mpreal_a7e096c82de9a582878e55834733788bc.html#a7e096c82de9a582878e55834733788bc">set_prec</a>(yp&gt;xp?yp:xp);</div>
 <div class="line"><span class="lineno"> 2666</span> </div>
-<div class="line"><span class="lineno"> 2667</span>    <span class="keywordflow">return</span> a;</div>
-<div class="line"><span class="lineno"> 2668</span>}</div>
-<div class="ttc" id="aclassmpfr_1_1mpreal_a3a7ea3586a91489fa7509562becd304d_html_a3a7ea3586a91489fa7509562becd304d"><div class="ttname"><a href="classmpfr_1_1mpreal_a3a7ea3586a91489fa7509562becd304d.html#a3a7ea3586a91489fa7509562becd304d">mpfr::mpreal::get_prec</a></div><div class="ttdeci">mp_prec_t get_prec() const</div><div class="ttdef"><b>Definition</b> <a href="mpreal_8h_source.html#l02022">mpreal.h:2022</a></div></div>
-<div class="ttc" id="aclassmpfr_1_1mpreal_a7e096c82de9a582878e55834733788bc_html_a7e096c82de9a582878e55834733788bc"><div class="ttname"><a href="classmpfr_1_1mpreal_a7e096c82de9a582878e55834733788bc.html#a7e096c82de9a582878e55834733788bc">mpfr::mpreal::set_prec</a></div><div class="ttdeci">void set_prec(mp_prec_t prec, mp_rnd_t rnd_mode=get_default_rnd())</div><div class="ttdef"><b>Definition</b> <a href="mpreal_8h_source.html#l02027">mpreal.h:2027</a></div></div>
-<div class="ttc" id="aclassmpfr_1_1mpreal_ae4f2e74bdf6be3e7df116b2ad9883d7d_html_ae4f2e74bdf6be3e7df116b2ad9883d7d"><div class="ttname"><a href="classmpfr_1_1mpreal_ae4f2e74bdf6be3e7df116b2ad9883d7d.html#ae4f2e74bdf6be3e7df116b2ad9883d7d">mpfr::mpreal::mp</a></div><div class="ttdeci">mpfr_t mp</div><div class="ttdef"><b>Definition</b> <a href="mpreal_8h_source.html#l00175">mpreal.h:175</a></div></div>
-<div class="ttc" id="aclassmpfr_1_1mpreal_html"><div class="ttname"><a href="classmpfr_1_1mpreal.html">mpfr::mpreal</a></div><div class="ttdef"><b>Definition</b> <a href="mpreal_8h_source.html#l00173">mpreal.h:173</a></div></div>
-<div class="ttc" id="aoverflow-test_8cpp_aa07f992d22249e2bef61db62f71671b2_html_aa07f992d22249e2bef61db62f71671b2"><div class="ttname"><a href="overflow-test_8cpp_aa07f992d22249e2bef61db62f71671b2.html#aa07f992d22249e2bef61db62f71671b2">x</a></div><div class="ttdeci">volatile int x</div><div class="ttdef"><b>Definition</b> <a href="overflow-test_8cpp_source.html#l00066">overflow-test.cpp:66</a></div></div>
+<div class="line"><span class="lineno"> 2667</span>    mpfr_fmod(a.<a class="code hl_variable" href="classmpfr_1_1mpreal_ae4f2e74bdf6be3e7df116b2ad9883d7d.html#ae4f2e74bdf6be3e7df116b2ad9883d7d">mp</a>, <a class="code hl_variable" href="overflow-test_8cpp_aa07f992d22249e2bef61db62f71671b2.html#aa07f992d22249e2bef61db62f71671b2">x</a>.mp, y.<a class="code hl_variable" href="classmpfr_1_1mpreal_ae4f2e74bdf6be3e7df116b2ad9883d7d.html#ae4f2e74bdf6be3e7df116b2ad9883d7d">mp</a>, rnd_mode);</div>
+<div class="line"><span class="lineno"> 2668</span> </div>
+<div class="line"><span class="lineno"> 2669</span>    <span class="keywordflow">return</span> a;</div>
+<div class="line"><span class="lineno"> 2670</span>}</div>
+<div class="ttc" id="aclassmpfr_1_1mpreal_a3a7ea3586a91489fa7509562becd304d_html_a3a7ea3586a91489fa7509562becd304d"><div class="ttname"><a href="classmpfr_1_1mpreal_a3a7ea3586a91489fa7509562becd304d.html#a3a7ea3586a91489fa7509562becd304d">mpfr::mpreal::get_prec</a></div><div class="ttdeci">mp_prec_t get_prec() const</div><div class="ttdef"><b>Definition</b> <a href="mpreal_8h_source.html#l02024">mpreal.h:2024</a></div></div>
+<div class="ttc" id="aclassmpfr_1_1mpreal_a7e096c82de9a582878e55834733788bc_html_a7e096c82de9a582878e55834733788bc"><div class="ttname"><a href="classmpfr_1_1mpreal_a7e096c82de9a582878e55834733788bc.html#a7e096c82de9a582878e55834733788bc">mpfr::mpreal::set_prec</a></div><div class="ttdeci">void set_prec(mp_prec_t prec, mp_rnd_t rnd_mode=get_default_rnd())</div><div class="ttdef"><b>Definition</b> <a href="mpreal_8h_source.html#l02029">mpreal.h:2029</a></div></div>
+<div class="ttc" id="aclassmpfr_1_1mpreal_ae4f2e74bdf6be3e7df116b2ad9883d7d_html_ae4f2e74bdf6be3e7df116b2ad9883d7d"><div class="ttname"><a href="classmpfr_1_1mpreal_ae4f2e74bdf6be3e7df116b2ad9883d7d.html#ae4f2e74bdf6be3e7df116b2ad9883d7d">mpfr::mpreal::mp</a></div><div class="ttdeci">mpfr_t mp</div><div class="ttdef"><b>Definition</b> <a href="mpreal_8h_source.html#l00177">mpreal.h:177</a></div></div>
+<div class="ttc" id="aclassmpfr_1_1mpreal_html"><div class="ttname"><a href="classmpfr_1_1mpreal.html">mpfr::mpreal</a></div><div class="ttdef"><b>Definition</b> <a href="mpreal_8h_source.html#l00175">mpreal.h:175</a></div></div>
+<div class="ttc" id="aoverflow-test_8cpp_aa07f992d22249e2bef61db62f71671b2_html_aa07f992d22249e2bef61db62f71671b2"><div class="ttname"><a href="overflow-test_8cpp_aa07f992d22249e2bef61db62f71671b2.html#aa07f992d22249e2bef61db62f71671b2">x</a></div><div class="ttdeci">volatile int x</div><div class="ttdef"><b>Definition</b> <a href="overflow-test_8cpp_source.html#l00068">overflow-test.cpp:68</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

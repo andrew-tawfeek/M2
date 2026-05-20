@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/aring-translate.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/aring-translate.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -200,6 +200,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Cross-ring coercion templates: <span class="tt">mypromote</span> / <span class="tt">mylift</span> between two <span class="tt">aring</span> rings, and <span class="tt">get_from_*</span> from an external <a class="el" href="namespace_m2.html">M2</a> numeric type into an <span class="tt">aring</span>. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Declares the templated cross-ring coercion routines: <span class="tt">mypromote&lt;RingR, RingS&gt;(R, S, fR, result_fS)</span> for the forward direction <span class="tt">R -&gt; S</span> (e.g. <span class="tt">Q -&gt; RR</span> via <span class="tt">S.set_from_mpq</span>, <span class="tt">Z -&gt; Z/p</span>), <span class="tt">mylift&lt;RingR, RingS&gt;</span> for the reverse <span class="tt">S -&gt; R</span> (e.g. <span class="tt">Z/p -&gt; Z</span> lifting to a canonical representative), and the <span class="tt">get_from_*</span> family (<span class="tt">get_from_BigReal</span>, <span class="tt">get_from_BigComplex</span>, <span class="tt">get_from_Interval</span>, <span class="tt">get_from_ComplexInterval</span>, <span class="tt">get_from_double</span>, <span class="tt">get_from_complex_double</span>) that injects an external <a class="el" href="namespace_m2.html">M2</a> numeric type into an aring element. Each generic template body returns <span class="tt">false</span> to signal "this pair is
 unsupported"; the supported pairs (<span class="tt">ARingQQ -&gt; ARingRR /
 ARingRRR / ARingRRi / ARingCC</span>, the various <span class="tt">BigReal/Complex/Interval -&gt; ARing*</span>, ...) are added as <span class="tt">inline</span> overload-resolution specialisations further down. Because each aring's own header knows only about itself, this file pulls in <em>every</em> <span class="tt">aring-*.hpp</span> so the specialisations have access to both source and target types.</p>

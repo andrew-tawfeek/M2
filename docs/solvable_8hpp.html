@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/solvable.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/solvable.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -94,7 +94,7 @@ $(function(){initNavTree('solvable_8hpp.html','',''); });
 
 <p><span class="tt"><a class="el" href="class_solvable_algebra.html" title="PolyRing subclass for solvable polynomial algebras (PBW-type non-commutative rings where each pair of...">SolvableAlgebra</a></span> &mdash; scaffolding for a PBW algebra <span class="tt">x_j x_i = x_i x_j + q_{ij}</span> (multiplication unimplemented).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="_macaulay2_2e_2poly_8hpp_source.html">poly.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="poly_8hpp_source.html">poly.hpp</a>&quot;</code><br />
 </div>
 <p><a href="solvable_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -105,9 +105,10 @@ Classes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_solvable_algebra.html" title="PolyRing subclass for solvable polynomial algebras (PBW-type non-commutative rings where each pair of...">SolvableAlgebra</a></span> &mdash; scaffolding for a PBW algebra <span class="tt">x_j x_i = x_i x_j + q_{ij}</span> (multiplication unimplemented). </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Declares <span class="tt"><a class="el" href="class_solvable_algebra.html" title="PolyRing subclass for solvable polynomial algebras (PBW-type non-commutative rings where each pair of...">SolvableAlgebra</a></span>, the <span class="tt"><a class="el" href="class_poly_ring.html" title="Concrete PolyRingFlat subclass implementing ordinary commutative polynomial rings K[x_1,...">PolyRing</a></span> subclass intended to model polynomial-shaped algebras whose generators do not commute but satisfy a PBW-style straightening relation <span class="tt">x_j x_i = x_i x_j + q_{ij}</span> for <span class="tt">i &lt; j</span>, with each commutator polynomial <span class="tt">q_{ij}</span> supplied as the <span class="tt">(i, j)</span> entry of a constructor-provided <span class="tt"><a class="el" href="class_matrix.html" title="Engine-side matrix: a map between two free modules, stored as a column-vector list.">Matrix</a> Q_</span>. The intended framework covers Weyl algebras, quantum planes, universal enveloping algebras <span class="tt">U(g)</span>, and the trivial zero-<span class="tt">Q</span> case where the algebra degenerates to an ordinary polynomial ring.</p>
 <p>The class is currently a stub: <span class="tt">initialize_solvable(Q)</span> just stashes the matrix and <span class="tt"><a class="el" href="class_solvable_algebra_a5bd7cf5df5dce7fbbdd48496947210c2.html#a5bd7cf5df5dce7fbbdd48496947210c2">SolvableAlgebra::mult_by_term</a></span> (<span class="tt"><a class="el" href="solvable_8cpp.html">solvable.cpp</a></span>) returns <span class="tt"><a class="el" href="ring_8hpp_afc4022fa228930d460b6d19e3988ddf6.html#afc4022fa228930d460b6d19e3988ddf6">ZERO_RINGELEM</a></span> behind a "implement SolvableAlgebra::mult_by_term" <span class="tt">#warning</span>, so any non-trivial product collapses to zero. <span class="tt">power</span> defers to <span class="tt"><a class="el" href="class_ring_ad53bd105b7dcfb35f91908bbec8f460f.html#ad53bd105b7dcfb35f91908bbec8f460f" title="Exponentiation. This is the default function, if a class doesn&#39;t define this.">Ring::power</a></span> and therefore inherits the same problem. The public surface is in place (<span class="tt">create</span> / <span class="tt">cast_to_SolvableAlgebra</span> / <span class="tt">is_solvable_algebra</span> / <span class="tt">mult_by_term</span>), so callers can already plumb through the type, but the PBW reduction itself has yet to be filled in.</p>
-<dl class="section see"><dt>See also</dt><dd>poly.hpp </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="poly_8hpp.html" title="Concrete commutative PolyRing — standard polynomial ring inheriting from PolyRingFlat.">poly.hpp</a> </dd>
 <dd>
 <a class="el" href="weylalg_8hpp.html" title="WeylAlgebra — ring of polynomial differential operators with [d_i, x_i] = 1.">weylalg.hpp</a> </dd>
 <dd>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/schreyer-resolution/res-moninfo-sparse.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/schreyer-resolution/res-moninfo-sparse.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -109,6 +109,7 @@ Classes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_res_monoid_sparse.html" title="Sparse / varpower-format ResMonoid implementation: monomials laid out as length-prefixed lists of (va...">ResMonoidSparse</a></span> &mdash; sparse-multiset encoding alternative to <span class="tt"><a class="el" href="class_res_monoid_dense.html" title="Dense-format ResMonoid implementation: monomials laid out as fixed-width exponent vectors.">ResMonoidDense</a></span>. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Declares the compact alternative <span class="tt"><a class="el" href="res-moninfo_8hpp.html" title="ResMonoid dispatcher — single typedef switch between ResMonoidDense and ResMonoidSparse.">res-moninfo.hpp</a></span> keeps in the codebase for swap-in benchmarking against the production dense layout. Each monomial is encoded as <span class="tt">[length, hash, component, weight_1, ..., weight_{mNumWeights},
 v_1, v_2, ..., v_d]</span> (slot 0 is the total array length so <span class="tt">monomial_size(m) = *m</span>); the variable tail is a non-increasing list <span class="tt">v_1 &gt;= v_2 &gt;= ... &gt;= v_d &gt;= 0</span> where each variable index is repeated <span class="tt">e_i</span> times. So a monomial <span class="tt">x^2 y z^5</span> with <span class="tt">nvars = 3</span> (<span class="tt"><a class="el" href="overflow-test_8cpp_aa07f992d22249e2bef61db62f71671b2.html#aa07f992d22249e2bef61db62f71671b2">x</a>=0, y=1, z=2</span>, no weight slots) records the 11-slot array <span class="tt">[11, hash, <a class="el" href="group__comp.html">Computations</a>, 2, 2, 2,
 2, 2, 1, 0, 0]</span> (<span class="tt">from_expvector</span> iterates <span class="tt">i</span> from <span class="tt">nvars-1</span> down to <span class="tt">0</span> to build it). Memory is <span class="tt">O(total_degree)</span> per monomial rather than <span class="tt">O(nvars)</span>, which wins big for rings with many variables and low-support monomials.</p>

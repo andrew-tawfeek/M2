@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/Eschreyer.cpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/Eschreyer.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -104,6 +104,7 @@ $(function(){initNavTree('_eschreyer_8cpp.html','',''); });
 <p><a href="_eschreyer_8cpp_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of <span class="tt"><a class="el" href="struct_g_b_matrix.html" title="gbvector-side matrix: a target FreeModule plus a list of gbvector* columns living in it.">GBMatrix</a></span> and <span class="tt"><a class="el" href="class_g_b_kernel_computation.html" title="Computes the kernel of a Schreyer-encoded GBMatrix and returns the syzygies in a Schreyer-compatible ...">GBKernelComputation</a></span> &mdash; the polynomial-at-a-time syzygy engine. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Two halves: the <span class="tt"><a class="el" href="struct_g_b_matrix.html" title="gbvector-side matrix: a target FreeModule plus a list of gbvector* columns living in it.">GBMatrix</a></span> constructors and <span class="tt">to_matrix</span> conversion that wrap a column collection of <span class="tt">gbvector*</span>s (translating to and from the engine's standard <span class="tt"><a class="el" href="class_matrix.html" title="Engine-side matrix: a map between two free modules, stored as a column-vector list.">Matrix</a></span> / <span class="tt"><a class="el" href="class_free_module.html" title="Engine-side free module R^n over a Ring.">FreeModule</a></span> pair via <span class="tt">R-&gt;translate_gbvector_from_vec</span>); and the <span class="tt"><a class="el" href="class_g_b_kernel_computation.html" title="Computes the kernel of a Schreyer-encoded GBMatrix and returns the syzygies in a Schreyer-compatible ...">GBKernelComputation</a></span> driver that walks each input column through a head-reduction loop (subtracting <span class="tt">(lt(f)/lt(g_i)) *
 g_i</span> and tracking the multiplier as a syzygy basis element) followed by an optional tail-reduction pass. The output <span class="tt"><a class="el" href="structgbvector.html">gbvector</a></span> syzygies form the kernel of the input matrix modulo the supplied Gröbner basis.</p>
 <p>Walks polynomials term-by-term through the <span class="tt"><a class="el" href="structgbvector.html">gbvector</a></span> linked- list representation; the newer <span class="tt">schreyer-resolution/</span> family batches the same work into Macaulay matrices and wins on large inputs. This file stays in the engine for paths that have not yet migrated; new resolution work targets the matrix-based engine.</p>

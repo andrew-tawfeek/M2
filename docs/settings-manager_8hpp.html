@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/bibasis/settings-manager.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/bibasis/settings-manager.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -113,6 +113,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_b_i_basis_1_1_settings_manager.html" title="Process-wide singleton holding the BIBasis monomial order and variable count.">BIBasis::SettingsManager</a></span> &mdash; singleton holding the per-run monomial order and variable count. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Declares the lazy singleton (accessed via the free function <span class="tt">GetSettingsManager()</span>) that carries the subsystem-wide parameters every <a class="el" href="namespace_b_i_basis.html">BIBasis</a> class needs to consult: the active monomial order (<span class="tt">Monom::Lex</span> / <span class="tt">Monom::DegLex</span> / <span class="tt">Monom::DegRevLex</span>) and, via <span class="tt">SetNumberOfVariables</span>, the static <span class="tt">Monom::DimIndepend</span> that fixes the size of every monomial's variable list. <span class="tt">Launcher</span> populates these once at the start of a run; the algorithm code reads them through the singleton instead of threading them through every constructor.</p>
 <p>Constructors, copy-constructor, and assignment are private and <span class="tt">GetSettingsManager</span> is the only friend, enforcing the single- instance contract &mdash; <a class="el" href="namespace_b_i_basis.html">BIBasis</a> runs are single-threaded per <span class="tt"><a class="el" href="bibasis_8cpp_a1bc82a7a7aeca4bf5670eec2d9c608fa.html#a1bc82a7a7aeca4bf5670eec2d9c608fa">rawBIBasis</a></span> call, so the shared mutable state is safe.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="monom_8hpp.html" title="BIBasis::Monom — abstract squarefree-monomial base for the three Janet orderings.">monom.hpp</a> </dd>

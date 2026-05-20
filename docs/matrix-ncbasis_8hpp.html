@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/matrix-ncbasis.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/matrix-ncbasis.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -105,6 +105,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="group__matrices_ga279d84b40c6e3c343716c75725f7610c.html#ga279d84b40c6e3c343716c75725f7610c">ncBasis</a></span> &mdash; non-commutative analogue of <span class="tt">basis(d, M)</span> over <span class="tt">NCAlgebras/FreeAlgebra</span>. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Declares the entry point <span class="tt">ncBasis(A, gb, lo_degree, hi_degree,
 limit, result)</span>. Given a non-commutative free algebra <span class="tt">A</span>, a Groebner basis <span class="tt"><a class="el" href="franzi-gb_8cpp_a14e81b9d04537f8dd05a8cef7fb8563e.html#a14e81b9d04537f8dd05a8cef7fb8563e">gb</a></span> of the defining ideal (only its leading words matter), and a degree range, it enumerates the standard words of the quotient &mdash; words avoiding every leading word in <span class="tt"><a class="el" href="franzi-gb_8cpp_a14e81b9d04537f8dd05a8cef7fb8563e.html#a14e81b9d04537f8dd05a8cef7fb8563e">gb</a></span> &mdash; and appends them to the supplied <span class="tt"><a class="el" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a></span> polynomial list. Empty <span class="tt">lo_degree</span> is <span class="tt">-infinity</span> and empty <span class="tt">hi_degree</span> is <span class="tt">+infinity</span>; <span class="tt">limit</span> caps the output count (<span class="tt">&lt; 0</span> disables).</p>
 <p>The implementation in <span class="tt"><a class="el" href="matrix-ncbasis_8cpp.html">matrix-ncbasis.cpp</a></span> builds a <span class="tt">NCAlgebras/WordTable</span> from the leading words and runs a length-bounded breadth-first walk over the non-commutative word monoid, pruning whenever a candidate contains a leading word. The commutative sibling <span class="tt"><a class="el" href="matrix-kbasis_8cpp.html" title="KBasis — k-vector-space basis of a graded module restricted to chosen degrees.">matrix-kbasis.cpp</a></span> lives at the top level of <span class="tt">e/</span> alongside this file but uses a different monomial-ideal traversal because the commutative monoid is structurally different.</p>

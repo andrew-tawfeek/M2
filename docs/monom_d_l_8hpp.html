@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/bibasis/monomDL.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/bibasis/monomDL.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -111,6 +111,7 @@ Namespaces</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_b_i_basis_1_1_monom_d_l.html" title="Monom specialisation that orders monomials by degree, then by lex on the variable list (DegLex).">BIBasis::MonomDL</a></span> &mdash; degree-lex specialisation of the <a class="el" href="namespace_b_i_basis.html">BIBasis</a> monomial type. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Concrete <span class="tt"><a class="el" href="struct_monom.html" title="Non-owning view onto a [length, degree, v1, v2, ..., vn] packed monomial in some externally managed b...">Monom</a></span> subclass whose <span class="tt">Compare</span>, <span class="tt">operator&lt;</span>, and <span class="tt">operator&gt;</span> first compare the cached <span class="tt">TotalDegree</span> and break ties with lex on the variable list &mdash; the standard degree- lexicographic order (<span class="tt">grlex</span> in some textbooks). The variable list is kept sorted ascending so divisibility, multiplication, and exact-division traversals fuse into single linear walks; <span class="tt">IsTrueDivisibleBy</span> and <span class="tt">IsPommaretDivisibleBy</span> add the strict and Janet-prefix flavours the involutive driver needs. Allocation routes through a per-class static <span class="tt">FastAllocator</span> so prolongation churn doesn't hit the system allocator.</p>
 <p>Selected at runtime by <span class="tt">Launcher</span> when the user requests <span class="tt">DegLex</span>; instantiated via <span class="tt">BooleanInvolutiveBasis&lt;MonomDL&gt;</span> so the comparison kernel inlines into the reduction inner loop.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="monom_8hpp.html" title="BIBasis::Monom — abstract squarefree-monomial base for the three Janet orderings.">monom.hpp</a> </dd>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/bibasis/pcomparator.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/bibasis/pcomparator.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,7 +95,7 @@ $(function(){initNavTree('pcomparator_8hpp.html','',''); });
 <p><span class="tt"><a class="el" href="class_b_i_basis_1_1_pointer_less_comparator.html">BIBasis::PointerLessComparator</a></span> / <span class="tt">PointerMoreComparator</span> &mdash; pointer-deref comparators for STL containers.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;string&gt;</code><br />
-<code>#include &quot;error.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="error_8h_source.html">error.h</a>&quot;</code><br />
 </div>
 <p><a href="pcomparator_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -110,6 +110,7 @@ Namespaces</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_b_i_basis_1_1_pointer_less_comparator.html">BIBasis::PointerLessComparator</a></span> / <span class="tt">PointerMoreComparator</span> &mdash; pointer-deref comparators for STL containers. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Two tiny templated function objects so a <span class="tt">std::sort</span> or <span class="tt">std::set</span> over <span class="tt">Polynom*</span> / <span class="tt">Triple*</span> collections orders by the pointed-to value rather than the raw pointer address. <span class="tt">PointerLessComparator</span> forwards to <span class="tt">T::operator&lt;</span>; <span class="tt">PointerMoreComparator</span> forwards to <span class="tt">T::operator&gt;</span> for descending sorts. Both throw a descriptive <span class="tt">std::string</span> on a null pointer so the algorithm fails loudly rather than dereferencing junk.</p>
 <p>Currently only <span class="tt">BooleanInvolutiveBasis::ReduceSet</span> uses <span class="tt">PointerMoreComparator</span> to sort the working <span class="tt">GBasis</span> list descending by leading monomial before incremental reduction; <span class="tt">PointerLessComparator</span> is provided symmetrically for future callers.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="polynom_8hpp.html" title="BIBasis::Polynom&lt;MonomType&gt; — linked-list F_2[x] polynomial with symmetric-difference arithmetic.">polynom.hpp</a> </dd>

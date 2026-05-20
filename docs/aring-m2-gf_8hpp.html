@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/aring-m2-gf.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/aring-m2-gf.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -100,7 +100,7 @@ $(function(){initNavTree('aring-m2-gf_8hpp.html','',''); });
 <code>#include &quot;<a class="el" href="ringelem_8hpp_source.html">ringelem.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="exceptions_8hpp_source.html">exceptions.hpp</a>&quot;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
-<code>#include &quot;<a class="el" href="_macaulay2_2e_2polyring_8hpp_source.html">polyring.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="polyring_8hpp_source.html">polyring.hpp</a>&quot;</code><br />
 </div>
 <p><a href="aring-m2-gf_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -120,6 +120,7 @@ Typedefs</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_m2_1_1_a_ring_g_f_m2.html" title="Pure-M2 (no-FLINT) aring-style adapter for GF(p^n), using a discrete-log encoding plus an M2-side pri...">M2::ARingGFM2</a></span> &mdash; native engine Galois field, no FLINT dependency. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p><span class="tt">ARingGFM2</span> implements <span class="tt"><a class="el" href="class_g_f.html" title="Engine-side finite field GF(p^n) built on top of (Z/p)[t] / f(t) for a primitive element of the resul...">GF(p^k)</a></span> entirely in engine code as a <span class="tt">SimpleARing&lt;ARingGFM2&gt;</span> with <span class="tt">ElementType = <a class="el" href="classint.html">int</a></span> &mdash; a <span class="tt">GFElement</span> log index of a chosen primitive root, with <span class="tt">0</span> reserved for the field zero (the same convention as <span class="tt"><a class="el" href="aring-zzp_8hpp.html" title="M2::ARingZZp — portable Z/p for small primes via log / exp tables.">aring-zzp.hpp</a></span>, generalised to extension fields). Construction goes through <span class="tt">GaloisFieldTable(R, prim)</span>: it takes a <span class="tt"><a class="el" href="class_polynomial_ring.html" title="Abstract base for the engine&#39;s polynomial-ring hierarchy.">PolynomialRing</a></span> <span class="tt">R = Z/p[t] / f(t)</span> plus a user-supplied primitive element, locates the primitive root, and precomputes the two tables that drive arithmetic &mdash; <span class="tt">mOneTable</span> (the "add one to a log index" lookup, i.e. the Zech logarithm) and <span class="tt">mFromIntTable</span> (mapping <span class="tt">Z/p</span> residues into log indices). Multiplication of non-zero elements is index addition mod <span class="tt">q - 1</span>; addition uses one <span class="tt">mOneTable</span> lookup.</p>
 <p>The class is the M2-side entry point <span class="tt"><a class="el" href="interface_2aring_8cpp_a088c58108ca1ee36fa82d8f70f18ae4c.html#a088c58108ca1ee36fa82d8f70f18ae4c">rawARingGaloisField1</a></span> in <span class="tt"><a class="el" href="interface_2aring_8cpp.html">interface/aring.cpp</a></span> and is the <a class="el" href="class_g_f.html" title="Engine-side finite field GF(p^n) built on top of (Z/p)[t] / f(t) for a primitive element of the resul...">GF</a> implementation used when no FLINT backend is requested. The old Givaro path is gone &mdash; <span class="tt">rawARingGaloisField(prime, dimension)</span> errors out with "givaro is no longer available". The FLINT variants are <span class="tt"><a class="el" href="aring-gf-flint_8hpp.html" title="M2::ARingGFFlint — small GF(p^k) via FLINT Zech-logarithm tables.">aring-gf-flint.hpp</a></span> (small Zech-table) and <span class="tt"><a class="el" href="aring-gf-flint-big_8hpp.html" title="M2::ARingGFFlintBig — arbitrary-degree GF(p^k) via FLINT fq_nmod.">aring-gf-flint-big.hpp</a></span> (polynomial-quotient).</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="aring-gf-flint_8hpp.html" title="M2::ARingGFFlint — small GF(p^k) via FLINT Zech-logarithm tables.">aring-gf-flint.hpp</a> </dd>

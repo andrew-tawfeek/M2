@@ -124,9 +124,10 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sign-rule helper used by every ring that has a skew-commutative subset of variables (exterior factor, full skew ring, ...). </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Stores which of the <span class="tt"><a class="el" href="class_skew_multiplication_a2fff480f50592edd6ffb5ce9bb6f4d36.html#a2fff480f50592edd6ffb5ce9bb6f4d36">_n_vars</a></span> variables are skew (<span class="tt"><a class="el" href="class_skew_multiplication_a8d9a78b2d80731f3085f8a13da39d3d5.html#a8d9a78b2d80731f3085f8a13da39d3d5">_skew_list</a>[0.._n_skew-1]</span>, with <span class="tt"><a class="el" href="class_skew_multiplication_a915d319962b73be30f8df764fbc1e2e5.html#a915d319962b73be30f8df764fbc1e2e5">_skew_exp</a>[i]</span> a fast "is variable `i` skew?" lookup), plus the byte size used to cache exponent vectors. Hands out the inversion count needed by the wrapping ring's <span class="tt">mult_by_term1</span> to decide the sign of a product, and detects <span class="tt">x_i^2 = 0</span> collapses on the skew side. Full polynomial multiplication still lives in the rings that embed this helper (<span class="tt"><a class="el" href="class_skew_polynomial_ring.html" title="PolyRing subclass for skew-commutative (exterior-style) polynomial rings: the listed skewvars anticom...">SkewPolynomialRing</a></span>, <span class="tt"><a class="el" href="class_poly_ring.html" title="Concrete PolyRingFlat subclass implementing ordinary commutative polynomial rings K[x_1,...">PolyRing</a></span> with skew factors, F4 / resolution code). </p>
 
-<p class="definition">Definition at line <a class="el" href="skew_8hpp_source.html#l00049">49</a> of file <a class="el" href="skew_8hpp_source.html">skew.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="skew_8hpp_source.html#l00053">53</a> of file <a class="el" href="skew_8hpp_source.html">skew.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>Macaulay2/e/<a class="el" href="skew_8hpp_source.html">skew.hpp</a></li>
 <li>Macaulay2/e/<a class="el" href="skew_8cpp_source.html">skew.cpp</a></li>

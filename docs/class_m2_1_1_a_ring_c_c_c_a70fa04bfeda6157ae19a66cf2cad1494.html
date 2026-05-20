@@ -120,30 +120,30 @@ $(function(){initNavTree('class_m2_1_1_a_ring_c_c_c_a70fa04bfeda6157ae19a66cf2ca
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="aring-_c_c_c_8hpp_source.html#l00324">324</a> of file <a class="el" href="aring-_c_c_c_8hpp_source.html">aring-CCC.hpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  327</span>  {</div>
-<div class="line"><span class="lineno">  328</span>    mpfr_t tmp;</div>
-<div class="line"><span class="lineno">  329</span>    Element <a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a>(*<span class="keyword">this</span>);</div>
-<div class="line"><span class="lineno">  330</span>    mpfr_init2(tmp, <a class="code hl_function" href="class_m2_1_1_a_ring_c_c_c_a6ca36f68691d04e4535212cbb3a963cf.html#a6ca36f68691d04e4535212cbb3a963cf">get_precision</a>());</div>
-<div class="line"><span class="lineno">  331</span> </div>
-<div class="line"><span class="lineno">  332</span>    <span class="comment">// &amp;result.re = &amp;a.re*&amp;b;</span></div>
-<div class="line"><span class="lineno">  333</span>    mpfr_mul(tmp, &amp;a.re, &amp;b, MPFR_RNDN);</div>
-<div class="line"><span class="lineno">  334</span>    mpfr_set(&amp;<a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a>.value().re, tmp, MPFR_RNDN);</div>
+<p class="definition">Definition at line <a class="el" href="aring-_c_c_c_8hpp_source.html#l00328">328</a> of file <a class="el" href="aring-_c_c_c_8hpp_source.html">aring-CCC.hpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  331</span>  {</div>
+<div class="line"><span class="lineno">  332</span>    mpfr_t tmp;</div>
+<div class="line"><span class="lineno">  333</span>    Element <a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a>(*<span class="keyword">this</span>);</div>
+<div class="line"><span class="lineno">  334</span>    mpfr_init2(tmp, <a class="code hl_function" href="class_m2_1_1_a_ring_c_c_c_a6ca36f68691d04e4535212cbb3a963cf.html#a6ca36f68691d04e4535212cbb3a963cf">get_precision</a>());</div>
 <div class="line"><span class="lineno">  335</span> </div>
-<div class="line"><span class="lineno">  336</span>    <span class="comment">// &amp;result.im = &amp;a.im*&amp;b;</span></div>
-<div class="line"><span class="lineno">  337</span>    mpfr_mul(tmp, &amp;a.im, &amp;b, MPFR_RNDN);</div>
-<div class="line"><span class="lineno">  338</span>    mpfr_set(&amp;<a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a>.value().im, tmp, MPFR_RNDN);</div>
+<div class="line"><span class="lineno">  336</span>    <span class="comment">// &amp;result.re = &amp;a.re*&amp;b;</span></div>
+<div class="line"><span class="lineno">  337</span>    mpfr_mul(tmp, &amp;a.re, &amp;b, MPFR_RNDN);</div>
+<div class="line"><span class="lineno">  338</span>    mpfr_set(&amp;<a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a>.value().re, tmp, MPFR_RNDN);</div>
 <div class="line"><span class="lineno">  339</span> </div>
-<div class="line"><span class="lineno">  340</span>    <a class="code hl_function" href="class_m2_1_1_a_ring_c_c_c_ad4163b5010df51b6ff9fba518d028470.html#ad4163b5010df51b6ff9fba518d028470">set</a>(res, <a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a>);</div>
-<div class="line"><span class="lineno">  341</span>    mpfr_clear(tmp);</div>
-<div class="line"><span class="lineno">  342</span>  }</div>
-<div class="ttc" id="aclass_m2_1_1_a_ring_c_c_c_a6ca36f68691d04e4535212cbb3a963cf_html_a6ca36f68691d04e4535212cbb3a963cf"><div class="ttname"><a href="class_m2_1_1_a_ring_c_c_c_a6ca36f68691d04e4535212cbb3a963cf.html#a6ca36f68691d04e4535212cbb3a963cf">M2::ARingCCC::get_precision</a></div><div class="ttdeci">unsigned long get_precision() const</div><div class="ttdef"><b>Definition</b> <a href="aring-_c_c_c_8hpp_source.html#l00084">aring-CCC.hpp:84</a></div></div>
-<div class="ttc" id="aclass_m2_1_1_a_ring_c_c_c_ad4163b5010df51b6ff9fba518d028470_html_ad4163b5010df51b6ff9fba518d028470"><div class="ttname"><a href="class_m2_1_1_a_ring_c_c_c_ad4163b5010df51b6ff9fba518d028470.html#ad4163b5010df51b6ff9fba518d028470">M2::ARingCCC::set</a></div><div class="ttdeci">void set(ElementType &amp;result, const ElementType &amp;a) const</div><div class="ttdef"><b>Definition</b> <a href="aring-_c_c_c_8hpp_source.html#l00159">aring-CCC.hpp:159</a></div></div>
+<div class="line"><span class="lineno">  340</span>    <span class="comment">// &amp;result.im = &amp;a.im*&amp;b;</span></div>
+<div class="line"><span class="lineno">  341</span>    mpfr_mul(tmp, &amp;a.im, &amp;b, MPFR_RNDN);</div>
+<div class="line"><span class="lineno">  342</span>    mpfr_set(&amp;<a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a>.value().im, tmp, MPFR_RNDN);</div>
+<div class="line"><span class="lineno">  343</span> </div>
+<div class="line"><span class="lineno">  344</span>    <a class="code hl_function" href="class_m2_1_1_a_ring_c_c_c_ad4163b5010df51b6ff9fba518d028470.html#ad4163b5010df51b6ff9fba518d028470">set</a>(res, <a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a>);</div>
+<div class="line"><span class="lineno">  345</span>    mpfr_clear(tmp);</div>
+<div class="line"><span class="lineno">  346</span>  }</div>
+<div class="ttc" id="aclass_m2_1_1_a_ring_c_c_c_a6ca36f68691d04e4535212cbb3a963cf_html_a6ca36f68691d04e4535212cbb3a963cf"><div class="ttname"><a href="class_m2_1_1_a_ring_c_c_c_a6ca36f68691d04e4535212cbb3a963cf.html#a6ca36f68691d04e4535212cbb3a963cf">M2::ARingCCC::get_precision</a></div><div class="ttdeci">unsigned long get_precision() const</div><div class="ttdef"><b>Definition</b> <a href="aring-_c_c_c_8hpp_source.html#l00088">aring-CCC.hpp:88</a></div></div>
+<div class="ttc" id="aclass_m2_1_1_a_ring_c_c_c_ad4163b5010df51b6ff9fba518d028470_html_ad4163b5010df51b6ff9fba518d028470"><div class="ttname"><a href="class_m2_1_1_a_ring_c_c_c_ad4163b5010df51b6ff9fba518d028470.html#ad4163b5010df51b6ff9fba518d028470">M2::ARingCCC::set</a></div><div class="ttdeci">void set(ElementType &amp;result, const ElementType &amp;a) const</div><div class="ttdef"><b>Definition</b> <a href="aring-_c_c_c_8hpp_source.html#l00163">aring-CCC.hpp:163</a></div></div>
 <div class="ttc" id="am2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b_html_aeace12b3a5c753d4ece1a0e89acb729b"><div class="ttname"><a href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a></div><div class="ttdeci">VALGRIND_MAKE_MEM_DEFINED &amp; result(result)</div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="class_m2_1_1_a_ring_c_c_c_a6ca36f68691d04e4535212cbb3a963cf.html#a6ca36f68691d04e4535212cbb3a963cf">get_precision()</a>, <a class="el" href="structcc__struct_a01c7e0ae1aa6afdb88e34089b44e315c.html#a01c7e0ae1aa6afdb88e34089b44e315c">cc_struct::im</a>, <a class="el" href="structcc__struct_ab0d0e122986378302dd93f5fb27ec281.html#ab0d0e122986378302dd93f5fb27ec281">cc_struct::re</a>, <a class="el" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result()</a>, and <a class="el" href="class_m2_1_1_a_ring_c_c_c_ad4163b5010df51b6ff9fba518d028470.html#ad4163b5010df51b6ff9fba518d028470">set()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="class_m2_1_1_a_ring_c_c_c_ae5727cd5401948e193b1cc11e15282db.html#ae5727cd5401948e193b1cc11e15282db">addMultipleTo()</a>, <a class="el" href="class_m2_1_1_a_ring_c_c_c_a9fd8071b462878df33bbc8514de2d488.html#a9fd8071b462878df33bbc8514de2d488">power()</a>, and <a class="el" href="class_m2_1_1_a_ring_c_c_c_a8c4f80ae24ee3b75ff6b931d20460cbd.html#a8c4f80ae24ee3b75ff6b931d20460cbd">subtract_multiple()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="class_m2_1_1_a_ring_c_c_c_ae5727cd5401948e193b1cc11e15282db.html#ae5727cd5401948e193b1cc11e15282db">addMultipleTo()</a>, <a class="el" href="class_m2_1_1_a_ring_c_c_c_a9fd8071b462878df33bbc8514de2d488.html#a9fd8071b462878df33bbc8514de2d488">power()</a>, <a class="el" href="class_m2_1_1_a_ring_c_c_c_a8c4f80ae24ee3b75ff6b931d20460cbd.html#a8c4f80ae24ee3b75ff6b931d20460cbd">subtract_multiple()</a>, <a class="el" href="_a_ring_c_c_c_test_8cpp_a640fe51a95a9fb95ce209b1bf1045efc.html#a640fe51a95a9fb95ce209b1bf1045efc">TEST()</a>, <a class="el" href="_a_ring_c_c_c_test_8cpp_a4dff8411a8d071a5c648abf643a97d95.html#a4dff8411a8d071a5c648abf643a97d95">TEST()</a>, <a class="el" href="_a_ring_c_c_c_test_8cpp_aaa980d81e84eb3c6f517cf405ccb65e7.html#aaa980d81e84eb3c6f517cf405ccb65e7">TEST()</a>, and <a class="el" href="_a_ring_c_c_c_test_8cpp_ac159c77e395a5fdd0243f43a40020504.html#ac159c77e395a5fdd0243f43a40020504">TEST()</a>.</p>
 
 </div>
 </div>

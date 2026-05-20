@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/hash.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/hash.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -109,6 +109,7 @@ Classes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_engine_object.html" title="Base class for engine objects that are immutable once their hash has been pinned (typically once they...">EngineObject</a></span> / <span class="tt"><a class="el" href="class_mutable_engine_object.html" title="Base class for engine objects that may mutate, so their hash must be identity-based rather than conte...">MutableEngineObject</a></span> &mdash; shared bases that supply the hash an <a class="el" href="namespace_m2.html">M2</a> interpreter object expects. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Declares two parallel bases:</p>
 <ul>
 <li><span class="tt"><a class="el" href="class_engine_object.html" title="Base class for engine objects that are immutable once their hash has been pinned (typically once they...">EngineObject</a></span> derives from <span class="tt"><a class="el" href="structour__new__delete.html">our_new_delete</a></span> (so allocation routes through bdwgc), supplies a virtual destructor anchor that makes <span class="tt">delete base_ptr</span> safe across subclass boundaries, and stores a <span class="tt">mutable</span> <span class="tt">mHashValue</span> that <span class="tt">hash()</span> fills lazily by calling the pure-virtual <span class="tt">computeHashValue()</span> on first read. The 0-to-1 bump after the call keeps "not yet computed" distinguishable from a legitimate hash of zero. Subclasses (immutable types like <span class="tt"><a class="el" href="class_matrix.html" title="Engine-side matrix: a map between two free modules, stored as a column-vector list.">Matrix</a></span>, <span class="tt"><a class="el" href="class_free_module.html" title="Engine-side free module R^n over a Ring.">FreeModule</a></span>, ...) implement <span class="tt">computeHashValue</span> over their own stable state.</li>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['bibasis_0',['BIBasis',['../namespace_b_i_basis.html',1,'']]]
+  ['eigenm2_0',['EigenM2',['../namespace_eigen_m2.html',1,'']]],
+  ['exc_1',['exc',['../namespaceexc.html',1,'']]]
 ];

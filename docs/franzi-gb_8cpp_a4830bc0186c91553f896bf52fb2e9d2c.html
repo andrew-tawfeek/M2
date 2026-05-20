@@ -112,30 +112,30 @@ $(function(){initNavTree('franzi-gb_8cpp_a4830bc0186c91553f896bf52fb2e9d2c.html'
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="franzi-gb_8cpp_source.html#l00291">291</a> of file <a class="el" href="franzi-gb_8cpp_source.html">franzi-gb.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  295</span>{</div>
-<div class="line"><span class="lineno">  296</span>  IntermediateBasis::const_iterator <a class="code hl_function" href="ringelem_8cpp_a9e12da0d68ca4715109c3198cbe62a66.html#a9e12da0d68ca4715109c3198cbe62a66">end</a> = F.end();</div>
-<div class="line"><span class="lineno">  297</span>  <span class="keywordflow">for</span> (IntermediateBasis::const_iterator it = F.begin();</div>
-<div class="line"><span class="lineno">  298</span>       it != <a class="code hl_function" href="ringelem_8cpp_a9e12da0d68ca4715109c3198cbe62a66.html#a9e12da0d68ca4715109c3198cbe62a66">end</a> &amp;&amp; !f.<a class="code hl_function" href="class_b_r_p_a9f6b6ae3b9709c6a284b563b78b697ee.html#a9f6b6ae3b9709c6a284b563b78b697ee">isZero</a>();</div>
-<div class="line"><span class="lineno">  299</span>       ++it)</div>
-<div class="line"><span class="lineno">  300</span>    {</div>
-<div class="line"><span class="lineno">  301</span>      <span class="keywordflow">if</span> (itF != it)</div>
-<div class="line"><span class="lineno">  302</span>        {</div>
-<div class="line"><span class="lineno">  303</span>          <span class="keywordflow">if</span> (f.<a class="code hl_function" href="class_b_r_p_a4afc3529c91adf5c857ccff63f29b925.html#a4afc3529c91adf5c857ccff63f29b925">isLeadingReducibleBy</a>(it-&gt;second))</div>
-<div class="line"><span class="lineno">  304</span>            {</div>
-<div class="line"><span class="lineno">  305</span>              <span class="keywordflow">return</span> it;</div>
-<div class="line"><span class="lineno">  306</span>            }</div>
-<div class="line"><span class="lineno">  307</span>        }</div>
-<div class="line"><span class="lineno">  308</span>    }</div>
-<div class="line"><span class="lineno">  309</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="ringelem_8cpp_a9e12da0d68ca4715109c3198cbe62a66.html#a9e12da0d68ca4715109c3198cbe62a66">end</a>;</div>
-<div class="line"><span class="lineno">  310</span>}</div>
+<p class="definition">Definition at line <a class="el" href="franzi-gb_8cpp_source.html#l00295">295</a> of file <a class="el" href="franzi-gb_8cpp_source.html">franzi-gb.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  299</span>{</div>
+<div class="line"><span class="lineno">  300</span>  IntermediateBasis::const_iterator <a class="code hl_function" href="ringelem_8cpp_a9e12da0d68ca4715109c3198cbe62a66.html#a9e12da0d68ca4715109c3198cbe62a66">end</a> = F.end();</div>
+<div class="line"><span class="lineno">  301</span>  <span class="keywordflow">for</span> (IntermediateBasis::const_iterator it = F.begin();</div>
+<div class="line"><span class="lineno">  302</span>       it != <a class="code hl_function" href="ringelem_8cpp_a9e12da0d68ca4715109c3198cbe62a66.html#a9e12da0d68ca4715109c3198cbe62a66">end</a> &amp;&amp; !f.<a class="code hl_function" href="class_b_r_p_a9f6b6ae3b9709c6a284b563b78b697ee.html#a9f6b6ae3b9709c6a284b563b78b697ee">isZero</a>();</div>
+<div class="line"><span class="lineno">  303</span>       ++it)</div>
+<div class="line"><span class="lineno">  304</span>    {</div>
+<div class="line"><span class="lineno">  305</span>      <span class="keywordflow">if</span> (itF != it)</div>
+<div class="line"><span class="lineno">  306</span>        {</div>
+<div class="line"><span class="lineno">  307</span>          <span class="keywordflow">if</span> (f.<a class="code hl_function" href="class_b_r_p_a4afc3529c91adf5c857ccff63f29b925.html#a4afc3529c91adf5c857ccff63f29b925">isLeadingReducibleBy</a>(it-&gt;second))</div>
+<div class="line"><span class="lineno">  308</span>            {</div>
+<div class="line"><span class="lineno">  309</span>              <span class="keywordflow">return</span> it;</div>
+<div class="line"><span class="lineno">  310</span>            }</div>
+<div class="line"><span class="lineno">  311</span>        }</div>
+<div class="line"><span class="lineno">  312</span>    }</div>
+<div class="line"><span class="lineno">  313</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="ringelem_8cpp_a9e12da0d68ca4715109c3198cbe62a66.html#a9e12da0d68ca4715109c3198cbe62a66">end</a>;</div>
+<div class="line"><span class="lineno">  314</span>}</div>
 <div class="ttc" id="aclass_b_r_p_a4afc3529c91adf5c857ccff63f29b925_html_a4afc3529c91adf5c857ccff63f29b925"><div class="ttname"><a href="class_b_r_p_a4afc3529c91adf5c857ccff63f29b925.html#a4afc3529c91adf5c857ccff63f29b925">BRP::isLeadingReducibleBy</a></div><div class="ttdeci">bool isLeadingReducibleBy(const BRP &amp;other) const</div><div class="ttdef"><b>Definition</b> <a href="franzi-brp_8cpp_source.html#l00125">franzi-brp.cpp:125</a></div></div>
 <div class="ttc" id="aclass_b_r_p_a9f6b6ae3b9709c6a284b563b78b697ee_html_a9f6b6ae3b9709c6a284b563b78b697ee"><div class="ttname"><a href="class_b_r_p_a9f6b6ae3b9709c6a284b563b78b697ee.html#a9f6b6ae3b9709c6a284b563b78b697ee">BRP::isZero</a></div><div class="ttdeci">bool isZero() const</div><div class="ttdef"><b>Definition</b> <a href="franzi-brp_8cpp_source.html#l00013">franzi-brp.cpp:13</a></div></div>
 <div class="ttc" id="aringelem_8cpp_a9e12da0d68ca4715109c3198cbe62a66_html_a9e12da0d68ca4715109c3198cbe62a66"><div class="ttname"><a href="ringelem_8cpp_a9e12da0d68ca4715109c3198cbe62a66.html#a9e12da0d68ca4715109c3198cbe62a66">end</a></div><div class="ttdeci">TermIterator&lt; Nterm &gt; end(Nterm *)</div><div class="ttdef"><b>Definition</b> <a href="ringelem_8cpp_source.html#l00005">ringelem.cpp:5</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="ringelem_8cpp_a9e12da0d68ca4715109c3198cbe62a66.html#a9e12da0d68ca4715109c3198cbe62a66">end()</a>, <a class="el" href="class_b_r_p_a4afc3529c91adf5c857ccff63f29b925.html#a4afc3529c91adf5c857ccff63f29b925">BRP::isLeadingReducibleBy()</a>, and <a class="el" href="class_b_r_p_a9f6b6ae3b9709c6a284b563b78b697ee.html#a9f6b6ae3b9709c6a284b563b78b697ee">BRP::isZero()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="class_div_list_model_a8fcb0378769312cdcba994c3740f8515.html#a8fcb0378769312cdcba994c3740f8515">DivListModel&lt; ULL, UDM &gt;::insert()</a>, <a class="el" href="class_div_list_model_a30dfbe5338b5bedcba626381565ed9d8.html#a30dfbe5338b5bedcba626381565ed9d8">DivListModel&lt; ULL, UDM &gt;::insert()</a>, <a class="el" href="class_k_d_tree_model_a5979238181310860dc6f50b74b8b6b44.html#a5979238181310860dc6f50b74b8b6b44">KDTreeModel&lt; UseDivMask, UseTreeDivMask, PackedTree, LeafSize, AllowRemovals &gt;::insert()</a>, <a class="el" href="class_k_d_tree_model_a02910010d6f4dfff80ecdff55999ee90.html#a02910010d6f4dfff80ecdff55999ee90">KDTreeModel&lt; UseDivMask, UseTreeDivMask, PackedTree, LeafSize, AllowRemovals &gt;::insert()</a>, and <a class="el" href="franzi-gb_8cpp_ab670b05591ce570520f8a3dc85224c95.html#ab670b05591ce570520f8a3dc85224c95">reduceLt()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="franzi-gb_8cpp_ab670b05591ce570520f8a3dc85224c95.html#ab670b05591ce570520f8a3dc85224c95">reduceLt()</a>.</p>
 
 </div>
 </div>

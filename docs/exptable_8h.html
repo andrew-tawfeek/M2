@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/exptable.h File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/exptable.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -112,6 +112,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Hash table specialisation for <span class="tt">(<a class="el" href="exptable_8h_acbad03742bc161b060402329a67aa889.html#acbad03742bc161b060402329a67aa889">exponent</a> vector, unsigned long)</span> pairs. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Specialises David R. Hanson's generic C <span class="tt">Table_T</span> (declared in <span class="tt"><a class="el" href="table_8h.html">table.h</a></span>) for the case the engine cares about most: keys are fixed-length integer exponent vectors and values are <span class="tt">unsigned long</span>. The <span class="tt">exponent_table_*</span> API wraps the generic operations &mdash; <span class="tt">_new(hint, nvars)</span>, <span class="tt">_put</span>, <span class="tt">_get</span>, <span class="tt">_length</span>, <span class="tt">_free</span> &mdash; with the right key-comparison and hashing for monomial exponents, so callers don't have to wire up <span class="tt">hash</span> / <span class="tt">cmp</span> callbacks themselves. The convention is to avoid storing zero values: <span class="tt">_put</span> returns the previously stored value (or <span class="tt">0</span> if absent), so a zero return uniformly means "key was not present."</p>
 <p>Used wherever the engine accumulates a sparse exponent-keyed histogram &mdash; Hilbert-function buckets, monomial-coefficient tallies in res-monomials, F4 monomial-index pools. The base <span class="tt"><a class="el" href="table_8h.html">table.h</a></span> predates the engine's C++ refactor and is one of the remaining C-only files in the engine.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="table_8h.html">table.h</a> </dd></dl>

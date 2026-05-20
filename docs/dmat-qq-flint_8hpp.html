@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/dmat-qq-flint.hpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/dmat-qq-flint.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -109,6 +109,7 @@ Classes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt"><a class="el" href="class_d_mat.html">DMat</a>&lt;<a class="el" href="class_m2_1_1_a_ring_q_q_flint.html" title="wrapper for the flint fmpq_t integer representation">M2::ARingQQFlint</a>&gt;</span> &mdash; dense rational matrices stored in a FLINT <span class="tt">fmpq_mat_t</span>. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Specialises the dense-matrix template for the FLINT rational aring. Storage is a single <span class="tt">fmpq_mat_t mArray</span> whose entries are <span class="tt">fmpq</span> cells (the small-value-inlined pair of <span class="tt">fmpz</span>s shared with <span class="tt">ARingZZ</span>), so the typical "small numerator over
 small denominator" rationals stay inline and only widen to a heap-allocated representation when the values blow up. The class exposes the standard <span class="tt"><a class="el" href="class_d_mat.html">DMat</a></span> shape (<span class="tt">ring()</span>, <span class="tt">numRows</span>, <span class="tt">numColumns</span>, <span class="tt">entry(r, c)</span>, <span class="tt">resize</span>, <span class="tt"><a class="el" href="monsort_8hpp_a418905a17a22ba6c0f5ef26b07b99325.html#a418905a17a22ba6c0f5ef26b07b99325">swap</a></span>) plus a raw <span class="tt">fmpq_mat()</span> accessor and the <span class="tt">unsafeArray()</span> direct-pointer hook for consumers that need to hand the underlying <span class="tt">fmpq</span> buffer back to FLINT.</p>
 <p>Arithmetic on <span class="tt"><a class="el" href="class_d_mat.html">DMat</a>&lt;ARingQQFlint&gt;</span> is <em>not</em> defined in this header &mdash; consumers (most prominently <span class="tt"><a class="el" href="dmat-lu-qq_8hpp.html" title="DMatLinAlg&lt;M2::ARingQQ&gt; — rational dense LU routed through FLINT fmpq_mat / fmpz_mat.">dmat-lu-qq.hpp</a><a class="el" href="class_d_mat_lin_alg.html">DMatLinAlg</a>&lt;ARingQQ&gt;</span> once it copies through <span class="tt"><a class="el" href="class_flint_q_q_mat.html" title="RAII wrapper around FLINT&#39;s fmpq_mat_t for translating dense QQ-coefficient matrices between the engi...">FlintQQMat</a></span>) reach into <span class="tt">fmpq_mat()</span> and call the FLINT <span class="tt">fmpq_mat_*</span> / <span class="tt">fmpz_mat_*</span> routines directly. The in-source comment marks the class "should *not* go to the

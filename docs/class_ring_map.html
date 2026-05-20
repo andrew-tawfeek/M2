@@ -160,9 +160,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Engine-side ring homomorphism: stores, for each source-ring variable, the target-ring element it maps to. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Built from a row matrix of target-ring elements (<span class="tt">make(m)</span>): the <span class="tt">i</span>-th column gives the image of the <span class="tt">i</span>-th source variable, kept in pre-factored form as <span class="tt">coeff * monom * bigelem</span>. The <span class="tt"><a class="el" href="class_ring_map_a824188b2d1925c550494e7275b649322.html#a824188b2d1925c550494e7275b649322">is_monomial</a></span> flag records whether every variable maps to a single term, enabling a fast monomial-by-monomial evaluation path. <span class="tt"><a class="el" href="class_ring_map_a5aac483e1de1c0b1333dccdc89a1a275.html#a5aac483e1de1c0b1333dccdc89a1a275">R</a></span> / <span class="tt"><a class="el" href="class_ring_map_ab2750d146c8e85e408a62d12293845bc.html#ab2750d146c8e85e408a62d12293845bc">P</a></span> / <span class="tt"><a class="el" href="class_ring_map_a6723eb0668fdda69809e24e023147223.html#a6723eb0668fdda69809e24e023147223">K</a></span> / <span class="tt"><a class="el" href="class_ring_map_a24401b48e1bb06849c0c426020d84fa1.html#a24401b48e1bb06849c0c426020d84fa1">M</a></span> cache the target ring (and its polynomial / coefficient / monoid layers, when present) so <span class="tt">evaluate</span> can dispatch without re-querying. </p>
 
-<p class="definition">Definition at line <a class="el" href="ringmap_8hpp_source.html#l00055">55</a> of file <a class="el" href="ringmap_8hpp_source.html">ringmap.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ringmap_8hpp_source.html#l00059">59</a> of file <a class="el" href="ringmap_8hpp_source.html">ringmap.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>Macaulay2/e/<a class="el" href="ringmap_8hpp_source.html">ringmap.hpp</a></li>
 <li>Macaulay2/e/<a class="el" href="ringmap_8cpp_source.html">ringmap.cpp</a></li>

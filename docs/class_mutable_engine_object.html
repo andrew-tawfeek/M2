@@ -152,9 +152,10 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for engine objects that may mutate, so their hash must be identity-based rather than content-based. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Pulls a fresh integer from the static counter <span class="tt"><a class="el" href="class_mutable_engine_object_ab065530f5d879cbf4c5aa8978a2ad369.html#ab065530f5d879cbf4c5aa8978a2ad369">mNextMutableHashValue</a></span> at construction and keeps it for the object's whole lifetime, so even after mutation <span class="tt"><a class="el" href="class_mutable_engine_object_ac1b947c41e24e71d14a66a9c4db5cf83.html#ac1b947c41e24e71d14a66a9c4db5cf83">hash()</a></span> still returns the same value. Inherits from <span class="tt"><a class="el" href="classour__gc__cleanup.html">our_gc_cleanup</a></span> so the GC can run a destructor when the object becomes unreachable (mutable objects often need to free non-GC resources). </p>
 
-<p class="definition">Definition at line <a class="el" href="hash_8hpp_source.html#l00091">91</a> of file <a class="el" href="hash_8hpp_source.html">hash.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="hash_8hpp_source.html#l00097">97</a> of file <a class="el" href="hash_8hpp_source.html">hash.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>Macaulay2/e/<a class="el" href="hash_8hpp_source.html">hash.hpp</a></li>
 <li>Macaulay2/e/<a class="el" href="engine_8cpp_source.html">engine.cpp</a></li>

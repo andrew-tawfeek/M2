@@ -107,39 +107,39 @@ $(function(){initNavTree('_a_ring_c_c_c_test_8cpp_ac159c77e395a5fdd0243f43a40020
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_a_ring_c_c_c_test_8cpp_source.html#l00134">134</a> of file <a class="el" href="_a_ring_c_c_c_test_8cpp_source.html">ARingCCCTest.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  135</span>{</div>
-<div class="line"><span class="lineno">  136</span>  <a class="code hl_class" href="class_m2_1_1_a_ring_c_c_c.html">M2::ARingCCC</a> C(100);</div>
-<div class="line"><span class="lineno">  137</span>  <a class="code hl_class" href="class_a_ring_element_generator.html">ARingElementGenerator&lt;M2::ARingCCC&gt;</a> gen(C);</div>
-<div class="line"><span class="lineno">  138</span>  <a class="code hl_typedef" href="class_m2_1_1_a_ring_c_c_c_a14ee82a8ccec5980d2e78ed1845dc50a.html#a14ee82a8ccec5980d2e78ed1845dc50a">M2::ARingCCC::ElementType</a> a, b, c, e;</div>
-<div class="line"><span class="lineno">  139</span>  C.init(a);</div>
-<div class="line"><span class="lineno">  140</span>  C.init(b);</div>
-<div class="line"><span class="lineno">  141</span>  C.init(c);</div>
-<div class="line"><span class="lineno">  142</span>  C.init(e);</div>
-<div class="line"><span class="lineno">  143</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="_a_ring_test_8hpp_ab9f6640fa3295a21ee90492443d792ac.html#ab9f6640fa3295a21ee90492443d792ac">ntrials</a>; i++)</div>
-<div class="line"><span class="lineno">  144</span>    {</div>
-<div class="line"><span class="lineno">  145</span>      <span class="comment">// test: (a-b) + (b) == a</span></div>
-<div class="line"><span class="lineno">  146</span>      gen.nextElement(a);</div>
-<div class="line"><span class="lineno">  147</span>      gen.nextElement(b);</div>
-<div class="line"><span class="lineno">  148</span>      C.subtract(c, a, b);</div>
-<div class="line"><span class="lineno">  149</span>      C.add(e, c, b);  <span class="comment">// should be a</span></div>
-<div class="line"><span class="lineno">  150</span>      EXPECT_TRUE(<a class="code hl_function" href="_a_ring_c_c_c_test_8cpp_a4a618fdf0bcf2a59c823b89bd89e0ab8.html#a4a618fdf0bcf2a59c823b89bd89e0ab8">almostEqual</a>(C, 98, a, e));</div>
-<div class="line"><span class="lineno">  151</span>      C.mult(e, a, b);</div>
-<div class="line"><span class="lineno">  152</span>      C.subtract_multiple(e, a, b);</div>
-<div class="line"><span class="lineno">  153</span>      EXPECT_TRUE(C.is_zero(e));</div>
-<div class="line"><span class="lineno">  154</span>    }</div>
-<div class="line"><span class="lineno">  155</span>  C.clear(e);</div>
-<div class="line"><span class="lineno">  156</span>  C.clear(c);</div>
-<div class="line"><span class="lineno">  157</span>  C.clear(b);</div>
-<div class="line"><span class="lineno">  158</span>  C.clear(a);</div>
-<div class="line"><span class="lineno">  159</span>}</div>
-<div class="ttc" id="a_a_ring_c_c_c_test_8cpp_a4a618fdf0bcf2a59c823b89bd89e0ab8_html_a4a618fdf0bcf2a59c823b89bd89e0ab8"><div class="ttname"><a href="_a_ring_c_c_c_test_8cpp_a4a618fdf0bcf2a59c823b89bd89e0ab8.html#a4a618fdf0bcf2a59c823b89bd89e0ab8">almostEqual</a></div><div class="ttdeci">bool almostEqual(const M2::ARingCCC &amp;C, int nbits, const M2::ARingCCC::ElementType &amp;a, const M2::ARingCCC::ElementType &amp;b)</div><div class="ttdef"><b>Definition</b> <a href="_a_ring_c_c_c_test_8cpp_source.html#l00043">ARingCCCTest.cpp:43</a></div></div>
-<div class="ttc" id="a_a_ring_test_8hpp_ab9f6640fa3295a21ee90492443d792ac_html_ab9f6640fa3295a21ee90492443d792ac"><div class="ttname"><a href="_a_ring_test_8hpp_ab9f6640fa3295a21ee90492443d792ac.html#ab9f6640fa3295a21ee90492443d792ac">ntrials</a></div><div class="ttdeci">const int ntrials</div><div class="ttdef"><b>Definition</b> <a href="_a_ring_test_8hpp_source.html#l00040">ARingTest.hpp:40</a></div></div>
-<div class="ttc" id="aclass_a_ring_element_generator_html"><div class="ttname"><a href="class_a_ring_element_generator.html">ARingElementGenerator</a></div><div class="ttdef"><b>Definition</b> <a href="_a_ring_test_8hpp_source.html#l00050">ARingTest.hpp:51</a></div></div>
-<div class="ttc" id="aclass_m2_1_1_a_ring_c_c_c_a14ee82a8ccec5980d2e78ed1845dc50a_html_a14ee82a8ccec5980d2e78ed1845dc50a"><div class="ttname"><a href="class_m2_1_1_a_ring_c_c_c_a14ee82a8ccec5980d2e78ed1845dc50a.html#a14ee82a8ccec5980d2e78ed1845dc50a">M2::ARingCCC::ElementType</a></div><div class="ttdeci">elem ElementType</div><div class="ttdef"><b>Definition</b> <a href="aring-_c_c_c_8hpp_source.html#l00076">aring-CCC.hpp:76</a></div></div>
-<div class="ttc" id="aclass_m2_1_1_a_ring_c_c_c_html"><div class="ttname"><a href="class_m2_1_1_a_ring_c_c_c.html">M2::ARingCCC</a></div><div class="ttdoc">aring-style adapter for arbitrary-precision complex numbers, stored as (MPFR, MPFR) pairs.</div><div class="ttdef"><b>Definition</b> <a href="aring-_c_c_c_8hpp_source.html#l00066">aring-CCC.hpp:67</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_a_ring_c_c_c_test_8cpp_source.html#l00136">136</a> of file <a class="el" href="_a_ring_c_c_c_test_8cpp_source.html">ARingCCCTest.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  137</span>{</div>
+<div class="line"><span class="lineno">  138</span>  <a class="code hl_class" href="class_m2_1_1_a_ring_c_c_c.html">M2::ARingCCC</a> C(100);</div>
+<div class="line"><span class="lineno">  139</span>  <a class="code hl_class" href="class_a_ring_element_generator.html">ARingElementGenerator&lt;M2::ARingCCC&gt;</a> gen(C);</div>
+<div class="line"><span class="lineno">  140</span>  <a class="code hl_typedef" href="class_m2_1_1_a_ring_c_c_c_a14ee82a8ccec5980d2e78ed1845dc50a.html#a14ee82a8ccec5980d2e78ed1845dc50a">M2::ARingCCC::ElementType</a> a, b, c, e;</div>
+<div class="line"><span class="lineno">  141</span>  C.init(a);</div>
+<div class="line"><span class="lineno">  142</span>  C.init(b);</div>
+<div class="line"><span class="lineno">  143</span>  C.init(c);</div>
+<div class="line"><span class="lineno">  144</span>  C.init(e);</div>
+<div class="line"><span class="lineno">  145</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="_a_ring_test_8hpp_ab9f6640fa3295a21ee90492443d792ac.html#ab9f6640fa3295a21ee90492443d792ac">ntrials</a>; i++)</div>
+<div class="line"><span class="lineno">  146</span>    {</div>
+<div class="line"><span class="lineno">  147</span>      <span class="comment">// test: (a-b) + (b) == a</span></div>
+<div class="line"><span class="lineno">  148</span>      gen.nextElement(a);</div>
+<div class="line"><span class="lineno">  149</span>      gen.nextElement(b);</div>
+<div class="line"><span class="lineno">  150</span>      C.subtract(c, a, b);</div>
+<div class="line"><span class="lineno">  151</span>      C.add(e, c, b);  <span class="comment">// should be a</span></div>
+<div class="line"><span class="lineno">  152</span>      EXPECT_TRUE(<a class="code hl_function" href="_a_ring_c_c_c_test_8cpp_a4a618fdf0bcf2a59c823b89bd89e0ab8.html#a4a618fdf0bcf2a59c823b89bd89e0ab8">almostEqual</a>(C, 98, a, e));</div>
+<div class="line"><span class="lineno">  153</span>      C.mult(e, a, b);</div>
+<div class="line"><span class="lineno">  154</span>      C.subtract_multiple(e, a, b);</div>
+<div class="line"><span class="lineno">  155</span>      EXPECT_TRUE(C.is_zero(e));</div>
+<div class="line"><span class="lineno">  156</span>    }</div>
+<div class="line"><span class="lineno">  157</span>  C.clear(e);</div>
+<div class="line"><span class="lineno">  158</span>  C.clear(c);</div>
+<div class="line"><span class="lineno">  159</span>  C.clear(b);</div>
+<div class="line"><span class="lineno">  160</span>  C.clear(a);</div>
+<div class="line"><span class="lineno">  161</span>}</div>
+<div class="ttc" id="a_a_ring_c_c_c_test_8cpp_a4a618fdf0bcf2a59c823b89bd89e0ab8_html_a4a618fdf0bcf2a59c823b89bd89e0ab8"><div class="ttname"><a href="_a_ring_c_c_c_test_8cpp_a4a618fdf0bcf2a59c823b89bd89e0ab8.html#a4a618fdf0bcf2a59c823b89bd89e0ab8">almostEqual</a></div><div class="ttdeci">bool almostEqual(const M2::ARingCCC &amp;C, int nbits, const M2::ARingCCC::ElementType &amp;a, const M2::ARingCCC::ElementType &amp;b)</div><div class="ttdef"><b>Definition</b> <a href="_a_ring_c_c_c_test_8cpp_source.html#l00045">ARingCCCTest.cpp:45</a></div></div>
+<div class="ttc" id="a_a_ring_test_8hpp_ab9f6640fa3295a21ee90492443d792ac_html_ab9f6640fa3295a21ee90492443d792ac"><div class="ttname"><a href="_a_ring_test_8hpp_ab9f6640fa3295a21ee90492443d792ac.html#ab9f6640fa3295a21ee90492443d792ac">ntrials</a></div><div class="ttdeci">const int ntrials</div><div class="ttdef"><b>Definition</b> <a href="_a_ring_test_8hpp_source.html#l00042">ARingTest.hpp:42</a></div></div>
+<div class="ttc" id="aclass_a_ring_element_generator_html"><div class="ttname"><a href="class_a_ring_element_generator.html">ARingElementGenerator</a></div><div class="ttdef"><b>Definition</b> <a href="_a_ring_test_8hpp_source.html#l00052">ARingTest.hpp:53</a></div></div>
+<div class="ttc" id="aclass_m2_1_1_a_ring_c_c_c_a14ee82a8ccec5980d2e78ed1845dc50a_html_a14ee82a8ccec5980d2e78ed1845dc50a"><div class="ttname"><a href="class_m2_1_1_a_ring_c_c_c_a14ee82a8ccec5980d2e78ed1845dc50a.html#a14ee82a8ccec5980d2e78ed1845dc50a">M2::ARingCCC::ElementType</a></div><div class="ttdeci">elem ElementType</div><div class="ttdef"><b>Definition</b> <a href="aring-_c_c_c_8hpp_source.html#l00080">aring-CCC.hpp:80</a></div></div>
+<div class="ttc" id="aclass_m2_1_1_a_ring_c_c_c_html"><div class="ttname"><a href="class_m2_1_1_a_ring_c_c_c.html">M2::ARingCCC</a></div><div class="ttdoc">aring-style adapter for arbitrary-precision complex numbers, stored as (MPFR, MPFR) pairs.</div><div class="ttdef"><b>Definition</b> <a href="aring-_c_c_c_8hpp_source.html#l00070">aring-CCC.hpp:71</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="_a_ring_c_c_c_test_8cpp_a4a618fdf0bcf2a59c823b89bd89e0ab8.html#a4a618fdf0bcf2a59c823b89bd89e0ab8">almostEqual()</a>, <a class="el" href="class_a_ring_element_generator_a0342bb481234f6134bc2e237f861bc31.html#a0342bb481234f6134bc2e237f861bc31">ARingElementGenerator&lt; RingType &gt;::nextElement()</a>, <a class="el" href="_a_ring_test_8hpp_ab9f6640fa3295a21ee90492443d792ac.html#ab9f6640fa3295a21ee90492443d792ac">ntrials</a>, and <a class="el" href="godbolt_test_8cpp_acb0e524578d913d164058b989f113b93.html#acb0e524578d913d164058b989f113b93">subtract()</a>.</p>
+<p class="reference">References <a class="el" href="class_m2_1_1_a_ring_c_c_c_a0a8a0ae0ee495356f92aba369649ab81.html#a0a8a0ae0ee495356f92aba369649ab81">M2::ARingCCC::add()</a>, <a class="el" href="_a_ring_c_c_c_test_8cpp_a4a618fdf0bcf2a59c823b89bd89e0ab8.html#a4a618fdf0bcf2a59c823b89bd89e0ab8">almostEqual()</a>, <a class="el" href="class_m2_1_1_a_ring_c_c_c_aa2cbd19ee2b68720732a05ffb3c35528.html#aa2cbd19ee2b68720732a05ffb3c35528">M2::ARingCCC::clear()</a>, <a class="el" href="class_m2_1_1_a_ring_c_c_c_a60c45c281158ef7c4edf745f284fe8ed.html#a60c45c281158ef7c4edf745f284fe8ed">M2::ARingCCC::init()</a>, <a class="el" href="class_m2_1_1_a_ring_c_c_c_a03aff939a6a0bdf7029c62be87dacacd.html#a03aff939a6a0bdf7029c62be87dacacd">M2::ARingCCC::is_zero()</a>, <a class="el" href="class_m2_1_1_a_ring_c_c_c_a70fa04bfeda6157ae19a66cf2cad1494.html#a70fa04bfeda6157ae19a66cf2cad1494">M2::ARingCCC::mult()</a>, <a class="el" href="class_a_ring_element_generator_a0342bb481234f6134bc2e237f861bc31.html#a0342bb481234f6134bc2e237f861bc31">ARingElementGenerator&lt; RingType &gt;::nextElement()</a>, <a class="el" href="_a_ring_test_8hpp_ab9f6640fa3295a21ee90492443d792ac.html#ab9f6640fa3295a21ee90492443d792ac">ntrials</a>, <a class="el" href="class_m2_1_1_a_ring_c_c_c_a4fb620b142e2c13d6f554d636a2bf5c4.html#a4fb620b142e2c13d6f554d636a2bf5c4">M2::ARingCCC::subtract()</a>, <a class="el" href="godbolt_test_8cpp_acb0e524578d913d164058b989f113b93.html#acb0e524578d913d164058b989f113b93">subtract()</a>, and <a class="el" href="class_m2_1_1_a_ring_c_c_c_a8c4f80ae24ee3b75ff6b931d20460cbd.html#a8c4f80ae24ee3b75ff6b931d20460cbd">M2::ARingCCC::subtract_multiple()</a>.</p>
 
 </div>
 </div>

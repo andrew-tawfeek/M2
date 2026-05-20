@@ -133,9 +133,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Specialisation of <span class="tt"><a class="el" href="class_d_mat_lin_alg.html">DMatLinAlg</a></span> for <span class="tt">ARingQQ</span> dense matrices, routing every linear-algebra query (rank, determinant, kernel, inverse, solve) through FLINT's <span class="tt">fmpq_mat_*</span> routines. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Constructs <span class="tt"><a class="el" href="class_flint_q_q_mat.html" title="RAII wrapper around FLINT&#39;s fmpq_mat_t for translating dense QQ-coefficient matrices between the engi...">FlintQQMat</a></span> translations on demand (via <span class="tt"><a class="el" href="dmat-qq-interface-flint_8hpp.html" title="Translation bridge that lets GMP-backed DMat&lt;ARingQQ&gt; borrow FLINT matrix arithmetic.">dmat-qq-interface-flint.hpp</a></span>), runs the corresponding FLINT call, and converts the result back into <span class="tt"><a class="el" href="class_d_mat.html">DMat</a>&lt;ARingQQ&gt;</span>. Saves the engine from having to re-implement Bareiss-style rational elimination on top of GMP rationals. </p>
 
-<p class="definition">Definition at line <a class="el" href="dmat-lu-qq_8hpp_source.html#l00051">51</a> of file <a class="el" href="dmat-lu-qq_8hpp_source.html">dmat-lu-qq.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dmat-lu-qq_8hpp_source.html#l00055">55</a> of file <a class="el" href="dmat-lu-qq_8hpp_source.html">dmat-lu-qq.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>Macaulay2/e/<a class="el" href="dmat-lu-qq_8hpp_source.html">dmat-lu-qq.hpp</a></li>
 <li>Macaulay2/e/<a class="el" href="dmat-lu_8hpp_source.html">dmat-lu.hpp</a></li>

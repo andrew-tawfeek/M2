@@ -11,6 +11,5 @@ var searchData=
   ['getmematomicstructtype_8',['getmematomicstructtype',['../m2-mem_8h_a653a1bbeeb6c5eb11bf0dbe21117bd91.html#a653a1bbeeb6c5eb11bf0dbe21117bd91',1,'m2-mem.h']]],
   ['getmematomicvectortype_9',['getmematomicvectortype',['../m2-mem_8h_a188b99d9d8fc1a149e42b4491bb9662c.html#a188b99d9d8fc1a149e42b4491bb9662c',1,'m2-mem.h']]],
   ['getmemstructtype_10',['getmemstructtype',['../m2-mem_8h_a6ca24b55fd05d728fa63a538c8f0ec57.html#a6ca24b55fd05d728fa63a538c8f0ec57',1,'m2-mem.h']]],
-  ['getmemvectortype_11',['getmemvectortype',['../m2-mem_8h_a343597a45ce5e5a6f71bb99842c06375.html#a343597a45ce5e5a6f71bb99842c06375',1,'m2-mem.h']]],
-  ['gt_12',['GT',['../submodules_2mathicgb_2src_2mathicgb_2polyring_8hpp_ab89310b3f2f97e4e9415fc5a51549612.html#ab89310b3f2f97e4e9415fc5a51549612',1,'PolyRing.hpp']]]
+  ['getmemvectortype_11',['getmemvectortype',['../m2-mem_8h_a343597a45ce5e5a6f71bb99842c06375.html#a343597a45ce5e5a6f71bb99842c06375',1,'m2-mem.h']]]
 ];

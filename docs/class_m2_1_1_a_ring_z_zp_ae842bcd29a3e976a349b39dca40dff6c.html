@@ -120,22 +120,22 @@ $(function(){initNavTree('class_m2_1_1_a_ring_z_zp_ae842bcd29a3e976a349b39dca40d
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="aring-zzp_8hpp_source.html#l00287">287</a> of file <a class="el" href="aring-zzp_8hpp_source.html">aring-zzp.hpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  288</span>  {</div>
-<div class="line"><span class="lineno">  289</span>    <span class="keywordflow">if</span> (a != 0)</div>
-<div class="line"><span class="lineno">  290</span>      {</div>
-<div class="line"><span class="lineno">  291</span>        <a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a> = (a * n) % <a class="code hl_variable" href="class_m2_1_1_a_ring_z_zp_aad7f183be10a4243c400248aea780b3f.html#aad7f183be10a4243c400248aea780b3f">p1</a>;</div>
-<div class="line"><span class="lineno">  292</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a> &lt;= 0) <a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a> += <a class="code hl_variable" href="class_m2_1_1_a_ring_z_zp_aad7f183be10a4243c400248aea780b3f.html#aad7f183be10a4243c400248aea780b3f">p1</a>;</div>
-<div class="line"><span class="lineno">  293</span>      }</div>
-<div class="line"><span class="lineno">  294</span>    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  295</span>      {</div>
-<div class="line"><span class="lineno">  296</span>        <span class="comment">// a == 0</span></div>
-<div class="line"><span class="lineno">  297</span>        <span class="keywordflow">if</span> (n == 0) <a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a> = <a class="code hl_variable" href="class_m2_1_1_a_ring_z_zp_aad7f183be10a4243c400248aea780b3f.html#aad7f183be10a4243c400248aea780b3f">p1</a>; <span class="comment">// the element 1 in this ring.</span></div>
-<div class="line"><span class="lineno">  298</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (n &gt; 0) <a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a> = 0;</div>
-<div class="line"><span class="lineno">  299</span>        <span class="keywordflow">else</span> <span class="keywordflow">throw</span> exc::division_by_zero_error();</div>
-<div class="line"><span class="lineno">  300</span>      }</div>
-<div class="line"><span class="lineno">  301</span>  }</div>
-<div class="ttc" id="aclass_m2_1_1_a_ring_z_zp_aad7f183be10a4243c400248aea780b3f_html_aad7f183be10a4243c400248aea780b3f"><div class="ttname"><a href="class_m2_1_1_a_ring_z_zp_aad7f183be10a4243c400248aea780b3f.html#aad7f183be10a4243c400248aea780b3f">M2::ARingZZp::p1</a></div><div class="ttdeci">int p1</div><div class="ttdef"><b>Definition</b> <a href="aring-zzp_8hpp_source.html#l00367">aring-zzp.hpp:367</a></div></div>
+<p class="definition">Definition at line <a class="el" href="aring-zzp_8hpp_source.html#l00291">291</a> of file <a class="el" href="aring-zzp_8hpp_source.html">aring-zzp.hpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  292</span>  {</div>
+<div class="line"><span class="lineno">  293</span>    <span class="keywordflow">if</span> (a != 0)</div>
+<div class="line"><span class="lineno">  294</span>      {</div>
+<div class="line"><span class="lineno">  295</span>        <a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a> = (a * n) % <a class="code hl_variable" href="class_m2_1_1_a_ring_z_zp_aad7f183be10a4243c400248aea780b3f.html#aad7f183be10a4243c400248aea780b3f">p1</a>;</div>
+<div class="line"><span class="lineno">  296</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a> &lt;= 0) <a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a> += <a class="code hl_variable" href="class_m2_1_1_a_ring_z_zp_aad7f183be10a4243c400248aea780b3f.html#aad7f183be10a4243c400248aea780b3f">p1</a>;</div>
+<div class="line"><span class="lineno">  297</span>      }</div>
+<div class="line"><span class="lineno">  298</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  299</span>      {</div>
+<div class="line"><span class="lineno">  300</span>        <span class="comment">// a == 0</span></div>
+<div class="line"><span class="lineno">  301</span>        <span class="keywordflow">if</span> (n == 0) <a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a> = <a class="code hl_variable" href="class_m2_1_1_a_ring_z_zp_aad7f183be10a4243c400248aea780b3f.html#aad7f183be10a4243c400248aea780b3f">p1</a>; <span class="comment">// the element 1 in this ring.</span></div>
+<div class="line"><span class="lineno">  302</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (n &gt; 0) <a class="code hl_function" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a> = 0;</div>
+<div class="line"><span class="lineno">  303</span>        <span class="keywordflow">else</span> <span class="keywordflow">throw</span> exc::division_by_zero_error();</div>
+<div class="line"><span class="lineno">  304</span>      }</div>
+<div class="line"><span class="lineno">  305</span>  }</div>
+<div class="ttc" id="aclass_m2_1_1_a_ring_z_zp_aad7f183be10a4243c400248aea780b3f_html_aad7f183be10a4243c400248aea780b3f"><div class="ttname"><a href="class_m2_1_1_a_ring_z_zp_aad7f183be10a4243c400248aea780b3f.html#aad7f183be10a4243c400248aea780b3f">M2::ARingZZp::p1</a></div><div class="ttdeci">int p1</div><div class="ttdef"><b>Definition</b> <a href="aring-zzp_8hpp_source.html#l00371">aring-zzp.hpp:371</a></div></div>
 <div class="ttc" id="am2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b_html_aeace12b3a5c753d4ece1a0e89acb729b"><div class="ttname"><a href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result</a></div><div class="ttdeci">VALGRIND_MAKE_MEM_DEFINED &amp; result(result)</div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="class_m2_1_1_a_ring_z_zp_aad7f183be10a4243c400248aea780b3f.html#aad7f183be10a4243c400248aea780b3f">p1</a>, and <a class="el" href="m2-mem_8cpp_aeace12b3a5c753d4ece1a0e89acb729b.html#aeace12b3a5c753d4ece1a0e89acb729b">result()</a>.</p>

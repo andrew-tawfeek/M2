@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Macaulay2 Engine: /home/ubuntu/M2-web/M2/Macaulay2/e/unit-tests/ARingQQFlintTest.cpp File Reference</title>
+<title>Macaulay2 Engine: /home/ubuntu/M2-doxygen/M2/Macaulay2/e/unit-tests/ARingQQFlintTest.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -117,6 +117,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>gtest coverage for the FLINT-backed <span class="tt"><a class="el" href="class_m2_1_1_a_ring_q_q_flint.html" title="wrapper for the flint fmpq_t integer representation">M2::ARingQQFlint</a></span> rational aring. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>Plugs <span class="tt"><a class="el" href="class_m2_1_1_a_ring_q_q_flint.html" title="wrapper for the flint fmpq_t integer representation">M2::ARingQQFlint</a></span> into the <span class="tt"><a class="el" href="_a_ring_test_8hpp.html" title="Shared gtest harness for the ARing*Test.cpp suite.">ARingTest.hpp</a></span> harness via the <span class="tt"><a class="el" href="_a_ring_test_8hpp_abfba126d094aba21386022c26fbc3b85.html#abfba126d094aba21386022c26fbc3b85">getElement</a>&lt;<a class="el" href="class_m2_1_1_a_ring_q_q_flint.html" title="wrapper for the flint fmpq_t integer representation">M2::ARingQQFlint</a>&gt;</span> specialisation: indices <span class="tt">&lt; 50</span> produce the deterministic <span class="tt">[-25, 24]</span> integer prefix (covering zero, plus / minus one, and small integer canonicalisations of <span class="tt">fmpq_t</span>), and the rest come from <span class="tt">R.random(result)</span> so the random source is the ring's own FLINT-backed draw. The standard <span class="tt"><a class="el" href="_a_ring_test_8hpp_ad04b41a127aac065327bfdbfd39db31d.html#ad04b41a127aac065327bfdbfd39db31d">testSomeMore</a></span> battery then runs arithmetic, equality, inverse, and stream round-trips against the FLINT canonicalised representation.</p>
 <p>Cross-checks against <span class="tt"><a class="el" href="_a_ring_q_q_gmp_test_8cpp.html" title="gtest coverage for the GMP-backed M2::ARingQQGMP rational aring.">ARingQQGmpTest.cpp</a></span> (same operations over GMP <span class="tt">mpq_t</span>) are the regression net the <span class="tt">file-aring-zz-tests</span> family relies on; a divergence between the two reveals a FLINT regression, a GMP edge case, or a wrapper bug. Historic catches include a <span class="tt">fmpq_canonicalise</span> sign bug on <span class="tt">0/-1</span>.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="_a_ring_test_8hpp.html" title="Shared gtest harness for the ARing*Test.cpp suite.">ARingTest.hpp</a> </dd>

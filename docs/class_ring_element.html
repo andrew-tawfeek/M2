@@ -178,9 +178,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Front-end-visible "ring element" value: an engine <span class="tt"><a class="el" href="unionring__elem.html">ring_elem</a></span> paired with the <span class="tt">Ring*</span> that gives it meaning. </p>
+<dl class="section note"><dt>Note</dt><dd>AI-generated documentation. Verify against the source before relying on it.</dd></dl>
 <p>The interpreter handles ring elements as opaque <span class="tt">RingElement*</span> pointers and asks the engine to do arithmetic by dispatching through <span class="tt"><a class="el" href="class_ring_element_aeeacf97a0fec2e1e7ea86d9050a84d83.html#aeeacf97a0fec2e1e7ea86d9050a84d83">get_ring()</a></span>. Inherits from <span class="tt"><a class="el" href="class_engine_object.html" title="Base class for engine objects that are immutable once their hash has been pinned (typically once they...">EngineObject</a></span> so the hash is content-based (computed via the ring's <span class="tt"><a class="el" href="class_ring_element_aef0e4f3c9691a5b95e8bc19a11f5ba3d.html#aef0e4f3c9691a5b95e8bc19a11f5ba3d">computeHashValue</a></span>) and the element is immutable once exposed to the front end. <span class="tt"><a class="el" href="class_ring_element_ab978463e39096a4e0d1ecc0720f9acf3.html#ab978463e39096a4e0d1ecc0720f9acf3">make_raw</a></span> is the standard factory the interface layer uses to wrap a freshly produced <span class="tt"><a class="el" href="unionring__elem.html">ring_elem</a></span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="relem_8hpp_source.html#l00062">62</a> of file <a class="el" href="relem_8hpp_source.html">relem.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="relem_8hpp_source.html#l00066">66</a> of file <a class="el" href="relem_8hpp_source.html">relem.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>Macaulay2/e/<a class="el" href="relem_8hpp_source.html">relem.hpp</a></li>
 <li>Macaulay2/e/<a class="el" href="relem_8cpp_source.html">relem.cpp</a></li>
