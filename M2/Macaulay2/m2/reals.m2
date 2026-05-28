@@ -591,18 +591,33 @@ ring RealIntervalField := R -> RRi
 ring ComplexIntervalField := R -> CCi
 
 -- RRx2: double-double (~106-bit) real field, dd-backed (no MPFR).
--- Exposed as RR#"x2" (a member of the RR family, parallel to RR_n for arbitrary precision).
--- Coexists with RR_106 (MPFR-backed); use RR#"x2" to opt into the dd backend.
--- Parent is RR' (= RR_*) so toString / expression / lift / promote inherit from the
--- existing real-field machinery via the (parent R).back lookup.
-RR#"x2" = newClass(RealField, RR', hashTable {
+-- Exposed as RR#"x2".  Elements are RingElements (NOT RR') so that the generic
+-- EngineRing arithmetic dispatches through R.RawRing's rawAdd/rawMul to the
+-- ARingRRx2 dd_ ops, instead of falling into MPFR via the precision-keyed RR'
+-- arithmetic.
+DDRealField = new Type of RealField
+DDRealField.synonym = "double-double real field"
+RR#"x2" = newClass(DDRealField, RingElement, hashTable {
         symbol precision => 106,
         symbol Engine => true,
         symbol baseRings => {ZZ,QQ},
         symbol isBasic => true,
         symbol RawRing => rawRRx2()
         });
-RR#"x2".synonym = "double-double field";
+RR#"x2".synonym = "double-double field"
+(RR#"x2")#0 = new RR#"x2" from rawFromNumber((RR#"x2").RawRing, 0)
+(RR#"x2")#1 = new RR#"x2" from rawFromNumber((RR#"x2").RawRing, 1)
+
+-- Underscore-cast + promote: rely on the existing EngineRing dispatch
+-- (RR _ EngineRing in enginering.m2), which already builds via rawFromNumber.
+-- The DDRealField-specific overrides only need to short-circuit the more-specific
+-- RealField fallback that would route to MPFR-RR_106.
+ZZ _ DDRealField :=
+QQ _ DDRealField :=
+RR _ DDRealField := (x,R) -> new R from rawFromNumber(R.RawRing, x)
+promote(ZZ,DDRealField) :=
+promote(QQ,DDRealField) :=
+promote(RR,DDRealField) := (x,R) -> new R from rawFromNumber(R.RawRing, x)
 
 -- Local Variables:
 -- compile-command: "make -C $M2BUILDDIR/Macaulay2/m2 "
