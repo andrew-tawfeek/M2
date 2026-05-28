@@ -590,6 +590,20 @@ ring RealField := R -> RR
 ring RealIntervalField := R -> RRi
 ring ComplexIntervalField := R -> CCi
 
+-- RRx2: double-double (~106-bit) real field, dd-backed (no MPFR).
+-- Exposed as RR#"x2" (a member of the RR family, parallel to RR_n for arbitrary precision).
+-- Coexists with RR_106 (MPFR-backed); use RR#"x2" to opt into the dd backend.
+-- Parent is RR' (= RR_*) so toString / expression / lift / promote inherit from the
+-- existing real-field machinery via the (parent R).back lookup.
+RR#"x2" = newClass(RealField, RR', hashTable {
+        symbol precision => 106,
+        symbol Engine => true,
+        symbol baseRings => {ZZ,QQ},
+        symbol isBasic => true,
+        symbol RawRing => rawRRx2()
+        });
+RR#"x2".synonym = "double-double field";
+
 -- Local Variables:
 -- compile-command: "make -C $M2BUILDDIR/Macaulay2/m2 "
 -- End:
