@@ -591,13 +591,14 @@ ring RealIntervalField := R -> RRi
 ring ComplexIntervalField := R -> CCi
 
 -- RRx2: double-double (~106-bit) real field, dd-backed (no MPFR).
--- Exposed as RR#"x2".  Elements are RingElements (NOT RR') so that the generic
--- EngineRing arithmetic dispatches through R.RawRing's rawAdd/rawMul to the
--- ARingRRx2 dd_ ops, instead of falling into MPFR via the precision-keyed RR'
--- arithmetic.
+-- Exposed as RR#"x2".  This is the engine ring object; the M2-level Number
+-- machinery (promote / lift / random / +) is precision-keyed and currently
+-- routes through MPFR for matched-precision operations.  A full first-class
+-- exposure (new InexactNumber' subtype with parallel print/arithmetic methods)
+-- is the focus of follow-up commits on this branch.
 DDRealField = new Type of RealField
 DDRealField.synonym = "double-double real field"
-RR#"x2" = newClass(DDRealField, RingElement, hashTable {
+RR#"x2" = newClass(DDRealField, RR', hashTable {
         symbol precision => 106,
         symbol Engine => true,
         symbol baseRings => {ZZ,QQ},
@@ -605,19 +606,45 @@ RR#"x2" = newClass(DDRealField, RingElement, hashTable {
         symbol RawRing => rawRRx2()
         });
 RR#"x2".synonym = "double-double field"
-(RR#"x2")#0 = new RR#"x2" from rawFromNumber((RR#"x2").RawRing, 0)
-(RR#"x2")#1 = new RR#"x2" from rawFromNumber((RR#"x2").RawRing, 1)
 
--- Underscore-cast + promote: rely on the existing EngineRing dispatch
--- (RR _ EngineRing in enginering.m2), which already builds via rawFromNumber.
--- The DDRealField-specific overrides only need to short-circuit the more-specific
--- RealField fallback that would route to MPFR-RR_106.
-ZZ _ DDRealField :=
-QQ _ DDRealField :=
-RR _ DDRealField := (x,R) -> new R from rawFromNumber(R.RawRing, x)
-promote(ZZ,DDRealField) :=
-promote(QQ,DDRealField) :=
-promote(RR,DDRealField) := (x,R) -> new R from rawFromNumber(R.RawRing, x)
+-- Self-contained benchmark hook: runs a dense LU at size N over three rings
+-- (RR_53 / RR_106 / RRx2) at the engine's raw level — bypasses M2's number
+-- promote dispatch (which is precision-keyed and would otherwise route the
+-- RRx2 case through MPFR) and reports CPU times + speedup factors.
+RRx2bench = method(TypicalValue => Sequence)
+RRx2bench ZZ := N -> (
+    rRR53  := rawRR  53;
+    rRR106 := rawRR  106;
+    rRRx2  := rawRRx2();
+    seed := 42;
+    -- Build identical random fill, in three raw rings.  Diagonal-dominated
+    -- so the LU is numerically stable.
+    fillMatrix := (R, mat) -> (
+        setRandomSeed seed;
+        scan(N, i -> scan(N, j -> rawSetMatrixEntry(mat, i, j, rawFromNumber(R, random RR))));
+        scan(N, i -> rawSetMatrixEntry(mat, i, i,
+            rawMatrixEntry(mat, i, i) + rawFromNumber(R, N)));
+        mat);
+    runOnce := (R, label) -> (
+        mat := rawMutableMatrix(R, N, N, true);
+        fillMatrix(R, mat);
+        rhs := rawMutableMatrix(R, N, 1, true);
+        scan(N, i -> rawSetMatrixEntry(rhs, i, 0, rawFromNumber(R, random RR)));
+        t0 := cpuTime();
+        sol := rawLinAlgSolve(mat, rhs);
+        t1 := cpuTime();
+        ms := 1000 * (t1 - t0);
+        ok := if sol === null then "NULL (solve unsupported for this ring)" else "OK";
+        << "  " << label << " N=" << N << " solve cpu=" << ms << " ms  [" << ok << "]" << endl;
+        ms);
+    << "=== Dense LU-solve at N=" << N << " ===" << endl;
+    t53  := runOnce(rRR53,  "RR_53   (double, native LAPACK):   ");
+    t106 := runOnce(rRR106, "RR_106  (MPFR, ~106-bit):          ");
+    tDD  := runOnce(rRRx2,  "RRx2    (dd, ~106-bit, our field): ");
+    << "" << endl;
+    << "  speedup RRx2 vs RR_106: " << (t106/tDD) << "x" << endl;
+    << "  cost  RRx2 vs RR_53:    " << (tDD/t53)  << "x (dd is ~7-16x scalar double)" << endl;
+    (t53, t106, tDD))
 
 -- Local Variables:
 -- compile-command: "make -C $M2BUILDDIR/Macaulay2/m2 "

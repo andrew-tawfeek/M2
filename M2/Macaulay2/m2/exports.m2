@@ -948,6 +948,7 @@ export {
 	"multigraded",
 	"mutableIdentity",
 	"mutableMatrix",
+	"RRx2bench",
 	"nanosleep",
 	"needs",
 	"needsPackage",
