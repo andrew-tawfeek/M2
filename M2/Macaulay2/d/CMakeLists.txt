@@ -150,7 +150,8 @@ add_library(M2-interpreter OBJECT ${CLIST} ${CXXLIST} ${TAGS}
   $<$<BOOL:${WITH_PYTHON}>:python-c.c>)
 
 target_link_libraries(M2-interpreter PRIVATE M2-supervisor
-  Boost::boost # boost_regex is now header-only, so we don't link Boost::regex
+  Boost::boost
+  Boost::regex   # Debian 12 Boost 1.74 is NOT header-only for regex; link the .so
   $<$<BOOL:${WITH_TBB}>:TBB::tbb>
   $<$<BOOL:${WITH_FFI}>:FFI::ffi>)
 
