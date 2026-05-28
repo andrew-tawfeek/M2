@@ -525,6 +525,11 @@ export rawCC(e:Expr):Expr := (
      else WrongArgZZ(1));
 setupfun("rawCC",rawCC);
 
+export rawRRx2(e:Expr):Expr := (
+     when e is s:Sequence do if length(s) == 0 then toExpr(Ccode(RawRing, "IM2_Ring_RRx2()" )) else WrongNumArgs(0)
+     else WrongNumArgs(0));
+setupfun("rawRRx2",rawRRx2);
+
 export rawIndexIfVariable(e:Expr):Expr := (
      when e is f:RawRingElementCell do (
 	  i := Ccode(int, "IM2_RingElement_index_if_var(", f.p, ")" );
