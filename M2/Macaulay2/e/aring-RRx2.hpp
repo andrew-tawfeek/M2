@@ -77,7 +77,7 @@ class ARingRRx2 : public SimpleARing<ARingRRx2>
 {
   // approximate real numbers, double-double (~106-bit), MultiFloats Float64x2.
  public:
-  static const RingID ringID = ring_RRR;   // TODO(build-verify): replace with ring_RRx2
+  static const RingID ringID = ring_RRx2;
   static const unsigned long PRECISION = 106;
 
   typedef DoubleDouble elem;
