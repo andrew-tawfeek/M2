@@ -16,6 +16,7 @@
 #define _aring_RRx2_hpp_
 
 #include <cmath>
+#include <cstdio>
 #include "interface/gmp-util.h"  // moveTo_gmpRR
 #include "interface/random.h"    // randomDouble
 #include "aring.hpp"
@@ -226,7 +227,7 @@ class ARingRRx2 : public SimpleARing<ARingRRx2>
   ARingRRx2() {}
   size_t characteristic() const { return 0; }
   unsigned long get_precision() const { return PRECISION; }
-  void text_out(buffer &o) const;
+  void text_out(buffer &o) const { o << "RRx2"; }
 
   unsigned int computeHashValue(const elem &a) const
   { return static_cast<unsigned int>(a.hi) ^ static_cast<unsigned int>(a.lo); }
@@ -286,7 +287,18 @@ class ARingRRx2 : public SimpleARing<ARingRRx2>
     if (n1.first) power(result, a, n1.second); else throw exc::engine_error("exponent too large"); }
 
   void swap(ElementType &a, ElementType &b) const { std::swap(a, b); }
-  void elem_text_out(buffer &o, const ElementType &a, bool p_one = true, bool p_plus = false, bool p_parens = false) const;
+  void elem_text_out(buffer &o, const ElementType &a, bool p_one = true, bool p_plus = false, bool p_parens = false) const
+  {
+    (void) p_parens;
+    if (p_plus && a.hi > 0) o << "+";
+    if (!p_one && a.hi == -1.0 && a.lo == 0.0) o << "-";
+    else if (p_one || a.hi != 1.0 || a.lo != 0.0) {
+      char buf[64];
+      // print hi+lo to ~32 decimal digits (covers ~106-bit precision)
+      std::snprintf(buf, sizeof(buf), "%.32g", a.hi + a.lo);
+      o << buf;
+    }
+  }
 
   void syzygy(const ElementType &a, const ElementType &b, ElementType &x, ElementType &y) const
   { set_var(x, 0); if (!is_zero(b)) { set(y, a); negate(y, y); divide(y, y, b); } }
