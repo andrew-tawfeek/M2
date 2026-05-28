@@ -26,6 +26,9 @@
 #include "aring-gf-flint-big.hpp"
 #include "aring-gf-flint.hpp"
 
+// included last because <immintrin.h> can disagree with earlier x86-intrin headers
+#include "aring-RRx2.hpp"
+
 namespace M2 {
 template <typename RT>
 bool get_from_BigReal(const RT& R, typename RT::ElementType& a, gmp_RR b)
@@ -92,6 +95,20 @@ inline bool get_from_BigReal(const ARingRRR& R,
                              gmp_RR b)
 {
   return R.set_from_BigReal(a, b);
+}
+
+inline bool get_from_BigReal(const ARingRRx2& R,
+                             ARingRRx2::ElementType& a,
+                             gmp_RR b)
+{
+  return R.set_from_BigReal(a, b);
+}
+
+inline bool get_from_double(const ARingRRx2& R,
+                            ARingRRx2::ElementType& a,
+                            double b)
+{
+  return R.set_from_double(a, b);
 }
     
 inline bool get_from_BigReal(const ARingRRi& R,
