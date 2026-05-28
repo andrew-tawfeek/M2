@@ -35,6 +35,7 @@
 #include "aring-CC.hpp"
 #include "aring-RRR.hpp"
 #include "aring-CCC.hpp"
+#include "aring-RRx2.hpp"
 
 // The following needs to be included before any flint files are included.
 #include <M2/gc-include.h>
@@ -109,6 +110,11 @@ const Ring /* or null */ *IM2_Ring_CCC(unsigned long prec)
 {
   if (prec <= 53) return M2::ConcreteRing<M2::ARingCC>::create();
   return M2::ConcreteRing<M2::ARingCCC>::create(prec);
+}
+
+const Ring *IM2_Ring_RRx2(void)
+{
+  return M2::ConcreteRing<M2::ARingRRx2>::create();
 }
 
 const Ring *IM2_Ring_trivial_polyring()

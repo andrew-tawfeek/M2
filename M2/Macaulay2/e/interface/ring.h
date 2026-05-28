@@ -66,6 +66,9 @@ const Ring /* or null */ *IM2_Ring_RRR(unsigned long prec);
 const Ring /* or null */ *IM2_Ring_CCC(unsigned long prec);
 /* drg: connected rawCCC */
 
+const Ring *IM2_Ring_RRx2(void);
+/* drg: connected rawRRx2 — double-double ~106-bit real field */
+
 const Ring /* or null */ *IM2_Ring_polyring(const Ring *K, const Monoid *M);
 /* drg: connected rawPolynomialRing(,) */
 /* K can be either commutative or not. If K is a quotient ring, the relations
